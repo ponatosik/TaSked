@@ -2,7 +2,7 @@
 
 public record Teacher
 {
-	public string FullName { get; set; } = "Unspecified";
+	public string? FullName { get; set; }
 	public string? Description {  get; set; }
 	public string? Email { get; set; }
 	public string? PhoneNumber { get; set; }

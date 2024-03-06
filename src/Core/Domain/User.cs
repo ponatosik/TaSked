@@ -13,8 +13,21 @@ public class User
 		Id = id;
 		Nickname = nickname;
 	}
+
 	public static User Create(string nickname)
 	{
 		return new User(Guid.NewGuid(), nickname);
+	}
+
+	public void JoinGroup(Group group)
+	{
+		if (GroupId is not null) 
+		{
+			throw new Exception("User already has a group");
+		}
+
+		GroupId = group.Id;
+		group.Members.Add(this);
+		Role = GroupRole.Member;
 	}
 }

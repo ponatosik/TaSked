@@ -9,6 +9,7 @@ public class Homework
 	public DateTime? Deadline { get; private set; }
 	public DateTime CreatedAt { get; private set; }
 	public string? SourceUrl {  get; set; }
+
 	private Homework() { }
 	internal Homework(Guid id, Guid subjectId, string title, string description, DateTime createdAt)
 	{
