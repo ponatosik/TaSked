@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "Full-stack",
+    "Projects": [
+      {
+        "Name": "TaSked\\TaSked.Api.csproj",
+        "Action": "Start"
+      },
+      {
+        "Name": "TaSked.App\\TaSked.App.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]
