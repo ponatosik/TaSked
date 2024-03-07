@@ -1,4 +1,6 @@
-﻿namespace TaSked.Domain;
+﻿using Domain.Exceptions;
+
+namespace TaSked.Domain;
 
 public class User
 {
@@ -23,7 +25,7 @@ public class User
 	{
 		if (GroupId is not null) 
 		{
-			throw new Exception("User already has a group");
+			throw new UserAlreadyInGroupException(this);
 		}
 
 		GroupId = group.Id;

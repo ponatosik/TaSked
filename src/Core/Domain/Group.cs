@@ -1,4 +1,6 @@
-﻿namespace TaSked.Domain;
+﻿using Domain.Exceptions;
+
+namespace TaSked.Domain;
 
 public class Group
 {
@@ -22,7 +24,7 @@ public class Group
 	{
 		if (creator.GroupId is not null)
 		{
-			throw new Exception("User already has a group");
+			throw new UserAlreadyInGroupException(creator);
 		}
 		return new Group(Guid.NewGuid(),name, creator);
 	}
@@ -45,7 +47,7 @@ public class Group
 	{
 		if (invitation.IsExpired)
 		{
-			throw new Exception("Invintation Expired");
+			throw new InvitationExpiredException(invitation);
 		}
 
 		invitation.ActivateOne();

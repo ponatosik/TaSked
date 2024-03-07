@@ -1,4 +1,6 @@
-﻿namespace TaSked.Domain;
+﻿using Domain.Exceptions;
+
+namespace TaSked.Domain;
 
 public class Invitation
 {
@@ -22,7 +24,7 @@ public class Invitation
 	{
 		if (CheckExpired()) 
 		{
-			throw new Exception("Invitation is exired");
+			throw new InvitationExpiredException(this);
 		}
 		ActivationCount++;
 	}
