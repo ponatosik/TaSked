@@ -1,6 +1,7 @@
 using TaSked.Application;
 using TaSked.Infrastructure.Persistance;
 using TaSked.Infrastructure.Authorization;
+using TaSked.Infrastructure.ExceptionHandling;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,8 @@ var app = builder.Build();
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.UseDomainExceptionHandling();
 
 app.MapControllers();
 
