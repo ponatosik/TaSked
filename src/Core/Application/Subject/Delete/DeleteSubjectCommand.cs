@@ -3,4 +3,4 @@ using MediatR;
 
 namespace TaSked.Application;
 
-public record DeleteSubjectCommand(Guid UserId, Guid SubjectId) : IRequest<Subject>;
+public record DeleteSubjectCommand(Guid UserId, Guid SubjectId) : IRequest;

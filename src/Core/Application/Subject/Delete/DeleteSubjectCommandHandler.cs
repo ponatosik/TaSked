@@ -4,7 +4,7 @@ using MediatR;
 
 namespace TaSked.Application;
 
-public class DeleteSubjectCommandHandler : IRequestHandler<DeleteSubjectCommand, Subject>
+public class DeleteSubjectCommandHandler : IRequestHandler<DeleteSubjectCommand>
 {
     private readonly IApplicationDbContext _context;
 
@@ -13,7 +13,7 @@ public class DeleteSubjectCommandHandler : IRequestHandler<DeleteSubjectCommand,
         _context = context;
     }
 
-    public async Task<Subject> Handle(DeleteSubjectCommand request, CancellationToken cancellationToken)
+    public async Task Handle(DeleteSubjectCommand request, CancellationToken cancellationToken)
     {
         var user = _context.Users.FirstOrDefault(user => user.Id == request.UserId);
         if (user == null)
@@ -42,5 +42,6 @@ public class DeleteSubjectCommandHandler : IRequestHandler<DeleteSubjectCommand,
         }
 
         await _context.SaveChangesAsync(cancellationToken);
+
     }
 }
