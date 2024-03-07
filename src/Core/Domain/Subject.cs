@@ -6,7 +6,7 @@ public class Subject
 {
 	public Guid Id { get; private set; }
 	public Guid GroupId { get; private set; }
-	public string Name { get; private set; }
+	public string Name { get; set; }
 	public List<Homework> Homeworks { get; private set; } = new List<Homework>();
 	public List<Lesson> Lessons { get; private set; } = new List<Lesson>();
 	public Teacher Teacher { get; set; }
@@ -25,7 +25,7 @@ public class Subject
 		return new Subject(Guid.NewGuid(), groupId, name, teacher);
 	}
 
-	public Homework CreateHomework(string title, string description)
+    public Homework CreateHomework(string title, string description)
 	{
 		Homework homework = Homework.Create(this, title, description);
 		Homeworks.Add(homework);
