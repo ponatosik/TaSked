@@ -9,4 +9,28 @@ public record Teacher
 	public string? OnlineLessonsUrl { get; set; }
 
 	private Teacher() { }
+
+	public Teacher(
+		string? fullName = null,
+		string? description = null,
+		string? email = null,
+		string? phoneNumber = null,
+		string? onlineLesonUrl = null)
+	{
+		FullName = fullName;
+		Description = description;
+		Email = email;
+		PhoneNumber = phoneNumber;
+		OnlineLessonsUrl = onlineLesonUrl;
+	}
+
+	public static Teacher Create(
+		string? fullName = null,
+		string? description = null,
+		string? email = null,
+		string? phoneNumber = null,
+		string? onlineLesonUrl = null)
+	{
+		return new Teacher(fullName, description, email, phoneNumber, onlineLesonUrl);	
+	}
 }
