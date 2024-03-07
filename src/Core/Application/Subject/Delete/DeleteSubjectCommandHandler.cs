@@ -42,6 +42,5 @@ public class DeleteSubjectCommandHandler : IRequestHandler<DeleteSubjectCommand,
         }
 
         await _context.SaveChangesAsync(cancellationToken);
-        return subject;
     }
 }
