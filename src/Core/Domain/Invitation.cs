@@ -1,6 +1,4 @@
-﻿using System.Data;
-
-namespace TaSked.Domain;
+﻿namespace TaSked.Domain;
 
 public class Invitation
 {
@@ -13,10 +11,11 @@ public class Invitation
 	public int ActivationCount { get; private set; } = 0;
 
 	private Invitation() { }
-	internal Invitation(Guid id, Guid groupId) 
+	internal Invitation(Guid id, Guid groupId, string? caption = null) 
 	{
 		Id = id;
 		GroupId = groupId;
+		Caption = caption;
 	}
 
 	internal void ActivateOne()

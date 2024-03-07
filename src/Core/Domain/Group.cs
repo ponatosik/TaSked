@@ -34,9 +34,9 @@ public class Group
 		return subject;
 	}
 
-	public Invitation CreateInvintation()
+	public Invitation CreateInvintation(string? caption = null)
 	{
-		Invitation invitation = new Invitation(Guid.NewGuid(), Id);
+		Invitation invitation = new Invitation(Guid.NewGuid(), Id, caption);
 		Invitations.Add(invitation);
 		return invitation;
 	}
