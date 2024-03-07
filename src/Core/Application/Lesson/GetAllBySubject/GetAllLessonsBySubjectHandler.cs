@@ -36,6 +36,13 @@ public class GetAllLessonsBySubjectHandler : IRequestHandler<GetAllLessonsBySubj
             throw new Exception("Unknown Group");
         }
 
-        return Task.FromResult(group.Subjects.SelectMany(subject => subject.Lessons).ToList());
+        var lessons = group.Subjects.FirstOrDefault(subject => subject.Id == request.SubjectId)?.Lessons.ToList();
+
+        if (lessons == null)
+        {
+            throw new Exception("Subject not found in the group");
+        }
+
+        return Task.FromResult(lessons);
     }
 }
