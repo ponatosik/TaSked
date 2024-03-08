@@ -1,0 +1,51 @@
+using Application.Tests;
+using Microsoft.EntityFrameworkCore;
+using TaSked.Application.Data;
+using TaSked.Domain;
+
+namespace TaSked.Application.Tests;
+
+[Collection("Persistance tests")]
+public class GetGroupMembersHandler
+{
+	private readonly IApplicationDbContext _context;
+	private readonly Application.GetGroupMembersHandler _handler;
+
+	private readonly Guid _userId, _groupId;
+	private readonly List<User> _users = new List<User>();
+
+	public GetGroupMembersHandler(PersistanceFixture persistanceFixture)
+	{
+		_context = persistanceFixture.GetDbContext();
+        _handler = new Application.GetGroupMembersHandler(_context);
+
+		User user = User.Create("Test user");
+		Group group = Group.Create("Test group", user);
+
+		_userId = user.Id;
+
+		_users.Add(user);
+		_users.Add(User.Create("Test user 2"));
+		_users.Add(User.Create("Test user 3"));
+
+		_users[1].JoinGroup(group);
+		_users[2].JoinGroup(group);
+
+		_context.Users.Add(user);
+		_context.Groups.Add(group);
+		_context.SaveChangesAsync(new CancellationToken()).Wait();
+	}
+
+	[Fact]
+	public async Task Handle_ValidCommand_ShouldReturnGroupMembers()
+	{
+		var request = new GetGroupMembersQuery(_userId);
+
+		var result = await _handler.Handle(request, new CancellationToken());
+
+		Assert.Equal(_users.Count, result.Count);
+		Assert.Contains(result, member => member.Id == _users[0].Id);
+		Assert.Contains(result, member => member.Id == _users[1].Id);
+		Assert.Contains(result, member => member.Id == _users[2].Id);
+	}
+}
