@@ -21,6 +21,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 		modelBuilder.Entity<Homework>().Property(e => e.Id).ValueGeneratedNever();
 		modelBuilder.Entity<Lesson>().Property(e => e.Id).ValueGeneratedNever();
 		modelBuilder.Entity<Invitation>().Property(e => e.Id).ValueGeneratedNever();
+		modelBuilder.Entity<Report>().Property(e => e.Id).ValueGeneratedNever();
 	}
 
 	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
