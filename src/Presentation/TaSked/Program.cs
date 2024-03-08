@@ -14,7 +14,7 @@ builder.Services.AddJwtAuthentication(options =>
 {
 	options.Issuer = "https://localhost:5070/";
 	options.Audience = "https://localhost:5070/";
-	options.SecretKey = "TestSecretKey(HS256RequiersMin128BitLongKey)sdfgggggggggggggggggggggggggggggggggggggggsssssssssssssssssssssssssssssssssssfffffffffffffffffffffffffffffffffffffffffffffffffffffaaaaaaaa123456789009876543213456789098765432234567890987654336789098765434569AAAA";
+	options.SecretKey = "{774F9515-F749-42F1-8578-8BA810C3BA78}";
 });
 builder.Services.AddPolicyBasedAuthorization();
 
