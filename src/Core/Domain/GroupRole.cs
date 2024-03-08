@@ -16,4 +16,7 @@ public record GroupRole
 	public static GroupRole Moderator => new("moderator", 2);
 	public static GroupRole Member => new("member", 1);
 	public static GroupRole NoGroup => new("no group", 0);
+
+	public static bool operator < (GroupRole a, GroupRole b) => a.AccessLevel < b.AccessLevel;
+	public static bool operator > (GroupRole a, GroupRole b) => a.AccessLevel > b.AccessLevel;
 }
