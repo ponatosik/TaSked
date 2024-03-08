@@ -15,11 +15,7 @@ public class CreateGroupCommandHandler : IRequestHandler<CreateGroupCommand, Gro
 
 	public async Task<Group> Handle(CreateGroupCommand request, CancellationToken cancellationToken)
 	{
-		var user = await _context.Users.FindAsync(request.CreatorId, cancellationToken);
-		if (user == null)
-		{
-			throw new Exception("No such user found");
-		}
+		var user = _context.Users.FindById(request.CreatorId);
 
 		var group = Group.Create(request.GroupName, user);
 		await _context.Groups.AddAsync(group, cancellationToken);
