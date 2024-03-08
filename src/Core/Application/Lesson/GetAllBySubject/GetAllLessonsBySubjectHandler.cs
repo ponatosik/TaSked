@@ -16,32 +16,9 @@ public class GetAllLessonsBySubjectHandler : IRequestHandler<GetAllLessonsBySubj
 
     public Task<List<Lesson>> Handle(GetAllLessonsBySubjectQuery request, CancellationToken cancellationToken)
     {
-        var user = _context.Users.FirstOrDefault(user => user.Id == request.UserId);
-        if (user == null)
-        {
-            throw new Exception("No such user found");
-        }
-        if (user.GroupId == null)
-        {
-            throw new Exception("User is not a member of a group");
-        }
-        if (user.Role == GroupRole.Member)
-        {
-            throw new Exception("No permision to create subjects");
-        }
-
-        var group = _context.Groups.Include(e => e.Subjects).ThenInclude(e => e.Homeworks).FirstOrDefault(group => group.Id == user.GroupId);
-        if (group == null)
-        {
-            throw new Exception("Unknown Group");
-        }
-
-        var lessons = group.Subjects.FirstOrDefault(subject => subject.Id == request.SubjectId)?.Lessons.ToList();
-
-        if (lessons == null)
-        {
-            throw new Exception("Subject not found in the group");
-        }
+        var user = _context.Users.FindById(request.UserId);
+        var group = _context.Groups.Include(e => e.Subjects).ThenInclude(e => e.Homeworks).FindById(user.GroupId.Value);
+        var lessons = group.Subjects.FindById(request.SubjectId)?.Lessons.ToList();
 
         return Task.FromResult(lessons);
     }
