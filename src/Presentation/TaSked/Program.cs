@@ -28,6 +28,8 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
+app.UseApplicationExceptionHandling();
+
 app.UseDomainExceptionHandling();
 
 app.MapControllers();

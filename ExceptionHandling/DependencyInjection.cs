@@ -9,4 +9,10 @@ public static class DependencyInjection
 		builder.UseMiddleware<DomainExceptionHandlingMiddleware>();
 		return builder;
 	}
+
+	public static IApplicationBuilder UseApplicationExceptionHandling(this IApplicationBuilder builder)
+	{
+		builder.UseMiddleware<ApplicationExceptionHandlingMiddleware>();
+		return builder;
+	}
 }
