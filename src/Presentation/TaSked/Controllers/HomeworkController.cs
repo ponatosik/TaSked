@@ -9,7 +9,7 @@ namespace TaSked.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-[Authorize]
+[Authorize(AccessPolicise.Member)]
 public class HomeworkController : ControllerBase
 {
 	private readonly IMediator _mediator;
@@ -27,6 +27,7 @@ public class HomeworkController : ControllerBase
 	}
 	
 	[HttpPost]
+	[Authorize(AccessPolicise.Moderator)]
 	public async Task<Homework> Post(CreateHomeworkCommand command)
 	{
 		// TODO: refactor parameters to request object

@@ -16,6 +16,7 @@ builder.Services.AddJwtAuthentication(options =>
 	options.Audience = "https://localhost:5070/";
 	options.SecretKey = "TestSecretKey(HS256RequiersMin128BitLongKey)sdfgggggggggggggggggggggggggggggggggggggggsssssssssssssssssssssssssssssssssssfffffffffffffffffffffffffffffffffffffffffffffffffffffaaaaaaaa123456789009876543213456789098765432234567890987654336789098765434569AAAA";
 });
+builder.Services.AddPolicyBasedAuthorization();
 
 var app = builder.Build();
 

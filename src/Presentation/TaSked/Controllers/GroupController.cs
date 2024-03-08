@@ -9,7 +9,6 @@ namespace TaSked.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-[Authorize]
 public class GroupController : ControllerBase
 {
 	private readonly IMediator _mediator;

@@ -9,7 +9,8 @@ namespace TaSked.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-[Authorize]
+[Authorize(AccessPolicise.Member)]
+
 public class SubjectController : ControllerBase
 {
 	private readonly IMediator _mediator;
@@ -20,6 +21,7 @@ public class SubjectController : ControllerBase
 	}
 	
 	[HttpPost]
+	[Authorize(AccessPolicise.Moderator)]
 	public async Task<Subject> Post([FromBody] string subjectName)
 	{
 		Guid userId = User.GetUserId()!.Value;
