@@ -60,4 +60,9 @@ public class Group
 		Reports.Add(report);
 		return report;
 	}
+
+	public void Leave(User user)
+	{
+		user.LeaveGroup(this);
+	}
 }

@@ -47,6 +47,12 @@ public class DomainExceptionHandlingMiddleware
 				Detail = "Use another invitation or ask group administrators to create new one.",
 				Status = StatusCodes.Status410Gone
 			},
+			UserIsNotGroupMemberException => new ProblemDetails() 
+			{
+				Title = exception.Message,
+				Detail = "You are not a member of this group.",
+				Status = StatusCodes.Status403Forbidden
+			},
 			DomainException => new ProblemDetails()
 			{
 				Title = exception.Message,
@@ -54,4 +60,5 @@ public class DomainExceptionHandlingMiddleware
 			}
 		};
 	}
+
 }

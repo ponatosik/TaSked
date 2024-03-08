@@ -32,4 +32,16 @@ public class User
 		group.Members.Add(this);
 		Role = GroupRole.Member;
 	}
+
+	public void LeaveGroup(Group group)
+	{
+		if (GroupId != group.Id)
+		{
+			throw new UserIsNotGroupMemberException(this, group);
+		}
+
+		group.Members.Remove(this);
+		GroupId = null;
+		Role = GroupRole.NoGroup;
+	}
 }
