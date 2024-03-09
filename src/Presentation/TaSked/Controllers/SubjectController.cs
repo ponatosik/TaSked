@@ -21,10 +21,11 @@ public class SubjectController : ControllerBase
 	}
 	
 	[HttpPost]
+	[Route("Create")] 
 	[Authorize(AccessPolicise.Moderator)]
-	public async Task<Subject> Post([FromBody] string subjectName)
+	public async Task<IActionResult> Post([FromBody] string subjectName)
 	{
 		Guid userId = User.GetUserId()!.Value;
-		return await _mediator.Send(new CreateSubjectCommand(userId, subjectName));
+		return Ok(await _mediator.Send(new CreateSubjectCommand(userId, subjectName)));
 	}
 }

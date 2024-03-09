@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using TaSked.Application;
 using Microsoft.AspNetCore.Authorization;
 using TaSked.Infrastructure.Authorization;
+using TaSked.Api.Requests;
 
 namespace TaSked.Api.Controllers;
 
@@ -19,9 +20,10 @@ public class GroupController : ControllerBase
 	}
 	
 	[HttpPost]
-	public async Task<Group> Post([FromBody] string groupName)
+	[Authorize]
+	public async Task<IActionResult> Post(CreateGroupRequest request)
 	{
 		Guid userId = User.GetUserId()!.Value;
-		return await _mediator.Send(new CreateGroupCommand(userId, groupName));
+		return Ok(await _mediator.Send(new CreateGroupCommand(userId, request.GroupName)));
 	}
 }

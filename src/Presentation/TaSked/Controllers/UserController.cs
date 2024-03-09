@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using TaSked.Api.Requests;
 using TaSked.Application;
 
 namespace TaSked.Controllers;
@@ -17,9 +18,9 @@ public class UserController : ControllerBase
 	
 	[HttpPost]
 	[Route("anonymousAccout")]
-	public async Task<string> Post(CreateUserTokenCommand command)
+	public async Task<IActionResult> Post(CreateUserTokenRequest request)
 	{
-		return await _mediator.Send(command);
+		return Ok(await _mediator.Send(new CreateUserTokenCommand(request.Nickname)));
 	}
 
 }

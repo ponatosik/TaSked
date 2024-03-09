@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using TaSked.Application;
 using Microsoft.AspNetCore.Authorization;
 using TaSked.Infrastructure.Authorization;
+using TaSked.Api.Requests;
 
 namespace TaSked.Api.Controllers;
 
@@ -20,19 +21,18 @@ public class HomeworkController : ControllerBase
 	}
 
 	[HttpGet]
-	public async Task<IEnumerable<Homework>> Get()
+	public async Task<IActionResult> Get()
 	{
 		Guid userId = User.GetUserId()!.Value;
-		return await _mediator.Send(new GetAllHomeworkQuery(userId));
+		return Ok(await _mediator.Send(new GetAllHomeworkQuery(userId)));
 	}
 	
 	[HttpPost]
 	[Authorize(AccessPolicise.Moderator)]
-	public async Task<Homework> Post(CreateHomeworkCommand command)
+	public async Task<IActionResult> Post(CreateHomeworkRequest request)
 	{
-		// TODO: refactor parameters to request object
 		Guid userId = User.GetUserId()!.Value;
-		var newCommand = new CreateHomeworkCommand(userId, command.SubjectId, command.Title, command.Description);
-		return await _mediator.Send(newCommand);
+		var newCommand = new CreateHomeworkCommand(userId, request.SubjectId, request.Title, request.Description);
+		return Ok(await _mediator.Send(newCommand));
 	}
 }
