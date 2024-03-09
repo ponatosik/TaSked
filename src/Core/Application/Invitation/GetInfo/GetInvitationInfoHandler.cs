@@ -18,6 +18,7 @@ public class GetInvitationInfoHandler : IRequestHandler<GetInvitationInfoQuery, 
 	public Task<Invitation> Handle(GetInvitationInfoQuery request, CancellationToken cancellationToken)
 	{
 		var invitation = _context.Groups
+			.Include(g => g.Invitations)
 			.FirstOrDefault(g => g.Invitations.Any(i => i.Id == request.InvitationId))?
 			.Invitations.FindById(request.InvitationId);
 

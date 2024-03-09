@@ -1,5 +1,4 @@
-﻿using TaSked.Domain;
-using MediatR;
+﻿using MediatR;
 
 namespace TaSked.Application;
 
