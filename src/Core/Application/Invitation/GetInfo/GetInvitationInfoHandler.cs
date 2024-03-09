@@ -2,10 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using TaSked.Application.Data;
 using TaSked.Domain;
+using TaSked.Application.Exceptions;
 
 namespace TaSked.Application;
 
-public class GetInvitationInfoHandler : IRequestHandler<GetInvitationInfoQuery, List<Invitation>>
+public class GetInvitationInfoHandler : IRequestHandler<GetInvitationInfoQuery, Invitation>
 {
     private readonly IApplicationDbContext _context;
 
@@ -14,11 +15,17 @@ public class GetInvitationInfoHandler : IRequestHandler<GetInvitationInfoQuery, 
         _context = context;
     }
 
-    public Task<List<Invitation>> Handle(GetInvitationInfoQuery request, CancellationToken cancellationToken)
-    {
-        var user = _context.Users.FindById(request.UserId);
-        var group = _context.Groups.FindById(user.GroupId.Value);
+	public Task<Invitation> Handle(GetInvitationInfoQuery request, CancellationToken cancellationToken)
+	{
+		var invitation = _context.Groups
+			.FirstOrDefault(g => g.Invitations.Any(i => i.Id == request.InvitationId))?
+			.Invitations.FindById(request.InvitationId);
 
-        return Task.FromResult(group.Invitations);
-    }
-}
+		if (invitation is null)
+		{
+			throw new EntityNotFoundException(request.InvitationId, nameof(Invitation));
+		}
+
+		return Task.FromResult(invitation);
+	}
+ }

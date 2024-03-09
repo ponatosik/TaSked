@@ -3,4 +3,4 @@ using TaSked.Domain;
 
 namespace TaSked.Application;
 
-public record GetInvitationInfoQuery(Guid UserId) : IRequest<List<Invitation>>;
+public record GetInvitationInfoQuery(Guid InvitationId) : IRequest<Invitation>;
