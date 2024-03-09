@@ -10,7 +10,7 @@ namespace TaSked.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-[Authorize]
+[Authorize(AccessPolicise.Member)]
 public class LessonController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -21,6 +21,7 @@ public class LessonController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(AccessPolicise.Moderator)]
     public async Task<IActionResult> Post(CreateLessonRequest request)
     {
         Guid userId = User.GetUserId()!.Value;
@@ -28,6 +29,7 @@ public class LessonController : ControllerBase
     }
 
     [HttpDelete]
+    [Authorize(AccessPolicise.Moderator)]
     public async Task<IActionResult> Delete(DeleteLessonRequest request)
     {
         Guid userId = User.GetUserId()!.Value;
@@ -36,6 +38,7 @@ public class LessonController : ControllerBase
     }
 
     [HttpPatch]
+    [Authorize(AccessPolicise.Moderator)]
     public async Task<IActionResult> Patch(ChangeLessonTimeRequest request)
     {
         Guid userId = User.GetUserId()!.Value;
