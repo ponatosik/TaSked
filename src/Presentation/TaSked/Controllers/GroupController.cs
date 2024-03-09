@@ -1,4 +1,3 @@
-using TaSked.Domain;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TaSked.Application;
@@ -28,6 +27,7 @@ public class GroupController : ControllerBase
 	}
 
     [HttpDelete]
+	[Authorize(AccessPolicise.Admin)]
     public async Task<IActionResult> Delete()
     {
         Guid userId = User.GetUserId()!.Value;
@@ -36,6 +36,7 @@ public class GroupController : ControllerBase
     }
 
     [HttpPatch]
+    [Authorize(AccessPolicise.Admin)]
     public async Task<IActionResult> Patch(ChangeGroupNameRequest request)
     {
         Guid userId = User.GetUserId()!.Value;
@@ -44,6 +45,7 @@ public class GroupController : ControllerBase
 
     [HttpGet]
     [Route("Members")]
+	[Authorize(AccessPolicise.Moderator)]
     public async Task<IActionResult> Get()
     {
         Guid userId = User.GetUserId()!.Value;
@@ -51,6 +53,7 @@ public class GroupController : ControllerBase
     }
 
     [HttpPatch]
+    [Authorize(AccessPolicise.Member)]
     public async Task<IActionResult> Patch()
     {
         Guid userId = User.GetUserId()!.Value;
