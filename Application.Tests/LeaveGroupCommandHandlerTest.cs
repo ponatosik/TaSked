@@ -36,7 +36,7 @@ public class LeaveGroupCommandHandlerTest
 		
 		await _handler.Handle(command, new CancellationToken());
 
-		Assert.DoesNotContain(_context.Users, user => user.Id == _userId);
+		Assert.DoesNotContain(_context.Groups.First(group => group.Id == _groupId).Members, user => user.Id == _userId);
 	}
 
 	[Fact]
