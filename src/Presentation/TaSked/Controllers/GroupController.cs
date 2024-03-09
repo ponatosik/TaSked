@@ -35,8 +35,8 @@ public class GroupController : ControllerBase
         return Ok();
     }
 
-    [HttpPost]
-    public async Task<IActionResult> Post(ChangeGroupNameRequest request)
+    [HttpPatch]
+    public async Task<IActionResult> Patch(ChangeGroupNameRequest request)
     {
         Guid userId = User.GetUserId()!.Value;
         return Ok(await _mediator.Send(new ChangeGroupNameCommand(userId, request.GroupName)));

@@ -35,4 +35,45 @@ public class HomeworkController : ControllerBase
 		var newCommand = new CreateHomeworkCommand(userId, request.SubjectId, request.Title, request.Description);
 		return Ok(await _mediator.Send(newCommand));
 	}
+
+    [HttpDelete]
+    [Authorize(AccessPolicise.Moderator)]
+    public async Task<IActionResult> Delete(DeleteHomeworkRequest request)
+    {
+        Guid userId = User.GetUserId()!.Value;
+		await _mediator.Send(new DeleteHomeworkCommand(userId, request.SubjectId, request.HomeworkId));
+        return Ok();
+    }
+
+    [HttpPatch]
+    [Authorize(AccessPolicise.Moderator)]
+    public async Task<IActionResult> Patch(ChangeHomeworkDeadlineRequest request)
+    {
+        Guid userId = User.GetUserId()!.Value;
+        return Ok(await _mediator.Send(new ChangeHomeworkDeadlineCommand(userId, request.SubjectId, request.HomeworkId, request.HomeworkDeadline)));
+    }
+
+    [HttpPatch]
+    [Authorize(AccessPolicise.Moderator)]
+    public async Task<IActionResult> Patch(ChangeHomeworkDescriptionRequest request)
+    {
+        Guid userId = User.GetUserId()!.Value;
+        return Ok(await _mediator.Send(new ChangeHomeworkDescriptionCommand(userId, request.SubjectId, request.HomeworkId, request.HomeworkDescription)));
+    }
+
+    [HttpPatch]
+    [Authorize(AccessPolicise.Moderator)]
+    public async Task<IActionResult> Patch(ChangeHomeworkSourceUrlRequest request)
+    {
+        Guid userId = User.GetUserId()!.Value;
+        return Ok(await _mediator.Send(new ChangeHomeworkSourceUrlCommand(userId, request.SubjectId, request.HomeworkId, request.HomeworkSourceUrl)));
+    }
+
+    [HttpPatch]
+    [Authorize(AccessPolicise.Moderator)]
+    public async Task<IActionResult> Patch(ChangeHomeworkTitleRequest request)
+    {
+        Guid userId = User.GetUserId()!.Value;
+        return Ok(await _mediator.Send(new ChangeHomeworkTitleCommand(userId, request.SubjectId, request.HomeworkId, request.HomeworkTitle)));
+    }
 }
