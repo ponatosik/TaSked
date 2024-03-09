@@ -3,6 +3,7 @@ using TaSked.Infrastructure.Persistance;
 using TaSked.Infrastructure.Persistance.AzureMySqlInApp;
 using TaSked.Infrastructure.Authorization;
 using TaSked.Infrastructure.ExceptionHandling;
+using TaSked.Api.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,7 @@ builder.Services.AddControllers();
 builder.Services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(CreateHomeworkCommand).Assembly));
 builder.Services.AddPolicyBasedAuthorization();
 builder.Services.AddPersistance(useAzureMySqlInApp ? opt => opt.UseAzureMysqlInApp() : null);
+builder.Services.AddSwaggerConfiguration();
 builder.Services.AddJwtAuthentication(options =>
 {
 	options.Issuer = baseUrlList.First();
@@ -23,11 +25,14 @@ builder.Services.AddJwtAuthentication(options =>
 	options.SecretKey = JwtSecretKey;
 });
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 
 //app.UseHttpsRedirection();
+
+app.UseSwaggerConfiguration();
 
 app.UseAuthentication();
 

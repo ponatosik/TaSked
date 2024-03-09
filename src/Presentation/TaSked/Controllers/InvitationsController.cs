@@ -10,7 +10,7 @@ namespace TaSked.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-[Authorize(AccessPolicise.Member)]
+[Authorize]
 public class InvitationsController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -29,7 +29,6 @@ public class InvitationsController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(AccessPolicise.Moderator)]
     [Route("Activate")]
     public async Task<IActionResult> Post(ActivateInvintationRequest request)
     {
@@ -49,9 +48,11 @@ public class InvitationsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> Get(GetInvintationInfoRequest request)
+    [Route("{InvitationId:guid}")]
+    [AllowAnonymous]
+    public async Task<IActionResult> Get(Guid InvitationId)
     {
         Guid userId = User.GetUserId()!.Value;
-        return Ok(await _mediator.Send(new GetInvitationInfoQuery(request.InvitationId)));
+        return Ok(await _mediator.Send(new GetInvitationInfoQuery(InvitationId)));
     }
 }
