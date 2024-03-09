@@ -1,6 +1,7 @@
 ﻿using TaSked.Application.Data;
 using TaSked.Domain;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace TaSked.Application;
 
@@ -16,7 +17,7 @@ public class ActivateInvitationCommandHandler : IRequestHandler<ActivateInvitati
     public async Task Handle(ActivateInvitationCommand request, CancellationToken cancellationToken)
     {
         var user = _context.Users.FindById(request.UserId);
-        var group = _context.Groups.FindById(request.GroupId);
+        var group = _context.Groups.Include(x => x.Invitations).FindById(request.GroupId);
         var invitation = group.Invitations.FindById(request.InvitationId);
 
         group.JoinByInvintation(invitation, user);
