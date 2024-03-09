@@ -11,11 +11,11 @@ namespace TaSked.Api.Controllers;
 [ApiController]
 [Route("[controller]")]
 [Authorize(AccessPolicise.Member)]
-public class ReportController : ControllerBase
+public class ReportsController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public ReportController(IMediator mediator)
+    public ReportsController(IMediator mediator)
     {
         _mediator = mediator;
     }

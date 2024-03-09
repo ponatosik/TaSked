@@ -11,11 +11,11 @@ namespace TaSked.Api.Controllers;
 [ApiController]
 [Route("[controller]")]
 [Authorize(AccessPolicise.Member)]
-public class LessonController : ControllerBase
+public class LessonsController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public LessonController(IMediator mediator)
+    public LessonsController(IMediator mediator)
     {
         _mediator = mediator;
     }
