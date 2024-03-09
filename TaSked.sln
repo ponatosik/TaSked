@@ -33,6 +33,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.Tests", "Applic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionHandling", "ExceptionHandling\ExceptionHandling.csproj", "{7E088990-1719-4520-BB1B-83CC9EA72E5F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistance.AzureMySqlInApp", "Persistance.AzureMySqlInAppProvider\Persistance.AzureMySqlInApp.csproj", "{2070C141-6398-4E6C-A151-2DC1693C2A76}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,10 @@ Global
 		{7E088990-1719-4520-BB1B-83CC9EA72E5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E088990-1719-4520-BB1B-83CC9EA72E5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E088990-1719-4520-BB1B-83CC9EA72E5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2070C141-6398-4E6C-A151-2DC1693C2A76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2070C141-6398-4E6C-A151-2DC1693C2A76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2070C141-6398-4E6C-A151-2DC1693C2A76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2070C141-6398-4E6C-A151-2DC1693C2A76}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -93,6 +99,7 @@ Global
 		{73DDA9D5-1E54-4D24-B8EC-00825576CE74} = {7234793A-A529-4C57-9328-BFE5313DB5CA}
 		{216B2FAB-0D02-4DD7-91B9-F8D2E4CFF64C} = {1616E191-5C0E-466B-888A-A653BDE1C0B3}
 		{7E088990-1719-4520-BB1B-83CC9EA72E5F} = {7234793A-A529-4C57-9328-BFE5313DB5CA}
+		{2070C141-6398-4E6C-A151-2DC1693C2A76} = {7234793A-A529-4C57-9328-BFE5313DB5CA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {27C0623E-8480-45B5-93D9-401FAD826043}
