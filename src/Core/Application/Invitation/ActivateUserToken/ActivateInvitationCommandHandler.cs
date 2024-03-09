@@ -4,18 +4,16 @@ using MediatR;
 
 namespace TaSked.Application;
 
-public class ActivateInvitationUserTokenCommandHandler : IRequestHandler<ActivateInvitationUserTokenCommand, string>
+public class ActivateInvitationCommandHandler : IRequestHandler<ActivateInvitationCommand>
 {
     private readonly IApplicationDbContext _context;
-    private readonly IJwtProvider _jwtProvider;
 
-    public ActivateInvitationUserTokenCommandHandler(IApplicationDbContext context,  IJwtProvider jwtProvider)
+    public ActivateInvitationCommandHandler(IApplicationDbContext context)
     {
         _context = context;
-        _jwtProvider = jwtProvider;
     }
 
-    public async Task<string> Handle(ActivateInvitationUserTokenCommand request, CancellationToken cancellationToken)
+    public async Task Handle(ActivateInvitationCommand request, CancellationToken cancellationToken)
     {
         var user = _context.Users.FindById(request.UserId);
         var group = _context.Groups.FindById(request.GroupId);
@@ -24,8 +22,5 @@ public class ActivateInvitationUserTokenCommandHandler : IRequestHandler<Activat
         group.JoinByInvintation(invitation, user);
 
         await _context.SaveChangesAsync(cancellationToken);
-
-        string token = _jwtProvider.Generate(user);
-        return token;
     }
 }
