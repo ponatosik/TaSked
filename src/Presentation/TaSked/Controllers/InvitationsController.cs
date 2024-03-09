@@ -30,6 +30,7 @@ public class InvitationsController : ControllerBase
 
     [HttpPost]
     [Authorize(AccessPolicise.Moderator)]
+    [Route("Activate")]
     public async Task<IActionResult> Post(ActivateInvintationRequest request)
     {
         Guid userId = User.GetUserId()!.Value;
@@ -39,6 +40,7 @@ public class InvitationsController : ControllerBase
 
     [HttpPatch]
     [Authorize(AccessPolicise.Moderator)]
+    [Route("Expire")]
     public async Task<IActionResult> Patch(ExpireInvintationRequest request)
     {
         Guid userId = User.GetUserId()!.Value;

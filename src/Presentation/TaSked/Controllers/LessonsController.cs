@@ -39,6 +39,7 @@ public class LessonsController : ControllerBase
 
     [HttpPatch]
     [Authorize(AccessPolicise.Moderator)]
+    [Route("Time")]
     public async Task<IActionResult> Patch(ChangeLessonTimeRequest request)
     {
         Guid userId = User.GetUserId()!.Value;
@@ -46,6 +47,7 @@ public class LessonsController : ControllerBase
     }
 
     [HttpGet]
+    [Route("BySubject")]
     public async Task<IActionResult> Get(GetAllLessonsBySubjectRequest request)
     {
         Guid userId = User.GetUserId()!.Value;
@@ -53,6 +55,7 @@ public class LessonsController : ControllerBase
     }
 
     [HttpGet]
+    [Route("ByDateRange")]
     public async Task<IActionResult> Get(GetAllLessonsInDateRangeRequest request)
     {
         Guid userId = User.GetUserId()!.Value;

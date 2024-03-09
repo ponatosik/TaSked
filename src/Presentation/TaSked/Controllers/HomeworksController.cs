@@ -47,6 +47,7 @@ public class HomeworksController : ControllerBase
 
     [HttpPatch]
     [Authorize(AccessPolicise.Moderator)]
+    [Route("Deadline")]
     public async Task<IActionResult> Patch(ChangeHomeworkDeadlineRequest request)
     {
         Guid userId = User.GetUserId()!.Value;
@@ -55,6 +56,7 @@ public class HomeworksController : ControllerBase
 
     [HttpPatch]
     [Authorize(AccessPolicise.Moderator)]
+    [Route("Description")]
     public async Task<IActionResult> Patch(ChangeHomeworkDescriptionRequest request)
     {
         Guid userId = User.GetUserId()!.Value;
@@ -63,6 +65,7 @@ public class HomeworksController : ControllerBase
 
     [HttpPatch]
     [Authorize(AccessPolicise.Moderator)]
+    [Route("SourceUrl")]
     public async Task<IActionResult> Patch(ChangeHomeworkSourceUrlRequest request)
     {
         Guid userId = User.GetUserId()!.Value;
@@ -71,6 +74,7 @@ public class HomeworksController : ControllerBase
 
     [HttpPatch]
     [Authorize(AccessPolicise.Moderator)]
+    [Route("Title")]
     public async Task<IActionResult> Patch(ChangeHomeworkTitleRequest request)
     {
         Guid userId = User.GetUserId()!.Value;

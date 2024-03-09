@@ -23,9 +23,9 @@ public class UsersController : ControllerBase
 		return Ok(await _mediator.Send(new CreateUserTokenCommand(request.Nickname)));
 	}
 
-    [HttpPost]
-    public async Task<IActionResult> Post(CreateUserRequest request)
-    {
-        return Ok(await _mediator.Send(new CreateUserCommand(request.Nickname)));
-    }
+    //[HttpPost]
+    //public async Task<IActionResult> Post(CreateUserRequest request)
+    //{
+    //    return Ok(await _mediator.Send(new CreateUserCommand(request.Nickname)));
+    //}
 }

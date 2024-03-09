@@ -37,6 +37,7 @@ public class GroupsController : ControllerBase
 
     [HttpPatch]
     [Authorize(AccessPolicise.Admin)]
+    [Route("Name")]
     public async Task<IActionResult> Patch(ChangeGroupNameRequest request)
     {
         Guid userId = User.GetUserId()!.Value;
@@ -54,6 +55,7 @@ public class GroupsController : ControllerBase
 
     [HttpPatch]
     [Authorize(AccessPolicise.Member)]
+    [Route("Leave")]
     public async Task<IActionResult> Patch()
     {
         Guid userId = User.GetUserId()!.Value;

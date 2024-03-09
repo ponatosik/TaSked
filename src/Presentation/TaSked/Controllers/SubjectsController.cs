@@ -22,7 +22,6 @@ public class SubjectsController : ControllerBase
 	}
 	
 	[HttpPost]
-	[Route("Create")] 
 	[Authorize(AccessPolicise.Moderator)]
 	public async Task<IActionResult> Post(CreateSubjectRequest request)
 	{
@@ -48,6 +47,7 @@ public class SubjectsController : ControllerBase
 
     [HttpPatch]
     [Authorize(AccessPolicise.Moderator)]
+    [Route("Name")]
     public async Task<IActionResult> Patch(ChangeSubjectNameRequest request)
     {
         Guid userId = User.GetUserId()!.Value;
@@ -56,6 +56,7 @@ public class SubjectsController : ControllerBase
 
     [HttpPatch]
     [Authorize(AccessPolicise.Moderator)]
+    [Route("Teacher")]
     public async Task<IActionResult> Patch(ChangeSubjectTeacherRequest request)
     {
         Guid userId = User.GetUserId()!.Value;
