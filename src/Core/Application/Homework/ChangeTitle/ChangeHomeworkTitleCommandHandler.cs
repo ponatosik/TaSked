@@ -17,7 +17,10 @@ public class ChangeHomeworkTitleCommandHandler : IRequestHandler<ChangeHomeworkT
     public async Task<Homework> Handle(ChangeHomeworkTitleCommand request, CancellationToken cancellationToken)
     {
         var user = _context.Users.FindById(request.UserId);
-        var group = _context.Groups.Include(group => group.Subjects).FindById(user.GroupId.Value);
+        var group = _context.Groups
+            .Include(group => group.Subjects)
+            .ThenInclude(subject => subject.Homeworks)
+            .FindById(user.GroupId.Value);
         var subject = group.Subjects.FindById(request.SubjectId);
         var homework = subject.Homeworks.FindById(request.HomeworkId);
 

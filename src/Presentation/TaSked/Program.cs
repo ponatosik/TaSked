@@ -8,7 +8,7 @@ using TaSked.Api.Configuration;
 var builder = WebApplication.CreateBuilder(args);
 
 
-bool useAzureMySqlInApp = Environment.GetEnvironmentVariable("UseMySqlInApp") == "true";
+bool useAzureMySqlInApp = builder.WebHost.GetSetting("UseAzureMySqlInApp")?.ToLower() == "true";
 string JwtSecretKey = builder.WebHost.GetSetting("JwtSecretKey") ?? "{774F9515-F749-42F1-8578-8BA810C3BA78}";
 string baseUrls = builder.WebHost.GetSetting(WebHostDefaults.ServerUrlsKey) ?? "http://localhost:5070";
 var baseUrlList = baseUrls.Split(';');
