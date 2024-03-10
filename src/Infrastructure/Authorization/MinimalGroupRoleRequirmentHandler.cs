@@ -13,29 +13,28 @@ public class MinimalGroupRoleRequirmentHandler : AuthorizationHandler<MinimalGro
 		_dbContext = dbContext;
 	}
 
-	protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, MinimalGroupRoleRequirment requirement)
+	protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, MinimalGroupRoleRequirment requirement)
 	{
 		GroupRole requiredRole = requirement.GroupRole;
 		Guid? userId = context.User.GetUserId();
 		if (userId == null)
 		{
 			context.Fail();
-			return Task.CompletedTask;
+			return;
 		}
 
-		User? user = _dbContext.Users.FirstOrDefault(user => user.Id == userId);
+		User? user = _dbContext.Users.Find(userId.Value);
 		if (user == null)
 		{
 			context.Fail();
-			return Task.CompletedTask;
+			return;
 		}
 		if (user.Role < requiredRole)
 		{
 			context.Fail();
-			return Task.CompletedTask;
+			return;
 		}
 
 		context.Succeed(requirement);
-		return Task.CompletedTask;
 	}
 }
