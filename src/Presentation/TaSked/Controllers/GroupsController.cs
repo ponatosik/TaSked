@@ -53,4 +53,12 @@ public class GroupsController : ControllerBase
         await _mediator.Send(new LeaveGroupCommand(userId));
         return Ok();
     }
+
+    [HttpGet]
+    [AllowAnonymous]
+    [HttpGet("{GroupId:guid}")]
+	public async Task<IActionResult> Get(Guid GroupId)
+    {
+        return Ok(await _mediator.Send(new GetGroupInfoQuery(GroupId)));
+    }
 }
