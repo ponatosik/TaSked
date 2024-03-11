@@ -47,18 +47,18 @@ public class LessonsController : ControllerBase
     }
 
     [HttpGet]
-    [Route("BySubject")]
-    public async Task<IActionResult> Get(GetAllLessonsBySubjectRequest request)
+    [Route("BySubject/{subjectId:guid}")]
+    public async Task<IActionResult> Get(Guid subjectId)
     {
         Guid userId = User.GetUserId()!.Value;
-        return Ok(await _mediator.Send(new GetAllLessonsBySubjectQuery(userId, request.SubjectId)));
+        return Ok(await _mediator.Send(new GetAllLessonsBySubjectQuery(userId, subjectId)));
     }
 
     [HttpGet]
     [Route("ByDateRange")]
-    public async Task<IActionResult> Get(GetAllLessonsInDateRangeRequest request)
+    public async Task<IActionResult> Get([FromQuery] DateTime fromDate, [FromQuery] DateTime toDate)
     {
         Guid userId = User.GetUserId()!.Value;
-        return Ok(await _mediator.Send(new GetAllLessonsInDateRangeQuery(userId, request.StartDate, request.EndDate)));
+        return Ok(await _mediator.Send(new GetAllLessonsInDateRangeQuery(userId, fromDate, toDate)));
     }
 }
