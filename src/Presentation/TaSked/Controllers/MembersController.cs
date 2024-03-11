@@ -24,6 +24,6 @@ public class MembersController : ControllerBase
     public async Task<IActionResult> Get(Guid GroupId)
     {
         Guid userId = User.GetUserId()!.Value;
-        return Ok(await _mediator.Send(new GetGroupMembersQuery(userId)));
+        return Ok(await _mediator.Send(new GetGroupMembersQuery(userId, GroupId)));
     }
 }

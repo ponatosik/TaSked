@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using TaSked.Application.Data;
+using TaSked.Application.Exceptions;
 
 namespace TaSked.Application;
 
@@ -15,6 +16,11 @@ public class DemoteMemberCommandHandler : IRequestHandler<PromoteMemberCommand>
 
     public Task Handle(PromoteMemberCommand request, CancellationToken cancellationToken)
     {
+        var promoter = _context.Users.FindById(request.promotedBy);
+        if (promoter.GroupId != request.GroupId)
+        {
+            throw new UserIsNotGroupMemberException(request.GroupId, request.UserId);
+        }
         var group = _context.Groups.Include(e => e.Members).FindById(request.GroupId);
         var user = _context.Users.FindById(request.UserId);
 

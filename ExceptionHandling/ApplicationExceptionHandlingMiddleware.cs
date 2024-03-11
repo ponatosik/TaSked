@@ -42,6 +42,12 @@ public class ApplicationExceptionHandlingMiddleware
 				Detail = "Upadate application or try again later.",
 				Status = StatusCodes.Status404NotFound,
 			},	
+			UserIsNotGroupMemberException => new ProblemDetails()
+			{
+				Title = exception.Message,
+				Detail = "You are not a member of this group.",
+				Status = StatusCodes.Status403Forbidden
+			},
 			ApplicationException => new ProblemDetails()
 			{
 				Title = exception.Message,

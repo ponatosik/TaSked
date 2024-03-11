@@ -3,4 +3,4 @@ using TaSked.Domain;
 
 namespace TaSked.Application;
 
-public record GetGroupMembersQuery(Guid UserId) : IRequest<List<User>>;
+public record GetGroupMembersQuery(Guid UserId, Guid GroupId) : IRequest<List<User>>;
