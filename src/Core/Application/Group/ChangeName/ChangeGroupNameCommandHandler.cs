@@ -4,7 +4,7 @@ using MediatR;
 
 namespace TaSked.Application;
 
-public class ChangeGroupNameCommandHandler : IRequestHandler<ChangeGroupNameCommand, Group>
+public class ChangeGroupNameCommandHandler : IRequestHandler<ChangeGroupNameCommand, GroupDTO>
 {
     private readonly IApplicationDbContext _context;
 
@@ -13,7 +13,7 @@ public class ChangeGroupNameCommandHandler : IRequestHandler<ChangeGroupNameComm
         _context = context;
     }
 
-    public async Task<Group> Handle(ChangeGroupNameCommand request, CancellationToken cancellationToken)
+    public async Task<GroupDTO> Handle(ChangeGroupNameCommand request, CancellationToken cancellationToken)
     {
         var user = _context.Users.FindById(request.UserId);
         var group = _context.Groups.FindById(user.GroupId.Value);
@@ -21,6 +21,6 @@ public class ChangeGroupNameCommandHandler : IRequestHandler<ChangeGroupNameComm
         group.Name = request.GroupName;
 
         await _context.SaveChangesAsync(cancellationToken);
-        return group;
+        return GroupDTO.From(group);
     }
 }

@@ -4,7 +4,7 @@ using MediatR;
 
 namespace TaSked.Application;
 
-public class CreateSubjectCommandHandler : IRequestHandler<CreateSubjectCommand, Subject>
+public class CreateSubjectCommandHandler : IRequestHandler<CreateSubjectCommand, SubjectDTO>
 {
 	private readonly IApplicationDbContext _context;
 
@@ -13,7 +13,7 @@ public class CreateSubjectCommandHandler : IRequestHandler<CreateSubjectCommand,
 		_context = context;
 	}
 
-	public async Task<Subject> Handle(CreateSubjectCommand request, CancellationToken cancellationToken)
+	public async Task<SubjectDTO> Handle(CreateSubjectCommand request, CancellationToken cancellationToken)
 	{
 		var user = _context.Users.FindById(request.UserId);
 		var group = _context.Groups.FindById(user.GroupId.Value);
@@ -21,6 +21,6 @@ public class CreateSubjectCommandHandler : IRequestHandler<CreateSubjectCommand,
 		var subject = group.CreateSubject(request.SubjectName);
 
 		await _context.SaveChangesAsync(cancellationToken);
-		return subject;
+		return SubjectDTO.From(subject);
 	}
 }

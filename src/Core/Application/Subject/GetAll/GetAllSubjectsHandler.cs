@@ -5,7 +5,7 @@ using TaSked.Domain;
 
 namespace TaSked.Application;
 
-public class GetAllSubjectsHandler : IRequestHandler<GetAllSubjectsQuery, List<Subject>>
+public class GetAllSubjectsHandler : IRequestHandler<GetAllSubjectsQuery, List<SubjectDTO>>
 {
     private readonly IApplicationDbContext _context;
 
@@ -14,11 +14,17 @@ public class GetAllSubjectsHandler : IRequestHandler<GetAllSubjectsQuery, List<S
         _context = context;
     }
 
-    public Task<List<Subject>> Handle(GetAllSubjectsQuery request, CancellationToken cancellationToken)
+    public Task<List<SubjectDTO>> Handle(GetAllSubjectsQuery request, CancellationToken cancellationToken)
     {
         var user = _context.Users.FindById(request.UserId);
-        var group = _context.Groups.Include(e => e.Subjects).FindById(user.GroupId.Value);
-        
-        return Task.FromResult(group.Subjects);
+        var group = _context.Groups
+            .Include(e => e.Subjects)
+            .ThenInclude(e => e.Homeworks)
+            .Include(e => e.Subjects)
+            .ThenInclude(e => e.Lessons)
+            .FindById(user.GroupId.Value);
+
+        var subjects = group.Subjects;
+        return Task.FromResult(subjects.Select(subject => SubjectDTO.From(subject)).ToList());
     }
 }

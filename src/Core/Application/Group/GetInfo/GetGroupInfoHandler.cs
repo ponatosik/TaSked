@@ -4,7 +4,7 @@ using TaSked.Domain;
 
 namespace TaSked.Application;
 
-public class GetGroupInfoHandler : IRequestHandler<GetGroupInfoQuery, Group>
+public class GetGroupInfoHandler : IRequestHandler<GetGroupInfoQuery, GroupDTO>
 {
     private readonly IApplicationDbContext _context;
 
@@ -13,10 +13,10 @@ public class GetGroupInfoHandler : IRequestHandler<GetGroupInfoQuery, Group>
         _context = context;
     }
 
-	public Task<Group> Handle(GetGroupInfoQuery request, CancellationToken cancellationToken)
+	public Task<GroupDTO> Handle(GetGroupInfoQuery request, CancellationToken cancellationToken)
 	{
 		var group = _context.Groups.FindById(request.GroupId);
 
-		return Task.FromResult(group);
+		return Task.FromResult(GroupDTO.From(group));
 	}
  }

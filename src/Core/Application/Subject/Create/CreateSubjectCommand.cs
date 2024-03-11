@@ -3,4 +3,4 @@ using MediatR;
 
 namespace TaSked.Application;
 
-public record CreateSubjectCommand(Guid UserId, string SubjectName) : IRequest<Subject>;
+public record CreateSubjectCommand(Guid UserId, string SubjectName) : IRequest<SubjectDTO>;

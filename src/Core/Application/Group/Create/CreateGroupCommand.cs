@@ -3,4 +3,4 @@ using MediatR;
 
 namespace TaSked.Application;
 
-public record CreateGroupCommand(Guid CreatorId, string GroupName) : IRequest<Group>;
+public record CreateGroupCommand(Guid CreatorId, string GroupName) : IRequest<GroupDTO>;
