@@ -4,6 +4,8 @@ using TaSked.Application;
 using Microsoft.AspNetCore.Authorization;
 using TaSked.Infrastructure.Authorization;
 using TaSked.Api.Requests;
+using Api.Requests;
+using TaSked.Domain;
 
 namespace TaSked.Api.Controllers;
 
@@ -26,4 +28,34 @@ public class MembersController : ControllerBase
         Guid userId = User.GetUserId()!.Value;
         return Ok(await _mediator.Send(new GetGroupMembersQuery(userId, GroupId)));
     }
+
+	[HttpPatch]
+	[Authorize(AccessPolicise.Admin)]
+	[Route("Promote")]
+	public async Task<IActionResult> PatchPromote(Guid GroupId, PromoteMemberRequest request)
+	{
+		Guid userId = User.GetUserId()!.Value;
+		await _mediator.Send(new PromoteMemberCommand(userId, GroupId, request.UserId, GroupRole.Moderator));
+		return Ok();
+	}
+
+	[HttpPatch]
+	[Authorize(AccessPolicise.Admin)]
+	[Route("Demote")]
+	public async Task<IActionResult> PatchDemote(Guid GroupId, PromoteMemberRequest request)
+	{
+		Guid userId = User.GetUserId()!.Value;
+		await _mediator.Send(new DemoteMemberCommand(userId, GroupId, request.UserId, GroupRole.Member));
+		return Ok();
+	}
+
+	[HttpDelete]
+	[Authorize(AccessPolicise.Admin)]
+	[Route("Ban")]
+	public async Task<IActionResult> Delete(Guid GroupId, BanMemberRequest request)
+	{
+		Guid userId = User.GetUserId()!.Value;
+		await _mediator.Send(new BanMemberCommand(userId, GroupId, request.UserId));
+		return Ok();
+	}
 }
