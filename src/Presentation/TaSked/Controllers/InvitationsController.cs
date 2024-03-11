@@ -52,7 +52,6 @@ public class InvitationsController : ControllerBase
     [AllowAnonymous]
     public async Task<IActionResult> Get(Guid InvitationId)
     {
-        Guid userId = User.GetUserId()!.Value;
         return Ok(await _mediator.Send(new GetInvitationInfoQuery(InvitationId)));
     }
 }
