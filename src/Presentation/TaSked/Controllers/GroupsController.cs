@@ -44,15 +44,6 @@ public class GroupsController : ControllerBase
         return Ok(await _mediator.Send(new ChangeGroupNameCommand(userId, request.GroupName)));
     }
 
-    [HttpGet]
-    [Route("Members")]
-	[Authorize(AccessPolicise.Moderator)]
-    public async Task<IActionResult> Get()
-    {
-        Guid userId = User.GetUserId()!.Value;
-        return Ok(await _mediator.Send(new GetGroupMembersQuery(userId)));
-    }
-
     [HttpPatch]
     [Authorize(AccessPolicise.Member)]
     [Route("Leave")]
