@@ -33,6 +33,32 @@ public class User
 		Role = GroupRole.Member;
 	}
 
+	public void Promote(GroupRole role, Group group)
+	{
+		if (Role > role)
+		{
+			throw new UserAllreadyPromotedException(this, group, role);
+		}
+		if (GroupId is null || role == GroupRole.NoGroup)
+		{
+			throw new UserIsNotGroupMemberException(this, group);
+		}
+		Role = role;
+	}
+
+	public void Demote(GroupRole role, Group group)
+	{
+		if (Role < role)
+		{
+			throw new UserAllreadyDemotedException(this, group, role);
+		}
+		if (GroupId is null || role == GroupRole.NoGroup)
+		{
+			throw new UserIsNotGroupMemberException(this, group);
+		}
+		Role = role;
+	}
+
 	public void LeaveGroup(Group group)
 	{
 		if (GroupId != group.Id)

@@ -53,6 +53,18 @@ public class DomainExceptionHandlingMiddleware
 				Detail = "You are not a member of this group.",
 				Status = StatusCodes.Status403Forbidden
 			},
+			UserAllreadyPromotedException => new ProblemDetails() 
+			{
+				Title = exception.Message,
+				Detail = "User is already promoted.",
+				Status = StatusCodes.Status409Conflict
+			},
+			UserAllreadyDemotedException => new ProblemDetails() 
+			{
+				Title = exception.Message,
+				Detail = "User is already demoted.",
+				Status = StatusCodes.Status409Conflict
+			},
 			DomainException => new ProblemDetails()
 			{
 				Title = exception.Message,
