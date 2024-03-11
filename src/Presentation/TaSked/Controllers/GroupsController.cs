@@ -54,7 +54,6 @@ public class GroupsController : ControllerBase
         return Ok();
     }
 
-    [HttpGet]
     [AllowAnonymous]
     [HttpGet("{GroupId:guid}")]
 	public async Task<IActionResult> Get(Guid GroupId)
