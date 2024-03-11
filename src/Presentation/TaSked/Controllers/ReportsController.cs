@@ -13,25 +13,27 @@ namespace TaSked.Api.Controllers;
 [Authorize(AccessPolicise.Member)]
 public class ReportsController : ControllerBase
 {
-    private readonly IMediator _mediator;
+	private readonly IMediator _mediator;
 
-    public ReportsController(IMediator mediator)
-    {
-        _mediator = mediator;
-    }
+	public ReportsController(IMediator mediator)
+	{
+		_mediator = mediator;
+	}
 
-    [HttpPost]
-    [Authorize(AccessPolicise.Moderator)]
-    public async Task<IActionResult> Post(CreateReportRequest request)
-    {
-        Guid userId = User.GetUserId()!.Value;
-        return Ok(await _mediator.Send(new CreateReportCommand(userId, request.ReportTitle, request.ReportMessage)));
-    }
+	[HttpPost]
+	[Authorize(AccessPolicise.Moderator)]
+	public async Task<IActionResult> Post(CreateReportRequest request)
+	{
+		Guid userId = User.GetUserId()!.Value;
+		var result = await _mediator.Send(new CreateReportCommand(userId, request.ReportTitle, request.ReportMessage));
+		return CreatedAtAction(nameof(Get), new { }, result);
+	}
 
-    [HttpGet]
-    public async Task<IActionResult> Get()
-    {
-        Guid userId = User.GetUserId()!.Value;
-        return Ok(await _mediator.Send(new GetAllReportQuery(userId)));
-    }
+	[HttpGet]
+	public async Task<IActionResult> Get()
+	{
+		Guid userId = User.GetUserId()!.Value;
+		var result = await _mediator.Send(new GetAllReportQuery(userId));
+		return Ok(result);
+	}
 }

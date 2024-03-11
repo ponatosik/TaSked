@@ -22,14 +22,16 @@ public class UsersController : ControllerBase
 	[Route("anonymousAccout")]
 	public async Task<IActionResult> Post(CreateUserTokenRequest request)
 	{
-		return Ok(await _mediator.Send(new CreateUserTokenCommand(request.Nickname)));
+		var result = await _mediator.Send(new CreateUserTokenCommand(request.Nickname));
+		return CreatedAtAction(nameof(Get), new { }, result);
 	}
 
 	[HttpGet]
 	[Route("{UserId:guid}")]
 	public async Task<IActionResult> Get(Guid UserId)
 	{
-		return Ok(await _mediator.Send(new GetUserInfoQuery(UserId)));
+		var result = await _mediator.Send(new GetUserInfoQuery(UserId));
+		return Ok(result);
 	}
 
 	[HttpGet]
@@ -38,12 +40,7 @@ public class UsersController : ControllerBase
 	public async Task<IActionResult> Get()
 	{
 		Guid UserId = User.GetUserId()!.Value;
-		return Ok(await _mediator.Send(new GetUserInfoQuery(UserId)));
+		var result = await _mediator.Send(new GetUserInfoQuery(UserId));
+		return Ok(result);
 	}
-
-    //[HttpPost]
-    //public async Task<IActionResult> Post(CreateUserRequest request)
-    //{
-    //    return Ok(await _mediator.Send(new CreateUserCommand(request.Nickname)));
-    //}
 }

@@ -26,7 +26,8 @@ public class MembersController : ControllerBase
     public async Task<IActionResult> Get(Guid GroupId)
     {
         Guid userId = User.GetUserId()!.Value;
-        return Ok(await _mediator.Send(new GetGroupMembersQuery(userId, GroupId)));
+		var result = await _mediator.Send(new GetGroupMembersQuery(userId, GroupId));
+        return Ok(result);
     }
 
 	[HttpPatch]
@@ -56,6 +57,6 @@ public class MembersController : ControllerBase
 	{
 		Guid userId = User.GetUserId()!.Value;
 		await _mediator.Send(new BanMemberCommand(userId, GroupId, request.UserId));
-		return Ok();
+		return NoContent();
 	}
 }

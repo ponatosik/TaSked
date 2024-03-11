@@ -25,7 +25,8 @@ public class LessonsController : ControllerBase
     public async Task<IActionResult> Post(CreateLessonRequest request)
     {
         Guid userId = User.GetUserId()!.Value;
-        return Ok(await _mediator.Send(new CreateLessonCommand(userId, request.SubjectId, request.LessonTime)));
+        var result = await _mediator.Send(new CreateLessonCommand(userId, request.SubjectId, request.LessonTime));
+		return CreatedAtAction(nameof(Get), new { SubjectId = result.SubjectId }, result);
     }
 
     [HttpDelete]
@@ -34,7 +35,7 @@ public class LessonsController : ControllerBase
     {
         Guid userId = User.GetUserId()!.Value;
         await _mediator.Send(new DeleteLessonCommand(userId, request.SubjectId, request.LessonId));
-        return Ok();
+        return NoContent();
     }
 
     [HttpPatch]
@@ -43,15 +44,17 @@ public class LessonsController : ControllerBase
     public async Task<IActionResult> Patch(ChangeLessonTimeRequest request)
     {
         Guid userId = User.GetUserId()!.Value;
-        return Ok(await _mediator.Send(new ChangeLessonTimeCommand(userId, request.SubjectId, request.LessonId, request.NewTime)));
+        var result = await _mediator.Send(new ChangeLessonTimeCommand(userId, request.SubjectId, request.LessonId, request.NewTime));
+        return Ok(result);
     }
 
     [HttpGet]
-    [Route("BySubject/{subjectId:guid}")]
-    public async Task<IActionResult> Get(Guid subjectId)
+    [Route("BySubject/{SubjectId:guid}")]
+    public async Task<IActionResult> Get(Guid SubjectId)
     {
         Guid userId = User.GetUserId()!.Value;
-        return Ok(await _mediator.Send(new GetAllLessonsBySubjectQuery(userId, subjectId)));
+        var result = await _mediator.Send(new GetAllLessonsBySubjectQuery(userId, SubjectId));
+        return Ok(result);
     }
 
     [HttpGet]
@@ -59,6 +62,7 @@ public class LessonsController : ControllerBase
     public async Task<IActionResult> Get([FromQuery] DateTime fromDate, [FromQuery] DateTime toDate)
     {
         Guid userId = User.GetUserId()!.Value;
-        return Ok(await _mediator.Send(new GetAllLessonsInDateRangeQuery(userId, fromDate, toDate)));
+        var result = await _mediator.Send(new GetAllLessonsInDateRangeQuery(userId, fromDate, toDate));
+        return Ok(result);
     }
 }

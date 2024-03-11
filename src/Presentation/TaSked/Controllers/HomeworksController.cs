@@ -24,7 +24,8 @@ public class HomeworksController : ControllerBase
 	public async Task<IActionResult> Get()
 	{
 		Guid userId = User.GetUserId()!.Value;
-		return Ok(await _mediator.Send(new GetAllHomeworkQuery(userId)));
+        var result = await _mediator.Send(new GetAllHomeworkQuery(userId));
+		return Ok(result);
 	}
 	
 	[HttpPost]
@@ -32,8 +33,8 @@ public class HomeworksController : ControllerBase
 	public async Task<IActionResult> Post(CreateHomeworkRequest request)
 	{
 		Guid userId = User.GetUserId()!.Value;
-		var newCommand = new CreateHomeworkCommand(userId, request.SubjectId, request.Title, request.Description);
-		return Ok(await _mediator.Send(newCommand));
+        var result = await _mediator.Send(new CreateHomeworkCommand(userId, request.SubjectId, request.Title, request.Description));
+		return CreatedAtAction(nameof(Get), new { }, result);
 	}
 
     [HttpDelete]
@@ -42,7 +43,7 @@ public class HomeworksController : ControllerBase
     {
         Guid userId = User.GetUserId()!.Value;
 		await _mediator.Send(new DeleteHomeworkCommand(userId, request.SubjectId, request.HomeworkId));
-        return Ok();
+        return NoContent();
     }
 
     [HttpPatch]
@@ -51,7 +52,8 @@ public class HomeworksController : ControllerBase
     public async Task<IActionResult> Patch(ChangeHomeworkDeadlineRequest request)
     {
         Guid userId = User.GetUserId()!.Value;
-        return Ok(await _mediator.Send(new ChangeHomeworkDeadlineCommand(userId, request.SubjectId, request.HomeworkId, request.HomeworkDeadline)));
+        var result = await _mediator.Send(new ChangeHomeworkDeadlineCommand(userId, request.SubjectId, request.HomeworkId, request.HomeworkDeadline));
+        return Ok(result);
     }
 
     [HttpPatch]
@@ -60,7 +62,8 @@ public class HomeworksController : ControllerBase
     public async Task<IActionResult> Patch(ChangeHomeworkDescriptionRequest request)
     {
         Guid userId = User.GetUserId()!.Value;
-        return Ok(await _mediator.Send(new ChangeHomeworkDescriptionCommand(userId, request.SubjectId, request.HomeworkId, request.HomeworkDescription)));
+        var result = await _mediator.Send(new ChangeHomeworkDescriptionCommand(userId, request.SubjectId, request.HomeworkId, request.HomeworkDescription));
+        return Ok(result);
     }
 
     [HttpPatch]
@@ -69,7 +72,8 @@ public class HomeworksController : ControllerBase
     public async Task<IActionResult> Patch(ChangeHomeworkSourceUrlRequest request)
     {
         Guid userId = User.GetUserId()!.Value;
-        return Ok(await _mediator.Send(new ChangeHomeworkSourceUrlCommand(userId, request.SubjectId, request.HomeworkId, request.HomeworkSourceUrl)));
+        var result = await _mediator.Send(new ChangeHomeworkSourceUrlCommand(userId, request.SubjectId, request.HomeworkId, request.HomeworkSourceUrl));
+        return Ok(result);
     }
 
     [HttpPatch]
@@ -78,6 +82,7 @@ public class HomeworksController : ControllerBase
     public async Task<IActionResult> Patch(ChangeHomeworkTitleRequest request)
     {
         Guid userId = User.GetUserId()!.Value;
-        return Ok(await _mediator.Send(new ChangeHomeworkTitleCommand(userId, request.SubjectId, request.HomeworkId, request.HomeworkTitle)));
+        var result = await _mediator.Send(new ChangeHomeworkTitleCommand(userId, request.SubjectId, request.HomeworkId, request.HomeworkTitle));
+        return Ok(result);
     }
 }

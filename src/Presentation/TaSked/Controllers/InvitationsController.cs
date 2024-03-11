@@ -25,7 +25,8 @@ public class InvitationsController : ControllerBase
     public async Task<IActionResult> Post(CreateInvintationRequest request)
     {
         Guid userId = User.GetUserId()!.Value;
-        return Ok(await _mediator.Send(new CreateInvitationCommand(userId, request.InvitationCaption)));
+        var result = await _mediator.Send(new CreateInvitationCommand(userId, request.InvitationCaption));
+        return CreatedAtAction(nameof(Get), new { InvitationId = result.Id }, result);
     }
 
     [HttpPost]
@@ -52,6 +53,7 @@ public class InvitationsController : ControllerBase
     [AllowAnonymous]
     public async Task<IActionResult> Get(Guid InvitationId)
     {
-        return Ok(await _mediator.Send(new GetInvitationInfoQuery(InvitationId)));
+        var result = await _mediator.Send(new GetInvitationInfoQuery(InvitationId));
+        return Ok(result);
     }
 }

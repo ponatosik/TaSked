@@ -20,46 +20,50 @@ public class SubjectsController : ControllerBase
 	{
 		_mediator = mediator;
 	}
-	
+
 	[HttpPost]
 	[Authorize(AccessPolicise.Moderator)]
 	public async Task<IActionResult> Post(CreateSubjectRequest request)
 	{
 		Guid userId = User.GetUserId()!.Value;
-		return Ok(await _mediator.Send(new CreateSubjectCommand(userId, request.SubjectName)));
+		var result = await _mediator.Send(new CreateSubjectCommand(userId, request.SubjectName));
+		return CreatedAtAction(nameof(Get), new { }, result);
 	}
 
-    [HttpGet]
-    public async Task<IActionResult> Get()
-    {
-        Guid userId = User.GetUserId()!.Value;
-        return Ok(await _mediator.Send(new GetAllSubjectsQuery(userId)));
-    }
+	[HttpGet]
+	public async Task<IActionResult> Get()
+	{
+		Guid userId = User.GetUserId()!.Value;
+		var result = await _mediator.Send(new GetAllSubjectsQuery(userId));
+		return Ok(result);
+	}
 
-    [HttpDelete]
-    [Authorize(AccessPolicise.Moderator)]
-    public async Task<IActionResult> Delete(DeleteSubjectRequest request)
-    {
-        Guid userId = User.GetUserId()!.Value;
-        await _mediator.Send(new DeleteSubjectCommand(userId, request.SubjectId));
-        return Ok();
-    }
+	[HttpDelete]
+	[Authorize(AccessPolicise.Moderator)]
+	public async Task<IActionResult> Delete(DeleteSubjectRequest request)
+	{
+		Guid userId = User.GetUserId()!.Value;
+		await _mediator.Send(new DeleteSubjectCommand(userId, request.SubjectId));
+		return NoContent();
+	}
 
-    [HttpPatch]
-    [Authorize(AccessPolicise.Moderator)]
-    [Route("Name")]
-    public async Task<IActionResult> Patch(ChangeSubjectNameRequest request)
-    {
-        Guid userId = User.GetUserId()!.Value;
-        return Ok(await _mediator.Send(new ChangeSubjectNameCommand(userId, request.SubjectId, request.NewSubjectName)));
-    }
+	[HttpPatch]
+	[Authorize(AccessPolicise.Moderator)]
+	[Route("Name")]
+	public async Task<IActionResult> Patch(ChangeSubjectNameRequest request)
+	{
+		Guid userId = User.GetUserId()!.Value;
+		var result = await _mediator.Send(new ChangeSubjectNameCommand(userId, request.SubjectId, request.NewSubjectName));
+		return Ok(result);
+	}
 
-    [HttpPatch]
-    [Authorize(AccessPolicise.Moderator)]
-    [Route("Teacher")]
-    public async Task<IActionResult> Patch(ChangeSubjectTeacherRequest request)
-    {
-        Guid userId = User.GetUserId()!.Value;
-        return Ok(await _mediator.Send(new ChangeSubjectTeacherCommand(userId, request.SubjectId, request.NewSubjectTeacher)));
-    }
+	[HttpPatch]
+	[Authorize(AccessPolicise.Moderator)]
+	[Route("Teacher")]
+	public async Task<IActionResult> Patch(ChangeSubjectTeacherRequest request)
+	{
+		Guid userId = User.GetUserId()!.Value;
+		var result = await _mediator.Send(new ChangeSubjectTeacherCommand(userId, request.SubjectId, request.NewSubjectTeacher));
+		return Ok(result);
+	}
 }

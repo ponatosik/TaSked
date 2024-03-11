@@ -23,7 +23,8 @@ public class GroupsController : ControllerBase
 	public async Task<IActionResult> Post(CreateGroupRequest request)
 	{
 		Guid userId = User.GetUserId()!.Value;
-		return Ok(await _mediator.Send(new CreateGroupCommand(userId, request.GroupName)));
+        var result = await _mediator.Send(new CreateGroupCommand(userId, request.GroupName));
+		return CreatedAtAction(nameof(Get), new { GroupId = result.Id }, result);
 	}
 
     [HttpDelete]
@@ -32,7 +33,7 @@ public class GroupsController : ControllerBase
     {
         Guid userId = User.GetUserId()!.Value;
 		await _mediator.Send(new DeleteGroupCommand(userId));
-        return Ok();
+        return NoContent();
     }
 
     [HttpPatch]
@@ -41,7 +42,8 @@ public class GroupsController : ControllerBase
     public async Task<IActionResult> Patch(ChangeGroupNameRequest request)
     {
         Guid userId = User.GetUserId()!.Value;
-        return Ok(await _mediator.Send(new ChangeGroupNameCommand(userId, request.GroupName)));
+        var result = await _mediator.Send(new ChangeGroupNameCommand(userId, request.GroupName));
+        return Ok(result);
     }
 
     [HttpPatch]
@@ -51,13 +53,14 @@ public class GroupsController : ControllerBase
     {
         Guid userId = User.GetUserId()!.Value;
         await _mediator.Send(new LeaveGroupCommand(userId));
-        return Ok();
+        return NoContent();
     }
 
     [AllowAnonymous]
     [HttpGet("{GroupId:guid}")]
 	public async Task<IActionResult> Get(Guid GroupId)
     {
-        return Ok(await _mediator.Send(new GetGroupInfoQuery(GroupId)));
+        var result = await _mediator.Send(new GetGroupInfoQuery(GroupId));
+        return Ok(result);
     }
 }
