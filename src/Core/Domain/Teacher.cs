@@ -15,13 +15,13 @@ public record Teacher
 		string? description = null,
 		string? email = null,
 		string? phoneNumber = null,
-		string? onlineLesonUrl = null)
+		string? onlineLessonsUrl = null)
 	{
 		FullName = fullName;
 		Description = description;
 		Email = email;
 		PhoneNumber = phoneNumber;
-		OnlineLessonsUrl = onlineLesonUrl;
+		OnlineLessonsUrl = onlineLessonsUrl;
 	}
 
 	public static Teacher Create(
