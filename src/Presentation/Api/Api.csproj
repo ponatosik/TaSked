@@ -7,11 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\ExceptionHandling\ExceptionHandling.csproj" />
-    <ProjectReference Include="..\..\..\Persistance.AzureMySqlInAppProvider\Persistance.AzureMySqlInApp.csproj" />
     <ProjectReference Include="..\..\Core\Application\Application.csproj" />
     <ProjectReference Include="..\..\Core\Domain\Domain.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Authorization\Authorization.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\AzureMySqlInAppProvider\Persistance.AzureMySqlInApp.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\ExceptionHandling\ExceptionHandling.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Persistance\Persistance.csproj" />
   </ItemGroup>
 
