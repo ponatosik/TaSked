@@ -52,8 +52,8 @@ public static class DependencyInjection
 		services.AddAuthorization(options =>
 		{
 			options.AddPolicy(AccessPolicise.Member, policy => policy.Requirements.Add(new MinimalGroupRoleRequirment(GroupRole.Member)));
-			options.AddPolicy(AccessPolicise.Moderator, policy => policy.Requirements.Add(new MinimalGroupRoleRequirment(GroupRole.Member)));
-			options.AddPolicy(AccessPolicise.Admin, policy => policy.Requirements.Add(new MinimalGroupRoleRequirment(GroupRole.Member)));
+			options.AddPolicy(AccessPolicise.Moderator, policy => policy.Requirements.Add(new MinimalGroupRoleRequirment(GroupRole.Moderator)));
+			options.AddPolicy(AccessPolicise.Admin, policy => policy.Requirements.Add(new MinimalGroupRoleRequirment(GroupRole.Admin)));
 		});
 
 		return services;
