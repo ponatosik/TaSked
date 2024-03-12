@@ -2,6 +2,7 @@
 using TaSked.Domain;
 using MediatR;
 using Domain.Exceptions;
+using Microsoft.EntityFrameworkCore;
 
 namespace TaSked.Application;
 
@@ -17,7 +18,7 @@ public class ExpireInvitationCommandHandler : IRequestHandler<ExpireInvitationCo
     public async Task Handle(ExpireInvitationCommand request, CancellationToken cancellationToken)
     {
         var user = _context.Users.FindById(request.UserId);
-        var group = _context.Groups.FindById(user.GroupId.Value);
+        var group = _context.Groups.Include(g => g.Invitations).FindById(user.GroupId.Value);
         var invitation = group.Invitations.FindById(request.InvitationId);
 
         invitation.Expire();
