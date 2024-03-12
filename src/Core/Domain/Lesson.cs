@@ -1,7 +1,16 @@
 ﻿namespace TaSked.Domain;
 
-public record Lesson
+public class Lesson
 {
-	public int SubjectId { get; private set; }
-	public DateTime Time { get; private set; }
+	public Guid Id { get; set; }
+	public Guid SubjectId { get; private set; }
+	public DateTime Time { get; set; }
+
+	private Lesson() { }
+	internal Lesson(Guid id, Guid subjectId, DateTime time) 
+	{ 
+		Id = id;
+		SubjectId = subjectId;
+		Time = time;
+	}
 }

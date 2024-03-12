@@ -1,20 +1,30 @@
 using TaSked.Application;
 using TaSked.Infrastructure.Persistance;
+using TaSked.Infrastructure.Persistance.AzureMySqlInApp;
 using TaSked.Infrastructure.Authorization;
+using TaSked.Infrastructure.ExceptionHandling;
+using TaSked.Api.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+
+bool useAzureMySqlInApp = builder.WebHost.GetSetting("UseAzureMySqlInApp")?.ToLower() == "true";
+string JwtSecretKey = builder.WebHost.GetSetting("JwtSecretKey") ?? "{774F9515-F749-42F1-8578-8BA810C3BA78}";
+string baseUrls = builder.WebHost.GetSetting(WebHostDefaults.ServerUrlsKey) ?? "http://localhost:5070";
+var baseUrlList = baseUrls.Split(';');
 
 builder.Services.AddControllers();
-builder.Services.AddPersistance();
 builder.Services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(CreateHomeworkCommand).Assembly));
+builder.Services.AddPolicyBasedAuthorization();
+builder.Services.AddPersistance(useAzureMySqlInApp ? opt => opt.UseAzureMysqlInApp() : null);
+builder.Services.AddSwaggerConfiguration();
 builder.Services.AddJwtAuthentication(options =>
 {
-	options.Issuer = "https://localhost:5070/";
-	options.Audience = "https://localhost:5070/";
-	options.SecretKey = "TestSecretKey(HS256RequiersMin128BitLongKey)sdfgggggggggggggggggggggggggggggggggggggggsssssssssssssssssssssssssssssssssssfffffffffffffffffffffffffffffffffffffffffffffffffffffaaaaaaaa123456789009876543213456789098765432234567890987654336789098765434569AAAA";
+	options.Issuer = baseUrlList.First();
+	options.Audience = baseUrlList.First();
+	options.SecretKey = JwtSecretKey;
 });
+
 
 var app = builder.Build();
 
@@ -22,9 +32,15 @@ var app = builder.Build();
 
 //app.UseHttpsRedirection();
 
+app.UseSwaggerConfiguration();
+
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.UseApplicationExceptionHandling();
+
+app.UseDomainExceptionHandling();
 
 app.MapControllers();
 

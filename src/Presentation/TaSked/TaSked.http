@@ -2,7 +2,7 @@
 @User_Token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0NjQ4ZGU2My04NWExLTQ2ZWItOGE1Mi05YjVmOGMzMzJlZTQiLCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo1MDcwLyIsImF1ZCI6Imh0dHBzOi8vbG9jYWxob3N0OjUwNzAvIn0.C0BmFBh2yKCnlVuGG8NdvI8G5v7ZxvRAw_SzFNS0R3A
 @Subject_Id = f0697c21-fe93-4b69-b5df-3d0c2fdb439b
 
-POST {{TaSked_HostAddress}}/user/anonymousAccout
+POST {{TaSked_HostAddress}}/users/anonymousAccout
 Content-Type: application/json
 Accept: application/json
 
@@ -11,7 +11,7 @@ Accept: application/json
 }
 ###
 
-POST {{TaSked_HostAddress}}/Group
+POST {{TaSked_HostAddress}}/groups
 Content-Type: application/json
 Accept: application/json
 Authorization: bearer {{User_Token}}
@@ -19,7 +19,7 @@ Authorization: bearer {{User_Token}}
 "Test Group"
 ###
 
-POST {{TaSked_HostAddress}}/subject
+POST {{TaSked_HostAddress}}/subjects
 Content-Type: application/json
 Authorization: bearer {{User_Token}}
 
@@ -27,7 +27,7 @@ Authorization: bearer {{User_Token}}
 ###
 
 
-GET {{TaSked_HostAddress}}/homework
+GET {{TaSked_HostAddress}}/homeworks
 Content-Type: application/json
 Accept: application/json
 Authorization: bearer {{User_Token}}
@@ -35,7 +35,7 @@ Authorization: bearer {{User_Token}}
 
 ###
 
-POST {{TaSked_HostAddress}}/homework
+POST {{TaSked_HostAddress}}/homeworks
 Content-Type: application/json
 Authorization: bearer {{User_Token}}
 

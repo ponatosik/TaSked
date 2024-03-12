@@ -6,9 +6,10 @@ public class Homework
 	public Guid SubjectId {  get; private set; }
 	public string Title { get; set; }
 	public string Description { get; set; }
-	public DateTime? Deadline { get; private set; }
+	public DateTime? Deadline { get; set; }
 	public DateTime CreatedAt { get; private set; }
 	public string? SourceUrl {  get; set; }
+
 	private Homework() { }
 	internal Homework(Guid id, Guid subjectId, string title, string description, DateTime createdAt)
 	{
