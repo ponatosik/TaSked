@@ -23,6 +23,7 @@ public class GetGroupMembersHandler
 		Group group = Group.Create("Test group", user);
 
 		_userId = user.Id;
+		_groupId = group.Id;
 
 		_users.Add(user);
 		_users.Add(User.Create("Test user 2"));
@@ -39,7 +40,7 @@ public class GetGroupMembersHandler
 	[Fact]
 	public async Task Handle_ValidCommand_ShouldReturnGroupMembers()
 	{
-		var request = new GetGroupMembersQuery(_userId);
+		var request = new GetGroupMembersQuery(_userId, _groupId);
 
 		var result = await _handler.Handle(request, new CancellationToken());
 
