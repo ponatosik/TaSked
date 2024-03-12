@@ -16,7 +16,7 @@ public class PromoteMemberCommandHandler : IRequestHandler<PromoteMemberCommand>
 
     public Task Handle(PromoteMemberCommand request, CancellationToken cancellationToken)
     {
-        var promoter = _context.Users.FindById(request.promotedBy);
+        var promoter = _context.Users.FindById(request.PromotedBy);
         if (promoter.GroupId != request.GroupId)
         {
             throw new UserIsNotGroupMemberException(request.GroupId, request.UserId);

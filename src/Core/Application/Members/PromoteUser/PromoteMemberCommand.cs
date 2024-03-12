@@ -3,4 +3,4 @@ using TaSked.Domain;
 
 namespace TaSked.Application;
 
-public record PromoteMemberCommand(Guid promotedBy, Guid GroupId, Guid UserId, GroupRole Role) : IRequest;
+public record PromoteMemberCommand(Guid PromotedBy, Guid GroupId, Guid UserId, GroupRole Role) : IRequest;

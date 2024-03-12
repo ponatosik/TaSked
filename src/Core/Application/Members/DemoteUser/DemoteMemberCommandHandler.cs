@@ -5,7 +5,7 @@ using TaSked.Application.Exceptions;
 
 namespace TaSked.Application;
 
-public class DemoteMemberCommandHandler : IRequestHandler<PromoteMemberCommand>
+public class DemoteMemberCommandHandler : IRequestHandler<DemoteMemberCommand>
 {
     private readonly IApplicationDbContext _context;
 
@@ -14,9 +14,9 @@ public class DemoteMemberCommandHandler : IRequestHandler<PromoteMemberCommand>
         _context = context;
     }
 
-    public Task Handle(PromoteMemberCommand request, CancellationToken cancellationToken)
+    public Task Handle(DemoteMemberCommand request, CancellationToken cancellationToken)
     {
-        var promoter = _context.Users.FindById(request.promotedBy);
+        var promoter = _context.Users.FindById(request.PromotedBy);
         if (promoter.GroupId != request.GroupId)
         {
             throw new UserIsNotGroupMemberException(request.GroupId, request.UserId);
