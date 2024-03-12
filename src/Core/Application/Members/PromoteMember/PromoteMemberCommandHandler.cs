@@ -26,6 +26,8 @@ public class PromoteMemberCommandHandler : IRequestHandler<PromoteMemberCommand>
 
         user.Promote(request.Role, group);
 
+        _context.SaveChangesAsync(cancellationToken);
+
         return Task.FromResult(group.Members.ToList());
     }
 }

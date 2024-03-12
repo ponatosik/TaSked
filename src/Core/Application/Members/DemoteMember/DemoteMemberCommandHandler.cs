@@ -26,6 +26,8 @@ public class DemoteMemberCommandHandler : IRequestHandler<DemoteMemberCommand>
 
         user.Demote(request.Role, group);
 
+        _context.SaveChangesAsync(cancellationToken);
+
         return Task.FromResult(group.Members.ToList());
     }
 }

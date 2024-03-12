@@ -26,6 +26,8 @@ public class BanMemberCommandHandler : IRequestHandler<BanMemberCommand>
 
         group.Leave(user);
 
+        _context.SaveChangesAsync(cancellationToken);
+
         return Task.FromResult(group.Members.ToList());
     }
 }

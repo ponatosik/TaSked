@@ -20,7 +20,7 @@ public class GetAllLessonsInDateRangeHandler : IRequestHandler<GetAllLessonsInDa
         var group = _context.Groups.Include(e => e.Subjects).ThenInclude(e => e.Lessons).FindById(user.GroupId.Value);
 
         var startDate = request.StartDate ?? DateTime.MinValue;
-        var endDate = request.EndDate ?? DateTime.MaxValue;
+        var endDate = request.EndDate ?? DateTime.Now.AddYears(1);
         var lessonsInRange = group.Subjects
             .SelectMany(subject => subject.Lessons)
             .Where(lesson => lesson.Time >= startDate && lesson.Time <= endDate)
