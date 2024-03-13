@@ -66,4 +66,8 @@
 	  <ProjectReference Include="..\ApIClient\ApiClient.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Application\" />
+	</ItemGroup>
+
 </Project>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using TaSked.Api.ApiClient;
+using UraniumUI;
 
 namespace TaSked.App;
 
@@ -14,7 +15,7 @@ public static class MauiProgram
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-			});
+			}).UseUraniumUI().UseUraniumUIMaterial();
 
 		builder.Services.AddHomeworkApiClient(opt => {
 			opt.BaseUrl = "https://localhost:44321";
