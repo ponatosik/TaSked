@@ -2,9 +2,10 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:TaSked.App"
-             x:Class="TaSked.App.MainPage">
+             x:Class="TaSked.App.MainPage"
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material">
 
-    <VerticalStackLayout Padding="50" BackgroundColor="Black">
+    <VerticalStackLayout Padding="20" Spacing="10">
 
         <Label HorizontalOptions="Center" FontSize="40" Margin="0,200,0,0">
             <Label.FormattedText>
@@ -14,9 +15,8 @@
                 </FormattedString>
             </Label.FormattedText>
         </Label>
-
-        <Button Text="Створити групу" Margin="0,100,0,0" FontSize="20"/>
-        <Button Text="Доєднатись до групи" Margin="0,20,0,0" FontSize="20"/>
+        <Button StyleClass="FilledButton" Text="Створити групу" Margin="50,50"/>
+        <Button StyleClass="FilledButton" Text="Доєднатись до групи" Margin="50,-40"/>
 
     </VerticalStackLayout>
 
