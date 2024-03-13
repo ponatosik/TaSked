@@ -13,6 +13,7 @@
     <ProjectReference Include="..\..\Infrastructure\AzureMySqlInAppProvider\Persistance.AzureMySqlInApp.csproj" />
     <ProjectReference Include="..\..\Infrastructure\ExceptionHandling\ExceptionHandling.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Persistance\Persistance.csproj" />
+    <ProjectReference Include="..\ApiContratcs\ApiContratcs.csproj" />
   </ItemGroup>
 
   <ItemGroup>
