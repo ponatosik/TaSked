@@ -71,6 +71,9 @@
 	  <Compile Update="Application\Login\LoginPage.xaml.cs">
 	    <DependentUpon>LoginPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Common\Components\Divider.xaml.cs">
+	    <DependentUpon>Divider.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Common\Components\MaterialCard.xaml.cs">
 	    <DependentUpon>MaterialCard.xaml</DependentUpon>
 	  </Compile>
@@ -78,6 +81,9 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="Application\Login\LoginPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Common\Components\Divider.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Common\Components\MaterialCard.xaml">
