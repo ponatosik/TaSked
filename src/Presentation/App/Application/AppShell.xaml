@@ -4,10 +4,9 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:TaSked.App"
-    Shell.FlyoutBehavior="Flyout"
-    Shell.TabBarIsVisible="False">
+    Shell.FlyoutBehavior="Flyout">
 
-    <FlyoutItem Title="TaSked" FlyoutDisplayOptions="AsMultipleItems">
+    <FlyoutItem Title="TaSked" FlyoutDisplayOptions="AsMultipleItems" Shell.TabBarIsVisible="False">
         <ShellContent
             Title="TaSked"
             ContentTemplate="{DataTemplate local:MainPage}"
@@ -22,7 +21,49 @@
             Title="Join Group"
             ContentTemplate="{DataTemplate local:JoinGroupPage}"
             Route="JoinGroupPage"/>
-
     </FlyoutItem>
+
+    <TabBar>
+        <Tab Title="Завдання">
+            <ShellContent
+                Title="Невиконані"
+                ContentTemplate="{DataTemplate local:TasksPage}"
+                Route="TasksPage"/>
+
+            <ShellContent
+                Title="Всі"
+                ContentTemplate="{DataTemplate local:SubjectPage}"
+                Route="SubjectPage"/>
+
+            <ShellContent
+                Title="За предметами"
+                ContentTemplate="{DataTemplate local:ReportPage}"
+                Route="ReportPage"/>
+        </Tab>
+
+        <Tab Title="Предмети">
+            <ShellContent
+                Title="Всі"
+                ContentTemplate="{DataTemplate local:TasksPage}"
+                Route="TasksPage"/>
+
+            <ShellContent
+                Title="Онлайн посиланняи"
+                ContentTemplate="{DataTemplate local:SubjectPage}"
+                Route="SubjectPage"/>
+
+            <ShellContent
+                Title="Розклад"
+                ContentTemplate="{DataTemplate local:ReportPage}"
+                Route="ReportPage"/>
+        </Tab>
+
+        <Tab Title="Оголошення">
+            <ShellContent
+                Title="Оголошення"
+                ContentTemplate="{DataTemplate local:ReportPage}"
+                Route="ReportPage"/>
+        </Tab>
+    </TabBar>
 
 </Shell>

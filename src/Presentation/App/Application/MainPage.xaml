@@ -9,8 +9,6 @@
 
         <Label Text="TaSked" HorizontalOptions="Center" FontSize="60" Margin="0,200,0,0" TextColor="#FFFFFF"/>
         <Label Text="ТаSked - місце для студентів, учнів та їх завдань." HorizontalOptions="Center" FontSize="15" Margin="0,30,0,0" TextColor="#DFD5EC"/>
-        <!-- <Button StyleClass="FilledButton" Text="Створити групу" Margin="50,50"/> -->
-        <!-- <Button StyleClass="FilledButton" Text="Доєднатись до групи" Margin="50,-40"/> -->
 
         <Frame BackgroundColor="#141218" CornerRadius="10" Margin="20,40" BorderColor="#49454F">
             <StackLayout Orientation="Horizontal">
