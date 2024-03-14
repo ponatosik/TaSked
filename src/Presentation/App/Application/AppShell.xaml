@@ -5,11 +5,24 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:TaSked.App"
     Shell.FlyoutBehavior="Flyout"
-    Title="TaSked.App">
+    Shell.TabBarIsVisible="False">
 
-    <ShellContent
-        Title="TaSked"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage"/>
+    <FlyoutItem Title="TaSked" FlyoutDisplayOptions="AsMultipleItems">
+        <ShellContent
+            Title="TaSked"
+            ContentTemplate="{DataTemplate local:MainPage}"
+            Route="MainPage"/>
+
+        <ShellContent
+            Title="Create Group"
+            ContentTemplate="{DataTemplate local:CreateGroupPage}"
+            Route="CreateGroupPage"/>
+
+        <ShellContent
+            Title="Join Group"
+            ContentTemplate="{DataTemplate local:JoinGroupPage}"
+            Route="JoinGroupPage"/>
+
+    </FlyoutItem>
 
 </Shell>
