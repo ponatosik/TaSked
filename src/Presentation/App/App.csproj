@@ -67,4 +67,16 @@
 	  <ProjectReference Include="..\ApIClient\ApiClient.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Compile Update="Application\Login\LoginPage.xaml.cs">
+	    <DependentUpon>LoginPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Application\Login\LoginPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>
