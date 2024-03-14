@@ -2,8 +2,9 @@ namespace TaSked.App;
 
 public partial class JoinGroupPage : ContentPage
 {
-	public JoinGroupPage()
+	public JoinGroupPage(JoinGroupViewModel viewModel)
 	{
 		InitializeComponent();
+		BindingContext = viewModel;
 	}
 }

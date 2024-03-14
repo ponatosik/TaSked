@@ -31,6 +31,9 @@ public static class MauiProgram
 		builder.Services.AddSingleton<CreateGroupPage>();
 		builder.Services.AddSingleton<CreateGroupViewModel>();
 
+		builder.Services.AddSingleton<JoinGroupPage>();
+		builder.Services.AddSingleton<JoinGroupViewModel>();
+
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
