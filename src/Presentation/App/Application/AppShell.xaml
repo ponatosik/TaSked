@@ -6,22 +6,7 @@
     xmlns:local="clr-namespace:TaSked.App"
     Shell.FlyoutBehavior="Disabled">
 
-    <FlyoutItem Title="TaSked" FlyoutDisplayOptions="AsMultipleItems" Shell.TabBarIsVisible="False">
-        <ShellContent
-            Title="TaSked"
-            ContentTemplate="{DataTemplate local:MainPage}"
-            Route="MainPage"/>
-
-        <ShellContent
-            Title="Create Group"
-            ContentTemplate="{DataTemplate local:CreateGroupPage}"
-            Route="CreateGroupPage"/>
-
-        <ShellContent
-            Title="Join Group"
-            ContentTemplate="{DataTemplate local:JoinGroupPage}"
-            Route="JoinGroupPage"/>
-    </FlyoutItem>
+    
 
     <TabBar>
         <Tab Title="Завдання">
@@ -32,20 +17,20 @@
 
             <ShellContent
                 Title="Всі"
-                ContentTemplate="{DataTemplate local:SubjectPage}"
-                Route="SubjectPage"/>
+                ContentTemplate="{DataTemplate local:TasksPage}"
+                Route="TasksPage"/>
 
             <ShellContent
                 Title="За предметами"
-                ContentTemplate="{DataTemplate local:ReportPage}"
-                Route="ReportPage"/>
+                ContentTemplate="{DataTemplate local:TasksPage}"
+                Route="TasksPage"/>
         </Tab>
 
         <Tab Title="Предмети">
             <ShellContent
                 Title="Всі"
-                ContentTemplate="{DataTemplate local:TasksPage}"
-                Route="TasksPage"/>
+                ContentTemplate="{DataTemplate local:SubjectPage}"
+                Route="SubjectPage"/>
 
             <ShellContent
                 Title="Онлайн посиланняи"
@@ -54,8 +39,8 @@
 
             <ShellContent
                 Title="Розклад"
-                ContentTemplate="{DataTemplate local:ReportPage}"
-                Route="ReportPage"/>
+                ContentTemplate="{DataTemplate local:SubjectPage}"
+                Route="SubjectPage"/>
         </Tab>
 
         <Tab Title="Оголошення">
