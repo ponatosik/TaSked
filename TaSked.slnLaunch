@@ -4,8 +4,7 @@
     "Projects": [
       {
         "Name": "src\\Presentation\\Api\\Api.csproj",
-        "Action": "StartWithoutDebugging",
-        "DebugTarget": ""
+        "Action": "Start"
       },
       {
         "Name": "src\\Presentation\\App\\App.csproj",

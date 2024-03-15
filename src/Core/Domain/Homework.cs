@@ -27,7 +27,7 @@ public class Homework
 
 	public HomeworkTask CreateTask()
 	{
-		var task = new HomeworkTask(this.Id);
+		var task = new HomeworkTask(this);
 		return task;
 	}
 }

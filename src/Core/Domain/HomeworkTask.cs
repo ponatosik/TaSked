@@ -2,12 +2,12 @@
 
 public class HomeworkTask
 {
-	public Guid HomeworkId { get; private set; }
+	public Homework Homework { get; private set; } 
 	public bool Completed { get; set; } = false;
 
 	private HomeworkTask() { }
-	public HomeworkTask(Guid homeworkId)
+	public HomeworkTask(Homework homework)
 	{
-		HomeworkId = homeworkId;
+		Homework = homework;
 	}
 }

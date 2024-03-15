@@ -28,8 +28,13 @@ public static class MauiProgram
 			opt.Timeout = TimeSpan.FromMinutes(3);
 		});
 
+		builder.Services.AddSingleton<LoginService>();
+
 		builder.Services.AddSingleton<CreateGroupPage>();
 		builder.Services.AddSingleton<CreateGroupViewModel>();
+
+		builder.Services.AddSingleton<TasksPage>();
+		builder.Services.AddTransient<TasksViewModel>();
 
 		builder.Services.AddSingleton<JoinGroupPage>();
 		builder.Services.AddSingleton<JoinGroupViewModel>();

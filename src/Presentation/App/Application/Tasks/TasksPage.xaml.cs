@@ -2,8 +2,9 @@ namespace TaSked.App;
 
 public partial class TasksPage : ContentPage
 {
-	public TasksPage()
+	public TasksPage(TasksViewModel viewModel)
 	{
 		InitializeComponent();
+		BindingContext = viewModel;
 	}
 }

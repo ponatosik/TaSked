@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
+             xmlns:local="clr-namespace:TaSked.App.Components"
+             x:DataType="local:TaskCard" 
+             x:Class="TaSked.App.Components.TaskCard"
+             x:Name="TaskCardComponent">
+
+    <uranium:StatefulContentView StyleClass="Elevation3" Margin="10">
+        <Border Padding="20" BackgroundColor="{StaticResource DarkSurface}" Stroke="{StaticResource DarkOutlineVariant}" StrokeShape="{RoundRectangle CornerRadius=12}">
+            <Grid RowSpacing="10" ColumnSpacing="10">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                
+                <Label Text="{Binding Model.TaskTitle, Source={Reference TaskCardComponent}}"
+                       FontAttributes="Bold"
+                       Grid.Column="0"
+                       Grid.Row="0"/>
+                
+                <Label Text="{Binding Model.SubjectName, Source={Reference TaskCardComponent}}"
+                       TextColor="{StaticResource DarkSecondaryContainer}"
+                       Grid.Column="1"
+                       Grid.Row="0"/>
+
+                <Label Text="{Binding Model.Description, Source={Reference TaskCardComponent}}"
+                       Grid.Column="0"
+                       Grid.Row="1"
+                       Grid.ColumnSpan="2"/>
+            </Grid>
+
+        </Border>
+    </uranium:StatefulContentView>
+
+</ContentView>

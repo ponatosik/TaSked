@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using TaSked.Api.ApiClient;
+using TaSked.App.Common;
 
 namespace TaSked.App;
 
@@ -11,28 +12,23 @@ public partial class CreateGroupViewModel : ObservableObject
 	[ObservableProperty]
 	private string _userNickname;
 
-	private readonly ITaSkedSevice _api;
-	private readonly IUserTokenStore _userTokenStore;
+	private readonly LoginService _loginService;
 
-
-    public CreateGroupViewModel(ITaSkedSevice taSkedSevice, IUserTokenStore userTokenStore)
+    public CreateGroupViewModel(LoginService loginService)
     {
-		_api = taSkedSevice;
-		_userTokenStore = userTokenStore;
-    }
+		_loginService = loginService;
+	}
 
 	[RelayCommand]
-	public async void CreateGroup()
+	public async Task CreateGroup()
 	{ 
 		if (string.IsNullOrEmpty(_groupName) || string.IsNullOrEmpty(_userNickname))
 		{
 			return;
 		}
 
-		string token = await _api.RegisterAnonymous(new Api.Requests.CreateUserTokenRequest(_userNickname));
-		_userTokenStore.AccessToken = token;
-		await _api.CreateGroup(new Api.Requests.CreateGroupRequest(_groupName));
+		await _loginService.CreateGroupAsync(_userNickname, _groupName);
 
-        Shell.Current.GoToAsync("//TasksPage");
-    }
+		await Shell.Current.GoToAsync("//TasksPage");
+	}
 }
