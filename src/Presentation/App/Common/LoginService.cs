@@ -38,4 +38,18 @@ public class LoginService
 		Guid groupId = (await _api.GetInvitationById(invitation)).GroupId;
 		await _api.ActivateInvitation(new Api.Requests.ActivateInvintationRequest(invitation,groupId));
 	}
+
+	public async Task<bool> IsAuthorized()
+	{
+		if (_tokenStore.AccessToken == null)
+		{
+			return false;
+		}
+		if ((await _api.CurrentUser()).GroupId == null)
+		{
+			return false;
+		}
+
+		return true;
+	}
 }
