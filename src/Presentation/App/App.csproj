@@ -72,6 +72,18 @@
 	  <Compile Update="Application\Login\LoginPage.xaml.cs">
 	    <DependentUpon>LoginPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Application\Subject\SubjectPage3.xaml.cs">
+	    <DependentUpon>SubjectPage3.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Application\Subject\SubjectPage2.xaml.cs">
+	    <DependentUpon>SubjectPage2.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Application\Tasks\TasksPage3.xaml.cs">
+	    <DependentUpon>TasksPage3.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Application\Tasks\TasksPage2.xaml.cs">
+	    <DependentUpon>TasksPage2.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Common\Components\Divider.xaml.cs">
 	    <DependentUpon>Divider.xaml</DependentUpon>
 	  </Compile>
@@ -93,7 +105,19 @@
 	  <MauiXaml Update="Application\Report\ReportPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Application\Subject\SubjectPage3.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Application\Subject\SubjectPage2.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Application\Subject\SubjectPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Application\Tasks\TasksPage3.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Application\Tasks\TasksPage2.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Application\Tasks\TasksPage.xaml">
