@@ -33,6 +33,6 @@ public partial class CreateGroupViewModel : ObservableObject
 		_userTokenStore.AccessToken = token;
 		await _api.CreateGroup(new Api.Requests.CreateGroupRequest(_groupName));
 
-		// TODO: Go to group page
-	}
+        Shell.Current.GoToAsync("//TasksPage");
+    }
 }

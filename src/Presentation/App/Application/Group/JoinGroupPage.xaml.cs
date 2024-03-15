@@ -7,9 +7,4 @@ public partial class JoinGroupPage : ContentPage
 		InitializeComponent();
 		BindingContext = viewModel;
 	}
-
-    private void JoinClick(object sender, EventArgs e)
-    {
-        Shell.Current.GoToAsync("//TasksPage");
-    }
 }

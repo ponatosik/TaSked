@@ -39,7 +39,7 @@ public partial class JoinGroupViewModel : ObservableObject
 		string token = _api.RegisterAnonymous(new Api.Requests.CreateUserTokenRequest(_userNickname)).Result;
 		_userTokenStore.AccessToken = token;
 		_api.ActivateInvitation(new Api.Requests.ActivateInvintationRequest(invitationId, groupId)).Wait();
-
-		// TODO: Go to group page
-	}
+        
+         Shell.Current.GoToAsync("//TasksPage");
+    }
 }

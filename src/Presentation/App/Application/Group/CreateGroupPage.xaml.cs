@@ -7,9 +7,4 @@ public partial class CreateGroupPage : ContentPage
 		InitializeComponent();
 		BindingContext = viewModel;
 	}
-
-    private void CreateClick(object sender, EventArgs e)
-    {
-        Shell.Current.GoToAsync("//TasksPage");
-    }
 }

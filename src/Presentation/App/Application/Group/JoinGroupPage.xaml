@@ -13,7 +13,7 @@
             <material:TextField Text="{Binding GroupInvitationId}" Title="ID запрошення" Margin="30,40"/>
             <material:TextField Text ="{Binding UserNickname}" Title="Ваш псевдонім" Margin="30,-20"/>
             <Label Text="Ваш псевдонім бачитимуть модератори групи. Псевдонім неможливо змінити пізніше." HorizontalOptions="Center" FontSize="12" Margin="25,40,0,0" TextColor="#DFD5EC"/>
-            <Button StyleClass="FilledButton" Clicked ="JoinClick" Command="{Binding JoinGroupCommand}" Text="Доєднатися" Margin="50,50"/>
+            <Button StyleClass="FilledButton" Command="{Binding JoinGroupCommand}" Text="Доєднатися" Margin="50,50"/>
         </VerticalStackLayout>
     </VerticalStackLayout>
 </ContentPage>
