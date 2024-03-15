@@ -32,12 +32,12 @@
 
             <ShellContent
                 Title="Всі"
-                ContentTemplate="{DataTemplate local:TasksPage}"
+                ContentTemplate="{DataTemplate local:TasksPage2}"
                 Route="TasksPage"/>
 
             <ShellContent
                 Title="За предметами"
-                ContentTemplate="{DataTemplate local:TasksPage}"
+                ContentTemplate="{DataTemplate local:TasksPage3}"
                 Route="TasksPage"/>
         </Tab>
 
@@ -49,12 +49,12 @@
 
             <ShellContent
                 Title="Онлайн посиланняи"
-                ContentTemplate="{DataTemplate local:SubjectPage}"
+                ContentTemplate="{DataTemplate local:SubjectPage2}"
                 Route="SubjectPage"/>
 
             <ShellContent
                 Title="Розклад"
-                ContentTemplate="{DataTemplate local:SubjectPage}"
+                ContentTemplate="{DataTemplate local:SubjectPage3}"
                 Route="SubjectPage"/>
         </Tab>
 
