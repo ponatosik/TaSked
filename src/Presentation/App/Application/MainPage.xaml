@@ -16,6 +16,9 @@
                     <Label Text="Доєднатися до групи" FontSize="15" TextColor="#D0BCFF"/>
                     <Label Text="Доєднатися до вже існуючої групи за запрошенням" FontSize="10" TextColor="#E6E0E9"/>
                 </StackLayout>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="JoinGroupTapped"/>
+                </StackLayout.GestureRecognizers>
             </StackLayout>
         </Frame>
 
@@ -25,6 +28,9 @@
                     <Label Text="Створити нову групу" FontSize="15" TextColor="#EFB8C8"/>
                     <Label Text="Створити нову групу та стати її адміністратором" FontSize="10" TextColor="#E6E0E9"/>
                 </StackLayout>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="CreateGroupTapped"/>
+                </StackLayout.GestureRecognizers>
             </StackLayout>
         </Frame>
 
