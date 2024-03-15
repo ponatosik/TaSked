@@ -9,7 +9,7 @@
     <FlyoutItem Title="TaSked" FlyoutDisplayOptions="AsMultipleItems" Shell.TabBarIsVisible="False">
         <ShellContent
             Title="Loading"
-            ContentTemplate="{DataTemplate views:LoadingPage}"
+            ContentTemplate="{DataTemplate local:LoadingPage}"
             Route="LoadingPage" />
         
         <ShellContent

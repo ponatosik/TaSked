@@ -5,7 +5,7 @@
              x:Class="TaSked.App.LoadingPage"
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material">
     <VerticalStackLayout>
-        <ActivityIndicator IsRunning="True" Color="Black" />
-        <Label Text="Перевірка автентифікації..." VerticalOptions="Center" HorizontalOptions="Center" />
+        <ActivityIndicator IsRunning="True" Margin="50,300"/>
+        <Label Text="Перевірка автентифікації..." VerticalOptions="Center" HorizontalOptions="Center" Margin="50,-300"/>
     </VerticalStackLayout>
 </ContentPage>
