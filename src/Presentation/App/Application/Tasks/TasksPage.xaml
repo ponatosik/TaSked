@@ -7,7 +7,7 @@
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material">
 
     <ScrollView>
-        <ListView ItemsSource="{Binding Tasks}" >
+        <ListView ItemsSource="{Binding Tasks}" HasUnevenRows="True">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="local:TaskViewModel">
                     <ViewCell>

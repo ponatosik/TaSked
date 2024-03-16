@@ -9,7 +9,7 @@
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material">
 
     <ScrollView>
-        <ListView ItemsSource="{Binding Reports}" >
+        <ListView ItemsSource="{Binding Reports}" HasUnevenRows="True">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="domain:Report">
                     <ViewCell>
