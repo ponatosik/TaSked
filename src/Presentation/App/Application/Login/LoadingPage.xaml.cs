@@ -13,6 +13,9 @@ public partial class LoadingPage : ContentPage
 
     protected override async void OnNavigatedTo(NavigatedToEventArgs args)
     {
+		// Win UI dotnet Maui bug: https://learn.microsoft.com/en-us/answers/questions/1375393/pending-navigations-still-processing-when-navigati
+		await Task.Delay(1);
+
         if (await _loginService.IsAuthorized())
         {
             await Shell.Current.GoToAsync("//TasksPage");
