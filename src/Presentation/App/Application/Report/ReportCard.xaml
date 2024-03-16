@@ -12,15 +12,11 @@
         <Border Padding="20" BackgroundColor="{StaticResource DarkSurface}" Stroke="{StaticResource DarkOutlineVariant}" StrokeShape="{RoundRectangle CornerRadius=12}">
             <VerticalStackLayout>
                 <Label Text="{Binding ReportModel.Title, Source={Reference ReportCardComponent}}"
-                       FontAttributes="Bold"
-                       Grid.Column="0"
-                       Grid.Row="0"/>
+                       HorizontalOptions="Center"
+                       FontSize="Medium"
+                       FontAttributes="Bold"/>
 
-                <Label Text="{Binding ReportModel.Message, Source={Reference ReportCardComponent}}"
-                       FontAttributes="Bold"
-                       Grid.Column="0"
-                       Grid.Row="0"/>
-
+                <Label Text="{Binding ReportModel.Message, Source={Reference ReportCardComponent}}"/>
             </VerticalStackLayout>
         </Border>
     </uranium:StatefulContentView>
