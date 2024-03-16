@@ -17,7 +17,7 @@ public class GetAllReportHandler : IRequestHandler<GetAllReportQuery, List<Repor
     public Task<List<Report>> Handle(GetAllReportQuery request, CancellationToken cancellationToken)
     {
         var user = _context.Users.FindById(request.UserId);
-        var group = _context.Groups.FindById(user.GroupId.Value);
+        var group = _context.Groups.Include(g => g.Reports).FindById(user.GroupId.Value);
 
         return Task.FromResult(group.Reports.ToList());
     }
