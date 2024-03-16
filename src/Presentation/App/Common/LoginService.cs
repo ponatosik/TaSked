@@ -1,4 +1,7 @@
-﻿using TaSked.Api.ApiClient;
+﻿using Refit;
+using System.Net;
+using TaSked.Api.ApiClient;
+using TaSked.Domain;
 
 namespace TaSked.App.Common;
 
@@ -11,16 +14,6 @@ public class LoginService
 	{
 		_api = api;
 		_tokenStore = tokenStore;
-
-		// Workaround bug.
-		// CreateGroupAsync and JoinGroup async would crush app
-		// if called wrom viewmodel command
-		// and if it is first call to the API.
-		// probably bug with refit client initialization
-		try
-		{
-			_api.CurrentUser().Wait();
-		}catch (Exception ex) { }
 	}
 
 	public async Task CreateGroupAsync(string username, string groupName)
@@ -29,33 +22,58 @@ public class LoginService
 		_tokenStore.AccessToken = token;
 		await _api.CreateGroup(new Api.Requests.CreateGroupRequest(groupName));
 	}
-	
+
 	public async Task JoinGroupAsync(string username, Guid invitation)
 	{
 		string token = await _api.RegisterAnonymous(new Api.Requests.CreateUserTokenRequest(username));
 		_tokenStore.AccessToken = token;
 
 		Guid groupId = (await _api.GetInvitationById(invitation)).GroupId;
-		await _api.ActivateInvitation(new Api.Requests.ActivateInvintationRequest(invitation,groupId));
+		await _api.ActivateInvitation(new Api.Requests.ActivateInvintationRequest(invitation, groupId));
 	}
 
-	public async Task<bool> IsAuthorized()
+	public void Logout()
 	{
+		_tokenStore.AccessToken = null;
+		Microsoft.Maui.Controls.Application.Current?.Quit();
+	}
+
+	public async Task<GroupRole> GetUserRoleAsync()
+	{
+		return (await _api.CurrentUser()).Role;
+	}
+
+	public async Task<bool> IsAuthorizedAsync()
+	{
+		return HasAccessToken() && await HasGroup();
+	}
+
+	private bool HasAccessToken()
+	{
+		return _tokenStore.AccessToken != null;
+	}
+
+	private async Task<bool> HasGroup()
+	{
+		User user;
+
 		try
 		{
-			if (_tokenStore.AccessToken == null)
-			{
-				return false;
-			}
-			if ((await _api.CurrentUser()).GroupId == null)
-			{
-				return false;
-			}
-		} catch (Exception ex)
+			user = await _api.CurrentUser();
+		}
+		catch (ApiException exception)
 		{
-			return false;
+			if (exception.StatusCode == HttpStatusCode.Unauthorized ||
+				exception.StatusCode == HttpStatusCode.Forbidden)
+			{
+				return false;
+			}
+			else
+			{
+				throw;
+			}
 		}
 
-		return true;
+		return user.GroupId != null;
 	}
 }
