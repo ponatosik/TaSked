@@ -53,7 +53,7 @@ public class LoginService
 			}
 		} catch (Exception ex)
 		{
-
+			return false;
 		}
 
 		return true;
