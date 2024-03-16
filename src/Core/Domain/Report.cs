@@ -6,6 +6,8 @@ public class Report
 	public string Title { get; private set; }
 	public string Message { get; private set; }
 
+	private Report() { }
+
 	internal Report(Guid id, string title, string message)
 	{
 		Id = id;
