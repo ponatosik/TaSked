@@ -9,11 +9,11 @@ public partial class MainPage : ContentPage
 
     private void JoinGroupTapped(object sender, EventArgs e)
     {
-        Shell.Current.GoToAsync("//JoinGroupPage");
+        Shell.Current.GoToAsync("JoinGroupPage");
     }
 
     private void CreateGroupTapped(object sender, EventArgs e)
     {
-        Shell.Current.GoToAsync("//CreateGroupPage");
+        Shell.Current.GoToAsync("CreateGroupPage");
     }
 }
