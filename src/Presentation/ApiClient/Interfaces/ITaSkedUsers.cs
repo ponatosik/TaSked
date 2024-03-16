@@ -5,7 +5,7 @@ namespace TaSked.Api.ApiClient;
 
 public interface ITaSkedUsers
 {
-	[Post("/Users/Account")]
+	[Get("/Users/Account")]
 	public Task<User> CurrentUser();
 
 	[Post("/Users/{id}")]
