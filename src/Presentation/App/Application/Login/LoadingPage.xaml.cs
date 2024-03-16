@@ -15,11 +15,11 @@ public partial class LoadingPage : ContentPage
     {
         if (await _loginService.IsAuthorized())
         {
-            await Shell.Current.GoToAsync("//MainPage");
+            await Shell.Current.GoToAsync("//TasksPage");
         }
         else
         {
-            await Shell.Current.GoToAsync("//LoginPage");
+            await Shell.Current.GoToAsync("//MainPage");
         }
         base.OnNavigatedTo(args);
     }

@@ -24,11 +24,13 @@ public static class MauiProgram
 		builder.Services.AddSingleton<IUserTokenStore, UserTokenSecureStorage>();
 
 		builder.Services.AddTaSkedApi(opt => {
-			opt.BaseUrl = "https://localhost:44321";
+			opt.BaseUrl = "https://taskedapi.azurewebsites.net/";
 			opt.Timeout = TimeSpan.FromMinutes(3);
 		});
 
-		builder.Services.AddSingleton<LoginService>();
+        //SecureStorage.Default.Remove("TaSked.AccessToken");
+
+        builder.Services.AddSingleton<LoginService>();
 
 		builder.Services.AddSingleton<CreateGroupPage>();
 		builder.Services.AddSingleton<CreateGroupViewModel>();
@@ -39,8 +41,10 @@ public static class MauiProgram
 		builder.Services.AddSingleton<JoinGroupPage>();
 		builder.Services.AddSingleton<JoinGroupViewModel>();
 
+        builder.Services.AddSingleton<LoadingPage>();
+
 #if DEBUG
-		builder.Logging.AddDebug();
+        builder.Logging.AddDebug();
 #endif
 
 		return builder.Build();

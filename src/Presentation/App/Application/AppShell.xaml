@@ -7,15 +7,10 @@
     Shell.FlyoutBehavior="Disabled">
 
     <FlyoutItem Title="TaSked" FlyoutDisplayOptions="AsMultipleItems" Shell.TabBarIsVisible="False">
-        <!-- <ShellContent
+        <ShellContent
             Title="Loading"
             ContentTemplate="{DataTemplate local:LoadingPage}"
             Route="LoadingPage" />
-        
-        <ShellContent
-            Title="TaSked"
-            ContentTemplate="{DataTemplate local:LoginPage}"
-            Route="LoginPage"/> -->
 
         <ShellContent
             Title="TaSked"
