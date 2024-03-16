@@ -41,13 +41,19 @@ public class LoginService
 
 	public async Task<bool> IsAuthorized()
 	{
-		if (_tokenStore.AccessToken == null)
+		try
 		{
-			return false;
-		}
-		if ((await _api.CurrentUser()).GroupId == null)
+			if (_tokenStore.AccessToken == null)
+			{
+				return false;
+			}
+			if ((await _api.CurrentUser()).GroupId == null)
+			{
+				return false;
+			}
+		} catch (Exception ex)
 		{
-			return false;
+
 		}
 
 		return true;
