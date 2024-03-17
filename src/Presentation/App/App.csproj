@@ -102,7 +102,7 @@
 	  <MauiXaml Update="Application\Report\Create\CreateReportPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Application\Report\ReportPage.xaml">
+	  <MauiXaml Update="Application\Report\Get\ReportPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Application\Report\ReportCard.xaml">
@@ -111,7 +111,7 @@
 	  <MauiXaml Update="Application\Subject\SubjectPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Application\Tasks\TaskCard.xaml">
+	  <MauiXaml Update="Application\Tasks\Get\TaskCard.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Application\Tasks\TasksPage.xaml">
