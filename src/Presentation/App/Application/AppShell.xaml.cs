@@ -7,5 +7,6 @@ public partial class AppShell : Shell
 		InitializeComponent();
 		Routing.RegisterRoute("MainPage/CreateGroupPage", typeof(CreateGroupPage));
 		Routing.RegisterRoute("MainPage/JoinGroupPage", typeof(JoinGroupPage));
+		Routing.RegisterRoute("ReportPage/CreateReportPage", typeof(CreateReportPage));
 	}
 }

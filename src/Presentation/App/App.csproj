@@ -75,6 +75,9 @@
 	  <Compile Update="Application\Report\ReportCard.xaml.cs">
 	    <DependentUpon>ReportCard.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Application\Report\CreateReportPage.xaml.cs">
+	    <DependentUpon>CreateReportPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Common\Components\Divider.xaml.cs">
 	    <DependentUpon>Divider.xaml</DependentUpon>
 	  </Compile>
@@ -94,6 +97,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Application\Login\LoginPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Application\Report\CreateReportPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Application\Report\ReportPage.xaml">

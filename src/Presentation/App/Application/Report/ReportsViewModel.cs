@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using TaSked.Api.ApiClient;
 using TaSked.Domain;
@@ -23,5 +24,10 @@ public partial class RepotrsViewModel : ObservableObject
 		return _api.GetAllReports().Result;
 	}
 
+	[RelayCommand]
+	private async Task CreateReport()
+	{
+		await Shell.Current.GoToAsync("CreateReportPage");		
+	}
 }
 

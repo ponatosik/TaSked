@@ -71,4 +71,9 @@
         </Tab>
     </TabBar>
 
+    <ShellContent
+        Title="Створити оголошення"
+        ContentTemplate="{DataTemplate local:CreateReportPage}"
+        Route="CreateReport"/>
+
 </Shell>
