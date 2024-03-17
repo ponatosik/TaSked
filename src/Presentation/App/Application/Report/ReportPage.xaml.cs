@@ -2,9 +2,19 @@ namespace TaSked.App;
 
 public partial class ReportPage : ContentPage
 {
-	public ReportPage(RepotrsViewModel model)
+	private RepotrsViewModel _viewModel;
+
+	public ReportPage(RepotrsViewModel viewModel)
 	{
 		InitializeComponent();
-		BindingContext = model;
+		_viewModel = viewModel;
+		BindingContext = _viewModel;
+	}
+
+	protected override void OnNavigatedTo(NavigatedToEventArgs args)
+	{
+		_viewModel.ReloadReports();
+
+		base.OnNavigatedTo(args);
 	}
 }

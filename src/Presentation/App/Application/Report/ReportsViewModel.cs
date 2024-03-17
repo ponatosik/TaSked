@@ -16,7 +16,14 @@ public partial class RepotrsViewModel : ObservableObject
 	public RepotrsViewModel(ITaSkedSevice api)
 	{
 		_api = api;
-		_reports = new ObservableCollection<Report>(LoadReports());
+		_reports = new ObservableCollection<Report>();
+	}
+
+	[RelayCommand]
+	public void ReloadReports()
+	{ 	
+		Reports.Clear();
+		LoadReports().ForEach(report => Reports.Add(report));
 	}
 
 	private List<Report> LoadReports()

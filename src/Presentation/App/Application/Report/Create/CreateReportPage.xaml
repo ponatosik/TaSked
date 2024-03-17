@@ -4,9 +4,17 @@
              xmlns:local="clr-namespace:TaSked.App"
              xmlns:components="clr-namespace:TaSked.App.Components"
              xmlns:domain="clr-namespace:TaSked.Domain;assembly=Domain"
+             x:DataType="local:CreateReportViewModel"
              x:Class="TaSked.App.CreateReportPage"
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material">
 
-    <Label Text="Create new Report"/>
+    <StackLayout>
+        <Label Text="Створити оголошення"/>
+        
+        <material:TextField Title="Заголовок" Text="{Binding Title}"/>
+        <material:TextField Title="Текст оголошення" Text="{Binding Message}"/>
+        <Button Command="{Binding CreateReportCommand}"/>
+        
+    </StackLayout>
 
 </ContentPage>

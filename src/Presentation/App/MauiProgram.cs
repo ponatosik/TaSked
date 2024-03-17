@@ -28,9 +28,9 @@ public static class MauiProgram
 			opt.Timeout = TimeSpan.FromMinutes(3);
 		});
 
-        //SecureStorage.Default.Remove("TaSked.AccessToken");
+		//SecureStorage.Default.Remove("TaSked.AccessToken");
 
-        builder.Services.AddSingleton<LoginService>();
+		builder.Services.AddSingleton<LoginService>();
 
 		builder.Services.AddSingleton<CreateGroupPage>();
 		builder.Services.AddSingleton<CreateGroupViewModel>();
@@ -43,6 +43,9 @@ public static class MauiProgram
 
 		builder.Services.AddSingleton<JoinGroupPage>();
 		builder.Services.AddSingleton<JoinGroupViewModel>();
+
+		builder.Services.AddScoped<CreateReportPage>();
+		builder.Services.AddScoped<CreateReportViewModel>();
 
         builder.Services.AddSingleton<LoadingPage>();
 
