@@ -9,6 +9,16 @@
              x:Name="SubjectCardComponent">
 
     <uranium:StatefulContentView StyleClass="Elevation3" Margin="10">
+
+        <FlyoutBase.ContextFlyout>
+            <MenuFlyout>
+                <MenuFlyoutItem 
+                            Text="Змінити"/>
+                <MenuFlyoutItem 
+                            Text="Видалити"/>
+            </MenuFlyout>
+        </FlyoutBase.ContextFlyout>
+
         <Border Padding="20" BackgroundColor="{StaticResource DarkSurface}" Stroke="{StaticResource DarkOutlineVariant}" StrokeShape="{RoundRectangle CornerRadius=12}">
             <VerticalStackLayout>
                 <Label Text="{Binding SubjectDTOModel.Name, Source={Reference SubjectCardComponent}}"
