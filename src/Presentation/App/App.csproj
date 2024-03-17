@@ -78,6 +78,15 @@
 	  <Compile Update="Application\Report\Create\CreateReportPage.xaml.cs">
 	    <DependentUpon>CreateReportPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Application\Subject\Create\CreateSubjectPage.xaml.cs">
+	    <DependentUpon>CreateSubjectPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Application\Subject\Get\SubjectPage.xaml.cs">
+	    <DependentUpon>SubjectPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Application\Subject\SubjectCard.xaml.cs">
+	    <DependentUpon>SubjectCard.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Common\Components\Divider.xaml.cs">
 	    <DependentUpon>Divider.xaml</DependentUpon>
 	  </Compile>
@@ -108,7 +117,13 @@
 	  <MauiXaml Update="Application\Report\ReportCard.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Application\Subject\SubjectPage.xaml">
+	  <MauiXaml Update="Application\Subject\Create\CreateSubjectPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Application\Subject\Get\SubjectPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Application\Subject\SubjectCard.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Application\Tasks\Get\TaskCard.xaml">

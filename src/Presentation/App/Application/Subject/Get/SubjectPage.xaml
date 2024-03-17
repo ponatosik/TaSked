@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:TaSked.App"
+             xmlns:components="clr-namespace:TaSked.App.Components"
+             x:DataType="local:SubjectsViewModel"
+             xmlns:domain="clr-namespace:TaSked.Domain;assembly=Domain"
+             x:Class="TaSked.App.SubjectPage"
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material">
+
+    <AbsoluteLayout
+        Margin="0,0"
+        Padding="0,0">
+
+        <ScrollView
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="SizeProportional">
+
+            <ListView ItemsSource="{Binding Subjects}" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="domain:Report">
+                        <ViewCell>
+                            <VerticalStackLayout>
+                                <components:SubjectCard SubjectDTOModel ="{Binding}"/>
+                            </VerticalStackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </ScrollView>
+
+        <Button
+            AbsoluteLayout.LayoutBounds="0.95,0.95,50,50"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            Text="+" Command="{Binding CreateSubjectCommand}"/>
+    </AbsoluteLayout>
+</ContentPage>

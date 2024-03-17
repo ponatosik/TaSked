@@ -40,12 +40,16 @@ public static class MauiProgram
 
 		builder.Services.AddSingleton<RepotrsViewModel>();
 		builder.Services.AddSingleton<ReportPage>();
+		builder.Services.AddScoped<CreateReportPage>();
+		builder.Services.AddScoped<CreateReportViewModel>();
 
 		builder.Services.AddSingleton<JoinGroupPage>();
 		builder.Services.AddSingleton<JoinGroupViewModel>();
 
-		builder.Services.AddScoped<CreateReportPage>();
-		builder.Services.AddScoped<CreateReportViewModel>();
+		builder.Services.AddSingleton<SubjectsViewModel>();
+		builder.Services.AddSingleton<SubjectPage>();
+		builder.Services.AddScoped<CreateSubjectPage>();
+		builder.Services.AddScoped<CreateSubjectViewModel>();
 
         builder.Services.AddSingleton<LoadingPage>();
 

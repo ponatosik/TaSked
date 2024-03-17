@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
+             xmlns:local="clr-namespace:TaSked.App.Components"
+             xmlns:domain="clr-namespace:TaSked.Domain;assembly=Domain"
+             x:DataType="local:SubjectCard" 
+             x:Class="TaSked.App.Components.SubjectCard"
+             x:Name="SubjectCardComponent">
+
+    <uranium:StatefulContentView StyleClass="Elevation3" Margin="10">
+        <Border Padding="20" BackgroundColor="{StaticResource DarkSurface}" Stroke="{StaticResource DarkOutlineVariant}" StrokeShape="{RoundRectangle CornerRadius=12}">
+            <VerticalStackLayout>
+                <Label Text="{Binding SubjectDTOModel.Name, Source={Reference SubjectCardComponent}}"
+                       FontSize="Medium"
+                       FontAttributes="Bold"/>
+
+                <Label Text="{Binding SubjectDTOModel?.Teacher?.FullName, Source={Reference SubjectCardComponent}}"/>
+            </VerticalStackLayout>
+        </Border>
+    </uranium:StatefulContentView>
+
+</ContentView>
