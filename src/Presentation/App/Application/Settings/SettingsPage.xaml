@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TaSked.App.Application.SettingsPage"
+             xmlns:local="clr-namespace:TaSked.App.Application"
+             x:DataType="local:SettingsViewModel"
+             Title="SettingsPage">
+    <VerticalStackLayout>
+        <Button
+            Text="Вийти з акаунта"
+            Command="{Binding LogoutCommand}"/>
+    </VerticalStackLayout>
+</ContentPage>

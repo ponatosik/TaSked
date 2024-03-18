@@ -27,7 +27,7 @@ internal class UserTokenSecureStorage : IUserTokenStore
 		set 
 		{
 			_accessToken = value;
-			_storage.SetAsync(SECURE_STORAGE_KEY, value);
+			_storage.Remove(SECURE_STORAGE_KEY);
 		}
 	}
 }

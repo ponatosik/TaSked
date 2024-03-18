@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using TaSked.Api.ApiClient;
+using TaSked.App.Application;
 using TaSked.App.Common;
 using UraniumUI;
 
@@ -51,12 +52,19 @@ public static class MauiProgram
 		builder.Services.AddScoped<CreateSubjectPage>();
 		builder.Services.AddScoped<CreateSubjectViewModel>();
 
+		builder.Services.AddSingleton<SettingsViewModel>();
+		builder.Services.AddSingleton<AppShell>();
+		builder.Services.AddSingleton<SettingsPage>();
+
         builder.Services.AddSingleton<LoadingPage>();
 
+
 #if DEBUG
-        builder.Logging.AddDebug();
+		builder.Logging.AddDebug();
 #endif
 
-		return builder.Build();
+		var app = builder.Build();
+		ServiceHelper.Initialize(app.Services);
+		return app;
 	}
 }
