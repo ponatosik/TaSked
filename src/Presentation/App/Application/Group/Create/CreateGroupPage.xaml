@@ -4,7 +4,9 @@
              xmlns:local="clr-namespace:TaSked.App"
              x:Class="TaSked.App.CreateGroupPage"
              x:DataType="local:CreateGroupViewModel"
-             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material">
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             Shell.NavBarIsVisible="false">
+    
     <VerticalStackLayout>
         <Label Text="Створити групу" HorizontalOptions="Center" FontSize="30" Margin="0,200,0,0" TextColor="#FFFFFF"/>
 

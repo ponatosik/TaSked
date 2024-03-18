@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:TaSked.App"
              x:Class="TaSked.App.LoadingPage"
-             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material">
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             Shell.NavBarIsVisible="false">
     <VerticalStackLayout>
         <ActivityIndicator IsRunning="True" Margin="50,300"/>
         <Label Text="Перевірка автентифікації..." VerticalOptions="Center" HorizontalOptions="Center" Margin="50,-300"/>

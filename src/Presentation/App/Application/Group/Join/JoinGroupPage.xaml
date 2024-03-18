@@ -4,7 +4,8 @@
              xmlns:local="clr-namespace:TaSked.App"
              x:Class="TaSked.App.JoinGroupPage"
              x:DataType="local:JoinGroupViewModel"
-             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material">
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             Shell.NavBarIsVisible="false">
     
     <VerticalStackLayout>
         <VerticalStackLayout>
