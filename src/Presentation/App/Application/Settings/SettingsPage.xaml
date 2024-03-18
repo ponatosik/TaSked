@@ -4,7 +4,8 @@
              x:Class="TaSked.App.Application.SettingsPage"
              xmlns:local="clr-namespace:TaSked.App.Application"
              x:DataType="local:SettingsViewModel"
-             Title="SettingsPage">
+             Title="SettingsPage"
+             Shell.NavBarIsVisible="false">
     <VerticalStackLayout>
         <Button
             Text="Вийти з акаунта"
