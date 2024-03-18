@@ -9,7 +9,7 @@
              Shell.TabBarIsVisible="False">
     <VerticalStackLayout>
         <Button
-            Text="Вийти з акаунта"
+            Text="Вийти з акаунта" Margin="100,40"
             Command="{Binding LogoutCommand}"/>
     </VerticalStackLayout>
 </ContentPage>
