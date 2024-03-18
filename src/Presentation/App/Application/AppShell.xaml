@@ -6,6 +6,14 @@
     xmlns:local="clr-namespace:TaSked.App"
     Shell.FlyoutBehavior="Disabled">
 
+    <Shell.ToolbarItems>
+        <ToolbarItem>
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="MaterialIconsOutlined-Regular" Glyph="&#xe51c;"/>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </Shell.ToolbarItems>
+
     <FlyoutItem Title="TaSked" FlyoutDisplayOptions="AsMultipleItems" Shell.TabBarIsVisible="False">
         <ShellContent
             Title="Loading"
@@ -29,6 +37,19 @@
     </FlyoutItem>
 
     <TabBar>
+        <!-- <Shell.TitleView>
+            <HorizontalStackLayout VerticalOptions="Fill">
+                <Label
+            Text="TaSked"
+            FontFamily="Strande2"
+            TextColor="White"
+            VerticalTextAlignment="Center"
+            VerticalOptions="Center"
+            HeightRequest="50"
+            FontSize="Medium" />
+            </HorizontalStackLayout>
+        </Shell.TitleView> -->
+
         <Tab Title="Завдання">
             <ShellContent
                 Title="Невиконані"
