@@ -35,6 +35,11 @@
             Title="Join Group"
             ContentTemplate="{DataTemplate local:JoinGroupPage}"
             Route="JoinGroupPage"/>
+
+        <ShellContent
+            Title="Налаштування"
+            Route="Setting"/>
+
     </FlyoutItem>
 
     <TabBar>
@@ -97,10 +102,5 @@
         Title="Створити оголошення"
         ContentTemplate="{DataTemplate local:CreateReportPage}"
         Route="CreateReport"/>
-    
-    <ShellContent
-        Title="Налаштування"
-        ContentTemplate="{DataTemplate local:CreateReportPage}"
-        Route="Setting"/>
 
 </Shell>
