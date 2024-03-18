@@ -30,8 +30,9 @@
         </ScrollView>
 
         <Button
-            AbsoluteLayout.LayoutBounds="0.95,0.95,50,50"
+            AbsoluteLayout.LayoutBounds="0.95,0.95"
             AbsoluteLayout.LayoutFlags="PositionProportional"
-            Text="+" Command="{Binding CreateReportCommand}"/>
+            Text="+" Command="{Binding CreateReportCommand}"
+            CornerRadius="50"/>
     </AbsoluteLayout>
 </ContentPage>
