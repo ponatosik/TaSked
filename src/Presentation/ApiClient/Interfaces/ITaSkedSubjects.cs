@@ -13,11 +13,11 @@ public interface ITaSkedSubjects
 	public Task<List<SubjectDTO>> GetAllSubjects();
 
 	[Delete("/Subjects")]
-	public Task DeleteSubject(DeleteSubjectRequest request);
+	public Task DeleteSubject([Body] DeleteSubjectRequest request);
 
 	[Patch("/Subjects/Name")]
-	public Task<UpdateSubjectDTO> ChangeSubjectName(ChangeSubjectNameRequest request);
+	public Task<UpdateSubjectDTO> ChangeSubjectName([Body] ChangeSubjectNameRequest request);
 
 	[Patch("/Subjects/Teacher")]
-	public Task<UpdateSubjectDTO> ChangeSubjectTeacher(ChangeSubjectTeacherRequest request);
+	public Task<UpdateSubjectDTO> ChangeSubjectTeacher([Body] ChangeSubjectTeacherRequest request);
 }

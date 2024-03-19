@@ -1,4 +1,7 @@
 using CommunityToolkit.Mvvm.Input;
+using TaSked.Api.ApiClient;
+using TaSked.Api.Requests;
+using TaSked.App.Common;
 using TaSked.Application;
 using TaSked.Domain;
 
@@ -20,11 +23,22 @@ public partial class SubjectCard: ContentView
 		InitializeComponent();
 	}
 
-	private void Update_Clicked(object sender, EventArgs e)
+	private async void Update_Clicked(object sender, EventArgs e)
 	{
-		Shell.Current.GoToAsync("UpdateSubjectPage", new Dictionary<string, object>
+		await Shell.Current.GoToAsync("UpdateSubjectPage", new Dictionary<string, object>
 		{
 			["subject"] = SubjectDTOModel
 		});	
+	}
+
+	private async void Delete_Clicked(object sender, EventArgs e)
+	{
+		ITaSkedSevice api = ServiceHelper.GetService<ITaSkedSevice>();
+		SubjectsViewModel viewModel = ServiceHelper.GetService<SubjectsViewModel>();
+
+		var request = new DeleteSubjectRequest(SubjectDTOModel.Id);
+		await api.DeleteSubject(request);
+
+		viewModel.Subjects.Remove(SubjectDTOModel);
 	}
 }

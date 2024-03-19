@@ -16,7 +16,8 @@
                     Text="Змінити"
                     Clicked="Update_Clicked"/>
                 <MenuFlyoutItem 
-                            Text="Видалити"/>
+                    Text="Видалити"
+                    Clicked="Delete_Clicked"/>
             </MenuFlyout>
         </FlyoutBase.ContextFlyout>
 
