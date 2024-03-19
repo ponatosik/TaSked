@@ -12,7 +12,6 @@
         <Label Text="Створити предмет"/>
         
         <material:TextField Title="Назва предмету" Text="{Binding Name}"/>
-        <material:TextField Title="Викладач" Text="{Binding TeacherName}"/>
         <Button Command="{Binding CreateSubjectCommand}"/>
         
     </StackLayout>

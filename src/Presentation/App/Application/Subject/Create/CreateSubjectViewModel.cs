@@ -12,9 +12,6 @@ public partial class CreateSubjectViewModel : ObservableObject
 	[ObservableProperty]
 	private string _name;
 
-	[ObservableProperty]
-	private string _teacherName;
-
 	public CreateSubjectViewModel(ITaSkedSevice api)
 	{
 		_api = api;
@@ -23,12 +20,12 @@ public partial class CreateSubjectViewModel : ObservableObject
 	[RelayCommand]
 	private async Task CreateSubject()
 	{
-		if (string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(TeacherName)) 
+		if (string.IsNullOrEmpty(Name)) 
 		{
 			return;
 		}
 
-		var request = new CreateSubjectRequest(_name);
+		var request = new CreateSubjectRequest(Name);
 		await _api.CreateSubject(request);
 		await Shell.Current.GoToAsync("..");
 	}
