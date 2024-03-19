@@ -5,11 +5,11 @@ namespace TaSked.App.Components;
 public partial class RoleCard : ContentView
 {
 	public static readonly BindableProperty RoleModelProperty =
-		BindableProperty.Create(nameof(RoleModel), typeof(Group), typeof(RoleCard));
+		BindableProperty.Create(nameof(RoleModel), typeof(User), typeof(RoleCard));
 
-	public Group RoleModel
+	public User RoleModel
 	{
-		get => (Group)GetValue(RoleModelProperty);
+		get => (User)GetValue(RoleModelProperty);
 	}
 
 	public RoleCard()

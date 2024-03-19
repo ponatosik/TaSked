@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using TaSked.Api.ApiClient;
+using TaSked.App.Common;
 using TaSked.Domain;
 
 namespace TaSked.App;
@@ -9,21 +10,28 @@ namespace TaSked.App;
 public partial class RoleViewModel : ObservableObject
 {
 	private readonly ITaSkedSevice _api;
+    private LoginService _loginService;
 
-	[ObservableProperty]
+    [ObservableProperty]
     private ObservableCollection<User> _roles;
 
-    public RoleViewModel(ITaSkedSevice api)
+    public RoleViewModel(ITaSkedSevice api, LoginService loginService)
 	{
 		_api = api;
 		_roles = new ObservableCollection<User>();
-	}
+        _loginService = loginService;
+    }
 
-	[RelayCommand]
-    public void ReloadRole()
+    [RelayCommand]
+    public async Task ReloadRole()
     {
-        _roles.Clear();
-        _roles.ToList().ForEach(role => LoadMembers(role.Id).ForEach(member => _roles.Add(member)));
+        Roles.Clear();
+        var currentGroupId = await _loginService.GetGroupIdAsync();
+        var roles = LoadMembers(currentGroupId.Value);
+        foreach (var role in roles)
+        {
+            Roles.Add(role);
+        }
     }
 
     private List<User> LoadMembers(Guid groupId)
@@ -31,4 +39,3 @@ public partial class RoleViewModel : ObservableObject
         return _api.GetMembers(groupId).Result;
     }
 }
-

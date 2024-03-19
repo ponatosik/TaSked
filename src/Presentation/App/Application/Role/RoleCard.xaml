@@ -11,7 +11,7 @@
     <uranium:StatefulContentView StyleClass="Elevation3" Margin="10">
         <Border Padding="20" BackgroundColor="{StaticResource DarkSurface}" Stroke="{StaticResource DarkOutlineVariant}" StrokeShape="{RoundRectangle CornerRadius=12}">
             <VerticalStackLayout>
-                <Label Text="{Binding RoleModel.Members, Source={Reference RoleCardComponent}}"
+                <Label Text="{Binding RoleModel.Nickname, Source={Reference RoleCardComponent}}"
                        HorizontalOptions="Center"
                        FontSize="Medium"
                        FontAttributes="Bold"/>

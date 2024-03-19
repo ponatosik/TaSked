@@ -76,4 +76,33 @@ public class LoginService
 
 		return user.GroupId != null;
 	}
+
+    public async Task<Guid?> GetGroupIdAsync()
+    {
+        if (!HasAccessToken())
+        {
+            return null;
+        }
+
+        User user;
+
+        try
+        {
+            user = await _api.CurrentUser();
+        }
+        catch (ApiException exception)
+        {
+            if (exception.StatusCode == HttpStatusCode.Unauthorized ||
+                exception.StatusCode == HttpStatusCode.Forbidden)
+            {
+                return null;
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        return user.GroupId;
+    }
 }

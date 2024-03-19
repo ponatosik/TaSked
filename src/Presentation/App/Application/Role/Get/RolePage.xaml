@@ -18,7 +18,7 @@
 
             <ListView ItemsSource="{Binding Roles}" HasUnevenRows="True">
                 <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="domain:Group">
+                    <DataTemplate x:DataType="domain:User">
                         <ViewCell>
                             <VerticalStackLayout>
                                 <components:RoleCard RoleModel ="{Binding}"/>

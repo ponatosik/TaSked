@@ -43,19 +43,6 @@
     </FlyoutItem>
 
     <TabBar>
-        <!-- <Shell.TitleView>
-            <HorizontalStackLayout VerticalOptions="Fill">
-                <Label
-            Text="TaSked"
-            FontFamily="Strande2"
-            TextColor="White"
-            VerticalTextAlignment="Center"
-            VerticalOptions="Center"
-            HeightRequest="50"
-            FontSize="Medium" />
-            </HorizontalStackLayout>
-        </Shell.TitleView> -->
-
         <Tab Title="Завдання">
             <ShellContent
                 Title="Невиконані"
