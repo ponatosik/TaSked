@@ -60,9 +60,12 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<LoadingPage>();
 
+        builder.Services.AddSingleton<RoleViewModel>();
+        builder.Services.AddSingleton<RolePage>();
+
 
 #if DEBUG
-		builder.Logging.AddDebug();
+        builder.Logging.AddDebug();
 #endif
 
 		var app = builder.Build();
