@@ -51,6 +51,8 @@ public static class MauiProgram
 		builder.Services.AddSingleton<SubjectPage>();
 		builder.Services.AddScoped<CreateSubjectPage>();
 		builder.Services.AddScoped<CreateSubjectViewModel>();
+		builder.Services.AddScoped<UpdateSubjectPage>();
+		builder.Services.AddScoped<UpdateSubjectViewModel>();
 
 		builder.Services.AddSingleton<SettingsViewModel>();
 		builder.Services.AddSingleton<AppShell>();

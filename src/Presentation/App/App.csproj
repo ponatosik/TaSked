@@ -78,6 +78,9 @@
 	  <Compile Update="Application\Report\Create\CreateReportPage.xaml.cs">
 	    <DependentUpon>CreateReportPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Application\Subject\Update\UpdateSubjectPage.xaml.cs">
+	    <DependentUpon>UpdateSubjectPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Application\Subject\Create\CreateSubjectPage.xaml.cs">
 	    <DependentUpon>CreateSubjectPage.xaml</DependentUpon>
 	  </Compile>
@@ -118,6 +121,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Application\Settings\SettingsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Application\Subject\Update\UpdateSubjectPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Application\Subject\Create\CreateSubjectPage.xaml">

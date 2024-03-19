@@ -13,7 +13,8 @@
         <FlyoutBase.ContextFlyout>
             <MenuFlyout>
                 <MenuFlyoutItem 
-                            Text="Змінити"/>
+                    Text="Змінити"
+                    Clicked="Update_Clicked"/>
                 <MenuFlyoutItem 
                             Text="Видалити"/>
             </MenuFlyout>
@@ -25,7 +26,7 @@
                        FontSize="Medium"
                        FontAttributes="Bold"/>
 
-                <Label Text="{Binding SubjectDTOModel?.Teacher?.FullName, Source={Reference SubjectCardComponent}}"/>
+                <Label Text="{Binding SubjectDTOModel.Teacher.FullName, Source={Reference SubjectCardComponent}}"/>
             </VerticalStackLayout>
         </Border>
     </uranium:StatefulContentView>

@@ -1,6 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using TaSked.App.Application;
+﻿using TaSked.App.Application;
 using TaSked.App.Common;
 
 namespace TaSked.App;
@@ -17,6 +15,7 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute("MainPage/JoinGroupPage", typeof(JoinGroupPage));
 		Routing.RegisterRoute("ReportPage/CreateReportPage", typeof(CreateReportPage));
 		Routing.RegisterRoute("SubjectPage/CreateSubjectPage", typeof(CreateSubjectPage));
+		Routing.RegisterRoute("SubjectPage/UpdateSubjectPage", typeof(UpdateSubjectPage));
 	}
 
 	void OnSettingsClicked(object sender, EventArgs e)

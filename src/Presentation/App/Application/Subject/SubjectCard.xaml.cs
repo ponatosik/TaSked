@@ -1,3 +1,4 @@
+using CommunityToolkit.Mvvm.Input;
 using TaSked.Application;
 using TaSked.Domain;
 
@@ -17,5 +18,13 @@ public partial class SubjectCard: ContentView
 	public SubjectCard()
 	{
 		InitializeComponent();
+	}
+
+	private void Update_Clicked(object sender, EventArgs e)
+	{
+		Shell.Current.GoToAsync("UpdateSubjectPage", new Dictionary<string, object>
+		{
+			["subject"] = SubjectDTOModel
+		});	
 	}
 }
