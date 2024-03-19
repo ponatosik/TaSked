@@ -103,4 +103,9 @@
         ContentTemplate="{DataTemplate local:CreateReportPage}"
         Route="CreateReport"/>
 
+    <ShellContent
+        Title="Role"
+        ContentTemplate="{DataTemplate local:RolePage}"
+        Route="RolePage" />
+
 </Shell>

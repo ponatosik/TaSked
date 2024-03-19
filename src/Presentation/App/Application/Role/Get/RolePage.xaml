@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:TaSked.App"
+             xmlns:components="clr-namespace:TaSked.App.Components"
+             x:DataType="local:RoleViewModel"
+             xmlns:domain="clr-namespace:TaSked.Domain;assembly=Domain"
+             x:Class="TaSked.App.RolePage"
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material">
+    
+    <AbsoluteLayout
+        Margin="0,0"
+        Padding="0,0">
+
+        <ScrollView
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="SizeProportional">
+
+            <ListView ItemsSource="{Binding Roles}" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="domain:Group">
+                        <ViewCell>
+                            <VerticalStackLayout>
+                                <components:RoleCard RoleModel ="{Binding}"/>
+                            </VerticalStackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </ScrollView>
+    </AbsoluteLayout>
+</ContentPage>
