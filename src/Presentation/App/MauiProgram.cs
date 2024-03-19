@@ -54,18 +54,22 @@ public static class MauiProgram
 		builder.Services.AddScoped<UpdateSubjectPage>();
 		builder.Services.AddScoped<UpdateSubjectViewModel>();
 
+		builder.Services.AddSingleton<RoleViewModel>();
+		builder.Services.AddSingleton<RolePage>();
+
+		builder.Services.AddSingleton<SettingsViewModel>();
+		builder.Services.AddSingleton<AppShell>();
+		builder.Services.AddSingleton<SettingsPage>();
+
 		builder.Services.AddSingleton<SettingsViewModel>();
 		builder.Services.AddSingleton<AppShell>();
 		builder.Services.AddSingleton<SettingsPage>();
 
         builder.Services.AddSingleton<LoadingPage>();
 
-        builder.Services.AddSingleton<RoleViewModel>();
-        builder.Services.AddSingleton<RolePage>();
-
 
 #if DEBUG
-        builder.Logging.AddDebug();
+		builder.Logging.AddDebug();
 #endif
 
 		var app = builder.Build();

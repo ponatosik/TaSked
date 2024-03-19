@@ -8,8 +8,8 @@ public partial class SettingsPage : ContentPage
 		InitializeComponent();
 	}
 
-	private void JoinRolePage(object sender, EventArgs e)
+	private async void JoinRolePage(object sender, EventArgs e)
 	{
-        Shell.Current.GoToAsync("//RolePage");
+        await Shell.Current.GoToAsync("//RolePage");
     }
 }

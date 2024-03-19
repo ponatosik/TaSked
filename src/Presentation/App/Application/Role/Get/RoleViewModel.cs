@@ -8,12 +8,12 @@ namespace TaSked.App;
 
 public partial class RoleViewModel : ObservableObject
 {
-	private readonly ITaSkedMembers _api;
+	private readonly ITaSkedSevice _api;
 
 	[ObservableProperty]
     private ObservableCollection<User> _roles;
 
-    public RoleViewModel(ITaSkedMembers api)
+    public RoleViewModel(ITaSkedSevice api)
 	{
 		_api = api;
 		_roles = new ObservableCollection<User>();
