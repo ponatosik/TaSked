@@ -36,22 +36,22 @@ public class TasksDatabase
 		return await _database.Table<HomeworkTaskDAO>().Where(t => t.Completed).ToListAsync();
 	}
 
-	public async Task<HomeworkTaskDAO> GetItemAsync(int id)
+	public async Task<HomeworkTaskDAO?> GetItemAsync(Guid homeworkId)
 	{
 		await Init();
-		return await _database.Table<HomeworkTaskDAO>().Where(i => i.Id == id).FirstOrDefaultAsync();
+		return await _database.Table<HomeworkTaskDAO>().Where(t => t.HomeworkId == homeworkId).FirstOrDefaultAsync();
 	}
 
-	public async Task<int> SaveItemAsync(HomeworkTaskDAO item)
+	public async Task SaveItemAsync(HomeworkTaskDAO item)
 	{
 		await Init();
 		if (item.Id != 0)
 		{
-			return await _database.UpdateAsync(item);
+			await _database.UpdateAsync(item);
 		}
 		else
 		{
-			return await _database.InsertAsync(item);
+			await _database.InsertAsync(item);
 		}
 	}
 
@@ -59,5 +59,11 @@ public class TasksDatabase
 	{
 		await Init();
 		return await _database.DeleteAsync(item);
+	}
+
+	public async Task Clear()
+	{
+		await Init();
+		await _database.DeleteAllAsync<HomeworkTaskDAO>();
 	}
 }

@@ -66,6 +66,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\Infrastructure\LocalPersistence\LocalPersistence.csproj" />
 	  <ProjectReference Include="..\ApIClient\ApiClient.csproj" />
 	</ItemGroup>
 

@@ -2,6 +2,7 @@
 using TaSked.Api.ApiClient;
 using TaSked.App.Application;
 using TaSked.App.Common;
+using TaSked.Infrastructure.LocalPersistence;
 using The49.Maui.ContextMenu;
 using UraniumUI;
 
@@ -26,6 +27,8 @@ public static class MauiProgram
 		
 		builder.Services.AddSingleton<ISecureStorage>(SecureStorage.Default);
 		builder.Services.AddSingleton<IUserTokenStore, UserTokenSecureStorage>();
+		builder.Services.AddLocalPersistence(new LocalPersistenceOptions(FileSystem.AppDataDirectory));
+		builder.Services.AddSingleton<HomeworkTasksService>();
 
 		builder.Services.AddTaSkedApi(opt => {
 			opt.BaseUrl = "https://taskedapi.azurewebsites.net/";
