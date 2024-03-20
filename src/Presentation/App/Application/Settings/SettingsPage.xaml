@@ -15,5 +15,9 @@
         <Button
             Text="Назначити роль" Margin="100,-250"
             Clicked="JoinRolePage"/>
+
+        <Button
+            Text="Запрошення" Margin="100,300"
+            Clicked="JoinInvintationsPage"/>
     </VerticalStackLayout>
 </ContentPage>

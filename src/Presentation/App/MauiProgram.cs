@@ -63,7 +63,10 @@ public static class MauiProgram
 		builder.Services.AddSingleton<RoleViewModel>();
 		builder.Services.AddSingleton<RolePage>();
 
-		builder.Services.AddSingleton<SettingsViewModel>();
+        builder.Services.AddSingleton<InvintationViewModel>();
+        builder.Services.AddSingleton<InvintationsPage>();
+
+        builder.Services.AddSingleton<SettingsViewModel>();
 		builder.Services.AddSingleton<AppShell>();
 		builder.Services.AddSingleton<SettingsPage>();
 

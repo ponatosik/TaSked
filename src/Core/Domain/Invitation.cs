@@ -4,9 +4,9 @@ namespace TaSked.Domain;
 
 public class Invitation
 {
-	public Guid Id { get; private set; }
-	public Guid GroupId { get; private set; }
-	public string? Caption { get; private set; }
+	public Guid Id { get; set; }
+	public Guid GroupId { get; set; }
+	public string? Caption { get; set; }
 	public bool IsExpired {  get; private set; }
 	public DateTime? ExpirationDate { get; private set; }
 	public int? MaxActivations {  get; private set; }

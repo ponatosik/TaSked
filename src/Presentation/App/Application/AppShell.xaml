@@ -94,5 +94,10 @@
         Title="Role"
         ContentTemplate="{DataTemplate local:RolePage}"
         Route="RolePage" />
+    
+    <ShellContent
+        Title="Invintation"
+        ContentTemplate="{DataTemplate local:InvintationsPage}"
+        Route="InvintationsPage" />
 
 </Shell>
