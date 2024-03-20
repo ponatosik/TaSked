@@ -17,4 +17,7 @@ public interface ITaSkedInvitations
 
 	[Get("/Invitations/{InvitationId}")]
 	public Task<Invitation> GetInvitationById(Guid InvitationId);
+
+	[Get("/Invitations")]
+	public Task<List<Invitation>> GetAllInvitation();
 }

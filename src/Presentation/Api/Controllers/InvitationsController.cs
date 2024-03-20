@@ -56,4 +56,13 @@ public class InvitationsController : ControllerBase
         var result = await _mediator.Send(new GetInvitationInfoQuery(InvitationId));
         return Ok(result);
     }
+
+	[HttpGet]
+    [Authorize(AccessPolicise.Admin)]
+	public async Task<IActionResult> Get()
+	{
+		Guid userId = User.GetUserId()!.Value;
+		var result = await _mediator.Send(new GetAllInvitationsQuery(userId));
+		return Ok(result);
+	}
 }
