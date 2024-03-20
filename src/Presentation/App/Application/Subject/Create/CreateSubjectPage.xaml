@@ -9,10 +9,10 @@
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material">
 
     <StackLayout>
-        <Label Text="Створити предмет"/>
-        
-        <material:TextField Title="Назва предмету" Text="{Binding Name}"/>
-        <Button Command="{Binding CreateSubjectCommand}"/>
+        <Label Text="Створити предмет" HorizontalTextAlignment="Center"/>
+
+        <material:TextField Title="Назва предмету" Text="{Binding Name}" Margin="30,10"/>
+        <Button Command="{Binding CreateSubjectCommand}" Margin="100,10" Text="Створити"/>
         
     </StackLayout>
 

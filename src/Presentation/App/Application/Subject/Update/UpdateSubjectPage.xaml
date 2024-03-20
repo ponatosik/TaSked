@@ -9,11 +9,11 @@
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material">
 
     <StackLayout>
-        <Label Text="Змінти предмет"/>
-        
-        <material:TextField Title="Назва предмету" Text="{Binding SubjectDTO.Name}"/>
-        <material:TextField Title="Викладач" Text="{Binding SubjectDTO.Teacher.FullName}"/>
-        <Button Command="{Binding UpdateSubjectCommand}"/>
+        <Label Text="Змінти предмет" HorizontalTextAlignment="Center"/>
+
+        <material:TextField Title="Назва предмету" Text="{Binding SubjectDTO.Name}" Margin="30,10"/>
+        <material:TextField Title="Викладач" Text="{Binding SubjectDTO.Teacher.FullName}" Margin="30,10"/>
+        <Button Command="{Binding UpdateSubjectCommand}" Margin="100,10" Text="Оновити"/>
         
     </StackLayout>
 
