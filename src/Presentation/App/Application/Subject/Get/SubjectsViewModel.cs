@@ -12,19 +12,19 @@ public partial class SubjectsViewModel : ObservableObject
 	private readonly ITaSkedSevice _api;
 
 	[ObservableProperty]
-	private ObservableCollection<SubjectDTO> _subjects;
+	private ObservableCollection<SubjectViewModel> _subjects;
 
 	public SubjectsViewModel(ITaSkedSevice api)
 	{
 		_api = api;
-		_subjects = new ObservableCollection<SubjectDTO>();
+		_subjects = new ObservableCollection<SubjectViewModel>();
 	}
 
 	[RelayCommand]
 	public void ReloadSubjects()
 	{ 	
 		Subjects.Clear();
-		LoadSubjects().ForEach(report => Subjects.Add(report));
+		LoadSubjects().ForEach(subject => Subjects.Add(new SubjectViewModel(subject)));
 	}
 
 	private List<SubjectDTO> LoadSubjects()

@@ -14,20 +14,21 @@
             <MenuFlyout>
                 <MenuFlyoutItem 
                     Text="Змінити"
-                    Clicked="Update_Clicked"/>
+                    Command="{Binding ViewModel.UpdateSubjectCommand, Source={Reference SubjectCardComponent}}"/>
                 <MenuFlyoutItem 
                     Text="Видалити"
-                    Clicked="Delete_Clicked"/>
+                    Command="{Binding ViewModel.DeleteSubjectCommand, Source={Reference SubjectCardComponent}}"/>
             </MenuFlyout>
         </FlyoutBase.ContextFlyout>
 
+
         <Border Padding="20" BackgroundColor="{StaticResource DarkSurface}" Stroke="{StaticResource DarkOutlineVariant}" StrokeShape="{RoundRectangle CornerRadius=12}">
             <VerticalStackLayout>
-                <Label Text="{Binding SubjectDTOModel.Name, Source={Reference SubjectCardComponent}}"
+                <Label Text="{Binding ViewModel.SubjectDTO.Name, Source={Reference SubjectCardComponent}}"
                        FontSize="Medium"
                        FontAttributes="Bold"/>
 
-                <Label Text="{Binding SubjectDTOModel.Teacher.FullName, Source={Reference SubjectCardComponent}}"/>
+                <Label Text="{Binding ViewModel.SubjectDTO.Teacher.FullName, Source={Reference SubjectCardComponent}}"/>
             </VerticalStackLayout>
         </Border>
     </uranium:StatefulContentView>

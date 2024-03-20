@@ -21,7 +21,7 @@
                     <DataTemplate x:DataType="domain:Report">
                         <ViewCell>
                             <VerticalStackLayout>
-                                <components:SubjectCard SubjectDTOModel ="{Binding}"/>
+                                <components:SubjectCard ViewModel ="{Binding}"/>
                             </VerticalStackLayout>
                         </ViewCell>
                     </DataTemplate>
