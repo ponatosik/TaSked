@@ -6,7 +6,9 @@
              x:DataType="local:RoleViewModel"
              xmlns:domain="clr-namespace:TaSked.Domain;assembly=Domain"
              x:Class="TaSked.App.RolePage"
-             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material">
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False">
     
     <AbsoluteLayout
         Margin="0,0"
