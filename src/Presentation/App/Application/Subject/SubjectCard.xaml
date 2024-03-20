@@ -4,30 +4,45 @@
              xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
              xmlns:local="clr-namespace:TaSked.App.Components"
              xmlns:domain="clr-namespace:TaSked.Domain;assembly=Domain"
+             xmlns:the49="https://schemas.the49.com/dotnet/2023/maui"
              x:DataType="local:SubjectCard" 
              x:Class="TaSked.App.Components.SubjectCard"
              x:Name="SubjectCardComponent">
 
     <uranium:StatefulContentView StyleClass="Elevation3" Margin="10">
 
+        <the49:ContextMenu.Menu>
+            <DataTemplate>
+                <the49:Menu>
+                    <the49:Action
+                        Title="Змінити"
+                        Command="{Binding ViewModel.UpdateSubjectCommand, Source={Reference SubjectCardComponent}}"/>
+                    <the49:Action 
+                        Title="Видалити" 
+                        Command="{Binding ViewModel.DeleteSubjectCommand, Source={Reference SubjectCardComponent}}"/>
+                </the49:Menu>
+            </DataTemplate>
+        </the49:ContextMenu.Menu>
+        
         <FlyoutBase.ContextFlyout>
             <MenuFlyout>
                 <MenuFlyoutItem 
                     Text="Змінити"
-                    Clicked="Update_Clicked"/>
+                    Command="{Binding ViewModel.UpdateSubjectCommand, Source={Reference SubjectCardComponent}}"/>
                 <MenuFlyoutItem 
                     Text="Видалити"
-                    Clicked="Delete_Clicked"/>
+                    Command="{Binding ViewModel.DeleteSubjectCommand, Source={Reference SubjectCardComponent}}"/>
             </MenuFlyout>
         </FlyoutBase.ContextFlyout>
 
+
         <Border Padding="20" BackgroundColor="{StaticResource DarkSurface}" Stroke="{StaticResource DarkOutlineVariant}" StrokeShape="{RoundRectangle CornerRadius=12}">
             <VerticalStackLayout>
-                <Label Text="{Binding SubjectDTOModel.Name, Source={Reference SubjectCardComponent}}"
+                <Label Text="{Binding ViewModel.SubjectDTO.Name, Source={Reference SubjectCardComponent}}"
                        FontSize="Medium"
                        FontAttributes="Bold"/>
 
-                <Label Text="{Binding SubjectDTOModel.Teacher.FullName, Source={Reference SubjectCardComponent}}"/>
+                <Label Text="{Binding ViewModel.SubjectDTO.Teacher.FullName, Source={Reference SubjectCardComponent}}"/>
             </VerticalStackLayout>
         </Border>
     </uranium:StatefulContentView>

@@ -1,4 +1,6 @@
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System.Windows.Input;
 using TaSked.Api.ApiClient;
 using TaSked.Api.Requests;
 using TaSked.App.Common;
@@ -7,15 +9,15 @@ using TaSked.Domain;
 
 namespace TaSked.App.Components;
 
-public partial class SubjectCard: ContentView
+public partial class SubjectCard : ContentView
 {
-	public static readonly BindableProperty SubjectDTOModelProperty =
-		BindableProperty.Create(nameof(SubjectDTOModel), typeof(SubjectDTO), typeof(SubjectCard));
+	public static readonly BindableProperty ViewModelProperty =
+		BindableProperty.Create(nameof(ViewModel), typeof(SubjectViewModel), typeof(SubjectCard));
 
-	public SubjectDTO SubjectDTOModel
+	public SubjectViewModel ViewModel
 	{
-		get => (SubjectDTO)GetValue(SubjectDTOModelProperty);
-		set => SetValue(SubjectDTOModelProperty, value);
+		get => (SubjectViewModel)GetValue(ViewModelProperty);
+		set => SetValue(ViewModelProperty, value);
 	}
 
 	public SubjectCard()
@@ -23,22 +25,4 @@ public partial class SubjectCard: ContentView
 		InitializeComponent();
 	}
 
-	private async void Update_Clicked(object sender, EventArgs e)
-	{
-		await Shell.Current.GoToAsync("UpdateSubjectPage", new Dictionary<string, object>
-		{
-			["subject"] = SubjectDTOModel
-		});	
-	}
-
-	private async void Delete_Clicked(object sender, EventArgs e)
-	{
-		ITaSkedSevice api = ServiceHelper.GetService<ITaSkedSevice>();
-		SubjectsViewModel viewModel = ServiceHelper.GetService<SubjectsViewModel>();
-
-		var request = new DeleteSubjectRequest(SubjectDTOModel.Id);
-		await api.DeleteSubject(request);
-
-		viewModel.Subjects.Remove(SubjectDTOModel);
-	}
 }
