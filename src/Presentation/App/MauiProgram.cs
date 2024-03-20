@@ -2,6 +2,7 @@
 using TaSked.Api.ApiClient;
 using TaSked.App.Application;
 using TaSked.App.Common;
+using The49.Maui.ContextMenu;
 using UraniumUI;
 
 namespace TaSked.App;
@@ -21,6 +22,8 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
 
+		builder.UseContextMenu();
+		
 		builder.Services.AddSingleton<ISecureStorage>(SecureStorage.Default);
 		builder.Services.AddSingleton<IUserTokenStore, UserTokenSecureStorage>();
 
