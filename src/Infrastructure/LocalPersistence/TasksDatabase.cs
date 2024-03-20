@@ -5,12 +5,12 @@ namespace TaSked.Infrastructure.LocalPersistence;
 public class TasksDatabase
 {
 	private SQLiteAsyncConnection _database;
-	private LocalPersistenceOptions _options;
+	private readonly string _databaseFolder;
 
 
-	public TasksDatabase(LocalPersistenceOptions options)
+	public TasksDatabase(string databaseFolder)
 	{
-		_options = options;
+		_databaseFolder = databaseFolder;
 	}
 
 	async Task Init()
@@ -20,7 +20,7 @@ public class TasksDatabase
 			return;
 		}
 
-		_database = new SQLiteAsyncConnection(Constants.DatabasePath(_options.DatabaseFolder), Constants.Flags);
+		_database = new SQLiteAsyncConnection(Constants.DatabasePath(_databaseFolder), Constants.Flags);
 		var result = await _database.CreateTableAsync<HomeworkTaskDAO>();
 	}
 

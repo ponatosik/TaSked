@@ -4,10 +4,9 @@ namespace TaSked.Infrastructure.LocalPersistence;
 
 public static class DependencyInjection
 {
-	public static IServiceCollection AddLocalPersistence(this IServiceCollection services, LocalPersistenceOptions options)
+	public static IServiceCollection AddLocalPersistence(this IServiceCollection services, string databaseFolder)
 	{
-		services.AddSingleton<TasksDatabase>();
-		services.AddSingleton<LocalPersistenceOptions>();
+		services.AddSingleton<TasksDatabase>(x => new TasksDatabase(databaseFolder));
 		return services;
 	}
 }

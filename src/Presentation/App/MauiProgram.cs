@@ -27,7 +27,7 @@ public static class MauiProgram
 		
 		builder.Services.AddSingleton<ISecureStorage>(SecureStorage.Default);
 		builder.Services.AddSingleton<IUserTokenStore, UserTokenSecureStorage>();
-		builder.Services.AddLocalPersistence(new LocalPersistenceOptions(FileSystem.AppDataDirectory));
+		builder.Services.AddLocalPersistence(FileSystem.AppDataDirectory);
 		builder.Services.AddSingleton<HomeworkTasksService>();
 
 		builder.Services.AddTaSkedApi(opt => {
