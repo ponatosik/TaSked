@@ -55,7 +55,7 @@ public class HomeworkTasksService
 
 	public async Task UndoCompletionAsync(HomeworkTask task)
 	{
-		task.Completed = true;
+		task.Completed = false;
 		HomeworkTaskDAO taskDAO = (await _database.GetItemAsync(task.Homework.Id)) ?? new HomeworkTaskDAO(task);
 		taskDAO.Completed = false;
 		await _database.SaveItemAsync(taskDAO);
