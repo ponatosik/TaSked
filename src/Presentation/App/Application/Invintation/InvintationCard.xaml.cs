@@ -16,4 +16,12 @@ public partial class InvintationCard : ContentView
 	{
 		InitializeComponent();
 	}
+
+    public void CopyInvitation_Clicked(object sender, EventArgs e)
+    {
+        if (InvintationModel != null)
+        {
+            Clipboard.SetTextAsync(InvintationModel.Id.ToString());
+        }
+    }
 }
