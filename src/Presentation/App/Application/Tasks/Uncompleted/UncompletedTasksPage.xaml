@@ -6,18 +6,31 @@
              x:DataType="local:UncompletedTasksViewModel"
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material">
 
-    <ScrollView>
-        <ListView ItemsSource="{Binding Tasks}" HasUnevenRows="True">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="local:TaskViewModel">
-                    <ViewCell>
-                        <VerticalStackLayout>
-                            <components:TaskCard Model ="{Binding}"/>
-                        </VerticalStackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </ScrollView>
+    <AbsoluteLayout
+        Margin="0,0"
+        Padding="0,0">
 
+        <ScrollView
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="SizeProportional">
+
+            <ListView ItemsSource="{Binding Tasks}" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="local:TaskViewModel">
+                        <ViewCell>
+                            <VerticalStackLayout>
+                                <components:TaskCard Model ="{Binding}"/>
+                            </VerticalStackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </ScrollView>
+        <Button
+            AbsoluteLayout.LayoutBounds="0.95,0.945"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            Text="+" Command="{Binding CreateTaskCommand}"
+            CornerRadius="50"/>
+
+    </AbsoluteLayout>
 </ContentPage>

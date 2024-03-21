@@ -92,6 +92,9 @@
 	  <Compile Update="Application\Subject\SubjectCard.xaml.cs">
 	    <DependentUpon>SubjectCard.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Application\Tasks\Create\CreateTaskPage.xaml.cs">
+	    <DependentUpon>CreateTaskPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Application\Tasks\Uncompleted\UncompletedTasksPage.xaml.cs">
 	    <DependentUpon>UncompletedTasksPage.xaml</DependentUpon>
 	  </Compile>
@@ -144,6 +147,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Application\Subject\SubjectCard.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Application\Tasks\Create\CreateTaskPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Application\Tasks\Uncompleted\TaskCard.xaml">

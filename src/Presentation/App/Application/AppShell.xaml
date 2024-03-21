@@ -91,6 +91,11 @@
         Route="CreateReport"/>
 
     <ShellContent
+        Title="Створити завдання"
+        ContentTemplate="{DataTemplate local:CreateTaskPage}"
+        Route="CreateTask"/>
+
+    <ShellContent
         Title="Role"
         ContentTemplate="{DataTemplate local:RolePage}"
         Route="RolePage" />

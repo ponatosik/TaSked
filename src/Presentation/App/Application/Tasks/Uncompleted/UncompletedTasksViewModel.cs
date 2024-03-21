@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using TaSked.Api.ApiClient;
 using TaSked.App.Common;
@@ -36,5 +37,11 @@ public partial class UncompletedTasksViewModel : ObservableObject
 
 		Tasks.Clear();
 		models.ForEach(model => Tasks.Add(model));
+	}
+
+	[RelayCommand]
+	private async Task CreateTask()
+	{
+		await Shell.Current.GoToAsync("CreateTaskPage");
 	}
 }

@@ -16,6 +16,8 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute("ReportPage/CreateReportPage", typeof(CreateReportPage));
 		Routing.RegisterRoute("SubjectPage/CreateSubjectPage", typeof(CreateSubjectPage));
 		Routing.RegisterRoute("SubjectPage/UpdateSubjectPage", typeof(UpdateSubjectPage));
+
+		Routing.RegisterRoute("UncompletedTasksPage/CreateTaskPage", typeof(CreateTaskPage));
 	}
 
 	void OnSettingsClicked(object sender, EventArgs e)
