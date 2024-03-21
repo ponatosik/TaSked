@@ -1,10 +1,12 @@
-﻿using TaSked.Domain;
+﻿using SQLite;
+using TaSked.Domain;
 
 namespace TaSked.Infrastructure.LocalPersistence;
 
 public class HomeworkTaskDAO
 {
-	public int Id { get; set; }
+	[PrimaryKey, AutoIncrement]
+	public int? ID { get; set; }
 	public Guid HomeworkId { get; set; }
 	public Guid SubjectId { get; set; }
 	public bool Completed { get; set; }

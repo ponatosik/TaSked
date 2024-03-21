@@ -9,6 +9,10 @@ public static class Constants
 		SQLite.SQLiteOpenFlags.Create |
 		SQLite.SQLiteOpenFlags.SharedCache;
 
+	public const SQLite.CreateFlags CreateFlags = 
+		SQLite.CreateFlags.ImplicitPK | 
+		SQLite.CreateFlags.AutoIncPK;
+
 	public static string DatabasePath(string folder) =>
 		Path.Combine(folder, DatabaseFilename);
 }

@@ -49,13 +49,15 @@ public class HomeworkTasksService
 	{
 		task.Completed = true;
 		HomeworkTaskDAO taskDAO = (await _database.GetItemAsync(task.Homework.Id)) ?? new HomeworkTaskDAO(task);
+		taskDAO.Completed = true;
 		await _database.SaveItemAsync(taskDAO);
 	}
 
 	public async Task UndoCompletionAsync(HomeworkTask task)
 	{
-		task.Completed = false;
+		task.Completed = true;
 		HomeworkTaskDAO taskDAO = (await _database.GetItemAsync(task.Homework.Id)) ?? new HomeworkTaskDAO(task);
+		taskDAO.Completed = false;
 		await _database.SaveItemAsync(taskDAO);
 	}
 }

@@ -21,7 +21,7 @@ public class TasksDatabase
 		}
 
 		_database = new SQLiteAsyncConnection(Constants.DatabasePath(_databaseFolder), Constants.Flags);
-		var result = await _database.CreateTableAsync<HomeworkTaskDAO>();
+		var result = await _database.CreateTableAsync<HomeworkTaskDAO>(Constants.CreateFlags);
 	}
 
 	public async Task<List<HomeworkTaskDAO>> GetTasksAsync()
@@ -33,7 +33,7 @@ public class TasksDatabase
 	public async Task<List<HomeworkTaskDAO>> GetTasksNotCompletedAsync()
 	{
 		await Init();
-		return await _database.Table<HomeworkTaskDAO>().Where(t => t.Completed).ToListAsync();
+		return await _database.Table<HomeworkTaskDAO>().Where(t => !t.Completed).ToListAsync();
 	}
 
 	public async Task<HomeworkTaskDAO?> GetItemAsync(Guid homeworkId)
@@ -45,8 +45,10 @@ public class TasksDatabase
 	public async Task SaveItemAsync(HomeworkTaskDAO item)
 	{
 		await Init();
-		if (item.Id != 0)
+		var existingItem = await GetItemAsync(item.HomeworkId);
+		if (existingItem is not null)
 		{
+			item.ID = existingItem.ID;
 			await _database.UpdateAsync(item);
 		}
 		else
