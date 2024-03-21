@@ -10,7 +10,7 @@
     <Shell.ToolbarItems>
         <ToolbarItem Clicked="OnSettingsClicked">
             <ToolbarItem.IconImageSource>
-                <FontImageSource FontFamily="MaterialIconsOutlined-Regular" Glyph="&#xe51c;"/>
+                <FileImageSource File="Resources/Images/settings_icon" />
             </ToolbarItem.IconImageSource>
         </ToolbarItem>
     </Shell.ToolbarItems>
