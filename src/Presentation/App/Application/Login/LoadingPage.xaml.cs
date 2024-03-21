@@ -18,7 +18,7 @@ public partial class LoadingPage : ContentPage
 
         if (await _loginService.IsAuthorizedAsync())
         {
-            await Shell.Current.GoToAsync("//TasksPage");
+            await Shell.Current.GoToAsync("//UncompletedTasksPage");
         }
         else
         {

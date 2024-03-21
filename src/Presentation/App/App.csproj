@@ -92,6 +92,9 @@
 	  <Compile Update="Application\Subject\SubjectCard.xaml.cs">
 	    <DependentUpon>SubjectCard.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Application\Tasks\Uncompleted\UncompletedTasksPage.xaml.cs">
+	    <DependentUpon>UncompletedTasksPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Common\Components\Divider.xaml.cs">
 	    <DependentUpon>Divider.xaml</DependentUpon>
 	  </Compile>
@@ -143,10 +146,10 @@
 	  <MauiXaml Update="Application\Subject\SubjectCard.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Application\Tasks\Get\TaskCard.xaml">
+	  <MauiXaml Update="Application\Tasks\Uncompleted\TaskCard.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Application\Tasks\TasksPage.xaml">
+	  <MauiXaml Update="Application\Tasks\Uncompleted\UncompletedTasksPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Common\Components\Divider.xaml">

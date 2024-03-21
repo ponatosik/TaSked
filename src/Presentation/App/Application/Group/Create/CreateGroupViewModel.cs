@@ -29,6 +29,6 @@ public partial class CreateGroupViewModel : ObservableObject
 
 		await _loginService.CreateGroupAsync(_userNickname, _groupName);
 
-		await Shell.Current.GoToAsync("//TasksPage");
+		await Shell.Current.GoToAsync("//UncompletedTasksPage");
 	}
 }

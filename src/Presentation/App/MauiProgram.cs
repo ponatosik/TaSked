@@ -42,8 +42,8 @@ public static class MauiProgram
 		builder.Services.AddSingleton<CreateGroupPage>();
 		builder.Services.AddSingleton<CreateGroupViewModel>();
 
-		builder.Services.AddSingleton<TasksPage>();
-		builder.Services.AddTransient<TasksViewModel>();
+		builder.Services.AddSingleton<UncompletedTasksPage>();
+		builder.Services.AddTransient<UncompletedTasksViewModel>();
 
 		builder.Services.AddSingleton<RepotrsViewModel>();
 		builder.Services.AddSingleton<ReportPage>();

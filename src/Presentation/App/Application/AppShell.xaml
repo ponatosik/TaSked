@@ -46,8 +46,8 @@
         <Tab Title="Завдання">
             <ShellContent
                 Title="Невиконані"
-                ContentTemplate="{DataTemplate local:TasksPage}"
-                Route="TasksPage"/>
+                ContentTemplate="{DataTemplate local:UncompletedTasksPage}"
+                Route="UncompletedTasksPage"/>
 
             <ShellContent
                 Title="Всі"

@@ -30,6 +30,6 @@ public partial class JoinGroupViewModel : ObservableObject
 
 		await _loginService.JoinGroupAsync(_userNickname, invitationId);
         
-        await Shell.Current.GoToAsync("//TasksPage");
+        await Shell.Current.GoToAsync("//UncompletedTasksPage");
     }
 }

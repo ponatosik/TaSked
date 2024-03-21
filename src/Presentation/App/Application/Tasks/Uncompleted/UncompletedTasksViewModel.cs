@@ -7,7 +7,7 @@ using TaSked.Domain;
 
 namespace TaSked.App;
 
-public partial class TasksViewModel : ObservableObject
+public partial class UncompletedTasksViewModel : ObservableObject
 {
 	private readonly ITaSkedSevice _api;
 	private readonly HomeworkTasksService _tasksService;
@@ -15,7 +15,7 @@ public partial class TasksViewModel : ObservableObject
 	[ObservableProperty]
 	private ObservableCollection<TaskViewModel> _tasks;
 
-	public TasksViewModel(ITaSkedSevice api, HomeworkTasksService taskService)
+	public UncompletedTasksViewModel(ITaSkedSevice api, HomeworkTasksService taskService)
 	{
 		_api = api;
 		_tasksService = taskService;

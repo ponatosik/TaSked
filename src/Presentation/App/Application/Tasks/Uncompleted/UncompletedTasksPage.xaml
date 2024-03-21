@@ -2,8 +2,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:TaSked.App"
              xmlns:components="clr-namespace:TaSked.App.Components"
-             x:Class="TaSked.App.TasksPage"
-             x:DataType="local:TasksViewModel"
+             x:Class="TaSked.App.UncompletedTasksPage"
+             x:DataType="local:UncompletedTasksViewModel"
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material">
 
     <ScrollView>
