@@ -35,7 +35,6 @@
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition />
-                    <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
@@ -56,8 +55,6 @@
                        Grid.Column="0"
                        Grid.Row="1"
                        Grid.ColumnSpan="2"/>
-
-                <CheckBox IsEnabled="False" IsChecked="{Binding Model.Task.Completed, Source={Reference TaskCardComponent}}"  Grid.Row="2"/>
             </Grid>
 
         </Border>
