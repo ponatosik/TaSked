@@ -28,13 +28,15 @@ public static class DbContextOptionBuilderExtensions
 		string user = (string)inDbConnectionStringBuilder["User Id"];
 		string password = (string)inDbConnectionStringBuilder["Password"];
 
-		DbConnectionStringBuilder outDbConnectionStringBuilder = new DbConnectionStringBuilder();
-
-		outDbConnectionStringBuilder.Add("Data Source", sourceIp);
-		outDbConnectionStringBuilder.Add("Port", sourcePort);
-		outDbConnectionStringBuilder.Add("Database", database);
-		outDbConnectionStringBuilder.Add("User Id", user);
-		outDbConnectionStringBuilder.Add("Password", password);
+		DbConnectionStringBuilder outDbConnectionStringBuilder = new DbConnectionStringBuilder
+		{
+			{ "Data Source", sourceIp },
+			{ "Port", sourcePort },
+			{ "Database", database },
+			{ "User Id", user },
+			{ "Password", password },
+			{ "CharSet", "utf8mb4" }
+		};
 
 		return outDbConnectionStringBuilder.ConnectionString;
 	}
