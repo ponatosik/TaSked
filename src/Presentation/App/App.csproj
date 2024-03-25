@@ -21,10 +21,10 @@
 		<Nullable>enable</Nullable>
 
 		<!-- Display name -->
-		<ApplicationTitle>TaSked.App</ApplicationTitle>
+		<ApplicationTitle>TaSked</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.tasked.app</ApplicationId>
+		<ApplicationId>com.companyname.tasked</ApplicationId>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
@@ -67,7 +67,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\Infrastructure\LocalPersistence\LocalPersistence.csproj" />
-	  <ProjectReference Include="..\ApIClient\ApiClient.csproj" />
+	  <ProjectReference Include="..\ApiClient\ApiClient.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

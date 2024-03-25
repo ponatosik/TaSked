@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistance", "src\Infrastr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{AB6F5960-B3B3-46EF-B636-F7EE55A1D8BC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiClient", "src\Presentation\ApIClient\ApiClient.csproj", "{C02C8CF7-52AE-4309-9215-D23D8B7CB0EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiClient", "src\Presentation\ApiClient\ApiClient.csproj", "{C02C8CF7-52AE-4309-9215-D23D8B7CB0EC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{7234793A-A529-4C57-9328-BFE5313DB5CA}"
 EndProject
