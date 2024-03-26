@@ -43,7 +43,7 @@ public static class MauiProgram
 		builder.Services.AddSingleton<CreateGroupViewModel>();
 
 		builder.Services.AddSingleton<UncompletedTasksPage>();
-		builder.Services.AddTransient<UncompletedTasksViewModel>();
+		builder.Services.AddSingleton<UncompletedTasksViewModel>();
 		builder.Services.AddScoped<CreateTaskPage>();
 		builder.Services.AddScoped<CreateTaskViewModel>();
 

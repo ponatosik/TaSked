@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using TaSked.Api.ApiClient;
 using TaSked.Api.Requests;
+using TaSked.App.Common;
 
 namespace TaSked.App;
 
@@ -26,7 +27,11 @@ public partial class CreateSubjectViewModel : ObservableObject
 		}
 
 		var request = new CreateSubjectRequest(Name);
-		await _api.CreateSubject(request);
+		var dto = await _api.CreateSubject(request);
 		await Shell.Current.GoToAsync("..");
+
+		SubjectViewModel viewModel = new SubjectViewModel(dto);
+		var subjectsView = ServiceHelper.GetService<SubjectsViewModel>();
+		subjectsView.Subjects.Add(viewModel);
 	}
 }

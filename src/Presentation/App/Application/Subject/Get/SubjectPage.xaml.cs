@@ -8,13 +8,7 @@ public partial class SubjectPage : ContentPage
 	{
 		InitializeComponent();
 		_viewModel = viewModel;
-		BindingContext = _viewModel;
-	}
-
-	protected override void OnNavigatedTo(NavigatedToEventArgs args)
-	{
 		_viewModel.ReloadSubjects();
-
-		base.OnNavigatedTo(args);
+		BindingContext = _viewModel;
 	}
 }

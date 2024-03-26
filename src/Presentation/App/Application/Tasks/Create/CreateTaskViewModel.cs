@@ -5,6 +5,7 @@ using TaSked.Api.ApiClient;
 using TaSked.Api.Requests;
 using TaSked.Application;
 using TaSked.Domain;
+using TaSked.App.Common;
 
 namespace TaSked.App;
 
@@ -40,8 +41,12 @@ public partial class CreateTaskViewModel : ObservableObject
 		}
 
 		var request = new CreateHomeworkRequest(Subject.Id, Title, Description);
-		await _api.CreateHomework(request);
+		var homework = await _api.CreateHomework(request);
 		await Shell.Current.GoToAsync("..");
+
+		TaskViewModel viewModel = new TaskViewModel(homework.CreateTask(), Subject.Name);
+		var tasksView = ServiceHelper.GetService<UncompletedTasksViewModel>();
+		tasksView.Tasks.Add(viewModel);
 	}
 
 	private async Task LoadAvailableSubjects()
