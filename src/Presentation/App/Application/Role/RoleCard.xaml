@@ -15,10 +15,11 @@
                        HorizontalOptions="Center"
                        FontSize="Medium"
                        FontAttributes="Bold"/>
-                <Button StyleClass="FilledButton" Clicked ="Promote_Clicked" Text="Повисити" Margin="100,10"/>
-                <Button StyleClass="FilledButton" Clicked ="Ban_Clicked" Text="Забанити" Margin="100,0" BackgroundColor="DarkOrange"/>
+                <HorizontalStackLayout>
+                    <Button StyleClass="FilledButton" Clicked ="Promote_Clicked" Text="Підвищити" Margin="25,10" TextColor="#242424"/>
+                    <Button StyleClass="FilledButton" Clicked ="Ban_Clicked" Text="Забанити" Margin="20,0" BackgroundColor="DarkOrange" TextColor="#242424"/>
+                </HorizontalStackLayout>
             </VerticalStackLayout>
         </Border>
     </uranium:StatefulContentView>
-
 </ContentView>
