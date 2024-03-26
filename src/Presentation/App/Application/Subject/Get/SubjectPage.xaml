@@ -33,6 +33,6 @@
             AbsoluteLayout.LayoutBounds="0.95,0.945"
             AbsoluteLayout.LayoutFlags="PositionProportional"
             Text="+" Command="{Binding CreateSubjectCommand}"
-            CornerRadius="50"/>
+            CornerRadius="50" TextColor="#242424"/>
     </AbsoluteLayout>
 </ContentPage>

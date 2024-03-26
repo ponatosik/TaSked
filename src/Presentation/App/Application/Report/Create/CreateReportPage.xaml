@@ -13,7 +13,7 @@
 
         <material:TextField Title="Заголовок" Text="{Binding Title}" Margin="30,10"/>
         <material:TextField Title="Текст оголошення" Text="{Binding Message}" Margin="30,10"/>
-        <Button Command="{Binding CreateReportCommand}" Margin="100,10" Text="Створити"/>
+        <Button Command="{Binding CreateReportCommand}" Margin="100,10" Text="Створити" TextColor="#242424"/>
         
     </StackLayout>
 

@@ -17,7 +17,7 @@
                     FontAttributes="Bold"/>
 
                 <Label Text="{Binding InvintationModel.Caption, Source={Reference InvintationCardComponent}}"/>
-                <Button Text="Копіювати ID" Clicked="CopyInvitation_Clicked"/>
+                <Button Text="Копіювати ID" Clicked="CopyInvitation_Clicked" TextColor="#242424"/>
             </VerticalStackLayout>
         </Border>
     </uranium:StatefulContentView>
