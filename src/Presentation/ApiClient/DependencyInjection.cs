@@ -13,7 +13,7 @@ public static class DependencyInjection
 		var options = new HomeworkApiOptions();
 		clientOptions(options);
 
-		services.AddSingleton<HttpMessageHandler>();
+		services.AddScoped<HttpMessageHandler>();
 
 
 		var serializer = SystemTextJsonContentSerializer.GetDefaultJsonSerializerOptions();
