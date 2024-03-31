@@ -13,11 +13,13 @@ public class Invitation
 	public int ActivationCount { get; private set; } = 0;
 
 	private Invitation() { }
-	internal Invitation(Guid id, Guid groupId, string? caption = null) 
+	internal Invitation(Guid id, Guid groupId, string? caption = null, int? maxActivation = null, DateTime? expirationDate = null) 
 	{
 		Id = id;
 		GroupId = groupId;
 		Caption = caption;
+		MaxActivations = maxActivation;
+		ExpirationDate = expirationDate;
 	}
 
 	internal void ActivateOne()

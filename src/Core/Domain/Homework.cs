@@ -11,18 +11,20 @@ public class Homework
 	public string? SourceUrl {  get; set; }
 
 	private Homework() { }
-	internal Homework(Guid id, Guid subjectId, string title, string description, DateTime createdAt)
+	internal Homework(Guid id, Guid subjectId, string title, string description, DateTime createdAt, DateTime? deadline = null, string? url = null)
 	{
 		Id = id;
 		SubjectId = subjectId;
 		Title = title;
 		Description = description;
 		CreatedAt = createdAt;
+		Deadline = deadline;
+		SourceUrl = url;
 	}
 
-	internal static Homework Create(Subject subject, string title, string description)
+	internal static Homework Create(Subject subject, string title, string description, DateTime? deadline = null, string? url = null)
 	{
-		return new Homework(Guid.NewGuid(), subject.Id, title, description, DateTime.UtcNow);
+		return new Homework(Guid.NewGuid(), subject.Id, title, description, DateTime.UtcNow, deadline, url);
 	}
 
 	public HomeworkTask CreateTask()

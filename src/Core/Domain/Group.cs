@@ -29,16 +29,16 @@ public class Group
 		return new Group(Guid.NewGuid(),name, creator);
 	}
 
-	public Subject CreateSubject(string name)
+	public Subject CreateSubject(string name, Teacher? teacher = null)
 	{
-		Subject subject = Subject.Create(this.Id, name);
+		Subject subject = Subject.Create(this.Id, name, teacher);
 		Subjects.Add(subject);
 		return subject;
 	}
 
-	public Invitation CreateInvintation(string? caption = null)
+	public Invitation CreateInvintation(string? caption = null, int? maxActivations = null, DateTime? expirationDate = null)
 	{
-		Invitation invitation = new Invitation(Guid.NewGuid(), Id, caption);
+		Invitation invitation = new Invitation(Guid.NewGuid(), Id, caption, maxActivations, expirationDate);
 		Invitations.Add(invitation);
 		return invitation;
 	}

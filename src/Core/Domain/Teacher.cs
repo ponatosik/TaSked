@@ -29,8 +29,8 @@ public record Teacher
 		string? description = null,
 		string? email = null,
 		string? phoneNumber = null,
-		string? onlineLesonUrl = null)
+		string? onlineLessonUrl = null)
 	{
-		return new Teacher(fullName, description, email, phoneNumber, onlineLesonUrl);	
+		return new Teacher(fullName, description, email, phoneNumber, onlineLessonUrl);	
 	}
 }
