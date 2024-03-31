@@ -18,7 +18,7 @@ public class CreateInvitationCommandHandler : IRequestHandler<CreateInvitationCo
         var user = _context.Users.FindById(request.UserId);
         var group = _context.Groups.FindById(user.GroupId.Value);
 
-        var invitation = group.CreateInvintation(request.InvitationCaption);
+        var invitation = group.CreateInvintation(request.InvitationCaption, request.MaxActivations, request.ExpirationDate);
 
         await _context.SaveChangesAsync(cancellationToken);
         return invitation;

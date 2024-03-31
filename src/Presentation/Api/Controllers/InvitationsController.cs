@@ -25,7 +25,7 @@ public class InvitationsController : ControllerBase
     public async Task<IActionResult> Post(CreateInvintationRequest request)
     {
         Guid userId = User.GetUserId()!.Value;
-        var result = await _mediator.Send(new CreateInvitationCommand(userId, request.InvitationCaption));
+        var result = await _mediator.Send(new CreateInvitationCommand(userId, request.InvitationCaption, request.MaxActivations, request.ExpirationDate));
         return CreatedAtAction(nameof(Get), new { InvitationId = result.Id }, result);
     }
 

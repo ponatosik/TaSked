@@ -18,7 +18,7 @@ public class CreateSubjectCommandHandler : IRequestHandler<CreateSubjectCommand,
 		var user = _context.Users.FindById(request.UserId);
 		var group = _context.Groups.FindById(user.GroupId.Value);
 
-		var subject = group.CreateSubject(request.SubjectName);
+		var subject = group.CreateSubject(request.SubjectName, request.Teacher);
 
 		await _context.SaveChangesAsync(cancellationToken);
 		return SubjectDTO.From(subject);

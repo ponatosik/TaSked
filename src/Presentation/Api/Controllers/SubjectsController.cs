@@ -26,7 +26,7 @@ public class SubjectsController : ControllerBase
 	public async Task<IActionResult> Post(CreateSubjectRequest request)
 	{
 		Guid userId = User.GetUserId()!.Value;
-		var result = await _mediator.Send(new CreateSubjectCommand(userId, request.SubjectName));
+		var result = await _mediator.Send(new CreateSubjectCommand(userId, request.SubjectName, request.Teacher));
 		return CreatedAtAction(nameof(Get), new { }, result);
 	}
 

@@ -33,7 +33,7 @@ public class HomeworksController : ControllerBase
 	public async Task<IActionResult> Post(CreateHomeworkRequest request)
 	{
 		Guid userId = User.GetUserId()!.Value;
-        var result = await _mediator.Send(new CreateHomeworkCommand(userId, request.SubjectId, request.Title, request.Description));
+        var result = await _mediator.Send(new CreateHomeworkCommand(userId, request.SubjectId, request.Title, request.Description, request.Deadline));
 		return CreatedAtAction(nameof(Get), new { }, result);
 	}
 

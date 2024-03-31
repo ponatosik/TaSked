@@ -20,7 +20,7 @@ public class CreateHomeworkCommandHandler : IRequestHandler<CreateHomeworkComman
 		var group = _context.Groups.Include(group => group.Subjects).FindById(user.GroupId.Value);
 		var subject = group.Subjects.FindById(request.SubjectId);
 
-		var homework = subject.CreateHomework(request.Title, request.Description);
+		var homework = subject.CreateHomework(request.Title, request.Description, request.Deadline);
 		
 		await _context.SaveChangesAsync(cancellationToken);
 		return homework;
