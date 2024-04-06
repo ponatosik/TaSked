@@ -20,6 +20,9 @@ public partial class CreateTaskViewModel : ObservableObject
 	private string _title;
 
 	[ObservableProperty]
+	private DateTime? _deadline = DateTime.Now;
+
+	[ObservableProperty]
 	private string _description = string.Empty;
 
 	[ObservableProperty]
@@ -40,7 +43,7 @@ public partial class CreateTaskViewModel : ObservableObject
 			return;
 		}
 
-		var request = new CreateHomeworkRequest(Subject.Id, Title, Description);
+		var request = new CreateHomeworkRequest(Subject.Id, Title, Description, Deadline);
 		var homework = await _api.CreateHomework(request);
 		await Shell.Current.GoToAsync("..");
 

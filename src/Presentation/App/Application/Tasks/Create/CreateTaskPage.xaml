@@ -17,6 +17,9 @@
                 ItemsSource="{Binding AvailableSubjects}"
                 ItemDisplayBinding="{Binding Name}" />
 
+        <DatePicker 
+                Date="{Binding Deadline}" />
+
         <material:TextField Title="Назва задвання" Text="{Binding Title}" Margin="30,10"/>
         <material:TextField Title="Опис" Text="{Binding Description}" Margin="30,10"/>
 
