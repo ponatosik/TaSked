@@ -8,14 +8,14 @@ namespace TaSked.App;
 
 public partial class CreateSubjectViewModel : ObservableObject
 {
-	private ITaSkedSevice _api;
+	private ITaSkedSubjects _subjectService;
 
 	[ObservableProperty]
 	private string _name;
 
-	public CreateSubjectViewModel(ITaSkedSevice api)
+	public CreateSubjectViewModel(ITaSkedSubjects subjectService)
 	{
-		_api = api;
+		_subjectService = subjectService;
 	}
 
 	[RelayCommand]
@@ -27,7 +27,7 @@ public partial class CreateSubjectViewModel : ObservableObject
 		}
 
 		var request = new CreateSubjectRequest(Name);
-		var dto = await _api.CreateSubject(request);
+		var dto = await _subjectService.CreateSubject(request);
 		await Shell.Current.GoToAsync("..");
 
 		SubjectViewModel viewModel = new SubjectViewModel(dto);

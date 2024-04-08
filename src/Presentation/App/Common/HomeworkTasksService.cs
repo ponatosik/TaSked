@@ -7,17 +7,17 @@ namespace TaSked.App.Common;
 public class HomeworkTasksService
 {
 	private TasksDatabase _database;
-	private ITaSkedSevice _api;
+	private ITaSkedHomeworks _homeworkService;
 
-	public HomeworkTasksService(TasksDatabase database, ITaSkedSevice api)
+	public HomeworkTasksService(TasksDatabase database, ITaSkedHomeworks homeworkService)
 	{
 		_database = database;
-		_api = api;
+		_homeworkService = homeworkService;
 	}
 
 	public async Task<List<HomeworkTask>> GetAllAsync()
 	{
-		var homeworks = await _api.GetAllHomework();
+		var homeworks = await _homeworkService.GetAllHomework();
 		var taskDAOs = await _database.GetTasksAsync();
 		List<HomeworkTask> list = new List<HomeworkTask>();
 

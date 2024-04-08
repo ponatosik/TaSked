@@ -14,7 +14,7 @@ public interface ITaSkedHomeworks
 	public Task<Homework> CreateHomework(CreateHomeworkRequest request);
 
 	[Delete("/Homeworks")]
-	public Task DeleteHomework();
+	public Task DeleteHomework(DeleteHomeworkRequest request);
 
 	[Patch("/Homeworks/Deadline")]
 	public Task<Homework> ChangeDeadline(ChangeHomeworkDeadlineRequest request);

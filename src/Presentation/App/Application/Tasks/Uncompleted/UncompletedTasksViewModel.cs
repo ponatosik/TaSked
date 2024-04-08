@@ -1,24 +1,24 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
-using TaSked.Api.ApiClient;
 using TaSked.App.Common;
 using TaSked.Application;
 using TaSked.Domain;
+using TaSked.Api.ApiClient;
 
 namespace TaSked.App;
 
 public partial class UncompletedTasksViewModel : ObservableObject
 {
-	private readonly ITaSkedSevice _api;
+	private readonly ITaSkedSubjects _subjectService;
 	private readonly HomeworkTasksService _tasksService;
 
 	[ObservableProperty]
 	private ObservableCollection<TaskViewModel> _tasks;
 
-	public UncompletedTasksViewModel(ITaSkedSevice api, HomeworkTasksService taskService)
+	public UncompletedTasksViewModel(ITaSkedSubjects subjectService, HomeworkTasksService taskService)
 	{
-		_api = api;
+		_subjectService = subjectService;
 		_tasksService = taskService;
 		_tasks = new ObservableCollection<TaskViewModel>();
 		LoadTasks();
@@ -30,7 +30,7 @@ public partial class UncompletedTasksViewModel : ObservableObject
 		List<SubjectDTO> subjects = new List<SubjectDTO>();
 
 		tasks = await _tasksService.GetAllAsync();
-		subjects = await _api.GetAllSubjects();
+		subjects = await _subjectService.GetAllSubjects();
 
 		List<TaskViewModel> models = tasks.Select(task => new TaskViewModel(task, 
 			subjects.Find(s => s.Id == task.Homework.SubjectId).Name)).ToList();

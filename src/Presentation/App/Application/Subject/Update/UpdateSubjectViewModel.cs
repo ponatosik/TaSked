@@ -9,24 +9,24 @@ namespace TaSked.App;
 [QueryProperty(nameof(SubjectDTO), "subject")]
 public partial class UpdateSubjectViewModel : ObservableObject
 {
-	private ITaSkedSevice _api;
+	private ITaSkedSubjects _subjectService;
 
 	[ObservableProperty]
 	private SubjectDTO _subjectDTO;
 
-	public UpdateSubjectViewModel(ITaSkedSevice api)
+	public UpdateSubjectViewModel(ITaSkedSubjects subjectService)
 	{
-		_api = api;
+		_subjectService = subjectService;
 	}
 
 	[RelayCommand]
 	private async Task UpdateSubject()
 	{
 		var changeNameRequest = new ChangeSubjectNameRequest(SubjectDTO.Id, SubjectDTO.Name);
-		await _api.ChangeSubjectName(changeNameRequest);
+		await _subjectService.ChangeSubjectName(changeNameRequest);
 
 		var changeTeacherRequest = new ChangeSubjectTeacherRequest(SubjectDTO.Id, SubjectDTO.Teacher);
-		await _api.ChangeSubjectTeacher(changeTeacherRequest);
+		await _subjectService.ChangeSubjectTeacher(changeTeacherRequest);
 
 		await Shell.Current.GoToAsync("..");
 	}

@@ -1,7 +1,10 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Akavache;
+using Akavache.Sqlite3;
+using Microsoft.Extensions.Logging;
 using TaSked.Api.ApiClient;
 using TaSked.App.Application;
 using TaSked.App.Common;
+using TaSked.App.Common.Caching;
 using TaSked.Infrastructure.LocalPersistence;
 using The49.Maui.ContextMenu;
 using UraniumUI;
@@ -79,6 +82,13 @@ public static class MauiProgram
         builder.Services.AddSingleton<LoadingPage>();
 
 
+		// Add Cache
+		builder.Services.AddHostedService<CacheHostedService>();
+		builder.Services.AddSingleton(CacheHostedService.GetCache());
+		builder.Services.AddSingleton<ITaSkedSubjects, CachedTaSkedSubjects>();
+		builder.Services.AddSingleton<ITaSkedHomeworks, CachedTaSkedHomeworks>();
+		builder.Services.AddSingleton<ITaSkedInvitations, CachedTaSkedInvitations>();
+
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
@@ -88,3 +98,5 @@ public static class MauiProgram
 		return app;
 	}
 }
+
+

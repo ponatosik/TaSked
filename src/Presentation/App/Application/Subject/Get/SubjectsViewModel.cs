@@ -9,27 +9,27 @@ namespace TaSked.App;
 
 public partial class SubjectsViewModel : ObservableObject
 {
-	private readonly ITaSkedSevice _api;
+	private readonly ITaSkedSubjects _subjectService;
 
 	[ObservableProperty]
 	private ObservableCollection<SubjectViewModel> _subjects;
 
-	public SubjectsViewModel(ITaSkedSevice api)
+	public SubjectsViewModel(ITaSkedSubjects subjectService)
 	{
-		_api = api;
+		_subjectService = subjectService;
 		_subjects = new ObservableCollection<SubjectViewModel>();
 	}
 
 	[RelayCommand]
-	public void ReloadSubjects()
+	public async Task ReloadSubjects()
 	{ 	
 		Subjects.Clear();
-		LoadSubjects().ForEach(subject => Subjects.Add(new SubjectViewModel(subject)));
+		(await LoadSubjects()).ForEach(subject => Subjects.Add(new SubjectViewModel(subject)));
 	}
 
-	private List<SubjectDTO> LoadSubjects()
+	private async Task<List<SubjectDTO>> LoadSubjects()
 	{
-		return _api.GetAllSubjects().Result;
+		return await _subjectService.GetAllSubjects();
 	}
 
 	[RelayCommand]
