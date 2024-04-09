@@ -16,8 +16,8 @@ public partial class TaskViewModel : ObservableObject
 	public TaskViewModel() { }
 	public TaskViewModel(HomeworkTask task, string subjectName)
 	{
-		_task = task;
-		_subjectName = subjectName;
+		Task = task;
+		SubjectName = subjectName;
 	}
 
 	[RelayCommand]

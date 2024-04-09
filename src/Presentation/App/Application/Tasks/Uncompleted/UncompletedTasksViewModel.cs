@@ -32,8 +32,7 @@ public partial class UncompletedTasksViewModel : ObservableObject
 		tasks = await _tasksService.GetAllAsync();
 		subjects = await _subjectService.GetAllSubjects();
 
-		List<TaskViewModel> models = tasks.Select(task => new TaskViewModel(task, 
-			subjects.Find(s => s.Id == task.Homework.SubjectId).Name)).ToList();
+		List<TaskViewModel> models = tasks.Select(task => new TaskViewModel(task, subjects.Find(s => s.Id == task.Homework.SubjectId).Name)).ToList();
 
 		Tasks.Clear();
 		models.ForEach(model => Tasks.Add(model));

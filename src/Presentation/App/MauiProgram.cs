@@ -81,11 +81,13 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<LoadingPage>();
 
+		builder.Services.AddSingleton<IConnectivity>(Connectivity.Current);
 
 		// Add Cache
 		builder.Services.AddHostedService<CacheHostedService>();
 		builder.Services.AddSingleton(CacheHostedService.GetCache());
 		builder.Services.AddSingleton<ITaSkedSubjects, CachedTaSkedSubjects>();
+		builder.Services.AddSingleton<ITaSkedUsers, CachedTaSkedUsers>();
 		builder.Services.AddSingleton<ITaSkedHomeworks, CachedTaSkedHomeworks>();
 		builder.Services.AddSingleton<ITaSkedInvitations, CachedTaSkedInvitations>();
 

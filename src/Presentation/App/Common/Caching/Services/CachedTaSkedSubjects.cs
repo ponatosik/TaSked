@@ -7,10 +7,17 @@ namespace TaSked.App.Common.Caching;
 public class CachedTaSkedSubjects : CachedRepository<SubjectDTO>, ITaSkedSubjects
 {
 	private readonly ITaSkedSevice _api;
+	private readonly IConnectivity _connectivity;
 
-	public CachedTaSkedSubjects(ITaSkedSevice api)
+	public CachedTaSkedSubjects(ITaSkedSevice api, IConnectivity connectivity)
 	{
 		_api = api;
+		_connectivity = connectivity;
+
+		if(_connectivity.NetworkAccess == NetworkAccess.Internet)
+		{
+			FetchAndCacheEntities();
+		}
 	}
 
 	public async Task<SubjectDTO> CreateSubject(CreateSubjectRequest request)

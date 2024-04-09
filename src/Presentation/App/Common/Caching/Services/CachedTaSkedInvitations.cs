@@ -8,10 +8,17 @@ namespace TaSked.App.Common.Caching;
 public class CachedTaSkedInvitations : CachedRepository<Invitation>, ITaSkedInvitations
 {
 	private readonly ITaSkedSevice _api;
+	private readonly IConnectivity _connectivity;
 
-    public CachedTaSkedInvitations(ITaSkedSevice api) 
+    public CachedTaSkedInvitations(ITaSkedSevice api, IConnectivity connectivity) 
     {
 		_api = api;
+		_connectivity = connectivity;
+
+		if(_connectivity.NetworkAccess == NetworkAccess.Internet)
+		{
+			FetchAndCacheEntities();
+		}
     }
 
     public async Task<Invitation> CreateInvitation(CreateInvintationRequest request)
