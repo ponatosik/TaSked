@@ -46,8 +46,10 @@ public static class MauiProgram
 		builder.Services.AddSingleton<UncompletedTasksViewModel>();
 		builder.Services.AddScoped<CreateTaskPage>();
 		builder.Services.AddScoped<CreateTaskViewModel>();
+        builder.Services.AddScoped<UpdateTaskPage>();
+        builder.Services.AddScoped<UpdateTaskViewModel>();
 
-		builder.Services.AddSingleton<RepotrsViewModel>();
+        builder.Services.AddSingleton<RepotrsViewModel>();
 		builder.Services.AddSingleton<ReportPage>();
 		builder.Services.AddScoped<CreateReportPage>();
 		builder.Services.AddScoped<CreateReportViewModel>();

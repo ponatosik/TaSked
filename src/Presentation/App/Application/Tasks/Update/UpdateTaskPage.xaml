@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:TaSked.App"
+             xmlns:components="clr-namespace:TaSked.App.Components"
+             xmlns:domain="clr-namespace:TaSked.Domain;assembly=Domain"
+             x:DataType="local:UpdateTaskViewModel"
+             x:Class="TaSked.App.UpdateTaskPage"
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material">
+
+    <StackLayout>
+        <Label Text="Змінти завдання" HorizontalTextAlignment="Center"/>
+
+        <material:TextField Title="Назва завдання" Text="{Binding Homework.Title}" Margin="30,10"/>
+        <material:TextField Title="Опис завдання" Text="{Binding Homework.Description}" Margin="30,10"/>
+        <Button Command="{Binding UpdateTaskCommand}" Margin="100,10" Text="Оновити" TextColor="#242424"/>
+
+    </StackLayout>
+
+</ContentPage>

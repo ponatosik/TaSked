@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using TaSked.App.Common;
+using TaSked.Application;
 using TaSked.Domain;
 
 namespace TaSked.App;
@@ -33,4 +34,10 @@ public partial class TaskViewModel : ObservableObject
 		HomeworkTasksService tasksService = ServiceHelper.GetService<HomeworkTasksService>();
 		await tasksService.UndoCompletionAsync(Task);
 	}
+
+    [RelayCommand]
+    private static async Task UpdateCompletion()
+    {
+        await Shell.Current.GoToAsync("UpdateTaskPage");
+    }
 }

@@ -161,10 +161,13 @@
 	  <MauiXaml Update="Application\Tasks\Create\CreateTaskPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Application\Tasks\Uncompleted\TaskCard.xaml">
+	  <MauiXaml Update="Application\Tasks\TaskCard.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Application\Tasks\Uncompleted\UncompletedTasksPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Application\Tasks\Update\UpdateTaskPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Common\Components\Divider.xaml">

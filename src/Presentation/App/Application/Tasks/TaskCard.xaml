@@ -17,6 +17,9 @@
                         Title="Виконати"
                         Command="{Binding Model.CompleteCommand, Source={Reference TaskCardComponent}}"/>
                     <the49:Action
+                        Title="Змінити"
+                        Command="{Binding Model.UpdateCompletionCommand, Source={Reference TaskCardComponent}}"/>
+                    <the49:Action
                         Title="Помітити як не виконане"
                         Command="{Binding Model.UndoCompletionCommand, Source={Reference TaskCardComponent}}"/>
                 </the49:Menu>
@@ -28,6 +31,9 @@
                 <MenuFlyoutItem 
                     Text="Виконати"
                     Command="{Binding Model.CompleteCommand, Source={Reference TaskCardComponent}}"/>
+                <MenuFlyoutItem 
+                    Text="Змінити"
+                    Command="{Binding Model.UpdateCompletionCommand, Source={Reference TaskCardComponent}}"/>
                 <MenuFlyoutItem 
                     Text="Помітити як не виконане"
                     Command="{Binding Model.UndoCompletionCommand, Source={Reference TaskCardComponent}}"/>
