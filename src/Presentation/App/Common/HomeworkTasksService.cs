@@ -17,7 +17,7 @@ public class HomeworkTasksService
 
 	public async Task<List<HomeworkTask>> GetAllAsync()
 	{
-		var homeworks = await _homeworkService.GetAllHomework();
+		var homeworks = (await _homeworkService.GetAllHomework()).ToList();
 		var taskDAOs = await _database.GetTasksAsync();
 		List<HomeworkTask> list = new List<HomeworkTask>();
 

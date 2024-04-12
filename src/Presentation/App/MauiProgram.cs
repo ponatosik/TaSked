@@ -1,6 +1,8 @@
 ﻿using Akavache;
 using Akavache.Sqlite3;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Splat;
 using TaSked.Api.ApiClient;
 using TaSked.App.Application;
 using TaSked.App.Common;
@@ -84,6 +86,13 @@ public static class MauiProgram
 		builder.Services.AddSingleton<IConnectivity>(Connectivity.Current);
 
 		// Add Cache
+		var jsonSerializerSettings = new JsonSerializerSettings
+		{
+			ContractResolver = new JsonPrivatePropertiesResolver(),
+			ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor
+		};
+		Locator.CurrentMutable.RegisterConstant(jsonSerializerSettings, typeof(JsonSerializerSettings));
+			
 		builder.Services.AddHostedService<CacheHostedService>();
 		builder.Services.AddSingleton(CacheHostedService.GetCache());
 		builder.Services.AddSingleton<ITaSkedSubjects, CachedTaSkedSubjects>();
