@@ -99,6 +99,7 @@ public static class MauiProgram
 		builder.Services.AddSingleton<ITaSkedUsers, CachedTaSkedUsers>();
 		builder.Services.AddSingleton<ITaSkedHomeworks, CachedTaSkedHomeworks>();
 		builder.Services.AddSingleton<ITaSkedInvitations, CachedTaSkedInvitations>();
+		builder.Services.AddSingleton<ITaSkedReports, CachedTaSkedReports>();
 
 #if DEBUG
 		builder.Logging.AddDebug();

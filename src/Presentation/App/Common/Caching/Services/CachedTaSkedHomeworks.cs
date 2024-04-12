@@ -1,7 +1,6 @@
 ﻿using TaSked.Api.ApiClient;
 using TaSked.Api.Requests;
 using TaSked.Domain;
-using Microsoft.Maui.Networking;
 
 namespace TaSked.App.Common.Caching;
 
@@ -10,7 +9,6 @@ public class CachedTaSkedHomeworks : CachedRepository<Homework>, ITaSkedHomework
 {
 	private readonly ITaSkedSevice _api;
 	private readonly IConnectivity _connectivity;
-	private readonly Task _initializing;
 
 	public CachedTaSkedHomeworks(ITaSkedSevice api, IConnectivity connectivity)
 	{
@@ -19,17 +17,12 @@ public class CachedTaSkedHomeworks : CachedRepository<Homework>, ITaSkedHomework
 
 		if(_connectivity.NetworkAccess == NetworkAccess.Internet)
 		{
-			_initializing = FetchAndCacheEntities();
-		}
-		else
-		{
-			_initializing = Task.CompletedTask;
+			FetchAndCacheEntities();
 		}
 	}
 
 	public async Task<List<Homework>> GetAllHomework()
 	{
-		await _initializing;
 		return (await GetCachedEntities()).ToList();
 	}
 
