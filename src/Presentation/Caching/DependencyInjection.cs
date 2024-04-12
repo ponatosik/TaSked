@@ -18,10 +18,12 @@ public static class DependencyInjection
 
 		services.AddHostedService<CacheHostedService>();
 		services.AddSingleton(CacheHostedService.GetCache());
+
 		services.AddSingleton<ITaSkedSubjects, CachedTaSkedSubjects>();
 		services.AddSingleton<ITaSkedUsers, CachedTaSkedUsers>();
 		services.AddSingleton<ITaSkedHomeworks, CachedTaSkedHomeworks>();
 		services.AddSingleton<ITaSkedInvitations, CachedTaSkedInvitations>();
+		services.AddSingleton<ITaSkedLessons, CachedTaSkedLessons>();
 		services.AddSingleton<ITaSkedReports, CachedTaSkedReports>();
 
 		return services;
