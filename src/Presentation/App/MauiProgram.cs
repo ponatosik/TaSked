@@ -1,12 +1,8 @@
-﻿using Akavache;
-using Akavache.Sqlite3;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Splat;
+﻿using Microsoft.Extensions.Logging;
 using TaSked.Api.ApiClient;
 using TaSked.App.Application;
 using TaSked.App.Common;
-using TaSked.App.Common.Caching;
+using TaSked.App.Caching;
 using TaSked.Infrastructure.LocalPersistence;
 using The49.Maui.ContextMenu;
 using UraniumUI;
@@ -85,21 +81,7 @@ public static class MauiProgram
 
 		builder.Services.AddSingleton<IConnectivity>(Connectivity.Current);
 
-		// Add Cache
-		var jsonSerializerSettings = new JsonSerializerSettings
-		{
-			ContractResolver = new JsonPrivatePropertiesResolver(),
-			ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor
-		};
-		Locator.CurrentMutable.RegisterConstant(jsonSerializerSettings, typeof(JsonSerializerSettings));
-			
-		builder.Services.AddHostedService<CacheHostedService>();
-		builder.Services.AddSingleton(CacheHostedService.GetCache());
-		builder.Services.AddSingleton<ITaSkedSubjects, CachedTaSkedSubjects>();
-		builder.Services.AddSingleton<ITaSkedUsers, CachedTaSkedUsers>();
-		builder.Services.AddSingleton<ITaSkedHomeworks, CachedTaSkedHomeworks>();
-		builder.Services.AddSingleton<ITaSkedInvitations, CachedTaSkedInvitations>();
-		builder.Services.AddSingleton<ITaSkedReports, CachedTaSkedReports>();
+		builder.Services.AddTaSkedCache();
 
 #if DEBUG
 		builder.Logging.AddDebug();
