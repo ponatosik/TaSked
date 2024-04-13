@@ -36,8 +36,11 @@ public partial class TaskViewModel : ObservableObject
 	}
 
     [RelayCommand]
-    private static async Task UpdateCompletion()
+    private async Task UpdateHomework()
     {
-        await Shell.Current.GoToAsync("UpdateTaskPage");
+        await Shell.Current.GoToAsync("UpdateTaskPage", new Dictionary<string, object>
+		{
+			["homework"] = Task.Homework
+		});
     }
 }

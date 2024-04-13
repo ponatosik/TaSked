@@ -11,6 +11,8 @@
     <StackLayout>
         <Label Text="Змінти завдання" HorizontalTextAlignment="Center"/>
 
+        <DatePicker Date="{Binding Homework.Deadline}" />
+
         <material:TextField Title="Назва завдання" Text="{Binding Homework.Title}" Margin="30,10"/>
         <material:TextField Title="Опис завдання" Text="{Binding Homework.Description}" Margin="30,10"/>
         <Button Command="{Binding UpdateTaskCommand}" Margin="100,10" Text="Оновити" TextColor="#242424"/>
