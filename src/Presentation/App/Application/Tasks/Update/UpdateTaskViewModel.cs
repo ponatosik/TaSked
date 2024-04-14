@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.Input;
 using TaSked.Api.ApiClient;
 using TaSked.Api.Requests;
-using TaSked.Application;
 using TaSked.Domain;
 
 namespace TaSked.App;
@@ -10,27 +9,27 @@ namespace TaSked.App;
 [QueryProperty(nameof(Homework), "homework")]
 public partial class UpdateTaskViewModel : ObservableObject
 {
-    private ITaSkedSevice _api;
+    private ITaSkedHomeworks _homeworkService;
 
     [ObservableProperty]
     private Homework _homework;
 
-    public UpdateTaskViewModel(ITaSkedSevice api)
+    public UpdateTaskViewModel(ITaSkedHomeworks homeworkServic)
     {
-        _api = api;
+        _homeworkService = homeworkServic;
     }
 
     [RelayCommand]
     private async Task UpdateTask()
     {
         var changeTitleRequest = new ChangeHomeworkTitleRequest(Homework.SubjectId, Homework.Id, Homework.Title);
-        await _api.ChangeTitle(changeTitleRequest);
+        await _homeworkService.ChangeTitle(changeTitleRequest);
 
         var changeDescriptionRequest = new ChangeHomeworkDescriptionRequest(Homework.SubjectId, Homework.Id, Homework.Description);
-        await _api.ChangeDescription(changeDescriptionRequest);
+        await _homeworkService.ChangeDescription(changeDescriptionRequest);
 
         var changeDeadlineRequest = new ChangeHomeworkDeadlineRequest(Homework.SubjectId, Homework.Id, Homework.Deadline);
-        await _api.ChangeDeadline(changeDeadlineRequest);
+        await _homeworkService.ChangeDeadline(changeDeadlineRequest);
 
         await Shell.Current.GoToAsync("..");
     }

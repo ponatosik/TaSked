@@ -9,13 +9,13 @@ public class LoginService
 {
 	private ITaSkedSevice _api;
 	private ITaSkedUsers _usersService;
-	private IConnectivity _connectivity;
+	private ITaSkedInvitations _invitationsService;
 	private IUserTokenStore _tokenStore;
 
-	public LoginService(ITaSkedSevice api, ITaSkedUsers usersService, IConnectivity connectivity, IUserTokenStore tokenStore)
+	public LoginService(ITaSkedSevice api, ITaSkedUsers usersService, ITaSkedInvitations invitationsService, IUserTokenStore tokenStore)
 	{
 		_api = api;
-		_connectivity = connectivity;
+		_invitationsService = invitationsService;
 		_usersService = usersService;
 		_tokenStore = tokenStore;
 	}
@@ -32,8 +32,8 @@ public class LoginService
 		string token = await _api.RegisterAnonymous(new Api.Requests.CreateUserTokenRequest(username));
 		_tokenStore.AccessToken = token;
 
-		Guid groupId = (await _api.GetInvitationById(invitation)).GroupId;
-		await _api.ActivateInvitation(new Api.Requests.ActivateInvintationRequest(invitation, groupId));
+		Guid groupId = (await _invitationsService.GetInvitationById(invitation)).GroupId;
+		await _invitationsService.ActivateInvitation(new Api.Requests.ActivateInvintationRequest(invitation, groupId));
 	}
 
 	public void Logout()
