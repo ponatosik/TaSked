@@ -2,6 +2,7 @@
 using TaSked.Api.ApiClient;
 using TaSked.App.Application;
 using TaSked.App.Common;
+using TaSked.App.Caching;
 using TaSked.Infrastructure.LocalPersistence;
 using The49.Maui.ContextMenu;
 using UraniumUI;
@@ -80,6 +81,9 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<LoadingPage>();
 
+		builder.Services.AddSingleton<IConnectivity>(Connectivity.Current);
+
+		builder.Services.AddTaSkedCache();
 
 #if DEBUG
 		builder.Logging.AddDebug();
@@ -90,3 +94,5 @@ public static class MauiProgram
 		return app;
 	}
 }
+
+

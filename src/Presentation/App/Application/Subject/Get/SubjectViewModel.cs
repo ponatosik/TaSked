@@ -30,7 +30,7 @@ public partial class SubjectViewModel : ObservableObject
 	[RelayCommand]
 	private async Task DeleteSubject()
 	{
-		ITaSkedSevice api = ServiceHelper.GetService<ITaSkedSevice>();
+		ITaSkedSubjects api = ServiceHelper.GetService<ITaSkedSubjects>();
 		SubjectsViewModel viewModel = ServiceHelper.GetService<SubjectsViewModel>();
 
 		var request = new DeleteSubjectRequest(SubjectDTO.Id);

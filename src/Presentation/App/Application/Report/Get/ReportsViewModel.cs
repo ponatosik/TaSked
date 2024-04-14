@@ -8,27 +8,27 @@ namespace TaSked.App;
 
 public partial class RepotrsViewModel : ObservableObject
 {
-	private readonly ITaSkedSevice _api;
+	private readonly ITaSkedReports _reportsService;
 
 	[ObservableProperty]
 	private ObservableCollection<Report> _reports;
 
-	public RepotrsViewModel(ITaSkedSevice api)
+	public RepotrsViewModel(ITaSkedReports api)
 	{
-		_api = api;
+		_reportsService = api;
 		_reports = new ObservableCollection<Report>();
 	}
 
 	[RelayCommand]
-	public void ReloadReports()
+	public async Task ReloadReports()
 	{ 	
 		Reports.Clear();
-		LoadReports().ForEach(report => Reports.Add(report));
+		(await LoadReports()).ForEach(report => Reports.Add(report));
 	}
 
-	private List<Report> LoadReports()
+	private Task<List<Report>> LoadReports()
 	{
-		return _api.GetAllReports().Result;
+		return _reportsService.GetAllReports();
 	}
 
 	[RelayCommand]

@@ -8,11 +8,15 @@ namespace TaSked.App.Common;
 public class LoginService
 {
 	private ITaSkedSevice _api;
+	private ITaSkedUsers _usersService;
+	private IConnectivity _connectivity;
 	private IUserTokenStore _tokenStore;
 
-	public LoginService(ITaSkedSevice api, IUserTokenStore tokenStore)
+	public LoginService(ITaSkedSevice api, ITaSkedUsers usersService, IConnectivity connectivity, IUserTokenStore tokenStore)
 	{
 		_api = api;
+		_connectivity = connectivity;
+		_usersService = usersService;
 		_tokenStore = tokenStore;
 	}
 
@@ -59,7 +63,7 @@ public class LoginService
 
 		try
 		{
-			user = await _api.CurrentUser();
+			user = await _usersService.CurrentUser();
 		}
 		catch (ApiException exception)
 		{
@@ -88,7 +92,7 @@ public class LoginService
 
         try
         {
-            user = await _api.CurrentUser();
+            user = await _usersService.CurrentUser();
         }
         catch (ApiException exception)
         {

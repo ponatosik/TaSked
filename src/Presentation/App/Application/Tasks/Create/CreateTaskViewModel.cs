@@ -11,7 +11,8 @@ namespace TaSked.App;
 
 public partial class CreateTaskViewModel : ObservableObject
 {
-	private ITaSkedSevice _api;
+	private ITaSkedHomeworks _homeworkService;
+	private ITaSkedSubjects _subjectService;
 
 	[ObservableProperty]
 	private SubjectDTO _subject;
@@ -28,9 +29,10 @@ public partial class CreateTaskViewModel : ObservableObject
 	[ObservableProperty]
 	private ObservableCollection<SubjectDTO> _availableSubjects;
 
-	public CreateTaskViewModel(ITaSkedSevice api)
+	public CreateTaskViewModel(ITaSkedHomeworks homeworkService, ITaSkedSubjects subjectService)
 	{
-		_api = api;
+		_homeworkService = homeworkService;
+		_subjectService = subjectService;
 		AvailableSubjects = new ObservableCollection<SubjectDTO>();
 		LoadAvailableSubjects();
 	}
@@ -44,7 +46,7 @@ public partial class CreateTaskViewModel : ObservableObject
 		}
 
 		var request = new CreateHomeworkRequest(Subject.Id, Title, Description, Deadline);
-		var homework = await _api.CreateHomework(request);
+		var homework = await _homeworkService.CreateHomework(request);
 		await Shell.Current.GoToAsync("..");
 
 		TaskViewModel viewModel = new TaskViewModel(homework.CreateTask(), Subject.Name);
@@ -54,7 +56,7 @@ public partial class CreateTaskViewModel : ObservableObject
 
 	private async Task LoadAvailableSubjects()
 	{
-		var subjects = await _api.GetAllSubjects();
+		var subjects = await _subjectService.GetAllSubjects();
 		AvailableSubjects.Clear();
 		subjects.ForEach(subject => AvailableSubjects.Add(subject));
 	}

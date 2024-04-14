@@ -5,7 +5,7 @@ using System.Text.Json.Serialization.Metadata;
 namespace TaSked.Api.ApiClient;
 
 // Needed to deserialize domain objects with private constructors and properties
-internal class PrivateConstructorDeserializationModifier 
+public class PrivateConstructorDeserializationModifier 
 {
 	public static void UsePrivateConstructor(JsonTypeInfo jsonTypeInfo)
 	{
