@@ -24,7 +24,7 @@
 		<ApplicationTitle>TaSked</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.tasked</ApplicationId>
+		<ApplicationId>com.ponatosik.tasked</ApplicationId>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
