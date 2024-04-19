@@ -51,13 +51,13 @@
 
             <ShellContent
                 Title="Всі"
-                ContentTemplate="{DataTemplate local:TasksPage2}"
-                Route="TasksPage2"/>
+                ContentTemplate="{DataTemplate local:AllTasksPage}"
+                Route="AllTasksPage"/>
 
             <ShellContent
                 Title="За предметами"
-                ContentTemplate="{DataTemplate local:TasksPage3}"
-                Route="TasksPage3"/>
+                ContentTemplate="{DataTemplate local:SortBySubjPage}"
+                Route="SortBySubjPage"/>
         </Tab>
 
         <Tab Title="Предмети">

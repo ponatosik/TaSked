@@ -49,6 +49,10 @@ public static class MauiProgram
 		builder.Services.AddScoped<CreateTaskViewModel>();
         builder.Services.AddScoped<UpdateTaskPage>();
         builder.Services.AddScoped<UpdateTaskViewModel>();
+        builder.Services.AddScoped<AllTasksPage>();
+        builder.Services.AddScoped<AllTasksViewModel>();
+        builder.Services.AddScoped<SortBySubjPage>();
+        builder.Services.AddScoped<SortBySubjViewModel>();
 
         builder.Services.AddSingleton<RepotrsViewModel>();
 		builder.Services.AddSingleton<ReportPage>();

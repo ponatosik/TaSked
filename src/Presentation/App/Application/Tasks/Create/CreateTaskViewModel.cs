@@ -50,7 +50,7 @@ public partial class CreateTaskViewModel : ObservableObject
 		await Shell.Current.GoToAsync("..");
 
 		TaskViewModel viewModel = new TaskViewModel(homework.CreateTask(), Subject.Name);
-		var tasksView = ServiceHelper.GetService<UncompletedTasksViewModel>();
+		var tasksView = ServiceHelper.GetService<AllTasksViewModel>();
 		tasksView.Tasks.Add(viewModel);
 	}
 

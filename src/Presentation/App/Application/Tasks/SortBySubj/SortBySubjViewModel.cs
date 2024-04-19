@@ -8,7 +8,7 @@ using TaSked.Api.ApiClient;
 
 namespace TaSked.App;
 
-public partial class UncompletedTasksViewModel : ObservableObject
+public partial class SortBySubjViewModel : ObservableObject
 {
 	private readonly ITaSkedSubjects _subjectService;
 	private readonly HomeworkTasksService _tasksService;
@@ -16,7 +16,7 @@ public partial class UncompletedTasksViewModel : ObservableObject
 	[ObservableProperty]
 	private ObservableCollection<TaskViewModel> _tasks;
 
-	public UncompletedTasksViewModel(ITaSkedSubjects subjectService, HomeworkTasksService taskService)
+	public SortBySubjViewModel(ITaSkedSubjects subjectService, HomeworkTasksService taskService)
 	{
 		_subjectService = subjectService;
 		_tasksService = taskService;
@@ -26,13 +26,13 @@ public partial class UncompletedTasksViewModel : ObservableObject
 
 	private async Task LoadTasks()
 	{
-        List<HomeworkTask> tasks = await _tasksService.GetAllAsync();
-        List<SubjectDTO> subjects = await _subjectService.GetAllSubjects();
+        List<HomeworkTask> tasks = new List<HomeworkTask>();
+        List<SubjectDTO> subjects = new List<SubjectDTO>();
 
-        List<TaskViewModel> models = tasks
-            .Where(task => !task.Completed)
-            .Select(task => new TaskViewModel(task, subjects.Find(s => s.Id == task.Homework.SubjectId).Name))
-            .ToList();
+        tasks = await _tasksService.GetAllAsync();
+        subjects = await _subjectService.GetAllSubjects();
+
+        List<TaskViewModel> models = tasks.Select(task => new TaskViewModel(task, subjects.Find(s => s.Id == task.Homework.SubjectId).Name)).ToList();
 
         Tasks.Clear();
         models.ForEach(model => Tasks.Add(model));
