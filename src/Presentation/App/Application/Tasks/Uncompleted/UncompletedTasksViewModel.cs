@@ -14,13 +14,13 @@ public partial class UncompletedTasksViewModel : ObservableObject
 	private readonly HomeworkTasksService _tasksService;
 
 	[ObservableProperty]
-	private ObservableCollection<TaskViewModel> _tasks;
+	private ObservableCollection<TaskGroupModel> _taskGroups;
 
 	public UncompletedTasksViewModel(ITaSkedSubjects subjectService, HomeworkTasksService taskService)
 	{
 		_subjectService = subjectService;
 		_tasksService = taskService;
-		_tasks = new ObservableCollection<TaskViewModel>();
+		_taskGroups = new ObservableCollection<TaskGroupModel>();
 		LoadTasks();
 	}
 
@@ -32,10 +32,17 @@ public partial class UncompletedTasksViewModel : ObservableObject
         List<TaskViewModel> models = tasks
             .Where(task => !task.Completed)
             .Select(task => new TaskViewModel(task, subjects.Find(s => s.Id == task.Homework.SubjectId).Name))
+			.OrderBy(task => task.SubjectName)
             .ToList();
 
-        Tasks.Clear();
-        models.ForEach(model => Tasks.Add(model));
+
+		List<TaskGroupModel> groups = models
+			.GroupBy(model => model.Task.Homework.Deadline?.Date.DayOfWeek)
+			.Select(grouping => new TaskGroupModel(grouping.Key?.ToString() ?? "no deadline", grouping.ToList()))
+			.ToList();
+
+		TaskGroups.Clear();
+		groups.ForEach(group => TaskGroups.Add(group));
     }
 
 	[RelayCommand]

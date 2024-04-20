@@ -14,12 +14,12 @@
             AbsoluteLayout.LayoutBounds="0,0,1,1"
             AbsoluteLayout.LayoutFlags="SizeProportional">
 
-            <ListView ItemsSource="{Binding Tasks}" HasUnevenRows="True">
+            <ListView ItemsSource="{Binding TaskGroups}" HasUnevenRows="True">
                 <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="local:TaskViewModel">
+                    <DataTemplate x:DataType="local:TaskGroupModel">
                         <ViewCell>
                             <VerticalStackLayout>
-                                <components:TaskCard Model ="{Binding}"/>
+                                <components:TaskGroup TaskGroupModel="{Binding}"/>
                             </VerticalStackLayout>
                         </ViewCell>
                     </DataTemplate>
