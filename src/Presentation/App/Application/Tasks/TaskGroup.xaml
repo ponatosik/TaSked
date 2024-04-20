@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:TaSked.App"
+             xmlns:components="clr-namespace:TaSked.App.Components"
+             x:DataType="components:TaskGroup" 
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="TaSked.App.Components.TaskGroup"
+             x:Name="TaskGroupComponent">
+
+    <toolkit:Expander IsExpanded="True">
+        <toolkit:Expander.Header>
+            <components:Divider LabelText="{Binding TaskGroupModel.Title, Source={Reference TaskGroupComponent}}"/>
+        </toolkit:Expander.Header>
+
+        <ListView ItemsSource="{Binding TaskGroupModel.Tasks ,Source={Reference TaskGroupComponent}}" HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="local:TaskViewModel">
+                    <ViewCell>
+                        <VerticalStackLayout>
+                            <components:TaskCard Model ="{Binding}"/>
+                        </VerticalStackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </toolkit:Expander>
+
+
+</ContentView>

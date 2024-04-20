@@ -6,6 +6,7 @@ using TaSked.App.Caching;
 using TaSked.Infrastructure.LocalPersistence;
 using The49.Maui.ContextMenu;
 using UraniumUI;
+using CommunityToolkit.Maui;
 
 namespace TaSked.App;
 
@@ -16,7 +17,8 @@ public static class MauiProgram
 		var builder = MauiApp.CreateBuilder();
 		builder
 			.UseMauiApp<App>()
-            .UseUraniumUI()
+			.UseMauiCommunityToolkit()
+			.UseUraniumUI()
 			.UseUraniumUIMaterial()
             .ConfigureFonts(fonts =>
 			{

@@ -66,12 +66,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Maui" Version="8.0.1" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.10" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.10" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.20" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.20" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
 		<PackageReference Include="The49.Maui.ContextMenu" Version="1.0.0-alpha1" />
-		<PackageReference Include="UraniumUI.Material" Version="2.8.0" />
+		<PackageReference Include="UraniumUI.Material" Version="2.8.1" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -104,6 +105,9 @@
 	  </Compile>
 	  <Compile Update="Application\Tasks\Create\CreateTaskPage.xaml.cs">
 	    <DependentUpon>CreateTaskPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Application\Tasks\TaskGroup.xaml.cs">
+	    <DependentUpon>TaskGroup.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Application\Tasks\Uncompleted\UncompletedTasksPage.xaml.cs">
 	    <DependentUpon>UncompletedTasksPage.xaml</DependentUpon>
@@ -166,6 +170,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Application\Tasks\SortBySubj\SortBySubjPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Application\Tasks\TaskGroup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Application\Tasks\TaskCard.xaml">
