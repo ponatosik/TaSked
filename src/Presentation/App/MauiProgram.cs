@@ -7,6 +7,7 @@ using TaSked.Infrastructure.LocalPersistence;
 using The49.Maui.ContextMenu;
 using UraniumUI;
 using CommunityToolkit.Maui;
+using TaSked.App.Common.Notifications;
 
 namespace TaSked.App;
 
@@ -20,6 +21,7 @@ public static class MauiProgram
 			.UseMauiCommunityToolkit()
 			.UseUraniumUI()
 			.UseUraniumUIMaterial()
+			.RegisterFirebaseServices()
             .ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
