@@ -8,10 +8,12 @@ namespace TaSked.Application;
 public class DeleteSubjectCommandHandler : IRequestHandler<DeleteSubjectCommand>
 {
     private readonly IApplicationDbContext _context;
+    private readonly IPublisher? _eventPublisher;
 
-    public DeleteSubjectCommandHandler(IApplicationDbContext context)
+    public DeleteSubjectCommandHandler(IApplicationDbContext context, IPublisher? eventPublisher = null)
     {
         _context = context;
+        _eventPublisher = eventPublisher;
     }
 
     public async Task Handle(DeleteSubjectCommand request, CancellationToken cancellationToken)
@@ -23,5 +25,10 @@ public class DeleteSubjectCommandHandler : IRequestHandler<DeleteSubjectCommand>
         group.Subjects.Remove(subject);
         
         await _context.SaveChangesAsync(cancellationToken);
+        if (_eventPublisher is not null)
+        {
+            var deletedSubject = SubjectDTO.From(subject);
+            await _eventPublisher.Publish(new SubjectDeletedEvent(deletedSubject, group.Id) ,cancellationToken);
+        }
     }
 }
