@@ -8,17 +8,13 @@
 
     <AbsoluteLayout Margin="0,0" Padding="0,0">
         <ScrollView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional">
-            <ListView ItemsSource="{Binding Tasks}" HasUnevenRows="True">
-                <ListView.ItemTemplate>
+            <CollectionView ItemsSource="{Binding Tasks}">
+                <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="local:TaskViewModel">
-                        <ViewCell>
-                            <VerticalStackLayout>
-                                <components:TaskCard Model ="{Binding}"/>
-                            </VerticalStackLayout>
-                        </ViewCell>
+                        <components:TaskCard Model ="{Binding}"/>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </ScrollView>
         <Button
         AbsoluteLayout.LayoutBounds="0.95,0.945"

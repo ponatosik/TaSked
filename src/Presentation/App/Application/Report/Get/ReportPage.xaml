@@ -16,17 +16,13 @@
             AbsoluteLayout.LayoutBounds="0,0,1,1"
             AbsoluteLayout.LayoutFlags="SizeProportional">
 
-            <ListView ItemsSource="{Binding Reports}" HasUnevenRows="True">
-                <ListView.ItemTemplate>
+            <CollectionView ItemsSource="{Binding Reports}">
+                <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="domain:Report">
-                        <ViewCell>
-                            <VerticalStackLayout>
-                                <components:ReportCard ReportModel ="{Binding}"/>
-                            </VerticalStackLayout>
-                        </ViewCell>
+                        <components:ReportCard ReportModel ="{Binding}"/>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </ScrollView>
 
         <Button

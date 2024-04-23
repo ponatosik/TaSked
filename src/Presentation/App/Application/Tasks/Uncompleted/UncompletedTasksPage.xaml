@@ -14,17 +14,13 @@
             AbsoluteLayout.LayoutBounds="0,0,1,1"
             AbsoluteLayout.LayoutFlags="SizeProportional">
 
-            <ListView ItemsSource="{Binding TaskGroups}" HasUnevenRows="True">
-                <ListView.ItemTemplate>
+            <CollectionView ItemsSource="{Binding TaskGroups}">
+                <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="local:TaskGroupModel">
-                        <ViewCell>
-                            <VerticalStackLayout>
-                                <components:TaskGroup TaskGroupModel="{Binding}"/>
-                            </VerticalStackLayout>
-                        </ViewCell>
+                        <components:TaskGroup TaskGroupModel="{Binding}"/>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </ScrollView>
         <Button
             AbsoluteLayout.LayoutBounds="0.95,0.945"
