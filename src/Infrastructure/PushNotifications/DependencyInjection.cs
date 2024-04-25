@@ -11,7 +11,6 @@ public static class DependencyInjection
 		FirebaseApp.Create(new AppOptions()
 		{
 			Credential = credentials
-			//Credential = GoogleCredential.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "firebase-adminsdk.json")),
 		});
 		return services;
 	}

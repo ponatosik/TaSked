@@ -9,7 +9,7 @@ internal class ReportCreatedEventHandler : INotificationHandler<ReportCreatedEve
 {
 	public Task Handle(ReportCreatedEvent applicationEvent, CancellationToken cancellationToken)
 	{
-		var topic = $"Group:{applicationEvent.GroupId}";
+		var topic = Helpers.GetGroupTopicName(applicationEvent.GroupId);
 		var message = new Message()
 		{
 			Notification = Helpers.GetReportCreatedNotification(applicationEvent.Report),

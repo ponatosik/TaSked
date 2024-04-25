@@ -9,7 +9,7 @@ internal class HomeworkCreatedEventHandler : INotificationHandler<HomeworkCreate
 {
 	public Task Handle(HomeworkCreatedEvent applicationEvent, CancellationToken cancellationToken)
 	{
-		var topic = $"Group:{applicationEvent.GroupId}";
+		var topic = Helpers.GetGroupTopicName(applicationEvent.GroupId);
 		var message = new Message()
 		{
 			Notification = Helpers.GetHomeworkCreatedNotification(applicationEvent.Homework),

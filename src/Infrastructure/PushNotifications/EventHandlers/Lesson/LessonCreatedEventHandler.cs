@@ -9,7 +9,7 @@ internal class LessonCreatedEventHandler : INotificationHandler<LessonCreatedEve
 {
 	public Task Handle(LessonCreatedEvent applicationEvent, CancellationToken cancellationToken)
 	{
-		var topic = $"Group:{applicationEvent.GroupId}";
+		var topic = Helpers.GetGroupTopicName(applicationEvent.GroupId);
 		var message = new Message()
 		{
 			Notification = Helpers.GetLessonCreatedNotification(applicationEvent.Lesson),

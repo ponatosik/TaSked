@@ -38,11 +38,13 @@ public static class MauiProgram
 		builder.Services.AddTaSkedApi(opt => {
 			opt.BaseUrl = "https://taskedapi.azurewebsites.net/";
 			opt.Timeout = TimeSpan.FromMinutes(3);
+			opt.UseNotifications = true;
 		});
 
 		//SecureStorage.Default.Remove("TaSked.AccessToken");
 
 		builder.Services.AddSingleton<LoginService>();
+		builder.Services.AddSingleton<NotificationsService>();
 
 		builder.Services.AddSingleton<CreateGroupPage>();
 		builder.Services.AddSingleton<CreateGroupViewModel>();
