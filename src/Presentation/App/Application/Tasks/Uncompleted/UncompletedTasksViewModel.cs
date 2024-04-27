@@ -37,7 +37,7 @@ public partial class UncompletedTasksViewModel : ObservableObject
 
 
 		List<TaskGroupModel> groups = models
-			.GroupBy(model => model.Task.Homework.Deadline?.Date.DayOfWeek)
+			.GroupBy(model => model.Task.Homework.Deadline?.Date.ToString("dd/MM"))
 			.Select(grouping => new TaskGroupModel(grouping.Key?.ToString() ?? "no deadline", grouping.ToList()))
 			.ToList();
 
