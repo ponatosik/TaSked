@@ -13,15 +13,15 @@ public partial class SortBySubjViewModel : ObservableObject
 	private readonly ITaSkedSubjects _subjectService;
 	private readonly HomeworkTasksService _tasksService;
 
-	[ObservableProperty]
-	private ObservableCollection<TaskViewModel> _tasks;
+    [ObservableProperty]
+    private ObservableCollection<TaskGroupModel> _taskGroups;
 
-	public SortBySubjViewModel(ITaSkedSubjects subjectService, HomeworkTasksService taskService)
+    public SortBySubjViewModel(ITaSkedSubjects subjectService, HomeworkTasksService taskService)
 	{
 		_subjectService = subjectService;
 		_tasksService = taskService;
-		_tasks = new ObservableCollection<TaskViewModel>();
-		LoadTasks();
+        _taskGroups = new ObservableCollection<TaskGroupModel>();
+        LoadTasks();
 	}
 
 	private async Task LoadTasks()
@@ -32,10 +32,18 @@ public partial class SortBySubjViewModel : ObservableObject
         tasks = await _tasksService.GetAllAsync();
         subjects = await _subjectService.GetAllSubjects();
 
-        List<TaskViewModel> models = tasks.Select(task => new TaskViewModel(task, subjects.Find(s => s.Id == task.Homework.SubjectId).Name)).ToList();
+        List<TaskViewModel> models = tasks
+            .Select(task => new TaskViewModel(task, subjects.Find(s => s.Id == task.Homework.SubjectId).Name))
+            .OrderBy(task => task.SubjectName)
+            .ToList();
 
-        Tasks.Clear();
-        models.ForEach(model => Tasks.Add(model));
+        List<TaskGroupModel> groups = models
+            .GroupBy(model => model.SubjectName)
+            .Select(grouping => new TaskGroupModel(grouping.Key?.ToString() ?? "no subject", grouping.ToList()))
+            .ToList();
+
+        TaskGroups.Clear();
+        groups.ForEach(group => TaskGroups.Add(group));
     }
 
 	[RelayCommand]
