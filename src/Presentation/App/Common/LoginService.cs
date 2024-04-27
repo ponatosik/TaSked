@@ -1,6 +1,7 @@
 ﻿using Refit;
 using System.Net;
 using TaSked.Api.ApiClient;
+using TaSked.App.Common.Notifications;
 using TaSked.Domain;
 
 namespace TaSked.App.Common;
@@ -11,13 +12,20 @@ public class LoginService
 	private ITaSkedUsers _usersService;
 	private ITaSkedInvitations _invitationsService;
 	private IUserTokenStore _tokenStore;
+	private NotificationsService? _notificationsService;
 
-	public LoginService(ITaSkedSevice api, ITaSkedUsers usersService, ITaSkedInvitations invitationsService, IUserTokenStore tokenStore)
+	public LoginService(
+		ITaSkedSevice api, 
+		ITaSkedUsers usersService,
+		ITaSkedInvitations invitationsService,
+		IUserTokenStore tokenStore,
+		NotificationsService? notificationsService = null)
 	{
 		_api = api;
 		_invitationsService = invitationsService;
 		_usersService = usersService;
 		_tokenStore = tokenStore;
+		_notificationsService = notificationsService;
 	}
 
 	public async Task CreateGroupAsync(string username, string groupName)
@@ -25,6 +33,11 @@ public class LoginService
 		string token = await _api.RegisterAnonymous(new Api.Requests.CreateUserTokenRequest(username));
 		_tokenStore.AccessToken = token;
 		await _api.CreateGroup(new Api.Requests.CreateGroupRequest(groupName));
+
+		if(_notificationsService is not null)
+		{
+			await _notificationsService.SubscribeToNotifications();
+		}
 	}
 
 	public async Task JoinGroupAsync(string username, Guid invitation)
@@ -34,10 +47,20 @@ public class LoginService
 
 		Guid groupId = (await _invitationsService.GetInvitationById(invitation)).GroupId;
 		await _invitationsService.ActivateInvitation(new Api.Requests.ActivateInvintationRequest(invitation, groupId));
+
+		if(_notificationsService is not null)
+		{
+			await _notificationsService.SubscribeToNotifications();
+		}
 	}
 
 	public void Logout()
 	{
+		if(_notificationsService is not null)
+		{
+			_notificationsService.UnsubscribeFromNotifications().Wait();
+		}
+
 		_tokenStore.AccessToken = null;
 		Microsoft.Maui.Controls.Application.Current?.Quit();
 	}

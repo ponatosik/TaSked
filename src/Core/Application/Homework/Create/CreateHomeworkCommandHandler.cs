@@ -8,10 +8,12 @@ namespace TaSked.Application;
 public class CreateHomeworkCommandHandler : IRequestHandler<CreateHomeworkCommand, Homework>
 {
 	private readonly IApplicationDbContext _context;
+	private readonly IPublisher? _eventPublisher;
 	
-	public CreateHomeworkCommandHandler(IApplicationDbContext context)
+	public CreateHomeworkCommandHandler(IApplicationDbContext context, IPublisher? eventPublisher = null)
 	{
 		_context = context;
+		_eventPublisher = eventPublisher;
 	}
 
 	public async Task<Homework> Handle(CreateHomeworkCommand request, CancellationToken cancellationToken)
@@ -23,6 +25,10 @@ public class CreateHomeworkCommandHandler : IRequestHandler<CreateHomeworkComman
 		var homework = subject.CreateHomework(request.Title, request.Description, request.Deadline);
 		
 		await _context.SaveChangesAsync(cancellationToken);
+		if(_eventPublisher is not null)
+		{
+			await _eventPublisher.Publish(new HomeworkCreatedEvent(homework, group.Id));
+		}
 		return homework;
 	}
 }

@@ -7,6 +7,7 @@ using TaSked.Infrastructure.LocalPersistence;
 using The49.Maui.ContextMenu;
 using UraniumUI;
 using CommunityToolkit.Maui;
+using TaSked.App.Common.Notifications;
 
 namespace TaSked.App;
 
@@ -20,6 +21,7 @@ public static class MauiProgram
 			.UseMauiCommunityToolkit()
 			.UseUraniumUI()
 			.UseUraniumUIMaterial()
+			.RegisterFirebaseServices()
             .ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -36,11 +38,13 @@ public static class MauiProgram
 		builder.Services.AddTaSkedApi(opt => {
 			opt.BaseUrl = "https://taskedapi.azurewebsites.net/";
 			opt.Timeout = TimeSpan.FromMinutes(3);
+			opt.UseNotifications = true;
 		});
 
 		//SecureStorage.Default.Remove("TaSked.AccessToken");
 
 		builder.Services.AddSingleton<LoginService>();
+		builder.Services.AddSingleton<NotificationsService>();
 
 		builder.Services.AddSingleton<CreateGroupPage>();
 		builder.Services.AddSingleton<CreateGroupViewModel>();

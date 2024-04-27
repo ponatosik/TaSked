@@ -8,10 +8,12 @@ namespace TaSked.Application;
 public class ActivateInvitationCommandHandler : IRequestHandler<ActivateInvitationCommand>
 {
     private readonly IApplicationDbContext _context;
+    private readonly IPublisher? _eventPublisher;
 
-    public ActivateInvitationCommandHandler(IApplicationDbContext context)
+    public ActivateInvitationCommandHandler(IApplicationDbContext context, IPublisher? eventPublisher = null)
     {
         _context = context;
+        _eventPublisher = eventPublisher;
     }
 
     public async Task Handle(ActivateInvitationCommand request, CancellationToken cancellationToken)
@@ -23,5 +25,9 @@ public class ActivateInvitationCommandHandler : IRequestHandler<ActivateInvitati
         group.JoinByInvintation(invitation, user);
 
         await _context.SaveChangesAsync(cancellationToken);
+        if(_eventPublisher is not null)
+        {
+            await _eventPublisher.Publish(new InvitationActivatedEvent(invitation, user, group.Id), cancellationToken);
+        }
     }
 }

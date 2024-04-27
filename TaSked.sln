@@ -41,6 +41,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LocalPersistence", "src\Inf
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caching", "src\Presentation\Caching\Caching.csproj", "{05A36D16-E524-4440-8C55-C176CD8B73CE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PushNotifications", "src\Infrastructure\PushNotifications\PushNotifications.csproj", "{3677FB3A-6E51-4F9E-8B5B-96F0D8F8CC40}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -101,6 +103,10 @@ Global
 		{05A36D16-E524-4440-8C55-C176CD8B73CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05A36D16-E524-4440-8C55-C176CD8B73CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05A36D16-E524-4440-8C55-C176CD8B73CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3677FB3A-6E51-4F9E-8B5B-96F0D8F8CC40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3677FB3A-6E51-4F9E-8B5B-96F0D8F8CC40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3677FB3A-6E51-4F9E-8B5B-96F0D8F8CC40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3677FB3A-6E51-4F9E-8B5B-96F0D8F8CC40}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -121,6 +127,7 @@ Global
 		{4F991E16-5B65-428D-B969-186589443DA6} = {AB6F5960-B3B3-46EF-B636-F7EE55A1D8BC}
 		{E1E404B3-90BA-4569-8EB6-12C9FE8FB0CC} = {7234793A-A529-4C57-9328-BFE5313DB5CA}
 		{05A36D16-E524-4440-8C55-C176CD8B73CE} = {39A6B609-2150-4AD1-BFB8-2767772BDD4C}
+		{3677FB3A-6E51-4F9E-8B5B-96F0D8F8CC40} = {7234793A-A529-4C57-9328-BFE5313DB5CA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {27C0623E-8480-45B5-93D9-401FAD826043}

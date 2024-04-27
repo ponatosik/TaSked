@@ -8,10 +8,12 @@ namespace TaSked.Application;
 public class DeleteLessonCommandHandler : IRequestHandler<DeleteLessonCommand>
 {
     private readonly IApplicationDbContext _context;
+    private readonly IPublisher? _eventPublisher;
 
-    public DeleteLessonCommandHandler(IApplicationDbContext context)
+    public DeleteLessonCommandHandler(IApplicationDbContext context, IPublisher? eventPublisher = null)
     {
         _context = context;
+        _eventPublisher = eventPublisher; 
     }
 
     public async Task Handle(DeleteLessonCommand request, CancellationToken cancellationToken)
@@ -24,5 +26,9 @@ public class DeleteLessonCommandHandler : IRequestHandler<DeleteLessonCommand>
         subject.Lessons.Remove(lesson);
         
         await _context.SaveChangesAsync(cancellationToken);
+        if (_eventPublisher is not null) 
+        {
+            await _eventPublisher.Publish(new LessonDeletedEvent(lesson, group.Id), cancellationToken);
+        }
     }
 }
