@@ -1,4 +1,5 @@
-﻿using Refit;
+﻿using Akavache;
+using Refit;
 using System.Net;
 using TaSked.Api.ApiClient;
 using TaSked.App.Common.Notifications;
@@ -13,19 +14,22 @@ public class LoginService
 	private ITaSkedInvitations _invitationsService;
 	private IUserTokenStore _tokenStore;
 	private NotificationsService? _notificationsService;
+	private IBlobCache? _userCache;
 
 	public LoginService(
 		ITaSkedSevice api, 
 		ITaSkedUsers usersService,
 		ITaSkedInvitations invitationsService,
 		IUserTokenStore tokenStore,
-		NotificationsService? notificationsService = null)
+		NotificationsService? notificationsService = null,
+		IBlobCache? userCache = null)
 	{
 		_api = api;
 		_invitationsService = invitationsService;
 		_usersService = usersService;
 		_tokenStore = tokenStore;
 		_notificationsService = notificationsService;
+		_userCache = userCache;
 	}
 
 	public async Task CreateGroupAsync(string username, string groupName)
@@ -54,11 +58,16 @@ public class LoginService
 		}
 	}
 
-	public void Logout()
+	public async Task Logout()
 	{
 		if(_notificationsService is not null)
 		{
-			_notificationsService.UnsubscribeFromNotifications().Wait();
+			await _notificationsService.UnsubscribeFromNotifications();
+		}
+		if(_userCache is not null)
+		{
+			_userCache.InvalidateAll();
+			_userCache.Vacuum();
 		}
 
 		_tokenStore.AccessToken = null;
