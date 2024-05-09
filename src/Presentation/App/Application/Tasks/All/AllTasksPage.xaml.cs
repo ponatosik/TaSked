@@ -1,10 +1,14 @@
+using ReactiveUI;
+using ReactiveUI.Maui;
+
 namespace TaSked.App;
 
-public partial class AllTasksPage : ContentPage
+public partial class AllTasksPage : ReactiveContentPage<AllTasksViewModel>
 {
 	public AllTasksPage(AllTasksViewModel viewModel)
 	{
 		InitializeComponent();
-        BindingContext = viewModel;
+		ViewModel = viewModel;
+		this.WhenActivated(_ => { });
     }
 }

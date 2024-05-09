@@ -1,35 +1,53 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using DynamicData;
+using DynamicData.Binding;
+using ReactiveUI;
 using System.Collections.ObjectModel;
+using System.Reactive.Disposables;
+using System.Reactive.Linq;
+using System.Security.AccessControl;
 using TaSked.Api.ApiClient;
 using TaSked.Application;
 using TaSked.Domain;
 
 namespace TaSked.App;
 
-public partial class SubjectsViewModel : ObservableObject
+public partial class SubjectsViewModel : ReactiveObject, IActivatableViewModel
 {
-	private readonly ITaSkedSubjects _subjectService;
+	private readonly SubjectDataSource _dataSource;
+	public ViewModelActivator Activator { get; } = new ();
 
-	[ObservableProperty]
-	private ObservableCollection<SubjectViewModel> _subjects;
+	private ReadOnlyObservableCollection<SubjectViewModel> _subjects;
+	public ReadOnlyObservableCollection<SubjectViewModel> Subjects => _subjects;
 
-	public SubjectsViewModel(ITaSkedSubjects subjectService)
+
+	public SubjectsViewModel(SubjectDataSource dataSource)
 	{
-		_subjectService = subjectService;
-		_subjects = new ObservableCollection<SubjectViewModel>();
-	}
+		_dataSource = dataSource;
+		_dataSource.SubjectSource
+			.Connect()
+			.ObserveOn(RxApp.MainThreadScheduler)
+			.Bind(out _subjects)
+			.Subscribe();
 
-	[RelayCommand]
-	public async Task ReloadSubjects()
-	{ 	
-		Subjects.Clear();
-		(await LoadSubjects()).ForEach(subject => Subjects.Add(new SubjectViewModel(subject)));
-	}
+		this.RaisePropertyChanged(nameof(Subjects));
 
-	private async Task<List<SubjectDTO>> LoadSubjects()
-	{
-		return await _subjectService.GetAllSubjects();
+		// TODO: Unsubscribe from update when view is inactive
+
+		//this.WhenActivated(dispose =>
+		//{
+		//	_dataSource.SubjectSource
+		//		.Connect()
+		//		//.SkipInitial()
+		//		.ObserveOn(RxApp.MainThreadScheduler)
+		//		.Bind(out _subjects)
+		//		.Subscribe()
+		//		.DisposeWith(dispose);
+
+		//	this.RaisePropertyChanged(nameof(Subjects));
+		//});
+
 	}
 
 	[RelayCommand]

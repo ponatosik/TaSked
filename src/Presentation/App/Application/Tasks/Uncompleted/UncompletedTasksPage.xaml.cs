@@ -1,10 +1,14 @@
+using ReactiveUI;
+using ReactiveUI.Maui;
+
 namespace TaSked.App;
 
-public partial class UncompletedTasksPage : ContentPage
+public partial class UncompletedTasksPage : ReactiveContentPage<UncompletedTasksViewModel>
 {
-	public UncompletedTasksPage(UncompletedTasksViewModel viewModel)
-	{
+    public UncompletedTasksPage(UncompletedTasksViewModel viewModel)
+    { 
 		InitializeComponent();
-		BindingContext = viewModel;
-	}
+		ViewModel = viewModel;
+		this.WhenActivated(_ => { });
+    }
 }

@@ -5,45 +5,64 @@ using TaSked.App.Common;
 using TaSked.Application;
 using TaSked.Domain;
 using TaSked.Api.ApiClient;
+using ReactiveUI;
+using System.Reactive.Linq;
+using DynamicData;
+using DynamicData.Binding;
 
 namespace TaSked.App;
 
-public partial class UncompletedTasksViewModel : ObservableObject
+public partial class UncompletedTasksViewModel : ReactiveObject, IActivatableViewModel
 {
-	private readonly ITaSkedSubjects _subjectService;
-	private readonly HomeworkTasksService _tasksService;
+	//private readonly ITaSkedSubjects _subjectService;
+	//private readonly HomeworkTasksService _tasksService;
 
-	[ObservableProperty]
-	private ObservableCollection<TaskGroupModel> _taskGroups;
+	private readonly HomeworkDataSource _dataSource;
 
-	public UncompletedTasksViewModel(ITaSkedSubjects subjectService, HomeworkTasksService taskService)
+	private ReadOnlyObservableCollection<TaskGroupModel> _taskGroups;
+	public ReadOnlyObservableCollection<TaskGroupModel> TaskGroups
 	{
-		_subjectService = subjectService;
-		_tasksService = taskService;
-		_taskGroups = new ObservableCollection<TaskGroupModel>();
-		LoadTasks();
+		get => _taskGroups;
+		set => this.RaiseAndSetIfChanged(ref _taskGroups, value);
 	}
 
-	private async Task LoadTasks()
+	public ViewModelActivator Activator { get; } = new ();
+
+
+	// TODO: Use dynamic filter and use same group data source in all groups
+	private Func<TaskViewModel, bool> _filter = task => !task.Task.Completed;
+	public Func<TaskViewModel, bool> Filter
 	{
-        List<HomeworkTask> tasks = await _tasksService.GetAllAsync();
-        List<SubjectDTO> subjects = await _subjectService.GetAllSubjects();
+		get => _filter;
+		set => this.RaiseAndSetIfChanged(ref _filter, value);
+	}
 
-        List<TaskViewModel> models = tasks
-            .Where(task => !task.Completed)
-            .Select(task => new TaskViewModel(task, subjects.Find(s => s.Id == task.Homework.SubjectId).Name))
-			.OrderBy(task => task.SubjectName)
-            .ToList();
+	private IComparer<TaskViewModel> _sort = Comparer<TaskViewModel>.Create((t1, t2) => t1.SubjectName.CompareTo(t2.SubjectName));
+	public IComparer<TaskViewModel> Sort
+	{
+		get => _sort;
+		set => this.RaiseAndSetIfChanged(ref _sort, value);
+	}
 
+	public UncompletedTasksViewModel(HomeworkDataSource dataSource)
+	{
+		//_subjectService = subjectService;
+		//_tasksService = taskService;
+		_dataSource = dataSource;
 
-		List<TaskGroupModel> groups = models
-			.GroupBy(model => model.Task.Homework.Deadline?.Date.ToString("dd/MM"))
-			.Select(grouping => new TaskGroupModel(grouping.Key?.ToString() ?? "no deadline", grouping.ToList()))
-			.ToList();
+		var sort = this.WhenAnyValue(x => x.Sort);
+		var filter = this.WhenAnyValue(x => x.Filter);
 
-		TaskGroups.Clear();
-		groups.ForEach(group => TaskGroups.Add(group));
-    }
+		_dataSource.HomeworkSource
+			.Connect()
+			.ObserveOn(RxApp.MainThreadScheduler)
+			.Group(task => (task.Task.Homework.Deadline ?? DateTime.MaxValue).ToShortDateString())
+			.Transform(group => new TaskGroupModel(group, filter, sort))
+			.Bind(out _taskGroups)
+			.Subscribe();
+
+		this.RaisePropertyChanged(nameof(_taskGroups));
+	}
 
 	[RelayCommand]
 	private async Task CreateTask()

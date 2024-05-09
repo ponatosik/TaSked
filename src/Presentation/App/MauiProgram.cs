@@ -49,6 +49,7 @@ public static class MauiProgram
 		builder.Services.AddSingleton<CreateGroupPage>();
 		builder.Services.AddSingleton<CreateGroupViewModel>();
 
+		builder.Services.AddSingleton<HomeworkDataSource>();
 		builder.Services.AddSingleton<UncompletedTasksPage>();
 		builder.Services.AddSingleton<UncompletedTasksViewModel>();
 		builder.Services.AddScoped<CreateTaskPage>();
@@ -74,6 +75,7 @@ public static class MauiProgram
 		builder.Services.AddScoped<CreateSubjectViewModel>();
 		builder.Services.AddScoped<UpdateSubjectPage>();
 		builder.Services.AddScoped<UpdateSubjectViewModel>();
+		builder.Services.AddSingleton<SubjectDataSource>();
 
 		builder.Services.AddSingleton<RoleViewModel>();
 		builder.Services.AddSingleton<RolePage>();

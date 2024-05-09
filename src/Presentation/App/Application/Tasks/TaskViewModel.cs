@@ -1,18 +1,27 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using DynamicData;
+using ReactiveUI;
 using TaSked.App.Common;
-using TaSked.Application;
 using TaSked.Domain;
 
 namespace TaSked.App;
 
-public partial class TaskViewModel : ObservableObject
+public partial class TaskViewModel : ReactiveObject
 {
-	[ObservableProperty]
 	private HomeworkTask _task;
+	public HomeworkTask Task
+	{
+		get => _task;
+		set => this.RaiseAndSetIfChanged(ref _task, value);
+	}
 
-	[ObservableProperty]
 	private string _subjectName;
+	public string SubjectName
+	{
+		get => _subjectName;
+		set => this.RaiseAndSetIfChanged(ref _subjectName, value);
+	}
 
 	public TaskViewModel() { }
 	public TaskViewModel(HomeworkTask task, string subjectName)
@@ -26,6 +35,7 @@ public partial class TaskViewModel : ObservableObject
 	{
 		HomeworkTasksService tasksService = ServiceHelper.GetService<HomeworkTasksService>();
 		await tasksService.CompleteAsync(Task);
+		ServiceHelper.Services.GetService<HomeworkDataSource>().HomeworkSource.AddOrUpdate(this);
 	}
 
 	[RelayCommand]
@@ -33,6 +43,7 @@ public partial class TaskViewModel : ObservableObject
 	{
 		HomeworkTasksService tasksService = ServiceHelper.GetService<HomeworkTasksService>();
 		await tasksService.UndoCompletionAsync(Task);
+		ServiceHelper.Services.GetService<HomeworkDataSource>().HomeworkSource.AddOrUpdate(this);
 	}
 
     [RelayCommand]

@@ -1,21 +1,23 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using DynamicData;
 using TaSked.Api.ApiClient;
 using TaSked.Api.Requests;
-using TaSked.App.Common;
 
 namespace TaSked.App;
 
 public partial class CreateSubjectViewModel : ObservableObject
 {
-	private ITaSkedSubjects _subjectService;
+	private readonly ITaSkedSubjects _subjectService;
+	private readonly SubjectDataSource _subjectDataSource;
 
 	[ObservableProperty]
 	private string _name;
 
-	public CreateSubjectViewModel(ITaSkedSubjects subjectService)
+	public CreateSubjectViewModel(ITaSkedSubjects subjectService, SubjectDataSource subjectDataSource)
 	{
 		_subjectService = subjectService;
+		_subjectDataSource = subjectDataSource;
 	}
 
 	[RelayCommand]
@@ -31,7 +33,6 @@ public partial class CreateSubjectViewModel : ObservableObject
 		await Shell.Current.GoToAsync("..");
 
 		SubjectViewModel viewModel = new SubjectViewModel(dto);
-		var subjectsView = ServiceHelper.GetService<SubjectsViewModel>();
-		subjectsView.Subjects.Add(viewModel);
+		_subjectDataSource.SubjectSource.AddOrUpdate(viewModel);
 	}
 }

@@ -5,46 +5,87 @@ using TaSked.App.Common;
 using TaSked.Application;
 using TaSked.Domain;
 using TaSked.Api.ApiClient;
+using ReactiveUI;
+using System.Reactive.Linq;
+using DynamicData;
 
 namespace TaSked.App;
 
-public partial class SortBySubjViewModel : ObservableObject
+public partial class SortBySubjViewModel : ReactiveObject, IActivatableViewModel
 {
-	private readonly ITaSkedSubjects _subjectService;
-	private readonly HomeworkTasksService _tasksService;
+	private readonly HomeworkDataSource _dataSource;
 
-    [ObservableProperty]
-    private ObservableCollection<TaskGroupModel> _taskGroups;
-
-    public SortBySubjViewModel(ITaSkedSubjects subjectService, HomeworkTasksService taskService)
+	private ReadOnlyObservableCollection<TaskGroupModel> _taskGroups;
+	public ReadOnlyObservableCollection<TaskGroupModel> TaskGroups
 	{
-		_subjectService = subjectService;
-		_tasksService = taskService;
-        _taskGroups = new ObservableCollection<TaskGroupModel>();
-        LoadTasks();
+		get => _taskGroups;
+		set => this.RaiseAndSetIfChanged(ref _taskGroups, value);
 	}
 
-	private async Task LoadTasks()
+	// TODO: Use dynamic filter and use same group data source in all groups
+	private Func<TaskViewModel, bool> _filter = task =>
+		!task.Task.Completed ||
+		(task.Task.Homework?.Deadline ?? DateTime.MaxValue).Date >= DateTime.Now;
+
+	public Func<TaskViewModel, bool> Filter
 	{
-        List<HomeworkTask> tasks = new List<HomeworkTask>();
-        List<SubjectDTO> subjects = new List<SubjectDTO>();
+		get => _filter;
+		set => this.RaiseAndSetIfChanged(ref _filter, value);
+	}
 
-        tasks = await _tasksService.GetAllAsync();
-        subjects = await _subjectService.GetAllSubjects();
+	private IComparer<TaskViewModel> _sort = 
+		Comparer<TaskViewModel>.Create((t1, t2) => t1.Task.Completed.CompareTo(t2.Task.Completed))
+		.ThenBy(t => t.Task.Homework.Deadline);
 
-        List<TaskViewModel> models = tasks
-            .Select(task => new TaskViewModel(task, subjects.Find(s => s.Id == task.Homework.SubjectId).Name))
-            .OrderBy(task => task.SubjectName)
-            .ToList();
+	public IComparer<TaskViewModel> Sort
+	{
+		get => _sort;
+		set => this.RaiseAndSetIfChanged(ref _sort, value);
+	}
 
-        List<TaskGroupModel> groups = models
-            .GroupBy(model => model.SubjectName)
-            .Select(grouping => new TaskGroupModel(grouping.Key?.ToString() ?? "no subject", grouping.ToList()))
-            .ToList();
+    public SortBySubjViewModel(HomeworkDataSource dataSource)
+	{
+		_dataSource = dataSource;
 
-        TaskGroups.Clear();
-        groups.ForEach(group => TaskGroups.Add(group));
-    }
+		var sort = this.WhenAnyValue(x => x.Sort);
+		var filter = this.WhenAnyValue(x => x.Filter);
+
+		_dataSource.HomeworkSource
+			.Connect()
+			.ObserveOn(RxApp.MainThreadScheduler)
+			.Group(task => task.SubjectName)
+			.Transform(group => new TaskGroupModel(group, filter, sort))
+			.Bind(out _taskGroups)
+			.Subscribe();
+
+		this.RaisePropertyChanged(nameof(_taskGroups));
+	
+        //LoadTasks();
+	}
+
+	public ViewModelActivator Activator { get; set; } = new ViewModelActivator();
+
+	//private async Task LoadTasks()
+	//{
+	//       List<HomeworkTask> tasks = new List<HomeworkTask>();
+	//       List<SubjectDTO> subjects = new List<SubjectDTO>();
+
+	//       tasks = await _tasksService.GetAllAsync();
+	//       subjects = await _subjectService.GetAllSubjects();
+
+	//       List<TaskViewModel> models = tasks
+	//           .Select(task => new TaskViewModel(task, subjects.Find(s => s.Id == task.Homework.SubjectId).Name))
+	//           .OrderBy(task => task.SubjectName)
+	//           .ToList();
+
+	//       List<TaskGroupModel> groups = models
+	//           .GroupBy(model => model.SubjectName)
+	//           .Select(grouping => new TaskGroupModel(grouping.Key?.ToString() ?? "no subject", grouping.ToList()))
+	//           .ToList();
+
+	//       TaskGroups.Clear();
+	//       groups.ForEach(group => TaskGroups.Add(group));
+	//   }
 
 	[RelayCommand]
 	private async Task CreateTask()
