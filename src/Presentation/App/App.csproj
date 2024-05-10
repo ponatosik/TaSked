@@ -70,7 +70,7 @@
     </ItemGroup>
   
     <ItemGroup>
-      <None Remove="Resources\Raw\tasked.svg" />
+      <None Remove="Resources\Raw\tasked.png" />
     </ItemGroup>
 
 	<ItemGroup>
@@ -202,7 +202,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiSplashScreen Include="Resources\Splash\tasked.svg" Color="White" BaseSize="128,128" />
+	  <MauiSplashScreen Include="Resources\Splash\tasked.png" Color="Black" BaseSize="128,128" />
 	</ItemGroup>
 
 </Project>
