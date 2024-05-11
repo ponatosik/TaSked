@@ -13,14 +13,23 @@ public partial class SubjectsViewModel : ObservableObject
 
 	[ObservableProperty]
 	private ObservableCollection<SubjectViewModel> _subjects;
+    [ObservableProperty]
+    bool isRefreshing;
 
-	public SubjectsViewModel(ITaSkedSubjects subjectService)
+    public SubjectsViewModel(ITaSkedSubjects subjectService)
 	{
 		_subjectService = subjectService;
 		_subjects = new ObservableCollection<SubjectViewModel>();
 	}
 
-	[RelayCommand]
+    [RelayCommand]
+    async Task RefreshAsync()
+    {
+        ReloadSubjects();
+        IsRefreshing = false;
+    }
+
+    [RelayCommand]
 	public async Task ReloadSubjects()
 	{ 	
 		Subjects.Clear();

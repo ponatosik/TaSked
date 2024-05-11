@@ -15,8 +15,10 @@ public partial class UncompletedTasksViewModel : ObservableObject
 
 	[ObservableProperty]
 	private ObservableCollection<TaskGroupModel> _taskGroups;
+    [ObservableProperty]
+    bool isRefreshing;
 
-	public UncompletedTasksViewModel(ITaSkedSubjects subjectService, HomeworkTasksService taskService)
+    public UncompletedTasksViewModel(ITaSkedSubjects subjectService, HomeworkTasksService taskService)
 	{
 		_subjectService = subjectService;
 		_tasksService = taskService;
@@ -24,7 +26,14 @@ public partial class UncompletedTasksViewModel : ObservableObject
 		LoadTasks();
 	}
 
-	private async Task LoadTasks()
+    [RelayCommand]
+    async Task RefreshAsync()
+    {
+		LoadTasks();
+		IsRefreshing = false;
+    }
+
+    private async Task LoadTasks()
 	{
         List<HomeworkTask> tasks = await _tasksService.GetAllAsync();
         List<SubjectDTO> subjects = await _subjectService.GetAllSubjects();

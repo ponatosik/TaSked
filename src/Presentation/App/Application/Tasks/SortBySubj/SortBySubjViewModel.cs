@@ -15,6 +15,8 @@ public partial class SortBySubjViewModel : ObservableObject
 
     [ObservableProperty]
     private ObservableCollection<TaskGroupModel> _taskGroups;
+    [ObservableProperty]
+    bool isRefreshing;
 
     public SortBySubjViewModel(ITaSkedSubjects subjectService, HomeworkTasksService taskService)
 	{
@@ -24,7 +26,15 @@ public partial class SortBySubjViewModel : ObservableObject
         LoadTasks();
 	}
 
-	private async Task LoadTasks()
+
+    [RelayCommand]
+    async Task RefreshAsync()
+    {
+        LoadTasks();
+        IsRefreshing = false;
+    }
+
+    private async Task LoadTasks()
 	{
         List<HomeworkTask> tasks = new List<HomeworkTask>();
         List<SubjectDTO> subjects = new List<SubjectDTO>();

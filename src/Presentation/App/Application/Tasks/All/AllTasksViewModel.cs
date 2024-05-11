@@ -15,13 +15,22 @@ public partial class AllTasksViewModel : ObservableObject
 
 	[ObservableProperty]
 	private ObservableCollection<TaskViewModel> _tasks;
+    [ObservableProperty]
+    bool isRefreshing;
 
-	public AllTasksViewModel(ITaSkedSubjects subjectService, HomeworkTasksService taskService)
+    public AllTasksViewModel(ITaSkedSubjects subjectService, HomeworkTasksService taskService)
 	{
 		_subjectService = subjectService;
 		_tasksService = taskService;
 		_tasks = new ObservableCollection<TaskViewModel>();
 		LoadTasks();
+	}
+
+	[RelayCommand]
+	async Task RefreshAsync()
+	{
+		LoadTasks();
+		IsRefreshing = false;
 	}
 
 	private async Task LoadTasks()

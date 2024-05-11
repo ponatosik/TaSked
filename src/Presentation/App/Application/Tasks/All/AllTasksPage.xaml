@@ -7,7 +7,8 @@
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material">
 
     <AbsoluteLayout Margin="0,0" Padding="0,0">
-        <ScrollView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional">
+        <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional">
+            <ScrollView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional">
             <CollectionView ItemsSource="{Binding Tasks}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="local:TaskViewModel">
@@ -16,6 +17,7 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </ScrollView>
+        </RefreshView>
         <Button
         AbsoluteLayout.LayoutBounds="0.95,0.945"
         AbsoluteLayout.LayoutFlags="PositionProportional"
