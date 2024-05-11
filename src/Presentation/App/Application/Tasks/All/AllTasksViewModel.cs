@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using TaSked.App.Common;
@@ -22,6 +22,31 @@ public partial class AllTasksViewModel : ReactiveObject, IActivatableViewModel
 	public ViewModelActivator Activator { get; } = new ();
 
 	public AllTasksViewModel(HomeworkDataSource dataSource)
+
+  private bool _isRefreshing;
+	public bool IsRefreshing 
+	{ 
+		get => this._isRefreshing;
+    set => this.RaiseAndSetIfChanged(ref _isRefreshing, value);
+	}
+
+    public AllTasksViewModel(ITaSkedSubjects subjectService, HomeworkTasksService taskService)
+	{
+		_subjectService = subjectService;
+		_tasksService = taskService;
+		_tasks = new ObservableCollection<TaskViewModel>();
+		LoadTasks();
+	}
+
+	[RelayCommand]
+	async Task RefreshAsync()
+	{
+    //TODO: refresh cache
+		IsRefreshing = false;
+	}
+
+	private async Task LoadTasks()
+
 	{
 		_dataSource = dataSource;
 		_tasks = new ReadOnlyObservableCollection<TaskViewModel>(new ObservableCollection<TaskViewModel>());

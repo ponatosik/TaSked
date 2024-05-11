@@ -1,4 +1,4 @@
-﻿using DynamicData;
+using DynamicData;
 using DynamicData.Binding;
 using ReactiveUI;
 using System.Collections.ObjectModel;
@@ -46,3 +46,4 @@ public class TaskGroupModel : ObservableCollectionExtended<TaskViewModel>, IDisp
 
 	private readonly IDisposable _cleanUp;
 }
+

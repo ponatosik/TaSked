@@ -1,4 +1,3 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DynamicData;
 using DynamicData.Binding;
@@ -21,6 +20,25 @@ public partial class SubjectsViewModel : ReactiveObject, IActivatableViewModel
 	private ReadOnlyObservableCollection<SubjectViewModel> _subjects;
 	public ReadOnlyObservableCollection<SubjectViewModel> Subjects => _subjects;
 
+  private bool _isRefreshing;
+	public bool IsRefreshing 
+	{ 
+		get => this._isRefreshing;
+    set => this.RaiseAndSetIfChanged(ref _isRefreshing, value);
+	}
+
+    public SubjectsViewModel(ITaSkedSubjects subjectService)
+	{
+		_subjectService = subjectService;
+		_subjects = new ObservableCollection<SubjectViewModel>();
+	}
+
+    [RelayCommand]
+    async Task RefreshAsync()
+    {
+        //TODO: refresh cache
+        IsRefreshing = false;
+    }
 
 	public SubjectsViewModel(SubjectDataSource dataSource)
 	{

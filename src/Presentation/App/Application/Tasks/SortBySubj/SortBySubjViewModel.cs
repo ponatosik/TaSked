@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using TaSked.App.Common;
@@ -37,14 +37,22 @@ public partial class SortBySubjViewModel : ReactiveObject, IActivatableViewModel
 		Comparer<TaskViewModel>.Create((t1, t2) => t1.Task.Completed.CompareTo(t2.Task.Completed))
 		.ThenBy(t => t.Task.Homework.Deadline);
 
+  private bool _isRefreshing;
+	public bool IsRefreshing 
+	{ 
+		get => this._isRefreshing;
+    set => this.RaiseAndSetIfChanged(ref _isRefreshing, value);
+	}
+
 	public IComparer<TaskViewModel> Sort
 	{
 		get => _sort;
 		set => this.RaiseAndSetIfChanged(ref _sort, value);
 	}
 
-    public SortBySubjViewModel(HomeworkDataSource dataSource)
-	{
+
+    public SortBySubjViewModel(HomeworkDataSource dataSource)	
+    {
 		_dataSource = dataSource;
 
 		var sort = this.WhenAnyValue(x => x.Sort);
@@ -58,10 +66,16 @@ public partial class SortBySubjViewModel : ReactiveObject, IActivatableViewModel
 			.Bind(out _taskGroups)
 			.Subscribe();
 
-		this.RaisePropertyChanged(nameof(_taskGroups));
-	
-        //LoadTasks();
-	}
+		  this.RaisePropertyChanged(nameof(_taskGroups));
+	    }
+
+    [RelayCommand]
+    async Task RefreshAsync()
+    {
+        //TODO: refresh cache
+        IsRefreshing = false;
+    }
+
 
 	public ViewModelActivator Activator { get; set; } = new ViewModelActivator();
 

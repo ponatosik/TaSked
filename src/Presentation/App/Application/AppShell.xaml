@@ -50,31 +50,21 @@
                 Route="UncompletedTasksPage"/>
 
             <ShellContent
-                Title="Всі"
-                ContentTemplate="{DataTemplate local:AllTasksPage}"
-                Route="AllTasksPage"/>
-
-            <ShellContent
                 Title="За предметами"
                 ContentTemplate="{DataTemplate local:SortBySubjPage}"
                 Route="SortBySubjPage"/>
+
+            <ShellContent
+                Title="Всі"
+                ContentTemplate="{DataTemplate local:AllTasksPage}"
+                Route="AllTasksPage"/>
         </Tab>
 
         <Tab Title="Предмети">
             <ShellContent
-                Title="Всі"
+                Title="Предмети"
                 ContentTemplate="{DataTemplate local:SubjectPage}"
                 Route="SubjectPage"/>
-
-            <ShellContent
-                Title="Онлайн посиланняи"
-                ContentTemplate="{DataTemplate local:SubjectPage2}"
-                Route="SubjectPage2"/>
-
-            <ShellContent
-                Title="Розклад"
-                ContentTemplate="{DataTemplate local:SubjectPage3}"
-                Route="SubjectPage3"/>
         </Tab>
 
         <Tab Title="Оголошення">

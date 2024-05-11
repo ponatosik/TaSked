@@ -40,10 +40,10 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+		<!-- <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" /> -->
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+		<!-- <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" /> -->
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
@@ -67,6 +67,11 @@
   
     <ItemGroup Condition="'$(TargetFramework)' == 'net8.0-android'">
         <GoogleServicesJson Include="google-services.json" />
+    </ItemGroup>
+  
+    <ItemGroup>
+      <None Remove="Resources\AppIcon\taskedico.png" />
+      <None Remove="Resources\Splash\tasked.png" />
     </ItemGroup>
 
 	<ItemGroup>
@@ -196,6 +201,11 @@
 	  <MauiXaml Update="Common\Components\MaterialCard.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiIcon Include="Resources\AppIcon\taskedico.png"/>
+	  <MauiSplashScreen Include="Resources\Splash\tasked.png" Color="Black" BaseSize="128,128" />
 	</ItemGroup>
 
 </Project>

@@ -76,6 +76,11 @@
                        Grid.Column="1"
                        Grid.Row="0"/>
 
+                <Label Text="{Binding Model.Task.Homework.Deadline, Source={Reference TaskCardComponent}, StringFormat='{0:dd/MM/yyyy}'}"
+                      TextColor="{StaticResource DarkSecondaryContainer}"
+                      Grid.Column="1"
+                      Grid.Row="1"/>
+
                 <Label Text="{Binding Model.Task.Homework.Description, Source={Reference TaskCardComponent}}"
                        Grid.Column="0"
                        Grid.Row="1"

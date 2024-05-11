@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using TaSked.App.Common;
@@ -20,10 +20,16 @@ public partial class UncompletedTasksViewModel : ReactiveObject, IActivatableVie
 	private readonly HomeworkDataSource _dataSource;
 
 	private ReadOnlyObservableCollection<TaskGroupModel> _taskGroups;
-	public ReadOnlyObservableCollection<TaskGroupModel> TaskGroups
-	{
+	public ReadOnlyObservableCollection<TaskGroupModel> TaskGroups	{
 		get => _taskGroups;
 		set => this.RaiseAndSetIfChanged(ref _taskGroups, value);
+	}
+
+  private bool _isRefreshing;
+	public bool IsRefreshing 
+	{ 
+		get => this._isRefreshing;
+    set => this.RaiseAndSetIfChanged(ref _isRefreshing, value);
 	}
 
 	public ViewModelActivator Activator { get; } = new ();
@@ -38,11 +44,17 @@ public partial class UncompletedTasksViewModel : ReactiveObject, IActivatableVie
 	}
 
 	private IComparer<TaskViewModel> _sort = Comparer<TaskViewModel>.Create((t1, t2) => t1.SubjectName.CompareTo(t2.SubjectName));
-	public IComparer<TaskViewModel> Sort
-	{
-		get => _sort;
+	public IComparer<TaskViewModel> Sort{
+    get => _sort;
 		set => this.RaiseAndSetIfChanged(ref _sort, value);
 	}
+
+    [RelayCommand]
+    async Task RefreshAsync()
+    {
+      //TODO: refresh cache
+		  IsRefreshing = false;
+    }
 
 	public UncompletedTasksViewModel(HomeworkDataSource dataSource)
 	{

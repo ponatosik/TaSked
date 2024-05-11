@@ -12,14 +12,23 @@ public partial class RepotrsViewModel : ObservableObject
 
 	[ObservableProperty]
 	private ObservableCollection<Report> _reports;
+    [ObservableProperty]
+    bool isRefreshing;
 
-	public RepotrsViewModel(ITaSkedReports api)
+    public RepotrsViewModel(ITaSkedReports api)
 	{
 		_reportsService = api;
 		_reports = new ObservableCollection<Report>();
 	}
 
-	[RelayCommand]
+    [RelayCommand]
+    async Task RefreshAsync()
+    {
+        ReloadReports();
+        IsRefreshing = false;
+    }
+
+    [RelayCommand]
 	public async Task ReloadReports()
 	{ 	
 		Reports.Clear();
