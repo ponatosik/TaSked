@@ -12,7 +12,9 @@
         <toolkit:Expander.Header>
             <components:Divider LabelText="{Binding TaskGroupModel.Title, Source={Reference TaskGroupComponent}}"/>
         </toolkit:Expander.Header>
-        <CollectionView ZIndex="-1" ItemsSource="{Binding TaskGroupModel.Tasks ,Source={Reference TaskGroupComponent}}">
+
+        <CollectionView ZIndex="-1" ItemsSource="{Binding TaskGroupModel ,Source={Reference TaskGroupComponent}}">
+
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="local:TaskViewModel">
                     <components:TaskCard Model ="{Binding}"/>

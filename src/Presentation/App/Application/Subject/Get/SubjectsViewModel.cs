@@ -1,50 +1,71 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using DynamicData;
+using DynamicData.Binding;
+using ReactiveUI;
 using System.Collections.ObjectModel;
+using System.Reactive.Disposables;
+using System.Reactive.Linq;
+using System.Security.AccessControl;
 using TaSked.Api.ApiClient;
 using TaSked.Application;
 using TaSked.Domain;
 
 namespace TaSked.App;
 
-public partial class SubjectsViewModel : ObservableObject
+public partial class SubjectsViewModel : ReactiveObject, IActivatableViewModel
 {
-	private readonly ITaSkedSubjects _subjectService;
+	private readonly SubjectDataSource _dataSource;
+	public ViewModelActivator Activator { get; } = new();
 
-	[ObservableProperty]
-	private ObservableCollection<SubjectViewModel> _subjects;
-    [ObservableProperty]
-    bool isRefreshing;
+	private ReadOnlyObservableCollection<SubjectViewModel> _subjects;
+	public ReadOnlyObservableCollection<SubjectViewModel> Subjects => _subjects;
 
-    public SubjectsViewModel(ITaSkedSubjects subjectService)
+	private bool _isRefreshing;
+	public bool IsRefreshing
 	{
-		_subjectService = subjectService;
-		_subjects = new ObservableCollection<SubjectViewModel>();
+		get => this._isRefreshing;
+		set => this.RaiseAndSetIfChanged(ref _isRefreshing, value);
 	}
 
-    [RelayCommand]
-    async Task RefreshAsync()
-    {
-        ReloadSubjects();
-        IsRefreshing = false;
-    }
-
-    [RelayCommand]
-	public async Task ReloadSubjects()
-	{ 	
-		Subjects.Clear();
-		(await LoadSubjects()).ForEach(subject => Subjects.Add(new SubjectViewModel(subject)));
+	[RelayCommand]
+	private async Task RefreshAsync()
+	{
+		//TODO: refresh cache
+		IsRefreshing = false;
 	}
 
-	private async Task<List<SubjectDTO>> LoadSubjects()
+	public SubjectsViewModel(SubjectDataSource dataSource)
 	{
-		return await _subjectService.GetAllSubjects();
+		_dataSource = dataSource;
+		_dataSource.SubjectSource
+			.Connect()
+			.ObserveOn(RxApp.MainThreadScheduler)
+			.Bind(out _subjects)
+			.Subscribe();
+
+		this.RaisePropertyChanged(nameof(Subjects));
+
+		// TODO: Unsubscribe from update when view is inactive
+
+		//this.WhenActivated(dispose =>
+		//{
+		//	_dataSource.SubjectSource
+		//		.Connect()
+		//		//.SkipInitial()
+		//		.ObserveOn(RxApp.MainThreadScheduler)
+		//		.Bind(out _subjects)
+		//		.Subscribe()
+		//		.DisposeWith(dispose);
+
+		//	this.RaisePropertyChanged(nameof(Subjects));
+		//});
+
 	}
 
 	[RelayCommand]
 	private async Task CreateSubject()
 	{
-		await Shell.Current.GoToAsync("CreateSubjectPage");		
+		await Shell.Current.GoToAsync("CreateSubjectPage");
 	}
 }
 

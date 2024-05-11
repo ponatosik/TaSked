@@ -1,14 +1,14 @@
+using ReactiveUI;
+using ReactiveUI.Maui;
+
 namespace TaSked.App;
 
-public partial class SubjectPage : ContentPage
+public partial class SubjectPage : ReactiveContentPage<SubjectsViewModel>
 {
-	private SubjectsViewModel _viewModel;
-
 	public SubjectPage(SubjectsViewModel viewModel)
 	{
 		InitializeComponent();
-		_viewModel = viewModel;
-		_viewModel.ReloadSubjects();
-		BindingContext = _viewModel;
+		ViewModel = viewModel;
+		this.WhenActivated(_ => { });
 	}
 }

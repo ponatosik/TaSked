@@ -1,51 +1,66 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using TaSked.App.Common;
 using TaSked.Application;
 using TaSked.Domain;
 using TaSked.Api.ApiClient;
+using ReactiveUI;
+using DynamicData;
+using System.Reactive.Linq;
+using System.Reactive.Disposables;
 
 namespace TaSked.App;
 
-public partial class AllTasksViewModel : ObservableObject
+public partial class AllTasksViewModel : ReactiveObject, IActivatableViewModel
 {
-	private readonly ITaSkedSubjects _subjectService;
-	private readonly HomeworkTasksService _tasksService;
+	private readonly HomeworkDataSource _dataSource;
 
-	[ObservableProperty]
-	private ObservableCollection<TaskViewModel> _tasks;
-    [ObservableProperty]
-    bool isRefreshing;
+	private ReadOnlyObservableCollection<TaskViewModel> _tasks;
+	public ReadOnlyObservableCollection<TaskViewModel> Tasks => _tasks;
 
-    public AllTasksViewModel(ITaSkedSubjects subjectService, HomeworkTasksService taskService)
+	public ViewModelActivator Activator { get; } = new();
+
+	public AllTasksViewModel(HomeworkDataSource dataSource)
 	{
-		_subjectService = subjectService;
-		_tasksService = taskService;
-		_tasks = new ObservableCollection<TaskViewModel>();
-		LoadTasks();
+		_dataSource = dataSource;
+		_tasks = new ReadOnlyObservableCollection<TaskViewModel>(new ObservableCollection<TaskViewModel>());
+
+		_dataSource.HomeworkSource
+			.Connect()
+			.ObserveOn(RxApp.MainThreadScheduler)
+			.Bind(out _tasks)
+			.Subscribe();
+
+		this.RaisePropertyChanged(nameof(Tasks));
+		// TODO: Unsubscribe from update when view is inactive
+
+		//this.WhenActivated(dispose =>
+		//{
+		//	_dataSource.HomeworkSource
+		//		.Connect()
+		//		.ObserveOn(RxApp.MainThreadScheduler)
+		//		.Bind(out _tasks)
+		//		.Subscribe()
+		//		.DisposeWith(dispose);
+		//});  
+	}
+
+
+	private bool _isRefreshing;
+	public bool IsRefreshing
+	{
+		get => this._isRefreshing;
+		set => this.RaiseAndSetIfChanged(ref _isRefreshing, value);
 	}
 
 	[RelayCommand]
 	async Task RefreshAsync()
 	{
-		LoadTasks();
+		//TODO: refresh cache
 		IsRefreshing = false;
 	}
 
-	private async Task LoadTasks()
-	{
-		List<HomeworkTask> tasks = new List<HomeworkTask>();
-		List<SubjectDTO> subjects = new List<SubjectDTO>();
-
-		tasks = await _tasksService.GetAllAsync();
-		subjects = await _subjectService.GetAllSubjects();
-
-		List<TaskViewModel> models = tasks.Select(task => new TaskViewModel(task, subjects.Find(s => s.Id == task.Homework.SubjectId).Name)).ToList();
-
-		Tasks.Clear();
-		models.ForEach(model => Tasks.Add(model));
-	}
 
 	[RelayCommand]
 	private async Task CreateTask()

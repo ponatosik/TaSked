@@ -83,6 +83,7 @@
 		<PackageReference Include="Plugin.Firebase" Version="1.2.0" />
 		<PackageReference Include="The49.Maui.ContextMenu" Version="1.0.0-alpha1" />
 		<PackageReference Include="UraniumUI.Material" Version="2.8.1" />
+		<PackageReference Include="ReactiveUI.Maui" Version="20.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>

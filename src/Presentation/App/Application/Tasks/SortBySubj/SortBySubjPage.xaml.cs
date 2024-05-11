@@ -1,10 +1,14 @@
+using ReactiveUI;
+using ReactiveUI.Maui;
+
 namespace TaSked.App;
 
-public partial class SortBySubjPage : ContentPage
+public partial class SortBySubjPage : ReactiveContentPage<SortBySubjViewModel>
 {
 	public SortBySubjPage(SortBySubjViewModel viewModel)
 	{
 		InitializeComponent();
-        BindingContext = viewModel;
+        ViewModel = viewModel;
+		this.WhenActivated((_) => { });
     }
 }

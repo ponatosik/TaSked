@@ -1,7 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using DynamicData;
 using TaSked.Api.ApiClient;
 using TaSked.Api.Requests;
+using TaSked.App.Common;
 using TaSked.Application;
 
 namespace TaSked.App;
@@ -23,10 +25,13 @@ public partial class UpdateSubjectViewModel : ObservableObject
 	private async Task UpdateSubject()
 	{
 		var changeNameRequest = new ChangeSubjectNameRequest(SubjectDTO.Id, SubjectDTO.Name);
-		await _subjectService.ChangeSubjectName(changeNameRequest);
+		SubjectDTO.Name = (await _subjectService.ChangeSubjectName(changeNameRequest)).Name ?? SubjectDTO.Name;
 
 		var changeTeacherRequest = new ChangeSubjectTeacherRequest(SubjectDTO.Id, SubjectDTO.Teacher);
-		await _subjectService.ChangeSubjectTeacher(changeTeacherRequest);
+		SubjectDTO.Teacher = (await _subjectService.ChangeSubjectTeacher(changeTeacherRequest)).Teacher ?? SubjectDTO.Teacher;
+
+		SubjectDataSource subjectSource = ServiceHelper.GetService<SubjectDataSource>();
+		subjectSource.SubjectSource.AddOrUpdate(new SubjectViewModel(SubjectDTO));
 
 		await Shell.Current.GoToAsync("..");
 	}

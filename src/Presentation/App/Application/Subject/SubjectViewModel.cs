@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using DynamicData;
+using ReactiveUI;
 using TaSked.Api.ApiClient;
 using TaSked.Api.Requests;
 using TaSked.App.Common;
@@ -7,10 +9,14 @@ using TaSked.Application;
 
 namespace TaSked.App;
 
-public partial class SubjectViewModel : ObservableObject
+public partial class SubjectViewModel : ReactiveObject
 {
-	[ObservableProperty]
 	private SubjectDTO _subjectDTO;
+	public SubjectDTO SubjectDTO
+	{
+		get => _subjectDTO;
+		set => this.RaiseAndSetIfChanged(ref _subjectDTO, value);
+	}
 
 	public SubjectViewModel(SubjectDTO subjectDTO)
 	{
@@ -31,11 +37,10 @@ public partial class SubjectViewModel : ObservableObject
 	private async Task DeleteSubject()
 	{
 		ITaSkedSubjects api = ServiceHelper.GetService<ITaSkedSubjects>();
-		SubjectsViewModel viewModel = ServiceHelper.GetService<SubjectsViewModel>();
-
 		var request = new DeleteSubjectRequest(SubjectDTO.Id);
 		await api.DeleteSubject(request);
 
-		viewModel.Subjects.Remove(this);
+		SubjectDataSource subjectSource = ServiceHelper.GetService<SubjectDataSource>();
+		subjectSource.SubjectSource.Remove(SubjectDTO.Id);
 	}
 }
