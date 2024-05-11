@@ -4,9 +4,16 @@
              xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
              xmlns:local="clr-namespace:TaSked.App.Components"
              x:DataType="local:TaskCard" 
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:the49="https://schemas.the49.com/dotnet/2023/maui"
              x:Class="TaSked.App.Components.TaskCard"
              x:Name="TaskCardComponent">
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
 
     <uranium:StatefulContentView StyleClass="Elevation3" Margin="10">
 
@@ -15,13 +22,19 @@
                 <the49:Menu>
                     <the49:Action
                         Title="Виконати"
-                        Command="{Binding Model.CompleteCommand, Source={Reference TaskCardComponent}}"/>
-                    <the49:Action
-                        Title="Змінити"
-                        Command="{Binding Model.UpdateHomeworkCommand, Source={Reference TaskCardComponent}}"/>
+                        Command="{Binding Model.CompleteCommand, Source={Reference TaskCardComponent}}"
+                        IsVisible="{Binding Model.Task.Completed, Source={Reference TaskCardComponent}, Converter={StaticResource InvertedBoolConverter}}"
+                        />
                     <the49:Action
                         Title="Помітити як не виконане"
-                        Command="{Binding Model.UndoCompletionCommand, Source={Reference TaskCardComponent}}"/>
+                        Command="{Binding Model.UndoCompletionCommand, Source={Reference TaskCardComponent}}"
+                        IsVisible="{Binding Model.Task.Completed, Source={Reference TaskCardComponent}}"
+                        />
+                    <the49:Action
+                        Title="Змінити"
+                        Command="{Binding Model.UpdateHomeworkCommand, Source={Reference TaskCardComponent}}"
+                        IsVisible="{Binding Model.UpdateHomeworkCommand.CanExecute, Source={Reference TaskCardComponent}}"
+                        />
                 </the49:Menu>
             </DataTemplate>
         </the49:ContextMenu.Menu>

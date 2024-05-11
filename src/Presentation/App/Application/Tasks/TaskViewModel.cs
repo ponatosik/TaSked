@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using DynamicData;
 using ReactiveUI;
+using System.Reactive.Linq;
 using TaSked.App.Common;
 using TaSked.Domain;
 
@@ -28,9 +29,33 @@ public partial class TaskViewModel : ReactiveObject
 	{
 		Task = task;
 		SubjectName = subjectName;
+
+		CompleteCommand = ReactiveCommand.CreateFromTask(Complete, Observable.Return(false));
+		UndoCompletionCommand = ReactiveCommand.CreateFromTask(UndoCompletion, this.WhenAnyValue(x => x.Task, t => t.Completed));
+		UpdateHomeworkCommand = ReactiveCommand.CreateFromTask(UpdateHomework);
 	}
 
-	[RelayCommand]
+	private IReactiveCommand _completedCommand;
+	public IReactiveCommand CompleteCommand 
+	{
+		get => _completedCommand;
+		set => this.RaiseAndSetIfChanged(ref _completedCommand, value);
+	}
+
+	private IReactiveCommand _undoCompletionCommand;
+	public IReactiveCommand UndoCompletionCommand
+	{
+		get => _undoCompletionCommand;
+		set => this.RaiseAndSetIfChanged(ref _undoCompletionCommand, value);
+	}
+
+	private IReactiveCommand _updateHomeworkCommand;
+	public IReactiveCommand UpdateHomeworkCommand 
+	{
+		get => _updateHomeworkCommand;
+		set => this.RaiseAndSetIfChanged(ref _updateHomeworkCommand, value);
+	}
+
 	private async Task Complete()
 	{
 		HomeworkTasksService tasksService = ServiceHelper.GetService<HomeworkTasksService>();
@@ -38,7 +63,6 @@ public partial class TaskViewModel : ReactiveObject
 		ServiceHelper.Services.GetService<HomeworkDataSource>().HomeworkSource.AddOrUpdate(this);
 	}
 
-	[RelayCommand]
 	private async Task UndoCompletion()
 	{
 		HomeworkTasksService tasksService = ServiceHelper.GetService<HomeworkTasksService>();
@@ -46,7 +70,6 @@ public partial class TaskViewModel : ReactiveObject
 		ServiceHelper.Services.GetService<HomeworkDataSource>().HomeworkSource.AddOrUpdate(this);
 	}
 
-    [RelayCommand]
     private async Task UpdateHomework()
     {
         await Shell.Current.GoToAsync("UpdateTaskPage", new Dictionary<string, object>
