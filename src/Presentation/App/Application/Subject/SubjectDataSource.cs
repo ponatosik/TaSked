@@ -14,7 +14,7 @@ public class SubjectDataSource
 	public SubjectDataSource(ITaSkedSubjects api)
 	{
 		_api = api;
-		UpdateAsync();
+		Task.Run(UpdateAsync);
 	}
 
 	public async Task UpdateAsync()

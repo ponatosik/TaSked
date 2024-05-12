@@ -15,7 +15,7 @@ public class HomeworkDataSource
 	{
 		_homeworkService = homeworkService;
 		_subjectDataSource = subjectDataSource;
-		UpdateAsync();
+		Task.Run(UpdateAsync);
 	}
 
 	public async Task UpdateAsync()

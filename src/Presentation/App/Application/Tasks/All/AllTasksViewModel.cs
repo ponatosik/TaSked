@@ -57,7 +57,7 @@ public partial class AllTasksViewModel : ReactiveObject, IActivatableViewModel
 	[RelayCommand]
 	async Task RefreshAsync()
 	{
-		//TODO: refresh cache
+		await _dataSource.UpdateAsync();
 		IsRefreshing = false;
 	}
 

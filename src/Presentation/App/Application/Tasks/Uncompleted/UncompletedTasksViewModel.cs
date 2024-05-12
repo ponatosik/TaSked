@@ -52,8 +52,8 @@ public partial class UncompletedTasksViewModel : ReactiveObject, IActivatableVie
     [RelayCommand]
     async Task RefreshAsync()
     {
-      //TODO: refresh cache
-		  IsRefreshing = false;
+		await _dataSource.UpdateAsync();
+		IsRefreshing = false;
     }
 
 	public UncompletedTasksViewModel(HomeworkDataSource dataSource)

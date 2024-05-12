@@ -30,7 +30,7 @@ public partial class SubjectsViewModel : ReactiveObject, IActivatableViewModel
 	[RelayCommand]
 	private async Task RefreshAsync()
 	{
-		//TODO: refresh cache
+		await _dataSource.UpdateAsync();
 		IsRefreshing = false;
 	}
 
