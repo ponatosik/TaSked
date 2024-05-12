@@ -7,13 +7,17 @@ using TaSked.Application;
 using TaSked.Domain;
 using TaSked.App.Common;
 using DynamicData;
+using ReactiveUI;
+using System.Data.Common;
+using System.Threading.Tasks;
+using System.Reactive.Linq;
 
 namespace TaSked.App;
 
 public partial class CreateTaskViewModel : ObservableObject
 {
-	private ITaSkedHomeworks _homeworkService;
-	private ITaSkedSubjects _subjectService;
+	private readonly ITaSkedHomeworks _homeworkService;
+	private readonly SubjectDataSource _subjectSource;
 
 	[ObservableProperty]
 	private SubjectDTO _subject;
@@ -28,14 +32,21 @@ public partial class CreateTaskViewModel : ObservableObject
 	private string _description = string.Empty;
 
 	[ObservableProperty]
-	private ObservableCollection<SubjectDTO> _availableSubjects;
+	private ReadOnlyObservableCollection<SubjectDTO> _availableSubjects;
 
-	public CreateTaskViewModel(ITaSkedHomeworks homeworkService, ITaSkedSubjects subjectService)
+	public CreateTaskViewModel(ITaSkedHomeworks homeworkService, SubjectDataSource subjectSource)
 	{
 		_homeworkService = homeworkService;
-		_subjectService = subjectService;
-		AvailableSubjects = new ObservableCollection<SubjectDTO>();
-		LoadAvailableSubjects();
+		_subjectSource = subjectSource;
+
+		subjectSource.SubjectSource
+			.Connect()
+			.ObserveOn(RxApp.MainThreadScheduler)
+			.Transform(viewModel => viewModel.SubjectDTO)
+			.Bind(out _availableSubjects)
+			.Subscribe();
+
+		OnPropertyChanged(nameof(AvailableSubjects));
 	}
 
 	[RelayCommand]
@@ -54,12 +65,5 @@ public partial class CreateTaskViewModel : ObservableObject
 		ServiceHelper.Services.GetService<HomeworkDataSource>().HomeworkSource.AddOrUpdate(viewModel);
 		//var tasksView = ServiceHelper.GetService<AllTasksViewModel>();
 		//tasksView.Tasks.Add(viewModel);
-	}
-
-	private async Task LoadAvailableSubjects()
-	{
-		var subjects = await _subjectService.GetAllSubjects();
-		AvailableSubjects.Clear();
-		subjects.ForEach(subject => AvailableSubjects.Add(subject));
 	}
 }
