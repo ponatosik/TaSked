@@ -11,15 +11,13 @@
 
     <AbsoluteLayout Margin="0,0" Padding="0,0">
         <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional">
-            <ScrollView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional">
-            <CollectionView ItemsSource="{Binding Tasks}">
+            <CollectionView ItemsSource="{Binding Tasks}" SelectionMode="None">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="local:TaskViewModel">
                         <components:TaskCard Model ="{Binding}"/>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-        </ScrollView>
         </RefreshView>
         <Button
         AbsoluteLayout.LayoutBounds="0.95,0.945"

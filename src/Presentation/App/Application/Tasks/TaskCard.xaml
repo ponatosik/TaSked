@@ -15,8 +15,16 @@
         </ResourceDictionary>
     </ContentView.Resources>
 
-    <uranium:StatefulContentView StyleClass="Elevation3" Margin="10">
+    <SwipeView Threshold="80" SwipeChanging="SwipeView_SwipeChanging" SwipeEnded="SwipeView_SwipeEnded">
+        <SwipeView.LeftItems>
+            <SwipeItems Mode="Execute">
+                <SwipeItem BackgroundColor="Transparent" 
+                           IsVisible="{Binding Model.Task.Completed, Source={Reference TaskCardComponent}, Converter={StaticResource InvertedBoolConverter}}"
+                           Command="{Binding Model.CompleteCommand, Source={Reference TaskCardComponent}}"/>
+            </SwipeItems>
+        </SwipeView.LeftItems>
 
+        <VerticalStackLayout StyleClass="Elevation3" Margin="10">
         <the49:ContextMenu.Menu>
             <DataTemplate>
                 <the49:Menu>
@@ -88,6 +96,7 @@
             </Grid>
 
         </Border>
-    </uranium:StatefulContentView>
-
+    </VerticalStackLayout>
+    
+    </SwipeView>
 </ContentView>

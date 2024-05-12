@@ -27,4 +27,22 @@ public partial class TaskCard : ContentView
 			card.Opacity = taskView.Task.Completed ? 0.6 : 1;
 		}
 	}
+
+	private void SwipeView_SwipeChanging(object sender, SwipeChangingEventArgs e)
+	{
+		var offset = Math.Clamp(e.Offset, 0, 80);
+        Opacity = (1 - offset / 100);
+		Rotation = offset / 16;
+		RotationY = -offset / 16;
+		TranslationX = offset / 4;
+	}
+
+	private void SwipeView_SwipeEnded(object sender, SwipeEndedEventArgs e)
+	{
+		Opacity = Model.Task.Completed ? 0.6 : 1;
+		Rotation = 0;
+		RotationY = 0;
+		TranslationX = 0;
+	}
+
 }

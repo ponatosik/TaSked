@@ -30,8 +30,8 @@ public partial class TaskViewModel : ReactiveObject
 		Task = task;
 		SubjectName = subjectName;
 
-		CompleteCommand = ReactiveCommand.CreateFromTask(Complete, Observable.Return(false));
-		UndoCompletionCommand = ReactiveCommand.CreateFromTask(UndoCompletion, this.WhenAnyValue(x => x.Task, t => t.Completed));
+		CompleteCommand = ReactiveCommand.CreateFromTask(Complete);
+		UndoCompletionCommand = ReactiveCommand.CreateFromTask(UndoCompletion);
 		UpdateHomeworkCommand = ReactiveCommand.CreateFromTask(UpdateHomework);
 	}
 
