@@ -17,7 +17,7 @@
         <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional">
             <CollectionView ItemsSource="{Binding Subjects}">
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="domain:Report">
+                    <DataTemplate x:DataType="local:SubjectViewModel">
                         <components:SubjectCard ViewModel ="{Binding}"/>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

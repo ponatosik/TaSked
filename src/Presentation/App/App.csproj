@@ -36,7 +36,18 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
-	</PropertyGroup>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <RunAOTCompilation>true</RunAOTCompilation>
+    <AndroidEnableProfiledAot>true</AndroidEnableProfiledAot>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <RunAOTCompination>true</RunAOTCompination>
+    <UseInterpreter>true</UseInterpreter>
+    <PublishTrimmed>true</PublishTrimmed>
+  </PropertyGroup> 
 
 	<ItemGroup>
 		<!-- App Icon -->
@@ -54,6 +65,8 @@
 
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+
+
 	</ItemGroup>
 
 	<ItemGroup>
@@ -204,7 +217,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiIcon Include="Resources\AppIcon\taskedico.png"/>
+	  <MauiIcon Include="Resources\AppIcon\taskedico.png" />
 	  <MauiSplashScreen Include="Resources\Splash\tasked.png" Color="Black" BaseSize="128,128" />
 	</ItemGroup>
 

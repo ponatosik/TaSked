@@ -9,6 +9,7 @@ using UraniumUI;
 using CommunityToolkit.Maui;
 using TaSked.App.Common.Notifications;
 
+[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace TaSked.App;
 
 public static class MauiProgram
