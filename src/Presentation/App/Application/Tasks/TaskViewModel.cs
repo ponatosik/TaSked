@@ -3,6 +3,8 @@ using CommunityToolkit.Mvvm.Input;
 using DynamicData;
 using ReactiveUI;
 using System.Reactive.Linq;
+using TaSked.Api.ApiClient;
+using TaSked.Api.Requests;
 using TaSked.App.Common;
 using TaSked.Domain;
 
@@ -33,6 +35,7 @@ public partial class TaskViewModel : ReactiveObject
 		CompleteCommand = ReactiveCommand.CreateFromTask(Complete);
 		UndoCompletionCommand = ReactiveCommand.CreateFromTask(UndoCompletion);
 		UpdateHomeworkCommand = ReactiveCommand.CreateFromTask(UpdateHomework);
+		DeleteHomeworkCommand = ReactiveCommand.CreateFromTask(DeleteHomework);
 	}
 
 	private IReactiveCommand _completedCommand;
@@ -56,6 +59,13 @@ public partial class TaskViewModel : ReactiveObject
 		set => this.RaiseAndSetIfChanged(ref _updateHomeworkCommand, value);
 	}
 
+	private IReactiveCommand _deleteHomeworkCommand;
+	public IReactiveCommand DeleteHomeworkCommand
+	{
+		get => _deleteHomeworkCommand;
+		set => this.RaiseAndSetIfChanged(ref _deleteHomeworkCommand, value);
+	}
+
 	private async Task Complete()
 	{
 		HomeworkTasksService tasksService = ServiceHelper.GetService<HomeworkTasksService>();
@@ -77,4 +87,14 @@ public partial class TaskViewModel : ReactiveObject
 			["homework"] = Task.Homework
 		});
     }
+
+	private async Task DeleteHomework()
+	{
+		ITaSkedHomeworks api = ServiceHelper.GetService<ITaSkedHomeworks>();
+		DeleteHomeworkRequest request = new DeleteHomeworkRequest(Task.Homework.SubjectId, Task.Homework.Id);
+		await api.DeleteHomework(request);
+
+		HomeworkDataSource homeworkSource = ServiceHelper.GetService<HomeworkDataSource>();
+		homeworkSource.HomeworkSource.Remove(Task.Homework.Id);
+	}
 }

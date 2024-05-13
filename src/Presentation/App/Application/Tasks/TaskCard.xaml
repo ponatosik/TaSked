@@ -43,7 +43,12 @@
                         Command="{Binding Model.UpdateHomeworkCommand, Source={Reference TaskCardComponent}}"
                         IsVisible="{Binding Model.UpdateHomeworkCommand.CanExecute, Source={Reference TaskCardComponent}}"
                         />
-                </the49:Menu>
+                        <the49:Action
+                        Title="Видалити"
+                        Command="{Binding Model.DeleteHomeworkCommand, Source={Reference TaskCardComponent}}"
+                        IsVisible="{Binding Model.DeleteHomeworkCommand.CanExecute, Source={Reference TaskCardComponent}}"
+                        />
+                    </the49:Menu>
             </DataTemplate>
         </the49:ContextMenu.Menu>
 
@@ -58,6 +63,9 @@
                 <MenuFlyoutItem 
                     Text="Помітити як не виконане"
                     Command="{Binding Model.UndoCompletionCommand, Source={Reference TaskCardComponent}}"/>
+                <MenuFlyoutItem 
+                    Text="Видалити"
+                    Command="{Binding Model.DeleteHomeworkCommand, Source={Reference TaskCardComponent}}"/>
             </MenuFlyout>
         </FlyoutBase.ContextFlyout>
 
