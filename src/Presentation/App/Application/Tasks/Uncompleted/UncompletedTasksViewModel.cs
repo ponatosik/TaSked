@@ -68,8 +68,9 @@ public partial class UncompletedTasksViewModel : ReactiveObject, IActivatableVie
 		_dataSource.HomeworkSource
 			.Connect()
 			.ObserveOn(RxApp.MainThreadScheduler)
-			.Group(task => (task.Task.Homework.Deadline ?? DateTime.MaxValue).ToShortDateString())
+			.Group(task => (task.Task.Homework.Deadline)?.ToString("MM.dd.yyyy, dddd") ?? "До кінця семестру")
 			.Transform(group => new TaskGroupModel(group, filter, sort))
+			.SortBy(group => group.Title)
 			.Bind(out _taskGroups)
 			.Subscribe();
 

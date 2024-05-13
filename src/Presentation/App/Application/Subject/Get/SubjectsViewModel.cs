@@ -41,6 +41,7 @@ public partial class SubjectsViewModel : ReactiveObject, IActivatableViewModel
 			.Connect()
 			.ObserveOn(RxApp.MainThreadScheduler)
 			.Bind(out _subjects)
+			.SortBy(subject => subject.SubjectDTO.Name)
 			.Subscribe();
 
 		this.RaisePropertyChanged(nameof(Subjects));

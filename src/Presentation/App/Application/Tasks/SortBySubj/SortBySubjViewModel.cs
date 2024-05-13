@@ -63,6 +63,7 @@ public partial class SortBySubjViewModel : ReactiveObject, IActivatableViewModel
 			.ObserveOn(RxApp.MainThreadScheduler)
 			.Group(task => task.SubjectName)
 			.Transform(group => new TaskGroupModel(group, filter, sort))
+			.SortBy(group => group.Title)
 			.Bind(out _taskGroups)
 			.Subscribe();
 

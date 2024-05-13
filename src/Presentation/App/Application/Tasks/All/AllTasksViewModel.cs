@@ -29,6 +29,7 @@ public partial class AllTasksViewModel : ReactiveObject, IActivatableViewModel
 		_dataSource.HomeworkSource
 			.Connect()
 			.ObserveOn(RxApp.MainThreadScheduler)
+			.SortBy(task => task.Task.Homework?.Deadline ?? DateTime.MaxValue)
 			.Bind(out _tasks)
 			.Subscribe();
 
