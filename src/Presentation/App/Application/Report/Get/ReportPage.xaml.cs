@@ -1,20 +1,14 @@
+using ReactiveUI;
+using ReactiveUI.Maui;
+
 namespace TaSked.App;
 
-public partial class ReportPage : ContentPage
+public partial class ReportPage : ReactiveContentPage<ReportsViewModel>
 {
-	private RepotrsViewModel _viewModel;
-
-	public ReportPage(RepotrsViewModel viewModel)
+	public ReportPage(ReportsViewModel viewModel)
 	{
 		InitializeComponent();
-		_viewModel = viewModel;
-		BindingContext = _viewModel;
-	}
-
-	protected override void OnNavigatedTo(NavigatedToEventArgs args)
-	{
-		_viewModel.ReloadReports();
-
-		base.OnNavigatedTo(args);
+		ViewModel = viewModel;
+		this.WhenActivated((_) => { });
 	}
 }

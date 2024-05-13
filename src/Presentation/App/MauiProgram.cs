@@ -62,8 +62,9 @@ public static class MauiProgram
         builder.Services.AddScoped<SortBySubjPage>();
         builder.Services.AddScoped<SortBySubjViewModel>();
 
-        builder.Services.AddSingleton<RepotrsViewModel>();
+        builder.Services.AddSingleton<ReportsViewModel>();
 		builder.Services.AddSingleton<ReportPage>();
+		builder.Services.AddSingleton<ReportDataSource>();
 		builder.Services.AddScoped<CreateReportPage>();
 		builder.Services.AddScoped<CreateReportViewModel>();
 

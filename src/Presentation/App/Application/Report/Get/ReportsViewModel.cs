@@ -1,44 +1,50 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using DynamicData;
+using ReactiveUI;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Reactive.Linq;
 using TaSked.Api.ApiClient;
 using TaSked.Domain;
 
 namespace TaSked.App;
 
-public partial class RepotrsViewModel : ObservableObject
+public partial class ReportsViewModel : ReactiveObject, IActivatableViewModel
 {
-	private readonly ITaSkedReports _reportsService;
+	private readonly ReportDataSource _dataSource;
+	public ViewModelActivator Activator { get; } = new();
 
-	[ObservableProperty]
-	private ObservableCollection<Report> _reports;
-    [ObservableProperty]
-    bool isRefreshing;
+	private ReadOnlyObservableCollection<Report> _reports;
+	public ReadOnlyObservableCollection<Report> Reports => _reports;
 
-    public RepotrsViewModel(ITaSkedReports api)
+	private bool _isRefreshing;
+	public bool IsRefreshing
 	{
-		_reportsService = api;
-		_reports = new ObservableCollection<Report>();
+		get => this._isRefreshing;
+		set => this.RaiseAndSetIfChanged(ref _isRefreshing, value);
+	}
+
+    public ReportsViewModel(ReportDataSource dataSource)
+	{
+		_dataSource = dataSource;
+		_dataSource.ReportSource
+			.Connect()
+			.SortBy(report => report.Id)
+			.ObserveOn(RxApp.MainThreadScheduler)
+			.Bind(out _reports)
+			.Subscribe();
+
+		this.RaisePropertyChanged(nameof(Reports));
 	}
 
     [RelayCommand]
-    async Task RefreshAsync()
+    private async Task RefreshAsync()
     {
-        ReloadReports();
-        IsRefreshing = false;
+		await _dataSource.ForceUpdateAsync();
+		IsRefreshing = false;
     }
 
-    [RelayCommand]
-	public async Task ReloadReports()
-	{ 	
-		Reports.Clear();
-		(await LoadReports()).ForEach(report => Reports.Add(report));
-	}
-
-	private Task<List<Report>> LoadReports()
-	{
-		return _reportsService.GetAllReports();
-	}
 
 	[RelayCommand]
 	private async Task CreateReport()

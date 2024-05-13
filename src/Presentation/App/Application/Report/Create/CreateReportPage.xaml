@@ -12,6 +12,7 @@
         <Label Text="Створити оголошення" HorizontalTextAlignment="Center"/>
         <material:TextField Title="Заголовок" Text="{Binding Title}" Margin="30,10"/>
         <material:EditorField Title="Текст оголошення" Text="{Binding Message}" Margin="30,10" TextColor="White"/>
+        <Label Text="Після створення оголошення, його не можливо буде видалити або змінити. Його будуть бачити усі учасники." HorizontalOptions="Center" FontSize="12" Margin="30,10" TextColor="#DFD5EC"/>
         <Button Command="{Binding CreateReportCommand}" Margin="100,10" Text="Створити" TextColor="#242424"/>
         
     </StackLayout>
