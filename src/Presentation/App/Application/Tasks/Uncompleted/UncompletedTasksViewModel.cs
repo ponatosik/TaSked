@@ -52,7 +52,7 @@ public partial class UncompletedTasksViewModel : ReactiveObject, IActivatableVie
     [RelayCommand]
     async Task RefreshAsync()
     {
-		await _dataSource.UpdateAsync();
+		await _dataSource.ForceUpdateAsync();
 		IsRefreshing = false;
     }
 

@@ -72,7 +72,7 @@ public partial class SortBySubjViewModel : ReactiveObject, IActivatableViewModel
     [RelayCommand]
     async Task RefreshAsync()
     {
-		await _dataSource.UpdateAsync();
+		await _dataSource.ForceUpdateAsync();
         IsRefreshing = false;
     }
 
