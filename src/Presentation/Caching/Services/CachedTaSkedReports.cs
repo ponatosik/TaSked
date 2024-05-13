@@ -31,7 +31,12 @@ public class CachedTaSkedReports : CachedRepository<Report>, ITaSkedReports
 
 	public async Task<List<Report>> GetAllReports()
     {
-		return (await GetCachedEntities()).ToList();
+		var allLessons = await GetCachedEntities();
+		if(!allLessons.Any()) 
+		{
+			allLessons = await FetchAndCacheEntities();
+		}
+		return allLessons.ToList();
     }
 
 	protected override async Task<IEnumerable<Report>> FetchEntities()

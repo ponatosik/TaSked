@@ -48,7 +48,12 @@ public class CachedTaSkedInvitations : CachedRepository<Invitation>, ITaSkedInvi
 
 	public async Task<List<Invitation>> GetAllInvitation()
 	{
-		return (await GetCachedEntities()).ToList();
+		var invitations = await GetCachedEntities();
+		if(!invitations.Any()) 
+		{
+			invitations = await FetchAndCacheEntities();
+		}
+		return invitations.ToList();
 	}
 
 	protected override string GetEntityKey(Invitation entity)

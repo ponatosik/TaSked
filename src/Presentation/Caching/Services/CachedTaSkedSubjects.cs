@@ -31,7 +31,12 @@ public class CachedTaSkedSubjects : CachedRepository<SubjectDTO>, ITaSkedSubject
 
 	public async Task<List<SubjectDTO>> GetAllSubjects()
 	{
-		return (await GetCachedEntities()).ToList();
+		var subjects = await GetCachedEntities();
+		if(!subjects.Any()) 
+		{
+			subjects = await FetchAndCacheEntities();
+		}
+		return subjects.ToList();
 	}
 
 	public async Task DeleteSubject(DeleteSubjectRequest request)

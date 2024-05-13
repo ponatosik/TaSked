@@ -50,7 +50,11 @@ public class CachedTaSkedLessons : CachedRepository<Lesson>, ITaSkedLessons
 
 	public async Task<List<Lesson>> Get(DateTime? from = null, DateTime? to = null)
 	{
-		IEnumerable<Lesson> allLessons = await GetCachedEntities();
+		var allLessons = await GetCachedEntities();
+		if(!allLessons.Any()) 
+		{
+			allLessons = await FetchAndCacheEntities();
+		}
 		return allLessons.Where(lesson => lesson.Time <= to && lesson.Time >= from).ToList();
 	}
 

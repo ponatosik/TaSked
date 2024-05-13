@@ -25,7 +25,12 @@ public class CachedTaSkedHomeworks : CachedRepository<Homework>, ITaSkedHomework
 
 	public async Task<List<Homework>> GetAllHomework()
 	{
-		return (await GetCachedEntities()).ToList();
+		var homeworks = await GetCachedEntities();
+		if(!homeworks.Any()) 
+		{
+			homeworks = await FetchAndCacheEntities();
+		}
+		return homeworks.ToList();
 	}
 
 	public async Task<Homework> CreateHomework(CreateHomeworkRequest request)
