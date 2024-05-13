@@ -82,6 +82,8 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                     <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
                 <Label Text="{Binding Model.Task.Homework.Title, Source={Reference TaskCardComponent}}"
@@ -93,17 +95,18 @@
                 <Label Text="{Binding Model.SubjectName, Source={Reference TaskCardComponent}}"
                        TextColor="{StaticResource DarkSecondaryContainer}"
                        Grid.Column="2"
-                       Grid.Row="0"/>
+                       Grid.Row="0"
+                       Grid.ColumnSpan="3"/>
 
-                <Label Text="{Binding Model.Task.Homework.Deadline, Source={Reference TaskCardComponent}, StringFormat='{0:dd/MM/yyyy}'}"
+                <Label Text="{Binding Model.Task.Homework.Deadline, Source={Reference TaskCardComponent}, StringFormat='{0:dd/MM}'}"
                       TextColor="{StaticResource DarkSecondaryContainer}"
-                      Grid.Column="3"
+                      Grid.Column="5"
                       Grid.Row="0"/>
 
                 <Label Text="{Binding Model.Task.Homework.Description, Source={Reference TaskCardComponent}}"
                        Grid.Column="0"
                        Grid.Row="1"
-                       Grid.ColumnSpan="4"/>
+                       Grid.ColumnSpan="6"/>
             </Grid>
 
         </Border>
