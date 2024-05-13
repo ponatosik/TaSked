@@ -43,7 +43,7 @@
     </FlyoutItem>
 
     <TabBar>
-        <Tab Title="Завдання">
+        <Tab Title="Завдання" Icon="task_icon.png">
             <ShellContent
                 Title="Невиконані"
                 ContentTemplate="{DataTemplate local:UncompletedTasksPage}"
@@ -60,14 +60,14 @@
                 Route="AllTasksPage"/>
         </Tab>
 
-        <Tab Title="Предмети">
+        <Tab Title="Предмети" Icon="subject_icon.png">
             <ShellContent
                 Title="Предмети"
                 ContentTemplate="{DataTemplate local:SubjectPage}"
                 Route="SubjectPage"/>
         </Tab>
 
-        <Tab Title="Оголошення">
+        <Tab Title="Оголошення" Icon="report_icon.png">
             <ShellContent
                 Title="Оголошення"
                 ContentTemplate="{DataTemplate local:ReportPage}"
