@@ -215,8 +215,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiSplashScreen Include="Resources\Splash\tasked.png" Color="Black" BaseSize="256,256" />
 	  <MauiIcon Include="Resources\AppIcon\taskedico.png" />
-	  <MauiSplashScreen Include="Resources\Splash\tasked.png" Color="Black" BaseSize="128,128" />
 	</ItemGroup>
 
 </Project>
