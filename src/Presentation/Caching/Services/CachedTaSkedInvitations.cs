@@ -43,7 +43,7 @@ public class CachedTaSkedInvitations : CachedRepository<Invitation>, ITaSkedInvi
 
 	public async Task<Invitation> GetInvitationById(Guid InvitationId)
 	{
-		return await GetCachedEntityAsync(InvitationId.ToString());
+		return await _api.GetInvitationById(InvitationId);
 	}
 
 	public async Task<List<Invitation>> GetAllInvitation()
