@@ -11,20 +11,20 @@ public interface ITaSkedHomeworks
 	public Task<List<Homework>> GetAllHomework();
 
 	[Post("/Homeworks")]
-	public Task<Homework> CreateHomework(CreateHomeworkRequest request);
+	public Task<Homework> CreateHomework([Body] CreateHomeworkRequest request);
 
 	[Delete("/Homeworks")]
-	public Task DeleteHomework(DeleteHomeworkRequest request);
+	public Task DeleteHomework([Body] DeleteHomeworkRequest request);
 
 	[Patch("/Homeworks/Deadline")]
-	public Task<Homework> ChangeDeadline(ChangeHomeworkDeadlineRequest request);
+	public Task<Homework> ChangeDeadline([Body] ChangeHomeworkDeadlineRequest request);
 
 	[Patch("/Homeworks/Description")]
-	public Task<Homework> ChangeDescription(ChangeHomeworkDescriptionRequest request);
+	public Task<Homework> ChangeDescription([Body] ChangeHomeworkDescriptionRequest request);
 
 	[Patch("/Homeworks/SourceUrl")]
-	public Task<Homework> ChangeSourceUrl(ChangeHomeworkSourceUrlRequest request);
+	public Task<Homework> ChangeSourceUrl([Body] ChangeHomeworkSourceUrlRequest request);
 
 	[Patch("/Homeworks/Title")]
-	public Task<Homework> ChangeTitle(ChangeHomeworkTitleRequest request);
+	public Task<Homework> ChangeTitle([Body] ChangeHomeworkTitleRequest request);
 }
