@@ -13,7 +13,7 @@
         <material:DatePickerField Title="Виберіть дату" Date="{Binding Homework.Deadline}" Margin="30,10" TextColor="White"/>
         <material:TextField Title="Назва завдання" Text="{Binding Homework.Title}" Margin="30,10"/>
         <material:EditorField Title="Опис завдання" Text="{Binding Homework.Description}" Margin="30,10" TextColor="White"/>
-        <Button Command="{Binding UpdateTaskCommand}" Margin="100,10" Text="Оновити" TextColor="#242424"/>
+        <Button Command="{Binding UpdateTaskCommand}" Margin="100,10" Text="Оновити" TextColor="#242424" BackgroundColor="#FFFBCD"/>
 
     </StackLayout>
 

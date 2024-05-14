@@ -28,6 +28,7 @@
             AbsoluteLayout.LayoutBounds="0.95,0.95"
             AbsoluteLayout.LayoutFlags="PositionProportional"
             Text="+" Command="{Binding CreateSubjectCommand}"
-            CornerRadius="50" TextColor="#242424"/>
+            CornerRadius="50" TextColor="#242424"
+            BackgroundColor="#FFFBCD"/>
     </AbsoluteLayout>
 </reactive:ReactiveContentPage>

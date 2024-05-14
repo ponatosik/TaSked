@@ -16,7 +16,7 @@
         <material:TextField Title="Назва задвання" Text="{Binding Title}" Margin="30,10"/>
         <material:EditorField Title="Опис завдання" Text="{Binding Description}" Margin="30,10" TextColor="White"/>
 
-        <Button Command="{Binding CreateTaskCommand}" Margin="100,10" Text="Створити" TextColor="#242424"/>
+        <Button Command="{Binding CreateTaskCommand}" Margin="100,10" Text="Створити" TextColor="#242424" BackgroundColor="#FFFBCD"/>
         
     </StackLayout>
 

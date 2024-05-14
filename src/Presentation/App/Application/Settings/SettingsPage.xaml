@@ -10,14 +10,17 @@
     <VerticalStackLayout>
         <Button
             Text="Вийти з акаунта" Margin="100,300"
-            Command="{Binding LogoutCommand}" TextColor="#242424"/>
+            Command="{Binding LogoutCommand}" TextColor="#242424"
+            BackgroundColor="#FFFBCD"/>
 
         <Button
             Text="Назначити роль" Margin="100,-250"
-            Clicked="JoinRolePage" TextColor="#242424"/>
+            Clicked="JoinRolePage" TextColor="#242424"
+            BackgroundColor="#FFFBCD"/>
 
         <Button
             Text="Запрошення" Margin="100,300"
-            Clicked="JoinInvintationsPage" TextColor="#242424"/>
+            Clicked="JoinInvintationsPage" TextColor="#242424"
+            BackgroundColor="#FFFBCD"/>
     </VerticalStackLayout>
 </ContentPage>
