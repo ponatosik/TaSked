@@ -12,7 +12,7 @@
 
         <material:TextField Title="Назва групи" Text="{Binding GroupName}" Margin="30,40"/>
         <material:TextField Title="Ваш псевдонім" Text="{Binding UserNickname}" Margin="30,-20"/>
-        <Label Text="Ваш псевдонім бачитимуть модератори групи. Псевдонім неможливо змінити після створення групи." HorizontalOptions="Center" FontSize="12" Margin="25,50" TextColor="#FFFBCD"/>
-        <Button StyleClass="FilledButton" Text="Створити групу" Command="{Binding CreateGroupCommand}" Margin="190,-10, 30, 0" TextColor="#242424" BackgroundColor="#FFFBCD"/>
+        <Label Text="Ваш псевдонім бачитимуть модератори групи. Псевдонім неможливо змінити після створення групи." HorizontalOptions="Center" FontSize="12" Margin="25,50" TextColor="#DFD5EC"/>
+        <Button StyleClass="FilledButton" Text="Створити групу" Command="{Binding CreateGroupCommand}" Margin="190,-10, 30, 0" TextColor="#242424"/>
     </VerticalStackLayout>
 </ContentPage>
