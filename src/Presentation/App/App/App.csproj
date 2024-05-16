@@ -98,8 +98,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\Infrastructure\LocalPersistence\LocalPersistence.csproj" />
-	  <ProjectReference Include="..\ApiClient\ApiClient.csproj" />
+	  <ProjectReference Include="..\LocalPersistence\LocalPersistence.csproj" />
+	  <ProjectReference Include="..\..\Api\ApiClient\ApiClient.csproj" />
 	  <ProjectReference Include="..\Caching\Caching.csproj" />
 	</ItemGroup>
 
