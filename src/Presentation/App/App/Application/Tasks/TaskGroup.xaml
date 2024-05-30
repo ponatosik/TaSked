@@ -10,10 +10,13 @@
 
     <toolkit:Expander IsExpanded = "true" ExpandedChanged="ExpandedChanged" x:Name="expander">
         <toolkit:Expander.Header>
-            <components:Divider LabelText="{Binding TaskGroupModel.Title, Source={Reference TaskGroupComponent}}"/>
+            <Grid>
+                <BoxView Color="#1C1C1C" ZIndex="-1" HorizontalOptions="Fill" VerticalOptions="Fill"/>
+                <components:Divider LabelText="{Binding TaskGroupModel.Title, Source={Reference TaskGroupComponent}}"/>
+            </Grid>
         </toolkit:Expander.Header>
 
-        <CollectionView ZIndex="-1" ItemsSource="{Binding TaskGroupModel ,Source={Reference TaskGroupComponent}}">
+        <CollectionView ZIndex="-2" ItemsSource="{Binding TaskGroupModel ,Source={Reference TaskGroupComponent}}">
 
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="local:TaskViewModel">
