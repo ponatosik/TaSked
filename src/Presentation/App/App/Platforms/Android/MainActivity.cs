@@ -9,7 +9,7 @@ namespace TaSked.App
 	{
         protected override void OnCreate(Bundle? savedInstanceState)
         {
-            Window?.SetStatusBarColor(Android.Graphics.Color.Black);
+            Window?.SetStatusBarColor(Android.Graphics.Color.ParseColor("#1C1C1C"));
             Window?.SetNavigationBarColor(Android.Graphics.Color.Black);
             base.OnCreate(savedInstanceState);
         }
