@@ -63,10 +63,11 @@ public partial class CreateTaskViewModel : ObservableObject
 		{
 			var request = new CreateHomeworkRequest(Subject.Id, Title, Description, Deadline);
 			var homework = await _homeworkService.CreateHomework(request);
-			await Shell.Current.GoToAsync("..");
 
 			TaskViewModel viewModel = new TaskViewModel(homework.CreateTask(), Subject.Name);
 			ServiceHelper.GetService<HomeworkDataSource>().HomeworkSource.AddOrUpdate(viewModel);
 		});
+
+		await Shell.Current.GoToAsync("..");
 	}
 }

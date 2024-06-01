@@ -40,10 +40,11 @@ public partial class CreateSubjectViewModel : ObservableObject
 		{
 			var request = new CreateSubjectRequest(Name);
 			var dto = await _subjectService.CreateSubject(request);
-			await Shell.Current.GoToAsync("..");
 
 			SubjectViewModel viewModel = new SubjectViewModel(dto);
 			_subjectDataSource.SubjectSource.AddOrUpdate(viewModel);
 		});
+
+		await Shell.Current.GoToAsync("..");
 	}
 }

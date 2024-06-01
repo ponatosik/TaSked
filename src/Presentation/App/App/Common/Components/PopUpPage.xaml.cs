@@ -35,7 +35,7 @@ public partial class PopUpPage : ContentPage
 
 	public async Task IndicateTaskRunningAsync(Func<Task> action)
 	{
-		await this.Dispaly();
+		await Dispaly();
 		try
 		{
 			await action();

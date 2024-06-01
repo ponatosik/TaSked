@@ -42,8 +42,9 @@ public partial class CreateReportViewModel : ObservableObject
 		{
 			var request = new CreateReportRequest(Title, Message);
 			var report = await _api.CreateReport(request);
-			await Shell.Current.GoToAsync("..");
 			_dataSource.ReportSource.AddOrUpdate(report);
 		});
+
+		await Shell.Current.GoToAsync("..");
 	}
 }

@@ -41,7 +41,8 @@ public partial class UpdateSubjectViewModel : ObservableObject
 			SubjectDataSource subjectSource = ServiceHelper.GetService<SubjectDataSource>();
 			subjectSource.SubjectSource.AddOrUpdate(new SubjectViewModel(SubjectDTO));
 
-			await Shell.Current.GoToAsync("..");
 		});
+
+		await Shell.Current.GoToAsync("..");
 	}
 }

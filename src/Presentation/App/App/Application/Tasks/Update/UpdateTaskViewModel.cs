@@ -39,8 +39,8 @@ public partial class UpdateTaskViewModel : ObservableObject
 
 			var changeDeadlineRequest = new ChangeHomeworkDeadlineRequest(Homework.SubjectId, Homework.Id, Homework.Deadline);
 			await _homeworkService.ChangeDeadline(changeDeadlineRequest);
-
-			await Shell.Current.GoToAsync("..");
 		});
+
+		await Shell.Current.GoToAsync("..");
     }
 }
