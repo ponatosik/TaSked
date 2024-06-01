@@ -52,9 +52,7 @@ public partial class PopUpPage : ContentPage
 
 	void Page_Loaded(object? sender, EventArgs e)
 	{
-		Loaded -= Page_Loaded;
-
-		PoppingIn();
+        PoppingIn();
 	}
 
 	private void PoppingIn()
