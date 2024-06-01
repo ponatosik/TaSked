@@ -10,7 +10,6 @@ namespace TaSked.App;
 
 public class TaskGroupModel : ObservableCollectionExtended<TaskViewModel>, IDisposable, INotifyPropertyChanged
 {
-	public event PropertyChangedEventHandler PropertyChanged;
 	// TODO: Use dynamic filter and use same group data source in all groups
 
 	private string _title { get; set; }
@@ -20,7 +19,7 @@ public class TaskGroupModel : ObservableCollectionExtended<TaskViewModel>, IDisp
 		set
 		{
 			_title = value;
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Title)));
+			OnPropertyChanged(new PropertyChangedEventArgs(nameof(Title)));
 		}
 	}
 

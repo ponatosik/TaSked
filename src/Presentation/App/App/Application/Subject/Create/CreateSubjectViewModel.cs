@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DynamicData;
+using ReactiveUI;
 using TaSked.Api.ApiClient;
 using TaSked.Api.Requests;
 
@@ -12,15 +13,19 @@ public partial class CreateSubjectViewModel : ObservableObject
 	private readonly SubjectDataSource _subjectDataSource;
 
 	[ObservableProperty]
+	public IReactiveCommand _createSubjectCommand;
+
+	[ObservableProperty]
 	private string _name;
 
 	public CreateSubjectViewModel(ITaSkedSubjects subjectService, SubjectDataSource subjectDataSource)
 	{
 		_subjectService = subjectService;
 		_subjectDataSource = subjectDataSource;
+
+		CreateSubjectCommand = ReactiveCommand.CreateFromTask(CreateSubject);
 	}
 
-	[RelayCommand]
 	private async Task CreateSubject()
 	{
 		if (string.IsNullOrEmpty(Name)) 

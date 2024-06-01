@@ -27,7 +27,13 @@ public partial class SubjectsViewModel : ReactiveObject, IActivatableViewModel
 		set => this.RaiseAndSetIfChanged(ref _isRefreshing, value);
 	}
 
-	[RelayCommand]
+	private IReactiveCommand _refreshCommand;
+	public IReactiveCommand RefreshCommand
+	{
+		get => _refreshCommand;
+		set => this.RaiseAndSetIfChanged(ref _refreshCommand, value);
+	}
+
 	private async Task RefreshAsync()
 	{
 		await _dataSource.ForceUpdateAsync();
@@ -45,6 +51,8 @@ public partial class SubjectsViewModel : ReactiveObject, IActivatableViewModel
 			.Subscribe();
 
 		this.RaisePropertyChanged(nameof(Subjects));
+
+		RefreshCommand = ReactiveCommand.CreateFromTask(RefreshAsync);
 
 		// TODO: Unsubscribe from update when view is inactive
 

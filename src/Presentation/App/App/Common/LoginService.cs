@@ -17,7 +17,7 @@ public class LoginService
 	private IBlobCache? _userCache;
 
 	public LoginService(
-		ITaSkedSevice api, 
+		ITaSkedSevice api,
 		ITaSkedUsers usersService,
 		ITaSkedInvitations invitationsService,
 		IUserTokenStore tokenStore,
@@ -38,7 +38,7 @@ public class LoginService
 		_tokenStore.AccessToken = token;
 		await _api.CreateGroup(new Api.Requests.CreateGroupRequest(groupName));
 
-		if(_notificationsService is not null)
+		if (_notificationsService is not null)
 		{
 			await _notificationsService.SubscribeToNotifications();
 		}
@@ -52,7 +52,7 @@ public class LoginService
 		Guid groupId = (await _invitationsService.GetInvitationById(invitation)).GroupId;
 		await _invitationsService.ActivateInvitation(new Api.Requests.ActivateInvintationRequest(invitation, groupId));
 
-		if(_notificationsService is not null)
+		if (_notificationsService is not null)
 		{
 			await _notificationsService.SubscribeToNotifications();
 		}
@@ -60,18 +60,23 @@ public class LoginService
 
 	public async Task Logout()
 	{
-		if(_notificationsService is not null)
+		try
 		{
-			await _notificationsService.UnsubscribeFromNotifications();
+			if (_notificationsService is not null)
+			{
+				await _notificationsService.UnsubscribeFromNotifications();
+			}
+			if (_userCache is not null)
+			{
+				_userCache.InvalidateAll();
+				_userCache.Vacuum();
+			}
 		}
-		if(_userCache is not null)
+		finally
 		{
-			_userCache.InvalidateAll();
-			_userCache.Vacuum();
+			_tokenStore.AccessToken = null;
+			Microsoft.Maui.Controls.Application.Current?.Quit();
 		}
-
-		_tokenStore.AccessToken = null;
-		Microsoft.Maui.Controls.Application.Current?.Quit();
 	}
 
 	public async Task<GroupRole> GetUserRoleAsync()
@@ -113,32 +118,32 @@ public class LoginService
 		return user.GroupId != null;
 	}
 
-    public async Task<Guid?> GetGroupIdAsync()
-    {
-        if (!HasAccessToken())
-        {
-            return null;
-        }
+	public async Task<Guid?> GetGroupIdAsync()
+	{
+		if (!HasAccessToken())
+		{
+			return null;
+		}
 
-        User user;
+		User user;
 
-        try
-        {
-            user = await _usersService.CurrentUser();
-        }
-        catch (ApiException exception)
-        {
-            if (exception.StatusCode == HttpStatusCode.Unauthorized ||
-                exception.StatusCode == HttpStatusCode.Forbidden)
-            {
-                return null;
-            }
-            else
-            {
-                throw;
-            }
-        }
+		try
+		{
+			user = await _usersService.CurrentUser();
+		}
+		catch (ApiException exception)
+		{
+			if (exception.StatusCode == HttpStatusCode.Unauthorized ||
+				exception.StatusCode == HttpStatusCode.Forbidden)
+			{
+				return null;
+			}
+			else
+			{
+				throw;
+			}
+		}
 
-        return user.GroupId;
-    }
+		return user.GroupId;
+	}
 }

@@ -1,15 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using TaSked.Api.ApiClient;
 using TaSked.Api.Requests;
 using TaSked.Application;
-using TaSked.Domain;
 using TaSked.App.Common;
 using DynamicData;
 using ReactiveUI;
-using System.Data.Common;
-using System.Threading.Tasks;
 using System.Reactive.Linq;
 
 namespace TaSked.App;
@@ -34,10 +30,15 @@ public partial class CreateTaskViewModel : ObservableObject
 	[ObservableProperty]
 	private ReadOnlyObservableCollection<SubjectDTO> _availableSubjects;
 
+	[ObservableProperty]
+	private IReactiveCommand _createTaskCommand;
+
 	public CreateTaskViewModel(ITaSkedHomeworks homeworkService, SubjectDataSource subjectSource)
 	{
 		_homeworkService = homeworkService;
 		_subjectSource = subjectSource;
+
+		CreateTaskCommand = ReactiveCommand.CreateFromTask(CreateTask);
 
 		subjectSource.SubjectSource
 			.Connect()
@@ -49,7 +50,6 @@ public partial class CreateTaskViewModel : ObservableObject
 		OnPropertyChanged(nameof(AvailableSubjects));
 	}
 
-	[RelayCommand]
 	private async Task CreateTask()
 	{
 		if (string.IsNullOrEmpty(Title) || Subject is null) 
@@ -63,7 +63,5 @@ public partial class CreateTaskViewModel : ObservableObject
 
 		TaskViewModel viewModel = new TaskViewModel(homework.CreateTask(), Subject.Name);
 		ServiceHelper.Services.GetService<HomeworkDataSource>().HomeworkSource.AddOrUpdate(viewModel);
-		//var tasksView = ServiceHelper.GetService<AllTasksViewModel>();
-		//tasksView.Tasks.Add(viewModel);
 	}
 }

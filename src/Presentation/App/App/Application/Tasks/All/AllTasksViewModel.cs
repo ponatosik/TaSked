@@ -1,14 +1,8 @@
-using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
-using TaSked.App.Common;
-using TaSked.Application;
-using TaSked.Domain;
-using TaSked.Api.ApiClient;
 using ReactiveUI;
 using DynamicData;
 using System.Reactive.Linq;
-using System.Reactive.Disposables;
 
 namespace TaSked.App;
 
@@ -33,7 +27,12 @@ public partial class AllTasksViewModel : ReactiveObject, IActivatableViewModel
 			.Bind(out _tasks)
 			.Subscribe();
 
+		RefreshCommand = ReactiveCommand.CreateFromTask(RefreshAsync);
+
 		this.RaisePropertyChanged(nameof(Tasks));
+
+
+
 		// TODO: Unsubscribe from update when view is inactive
 
 		//this.WhenActivated(dispose =>
@@ -55,7 +54,13 @@ public partial class AllTasksViewModel : ReactiveObject, IActivatableViewModel
 		set => this.RaiseAndSetIfChanged(ref _isRefreshing, value);
 	}
 
-	[RelayCommand]
+	private IReactiveCommand _refreshCommand;
+	public IReactiveCommand RefreshCommand
+	{
+		get => _refreshCommand;
+		set => this.RaiseAndSetIfChanged(ref _refreshCommand, value);
+	}
+
 	async Task RefreshAsync()
 	{
 		await _dataSource.ForceUpdateAsync();

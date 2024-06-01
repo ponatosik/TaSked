@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DynamicData;
+using ReactiveUI;
 using TaSked.Api.ApiClient;
 using TaSked.Api.Requests;
 using TaSked.App.Common;
@@ -16,12 +17,16 @@ public partial class UpdateSubjectViewModel : ObservableObject
 	[ObservableProperty]
 	private SubjectDTO _subjectDTO;
 
+	[ObservableProperty]
+	private IReactiveCommand _updateSubjectCommand;
+
 	public UpdateSubjectViewModel(ITaSkedSubjects subjectService)
 	{
 		_subjectService = subjectService;
+
+		UpdateSubjectCommand = ReactiveCommand.CreateFromTask(UpdateSubject);
 	}
 
-	[RelayCommand]
 	private async Task UpdateSubject()
 	{
 		var changeNameRequest = new ChangeSubjectNameRequest(SubjectDTO.Id, SubjectDTO.Name);

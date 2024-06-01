@@ -8,6 +8,13 @@ using The49.Maui.ContextMenu;
 using UraniumUI;
 using CommunityToolkit.Maui;
 using TaSked.App.Common.Notifications;
+using ReactiveUI;
+using System.Reactive;
+using Refit;
+using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using System.Threading;
+using System.Reactive.Concurrency;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace TaSked.App;
@@ -102,6 +109,8 @@ public static class MauiProgram
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
+
+		RxApp.DefaultExceptionHandler = new AppExceptionHandler();
 
 		var app = builder.Build();
 		ServiceHelper.Initialize(app.Services);

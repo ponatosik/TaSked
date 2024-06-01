@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using TaSked.Api.ApiClient;
+using ReactiveUI;
 using TaSked.App.Common;
 
 namespace TaSked.App;
@@ -11,15 +11,18 @@ public partial class CreateGroupViewModel : ObservableObject
 	private string _groupName;
 	[ObservableProperty]
 	private string _userNickname;
+	[ObservableProperty]
+	private IReactiveCommand _createGroupCommand;
 
 	private readonly LoginService _loginService;
 
     public CreateGroupViewModel(LoginService loginService)
     {
 		_loginService = loginService;
+
+		CreateGroupCommand = ReactiveCommand.CreateFromTask(CreateGroup);
 	}
 
-	[RelayCommand]
 	public async Task CreateGroup()
 	{ 
 		if (string.IsNullOrEmpty(_groupName) || string.IsNullOrEmpty(_userNickname))

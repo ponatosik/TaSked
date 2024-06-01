@@ -1,14 +1,8 @@
-using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
-using TaSked.App.Common;
-using TaSked.Application;
-using TaSked.Domain;
-using TaSked.Api.ApiClient;
 using ReactiveUI;
 using System.Reactive.Linq;
 using DynamicData;
-using DynamicData.Binding;
 
 namespace TaSked.App;
 
@@ -49,7 +43,13 @@ public partial class UncompletedTasksViewModel : ReactiveObject, IActivatableVie
 		set => this.RaiseAndSetIfChanged(ref _sort, value);
 	}
 
-    [RelayCommand]
+	private IReactiveCommand _refreshCommand;
+	public IReactiveCommand RefreshCommand
+	{
+		get => _refreshCommand;
+		set => this.RaiseAndSetIfChanged(ref _refreshCommand, value);
+	}
+
     async Task RefreshAsync()
     {
 		await _dataSource.ForceUpdateAsync();
@@ -64,6 +64,8 @@ public partial class UncompletedTasksViewModel : ReactiveObject, IActivatableVie
 
 		var sort = this.WhenAnyValue(x => x.Sort);
 		var filter = this.WhenAnyValue(x => x.Filter);
+
+		RefreshCommand = ReactiveCommand.CreateFromTask(RefreshAsync);
 
 		_dataSource.HomeworkSource
 			.Connect()

@@ -35,10 +35,18 @@ public partial class ReportsViewModel : ReactiveObject, IActivatableViewModel
 			.Bind(out _reports)
 			.Subscribe();
 
+		RefreshCommand = ReactiveCommand.CreateFromTask(RefreshAsync);
+
 		this.RaisePropertyChanged(nameof(Reports));
 	}
 
-    [RelayCommand]
+	private IReactiveCommand _refreshCommand;
+	public IReactiveCommand RefreshCommand
+	{
+		get => _refreshCommand;
+		set => this.RaiseAndSetIfChanged(ref _refreshCommand, value);
+	}
+
     private async Task RefreshAsync()
     {
 		await _dataSource.ForceUpdateAsync();

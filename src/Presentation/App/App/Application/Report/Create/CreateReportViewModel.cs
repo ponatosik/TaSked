@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using DynamicData;
+using ReactiveUI;
 using TaSked.Api.ApiClient;
 using TaSked.Api.Requests;
 
@@ -17,13 +17,17 @@ public partial class CreateReportViewModel : ObservableObject
 	[ObservableProperty]
 	private string _message;
 
+	[ObservableProperty]
+	private IReactiveCommand _createReportCommand;
+
 	public CreateReportViewModel(ITaSkedReports api, ReportDataSource dataSource)
 	{
 		_api = api;
 		_dataSource = dataSource;
+
+		CreateReportCommand = ReactiveCommand.CreateFromTask(CreateReport);
 	}
 
-	[RelayCommand]
 	private async Task CreateReport()
 	{
 		if (string.IsNullOrEmpty(Title) || string.IsNullOrEmpty(Message)) 

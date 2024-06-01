@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DynamicData;
+using ReactiveUI;
 using TaSked.Api.ApiClient;
 using TaSked.Api.Requests;
 using TaSked.App.Common;
@@ -16,12 +17,16 @@ public partial class UpdateTaskViewModel : ObservableObject
     [ObservableProperty]
     private Homework _homework;
 
+    [ObservableProperty]
+    public IReactiveCommand _updateTaskCommand;
+
     public UpdateTaskViewModel(ITaSkedHomeworks homeworkServic)
     {
+        UpdateTaskCommand = ReactiveCommand.CreateFromTask(UpdateTask);
+
         _homeworkService = homeworkServic;
     }
 
-    [RelayCommand]
     private async Task UpdateTask()
     {
         var changeTitleRequest = new ChangeHomeworkTitleRequest(Homework.SubjectId, Homework.Id, Homework.Title);

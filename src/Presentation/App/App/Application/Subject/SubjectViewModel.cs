@@ -18,11 +18,19 @@ public partial class SubjectViewModel : ReactiveObject
 		set => this.RaiseAndSetIfChanged(ref _subjectDTO, value);
 	}
 
+	private IReactiveCommand _deleteSubjectCommand;
+	public IReactiveCommand DeleteSubjectCommand
+	{
+		get => _deleteSubjectCommand;
+		set => this.RaiseAndSetIfChanged(ref _deleteSubjectCommand, value);
+	}
+
 	public SubjectViewModel(SubjectDTO subjectDTO)
 	{
 		_subjectDTO = subjectDTO;
+
+		DeleteSubjectCommand = ReactiveCommand.CreateFromTask(DeleteSubject);
 	}
-	public SubjectViewModel() { }
 
 	[RelayCommand]
 	private async Task UpdateSubject()
@@ -33,7 +41,6 @@ public partial class SubjectViewModel : ReactiveObject
 		});	
 	}
 
-	[RelayCommand]
 	private async Task DeleteSubject()
 	{
 		ITaSkedSubjects api = ServiceHelper.GetService<ITaSkedSubjects>();

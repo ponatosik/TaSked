@@ -1,10 +1,5 @@
-using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
-using TaSked.App.Common;
-using TaSked.Application;
-using TaSked.Domain;
-using TaSked.Api.ApiClient;
 using ReactiveUI;
 using System.Reactive.Linq;
 using DynamicData;
@@ -37,11 +32,11 @@ public partial class SortBySubjViewModel : ReactiveObject, IActivatableViewModel
 		Comparer<TaskViewModel>.Create((t1, t2) => t1.Task.Completed.CompareTo(t2.Task.Completed))
 		.ThenBy(t => t.Task.Homework.Deadline);
 
-  private bool _isRefreshing;
+    private bool _isRefreshing;
 	public bool IsRefreshing 
 	{ 
 		get => this._isRefreshing;
-    set => this.RaiseAndSetIfChanged(ref _isRefreshing, value);
+		set => this.RaiseAndSetIfChanged(ref _isRefreshing, value);
 	}
 
 	public IComparer<TaskViewModel> Sort
@@ -50,6 +45,12 @@ public partial class SortBySubjViewModel : ReactiveObject, IActivatableViewModel
 		set => this.RaiseAndSetIfChanged(ref _sort, value);
 	}
 
+	private IReactiveCommand _refreshCommand;
+	public IReactiveCommand RefreshCommand
+	{
+		get => _refreshCommand;
+		set => this.RaiseAndSetIfChanged(ref _refreshCommand, value);
+	}
 
     public SortBySubjViewModel(HomeworkDataSource dataSource)	
     {
@@ -57,6 +58,8 @@ public partial class SortBySubjViewModel : ReactiveObject, IActivatableViewModel
 
 		var sort = this.WhenAnyValue(x => x.Sort);
 		var filter = this.WhenAnyValue(x => x.Filter);
+
+		RefreshCommand = ReactiveCommand.CreateFromTask(RefreshAsync);
 
 		_dataSource.HomeworkSource
 			.Connect()
@@ -70,8 +73,7 @@ public partial class SortBySubjViewModel : ReactiveObject, IActivatableViewModel
 		  this.RaisePropertyChanged(nameof(_taskGroups));
 	    }
 
-    [RelayCommand]
-    async Task RefreshAsync()
+    public async Task RefreshAsync()
     {
 		await _dataSource.ForceUpdateAsync();
         IsRefreshing = false;

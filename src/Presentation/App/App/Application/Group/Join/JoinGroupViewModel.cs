@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using ReactiveUI;
 using TaSked.App.Common;
 
 namespace TaSked.App;
@@ -10,15 +11,20 @@ public partial class JoinGroupViewModel : ObservableObject
 
 	[ObservableProperty]
 	private string _groupInvitationId;
+
 	[ObservableProperty]
 	private string _userNickname;
+
+	[ObservableProperty]
+	private IReactiveCommand _joinGroupCommand;
+
 
     public JoinGroupViewModel(LoginService loginService)
     {
 		_loginService = loginService;
+		JoinGroupCommand = ReactiveCommand.CreateFromTask(JoinGroup);
     }
 
-	[RelayCommand]
 	public async Task JoinGroup()
 	{ 
 		if (string.IsNullOrEmpty(_groupInvitationId) 
