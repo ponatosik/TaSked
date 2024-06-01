@@ -9,12 +9,7 @@ using UraniumUI;
 using CommunityToolkit.Maui;
 using TaSked.App.Common.Notifications;
 using ReactiveUI;
-using System.Reactive;
-using Refit;
-using CommunityToolkit.Maui.Alerts;
-using CommunityToolkit.Maui.Core;
-using System.Threading;
-using System.Reactive.Concurrency;
+using TaSked.App.Common.Components;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace TaSked.App;
@@ -101,6 +96,8 @@ public static class MauiProgram
 		builder.Services.AddSingleton<SettingsPage>();
 
         builder.Services.AddSingleton<LoadingPage>();
+		builder.Services.AddSingleton<PopUpPage>();
+		builder.Services.AddSingleton<AppState>();
 
 		builder.Services.AddSingleton<IConnectivity>(Connectivity.Current);
 

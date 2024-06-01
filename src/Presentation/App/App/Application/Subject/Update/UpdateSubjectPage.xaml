@@ -6,7 +6,8 @@
              xmlns:domain="clr-namespace:TaSked.Domain;assembly=Domain"
              x:DataType="local:UpdateSubjectViewModel"
              x:Class="TaSked.App.UpdateSubjectPage"
-             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material">
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             HideSoftInputOnTapped="true">
 
     <StackLayout>
         <Label Text="Змінти предмет" HorizontalTextAlignment="Center"/>

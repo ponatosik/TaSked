@@ -4,6 +4,8 @@ using DynamicData;
 using ReactiveUI;
 using TaSked.Api.ApiClient;
 using TaSked.Api.Requests;
+using TaSked.App.Common;
+using TaSked.App.Common.Components;
 
 namespace TaSked.App;
 
@@ -33,11 +35,15 @@ public partial class CreateSubjectViewModel : ObservableObject
 			return;
 		}
 
-		var request = new CreateSubjectRequest(Name);
-		var dto = await _subjectService.CreateSubject(request);
-		await Shell.Current.GoToAsync("..");
+		PopUpPage popup = ServiceHelper.GetService<PopUpPage>();
+		await popup.IndicateTaskRunningAsync(async () =>
+		{
+			var request = new CreateSubjectRequest(Name);
+			var dto = await _subjectService.CreateSubject(request);
+			await Shell.Current.GoToAsync("..");
 
-		SubjectViewModel viewModel = new SubjectViewModel(dto);
-		_subjectDataSource.SubjectSource.AddOrUpdate(viewModel);
+			SubjectViewModel viewModel = new SubjectViewModel(dto);
+			_subjectDataSource.SubjectSource.AddOrUpdate(viewModel);
+		});
 	}
 }

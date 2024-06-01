@@ -1,10 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using DynamicData;
 using ReactiveUI;
 using TaSked.Api.ApiClient;
 using TaSked.Api.Requests;
 using TaSked.App.Common;
+using TaSked.App.Common.Components;
 using TaSked.Domain;
 
 namespace TaSked.App;
@@ -29,15 +28,19 @@ public partial class UpdateTaskViewModel : ObservableObject
 
     private async Task UpdateTask()
     {
-        var changeTitleRequest = new ChangeHomeworkTitleRequest(Homework.SubjectId, Homework.Id, Homework.Title);
-        await _homeworkService.ChangeTitle(changeTitleRequest);
+        PopUpPage popup = ServiceHelper.GetService<PopUpPage>();
+		await popup.IndicateTaskRunningAsync(async () =>
+		{
+			var changeTitleRequest = new ChangeHomeworkTitleRequest(Homework.SubjectId, Homework.Id, Homework.Title);
+			await _homeworkService.ChangeTitle(changeTitleRequest);
 
-        var changeDescriptionRequest = new ChangeHomeworkDescriptionRequest(Homework.SubjectId, Homework.Id, Homework.Description);
-        await _homeworkService.ChangeDescription(changeDescriptionRequest);
+			var changeDescriptionRequest = new ChangeHomeworkDescriptionRequest(Homework.SubjectId, Homework.Id, Homework.Description);
+			await _homeworkService.ChangeDescription(changeDescriptionRequest);
 
-        var changeDeadlineRequest = new ChangeHomeworkDeadlineRequest(Homework.SubjectId, Homework.Id, Homework.Deadline);
-        await _homeworkService.ChangeDeadline(changeDeadlineRequest);
+			var changeDeadlineRequest = new ChangeHomeworkDeadlineRequest(Homework.SubjectId, Homework.Id, Homework.Deadline);
+			await _homeworkService.ChangeDeadline(changeDeadlineRequest);
 
-        await Shell.Current.GoToAsync("..");
+			await Shell.Current.GoToAsync("..");
+		});
     }
 }

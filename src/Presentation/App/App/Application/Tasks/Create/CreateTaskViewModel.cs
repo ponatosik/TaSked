@@ -7,6 +7,7 @@ using TaSked.App.Common;
 using DynamicData;
 using ReactiveUI;
 using System.Reactive.Linq;
+using TaSked.App.Common.Components;
 
 namespace TaSked.App;
 
@@ -52,16 +53,20 @@ public partial class CreateTaskViewModel : ObservableObject
 
 	private async Task CreateTask()
 	{
-		if (string.IsNullOrEmpty(Title) || Subject is null) 
+		if (string.IsNullOrEmpty(Title) || Subject is null)
 		{
 			return;
 		}
 
-		var request = new CreateHomeworkRequest(Subject.Id, Title, Description, Deadline);
-		var homework = await _homeworkService.CreateHomework(request);
-		await Shell.Current.GoToAsync("..");
+		PopUpPage popup = ServiceHelper.GetService<PopUpPage>();
+		await popup.IndicateTaskRunningAsync(async () =>
+		{
+			var request = new CreateHomeworkRequest(Subject.Id, Title, Description, Deadline);
+			var homework = await _homeworkService.CreateHomework(request);
+			await Shell.Current.GoToAsync("..");
 
-		TaskViewModel viewModel = new TaskViewModel(homework.CreateTask(), Subject.Name);
-		ServiceHelper.Services.GetService<HomeworkDataSource>().HomeworkSource.AddOrUpdate(viewModel);
+			TaskViewModel viewModel = new TaskViewModel(homework.CreateTask(), Subject.Name);
+			ServiceHelper.GetService<HomeworkDataSource>().HomeworkSource.AddOrUpdate(viewModel);
+		});
 	}
 }

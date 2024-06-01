@@ -6,6 +6,7 @@ using System.Reactive.Linq;
 using TaSked.Api.ApiClient;
 using TaSked.Api.Requests;
 using TaSked.App.Common;
+using TaSked.App.Common.Components;
 using TaSked.Domain;
 
 namespace TaSked.App;
@@ -90,11 +91,15 @@ public partial class TaskViewModel : ReactiveObject
 
 	private async Task DeleteHomework()
 	{
-		ITaSkedHomeworks api = ServiceHelper.GetService<ITaSkedHomeworks>();
-		DeleteHomeworkRequest request = new DeleteHomeworkRequest(Task.Homework.SubjectId, Task.Homework.Id);
-		await api.DeleteHomework(request);
+		PopUpPage popup = ServiceHelper.GetService<PopUpPage>();
+		await popup.IndicateTaskRunningAsync(async () =>
+		{
+			ITaSkedHomeworks api = ServiceHelper.GetService<ITaSkedHomeworks>();
+			DeleteHomeworkRequest request = new DeleteHomeworkRequest(Task.Homework.SubjectId, Task.Homework.Id);
+			await api.DeleteHomework(request);
 
-		HomeworkDataSource homeworkSource = ServiceHelper.GetService<HomeworkDataSource>();
-		homeworkSource.HomeworkSource.Remove(Task.Homework.Id);
+			HomeworkDataSource homeworkSource = ServiceHelper.GetService<HomeworkDataSource>();
+			homeworkSource.HomeworkSource.Remove(Task.Homework.Id);
+		});
 	}
 }

@@ -24,7 +24,7 @@
 		<ApplicationTitle>TaSked</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.ponatosik.tasked</ApplicationId>
+		<ApplicationId>com.ponatosik.tasked.app</ApplicationId>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
@@ -141,6 +141,9 @@
 	  <Compile Update="Common\Components\MaterialCard.xaml.cs">
 	    <DependentUpon>MaterialCard.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Common\Components\PopUpPage.xaml.cs">
+	    <DependentUpon>PopUpPage.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -211,6 +214,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Common\Components\MaterialCard.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Common\Components\PopUpPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

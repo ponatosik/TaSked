@@ -3,6 +3,8 @@ using DynamicData;
 using ReactiveUI;
 using TaSked.Api.ApiClient;
 using TaSked.Api.Requests;
+using TaSked.App.Common;
+using TaSked.App.Common.Components;
 
 namespace TaSked.App;
 
@@ -35,9 +37,13 @@ public partial class CreateReportViewModel : ObservableObject
 			return;
 		}
 
-		var request = new CreateReportRequest(Title, Message);
-		var report = await _api.CreateReport(request);
-		await Shell.Current.GoToAsync("..");
-		_dataSource.ReportSource.AddOrUpdate(report);
+		PopUpPage popup = ServiceHelper.GetService<PopUpPage>();
+		await popup.IndicateTaskRunningAsync(async () =>
+		{
+			var request = new CreateReportRequest(Title, Message);
+			var report = await _api.CreateReport(request);
+			await Shell.Current.GoToAsync("..");
+			_dataSource.ReportSource.AddOrUpdate(report);
+		});
 	}
 }

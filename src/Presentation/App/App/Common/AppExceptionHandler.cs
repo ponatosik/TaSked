@@ -12,7 +12,7 @@ public class AppExceptionHandler : IObserver<Exception>
 {
 	public void OnNext(Exception error)
 	{
-		if (Debugger.IsAttached) Debugger.Break();
+		//if (Debugger.IsAttached) Debugger.Break();
 
 		if (error is ApiException || error is HttpRequestException || error is WebException)
 		{
