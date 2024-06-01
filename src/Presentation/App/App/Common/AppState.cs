@@ -1,33 +1,41 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using ReactiveUI;
+using TaSked.App.Common;
 using TaSked.Domain;
 
-namespace TaSked.App.Common;
+namespace TaSked.App;
 
-public partial class AppState : ObservableObject
+public class AppState : ReactiveObject
 {
 	private readonly IConnectivity _connectivity;
 	private readonly LoginService _loginService;
 
-	[ObservableProperty]
-	private bool _isBusy = true;
-
-	[ObservableProperty]
-	private bool _hasInternet = false;
-
-	[ObservableProperty]
-	private bool _isModerator = false;
-
-	public AppState(IConnectivity connectivity, LoginService loginService)
+	private bool _hasInternetConnection;
+	public bool HasInternetConnection
 	{
-		_connectivity = connectivity;
-		_loginService = loginService;
+		get => _hasInternetConnection;
+		set => this.RaiseAndSetIfChanged(ref _hasInternetConnection, value);
+	}
+
+	private bool _isModerator;
+	public bool IsModerator
+	{
+		get => _isModerator;
+		set => this.RaiseAndSetIfChanged(ref _isModerator, value);
+	}
+
+	public AppState()
+	{
+		_connectivity = ServiceHelper.GetService<IConnectivity>();
+		_loginService = ServiceHelper.GetService<LoginService>();
 		Task.Run(InitializeAsync);
 	}
 
 	private async Task InitializeAsync()
 	{
-		HasInternet = _connectivity.NetworkAccess == NetworkAccess.Internet;
-		IsModerator = !(await _loginService.GetUserRoleAsync() < GroupRole.Moderator);
-		IsBusy = false;
+		HasInternetConnection = _connectivity.NetworkAccess >= NetworkAccess.ConstrainedInternet;
+		GroupRole role = await _loginService.GetUserRoleAsync();
+		IsModerator = !(role < GroupRole.Moderator);
+		_connectivity.ConnectivityChanged += (obj, args) => HasInternetConnection = args.NetworkAccess >= NetworkAccess.ConstrainedInternet;
 	}
+
 }

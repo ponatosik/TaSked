@@ -16,9 +16,13 @@
                 <the49:Menu>
                     <the49:Action
                         Title="Змінити"
+                        IsEnabled="{Binding HasInternetConnection, Source={StaticResource AppState}}"
+                        IsVisible="{Binding IsModerator, Source={StaticResource AppState}}"
                         Command="{Binding ViewModel.UpdateSubjectCommand, Source={Reference SubjectCardComponent}}"/>
                     <the49:Action 
                         Title="Видалити" 
+                        IsEnabled="{Binding HasInternetConnection, Source={StaticResource AppState}}"
+                        IsVisible="{Binding IsModerator, Source={StaticResource AppState}}"
                         Command="{Binding ViewModel.DeleteSubjectCommand, Source={Reference SubjectCardComponent}}"/>
                 </the49:Menu>
             </DataTemplate>

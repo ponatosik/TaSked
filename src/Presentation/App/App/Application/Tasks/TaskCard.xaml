@@ -41,12 +41,13 @@
                     <the49:Action
                         Title="Змінити"
                         Command="{Binding Model.UpdateHomeworkCommand, Source={Reference TaskCardComponent}}"
-                        IsVisible="{Binding Model.UpdateHomeworkCommand.CanExecute, Source={Reference TaskCardComponent}}"
+                        IsVisible="{Binding IsModerator, Source={StaticResource AppState}}"
+                        IsEnabled="{Binding HasInternetConnection, Source={StaticResource AppState}}"
                         />
                         <the49:Action
                         Title="Видалити"
-                        Command="{Binding Model.DeleteHomeworkCommand, Source={Reference TaskCardComponent}}"
-                        IsVisible="{Binding Model.DeleteHomeworkCommand.CanExecute, Source={Reference TaskCardComponent}}"
+                        IsVisible="{Binding IsModerator, Source={StaticResource AppState}}"
+                        IsEnabled="{Binding HasInternetConnection, Source={StaticResource AppState}}"
                         />
                     </the49:Menu>
             </DataTemplate>

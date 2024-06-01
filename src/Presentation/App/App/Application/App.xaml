@@ -6,6 +6,8 @@
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material">
     <Application.Resources>
         <ResourceDictionary>
+            <local:AppState x:Key="AppState" x:DataType="local:AppState"/>
+            
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary x:Name="appColors" Source="../Resources/Styles/Colors.xaml" />
                 <ResourceDictionary x:Name="appStyles" Source="../Resources/Styles/Styles.xaml" />

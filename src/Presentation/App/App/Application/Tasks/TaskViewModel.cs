@@ -1,8 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using DynamicData;
+﻿using DynamicData;
 using ReactiveUI;
-using System.Reactive.Linq;
 using TaSked.Api.ApiClient;
 using TaSked.Api.Requests;
 using TaSked.App.Common;
@@ -27,7 +24,6 @@ public partial class TaskViewModel : ReactiveObject
 		set => this.RaiseAndSetIfChanged(ref _subjectName, value);
 	}
 
-	public TaskViewModel() { }
 	public TaskViewModel(HomeworkTask task, string subjectName)
 	{
 		Task = task;

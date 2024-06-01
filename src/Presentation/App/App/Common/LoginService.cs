@@ -81,7 +81,7 @@ public class LoginService
 
 	public async Task<GroupRole> GetUserRoleAsync()
 	{
-		return (await _api.CurrentUser()).Role;
+		return (await _usersService.CurrentUser()).Role;
 	}
 
 	public async Task<bool> IsAuthorizedAsync()

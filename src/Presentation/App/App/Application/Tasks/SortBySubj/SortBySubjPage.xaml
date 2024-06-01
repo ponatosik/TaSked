@@ -20,9 +20,10 @@
                 </CollectionView>
         </RefreshView>
         <Button
-    AbsoluteLayout.LayoutBounds="0.95,0.945"
-    AbsoluteLayout.LayoutFlags="PositionProportional"
-    Text="+" Command="{Binding CreateTaskCommand}"
-    CornerRadius="50"/>
+            AbsoluteLayout.LayoutBounds="0.95,0.945"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            Text="+" Command="{Binding CreateTaskCommand}"
+            IsVisible="{Binding IsModerator, Source={StaticResource AppState}}"
+            CornerRadius="50"/>
     </AbsoluteLayout>
 </reactive:ReactiveContentPage>
