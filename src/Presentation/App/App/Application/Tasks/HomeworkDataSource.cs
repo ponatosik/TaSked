@@ -30,19 +30,18 @@ public class HomeworkDataSource
 
 	public async Task UpdateAsync()
 	{
-		var tasks = await _homeworkService.GetAllAsync(); 
+        var tasks = await _homeworkService.GetAllAsync();
 
-		HomeworkSource.Edit(source =>
-		{
-			source.Clear();
-			tasks.ForEach(task =>
-				source.AddOrUpdate(
-					new TaskViewModel(task, 
-					// TODO: Don't use Items. Data stream instead
-					_subjectDataSource.SubjectSource.Items
-					.FirstOrDefault(s => s.SubjectDTO.Id == task.Homework.SubjectId)?.SubjectDTO.Name ?? "Unknown")));
-		});
-	}
+        HomeworkSource.Edit(source =>
+        {
+            source.Clear();
+            tasks.ForEach(task =>
+                source.AddOrUpdate(
+                    new TaskViewModel(task,
+                    _subjectDataSource.SubjectSource.Items
+                    .FirstOrDefault(s => s.SubjectDTO.Id == task.Homework.SubjectId)?.SubjectDTO.Name ?? "Unknown")));
+        });
+    }
 
 	public async Task ForceUpdateAsync()
 	{

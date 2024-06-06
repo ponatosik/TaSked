@@ -33,7 +33,8 @@ public class HomeworkTasksService
 			else
 			{
 				task.Completed = taskDAO.Completed;
-			}
+                task.MetaData = taskDAO.MetaData;
+            }
 
 			list.Add(task);
 		}
@@ -50,7 +51,7 @@ public class HomeworkTasksService
 		task.Completed = true;
 		HomeworkTaskDAO taskDAO = (await _database.GetItemAsync(task.Homework.Id)) ?? new HomeworkTaskDAO(task);
 		taskDAO.Completed = true;
-		await _database.SaveItemAsync(taskDAO);
+        await _database.SaveItemAsync(taskDAO);
 	}
 
 	public async Task UndoCompletionAsync(HomeworkTask task)
@@ -58,6 +59,13 @@ public class HomeworkTasksService
 		task.Completed = false;
 		HomeworkTaskDAO taskDAO = (await _database.GetItemAsync(task.Homework.Id)) ?? new HomeworkTaskDAO(task);
 		taskDAO.Completed = false;
-		await _database.SaveItemAsync(taskDAO);
+        await _database.SaveItemAsync(taskDAO);
 	}
+
+    public async Task UpdateStrokeColorAsync(HomeworkTask task)
+    {
+        HomeworkTaskDAO taskDAO = (await _database.GetItemAsync(task.Homework.Id)) ?? new HomeworkTaskDAO(task);
+        taskDAO.MetaData = task.MetaData;
+        await _database.SaveItemAsync(taskDAO);
+    }
 }
