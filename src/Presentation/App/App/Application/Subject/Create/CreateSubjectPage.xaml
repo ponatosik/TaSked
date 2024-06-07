@@ -13,8 +13,9 @@
         <Label Text="Створити предмет" HorizontalTextAlignment="Center"/>
 
         <material:TextField Title="Назва предмету" Text="{Binding Name}" Margin="30,10"/>
+        <material:TextField Title="Викладач" Text="{Binding TeacherName}" Margin="30,10"/>
         <Button Command="{Binding CreateSubjectCommand}" Margin="100,10" Text="Створити" TextColor="#242424"/>
-        
+
     </StackLayout>
 
 </ContentPage>

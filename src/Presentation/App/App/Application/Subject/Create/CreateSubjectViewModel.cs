@@ -1,50 +1,54 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using DynamicData;
 using ReactiveUI;
 using TaSked.Api.ApiClient;
 using TaSked.Api.Requests;
 using TaSked.App.Common;
 using TaSked.App.Common.Components;
+using TaSked.Domain;
 
 namespace TaSked.App;
 
 public partial class CreateSubjectViewModel : ObservableObject
 {
-	private readonly ITaSkedSubjects _subjectService;
-	private readonly SubjectDataSource _subjectDataSource;
+    private readonly ITaSkedSubjects _subjectService;
+    private readonly SubjectDataSource _subjectDataSource;
 
-	[ObservableProperty]
-	public IReactiveCommand _createSubjectCommand;
+    [ObservableProperty]
+    public IReactiveCommand _createSubjectCommand;
 
-	[ObservableProperty]
-	private string _name;
+    [ObservableProperty]
+    private string _name;
 
-	public CreateSubjectViewModel(ITaSkedSubjects subjectService, SubjectDataSource subjectDataSource)
-	{
-		_subjectService = subjectService;
-		_subjectDataSource = subjectDataSource;
+    [ObservableProperty]
+    private string _teacherName;
 
-		CreateSubjectCommand = ReactiveCommand.CreateFromTask(CreateSubject);
-	}
+    public CreateSubjectViewModel(ITaSkedSubjects subjectService, SubjectDataSource subjectDataSource)
+    {
+        _subjectService = subjectService;
+        _subjectDataSource = subjectDataSource;
 
-	private async Task CreateSubject()
-	{
-		if (string.IsNullOrEmpty(Name)) 
-		{
-			return;
-		}
+        CreateSubjectCommand = ReactiveCommand.CreateFromTask(CreateSubject);
+    }
 
-		PopUpPage popup = ServiceHelper.GetService<PopUpPage>();
-		await popup.IndicateTaskRunningAsync(async () =>
-		{
-			var request = new CreateSubjectRequest(Name);
-			var dto = await _subjectService.CreateSubject(request);
+    private async Task CreateSubject()
+    {
+        if (string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(TeacherName))
+        {
+            return;
+        }
 
-			SubjectViewModel viewModel = new SubjectViewModel(dto);
-			_subjectDataSource.SubjectSource.AddOrUpdate(viewModel);
-		});
+        PopUpPage popup = ServiceHelper.GetService<PopUpPage>();
+        await popup.IndicateTaskRunningAsync(async () =>
+        {
+            var teacher = new Teacher { FullName = TeacherName };
+            var request = new CreateSubjectRequest(Name, teacher);
+            var dto = await _subjectService.CreateSubject(request);
 
-		await Shell.Current.GoToAsync("..");
-	}
+            SubjectViewModel viewModel = new SubjectViewModel(dto);
+            _subjectDataSource.SubjectSource.AddOrUpdate(viewModel);
+        });
+
+        await Shell.Current.GoToAsync("..");
+    }
 }
