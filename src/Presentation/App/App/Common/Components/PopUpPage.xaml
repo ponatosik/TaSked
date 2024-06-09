@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             BackgroundColor="#55000000"
-             x:Class="TaSked.App.Common.Components.PopUpPage">
+<ContentPage
+    x:Class="TaSked.App.Common.Components.PopUpPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:localization="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
+    BackgroundColor="#55000000">
     <Border
-            VerticalOptions="End"
-            Background="Black"
-            StrokeShape="{RoundRectangle CornerRadius=10}"
-            Margin="30, 120"
-            Padding="10">
-        <Grid> 
+        Margin="30,120"
+        Padding="10"
+        Background="Black"
+        StrokeShape="{RoundRectangle CornerRadius=10}"
+        VerticalOptions="End">
+        <Grid>
             <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <Label Text="Запит опрацьовується..."  Grid.Column="0" Grid.ColumnSpan="2" Margin="15" />
-            <ActivityIndicator IsRunning="True" Grid.Column="3"/>
+            <Label
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Margin="15"
+                Text="{localization:Translate LoadingIndicator_Processing}" />
+            <ActivityIndicator Grid.Column="3" IsRunning="True" />
         </Grid>
     </Border>
 </ContentPage>

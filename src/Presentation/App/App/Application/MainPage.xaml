@@ -1,36 +1,71 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:TaSked.App"
-             x:Class="TaSked.App.MainPage"
-             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
-             Shell.NavBarIsVisible="false">
+<ContentPage
+    x:Class="TaSked.App.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:components="clr-namespace:TaSked.App.Components"
+    xmlns:local="clr-namespace:TaSked.App"
+    xmlns:localization="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
+    xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+    Shell.NavBarIsVisible="false">
 
     <VerticalStackLayout Padding="20" Spacing="10">
 
-        <Label Text="TaSked" HorizontalOptions="Center" FontSize="60" Margin="0,200,0,0" TextColor="#FFFFFF"/>
-        <Label Text="ТаSked - місце для студентів, учнів та їх завдань." HorizontalOptions="Center" FontSize="15" Margin="0,30,0,0" TextColor="#DFD5EC"/>
+        <Label
+            Margin="0,160,0,0"
+            FontSize="60"
+            HorizontalOptions="Center"
+            Text="TaSked"
+            TextColor="#FFFFFF" />
+        <Label
+            Margin="0,30,0,0"
+            FontSize="15"
+            HorizontalOptions="Center"
+            Text="{localization:Translate Main_Slogan}"
+            TextColor="#DFD5EC" />
 
-        <Frame BackgroundColor="#141218" CornerRadius="10" Margin="20,40" BorderColor="#49454F">
+        <components:LanguageSelector Margin="20,10,20,0" />
+
+        <Frame
+            Margin="20,40"
+            BackgroundColor="#141218"
+            BorderColor="#49454F"
+            CornerRadius="10">
             <StackLayout Orientation="Horizontal">
                 <StackLayout>
-                    <Label Text="Доєднатися до групи" FontSize="15" TextColor="#D0BCFF"/>
-                    <Label Text="Доєднатися до вже існуючої групи за запрошенням" FontSize="10" TextColor="#E6E0E9"/>
+                    <Label
+                        FontSize="15"
+                        Text="{localization:Translate Main_JoinGroup}"
+                        TextColor="#D0BCFF" />
+                    <Label
+                        FontSize="10"
+                        Text="{localization:Translate Main_JoinGroupCaption}"
+                        TextColor="#E6E0E9" />
                 </StackLayout>
                 <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="JoinGroupTapped"/>
+                    <TapGestureRecognizer Tapped="JoinGroupTapped" />
                 </StackLayout.GestureRecognizers>
             </StackLayout>
         </Frame>
 
-        <Frame BackgroundColor="#141218" CornerRadius="10" Margin="20,-20" BorderColor="#49454F">
+        <Frame
+            Margin="20,-20"
+            BackgroundColor="#141218"
+            BorderColor="#49454F"
+            CornerRadius="10">
             <StackLayout Orientation="Horizontal">
                 <StackLayout>
-                    <Label Text="Створити нову групу" FontSize="15" TextColor="#EFB8C8"/>
-                    <Label Text="Створити нову групу та стати її адміністратором" FontSize="10" TextColor="#E6E0E9"/>
+                    <Label
+                        FontSize="15"
+                        Text="{localization:Translate Main_CreateGroup}"
+                        TextColor="#EFB8C8" />
+                    <Label
+                        FontSize="10"
+                        Text="{localization:Translate Main_CreateGroupCaption}"
+                        TextColor="#E6E0E9" />
                 </StackLayout>
                 <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="CreateGroupTapped"/>
+                    <TapGestureRecognizer Tapped="CreateGroupTapped" />
                 </StackLayout.GestureRecognizers>
             </StackLayout>
         </Frame>

@@ -43,7 +43,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caching", "src\Presentation
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PushNotifications", "src\Infrastructure\PushNotifications\PushNotifications.csproj", "{3677FB3A-6E51-4F9E-8B5B-96F0D8F8CC40}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationContracts", "ApplicationContracts\ApplicationContracts.csproj", "{C23F4B16-5BE6-4B84-8D79-7C522F14268C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApplicationContracts", "ApplicationContracts\ApplicationContracts.csproj", "{C23F4B16-5BE6-4B84-8D79-7C522F14268C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

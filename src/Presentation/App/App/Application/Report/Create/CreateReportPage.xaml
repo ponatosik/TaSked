@@ -1,21 +1,39 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:TaSked.App"
-             xmlns:components="clr-namespace:TaSked.App.Components"
-             xmlns:domain="clr-namespace:TaSked.Domain;assembly=Domain"
-             x:DataType="local:CreateReportViewModel"
-             x:Class="TaSked.App.CreateReportPage"
-             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
-             HideSoftInputOnTapped="true">
+<ContentPage
+    x:Class="TaSked.App.CreateReportPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:components="clr-namespace:TaSked.App.Components"
+    xmlns:domain="clr-namespace:TaSked.Domain;assembly=Domain"
+    xmlns:local="clr-namespace:TaSked.App"
+    xmlns:localization="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
+    xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+    x:DataType="local:CreateReportViewModel"
+    HideSoftInputOnTapped="true">
 
     <StackLayout>
-        <Label Text="Створити оголошення" HorizontalTextAlignment="Center"/>
-        <material:TextField Title="Заголовок" Text="{Binding Title}" Margin="30,10"/>
-        <material:EditorField Title="Текст оголошення" Text="{Binding Message}" Margin="30,10" TextColor="White"/>
-        <Label Text="Після створення оголошення, його не можливо буде видалити або змінити. Його будуть бачити усі учасники." HorizontalOptions="Center" FontSize="12" Margin="30,10" TextColor="#DFD5EC"/>
-        <Button Command="{Binding CreateReportCommand}" Margin="100,10" Text="Створити" TextColor="#242424"/>
-        
+        <Label HorizontalTextAlignment="Center" Text="Створити оголошення" />
+        <material:TextField
+            Title="{localization:Translate Report_Form_Title}"
+            Margin="30,10"
+            Text="{Binding Title}" />
+        <material:EditorField
+            Title="{localization:Translate Report_Form_Message}"
+            Margin="30,10"
+            Text="{Binding Message}"
+            TextColor="White" />
+        <Label
+            Margin="30,10"
+            FontSize="12"
+            HorizontalOptions="Center"
+            Text="{localization:Translate Report_Form_Hint}"
+            TextColor="#DFD5EC" />
+        <Button
+            Margin="100,10"
+            Command="{Binding CreateReportCommand}"
+            Text="{localization:Translate Report_Form_Create}"
+            TextColor="#242424" />
+
     </StackLayout>
 
 </ContentPage>

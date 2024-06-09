@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Shell
     x:Class="TaSked.App.AppShell"
-    x:DataType="local:AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:TaSked.App"
+    xmlns:localization="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
+    x:DataType="local:AppShell"
     Shell.FlyoutBehavior="Disabled">
 
     <Shell.ToolbarItems>
@@ -15,83 +16,84 @@
         </ToolbarItem>
     </Shell.ToolbarItems>
 
-    <FlyoutItem Title="TaSked" FlyoutDisplayOptions="AsMultipleItems" Shell.TabBarIsVisible="False">
+    <FlyoutItem
+        Title="{localization:Translate Navigation_Tasks}"
+        FlyoutDisplayOptions="AsMultipleItems"
+        Shell.TabBarIsVisible="False">
         <ShellContent
-            Title="Loading"
+            Title="{localization:Translate Navigation_Loading}"
             ContentTemplate="{DataTemplate local:LoadingPage}"
             Route="LoadingPage" />
 
         <ShellContent
-            Title="TaSked"
+            Title="{localization:Translate Navigation_Main}"
             ContentTemplate="{DataTemplate local:MainPage}"
-            Route="MainPage"/>
+            Route="MainPage" />
 
         <ShellContent
-            Title="Create Group"
+            Title="{localization:Translate Navigation_Groups_Create}"
             ContentTemplate="{DataTemplate local:CreateGroupPage}"
-            Route="CreateGroupPage"/>
+            Route="CreateGroupPage" />
 
         <ShellContent
-            Title="Join Group"
+            Title="{localization:Translate Navigation_Groups_Join}"
             ContentTemplate="{DataTemplate local:JoinGroupPage}"
-            Route="JoinGroupPage"/>
+            Route="JoinGroupPage" />
 
-        <ShellContent
-            Title="Налаштування"
-            Route="Setting"/>
+        <ShellContent Title="{localization:Translate Navigation_Settings}" Route="Setting" />
 
     </FlyoutItem>
 
     <TabBar>
-        <Tab Title="Завдання" Icon="task_icon.png">
+        <Tab Title="{localization:Translate Navigation_Tasks}" Icon="task_icon.png">
             <ShellContent
-                Title="Невиконані"
+                Title="{localization:Translate Navigation_Tasks_Uncompleted}"
                 ContentTemplate="{DataTemplate local:UncompletedTasksPage}"
-                Route="UncompletedTasksPage"/>
+                Route="UncompletedTasksPage" />
 
             <ShellContent
-                Title="За предметами"
+                Title="{localization:Translate Navigation_Tasks_BySubjects}"
                 ContentTemplate="{DataTemplate local:SortBySubjPage}"
-                Route="SortBySubjPage"/>
+                Route="SortBySubjPage" />
 
             <ShellContent
-                Title="Всі"
+                Title="{localization:Translate Navigation_Tasks_All}"
                 ContentTemplate="{DataTemplate local:AllTasksPage}"
-                Route="AllTasksPage"/>
+                Route="AllTasksPage" />
         </Tab>
 
-        <Tab Title="Предмети" Icon="subject_icon.png">
+        <Tab Title="{localization:Translate Navigation_Subjects}" Icon="subject_icon.png">
             <ShellContent
-                Title="Предмети"
+                Title="{localization:Translate Navigation_Subjects}"
                 ContentTemplate="{DataTemplate local:SubjectPage}"
-                Route="SubjectPage"/>
+                Route="SubjectPage" />
         </Tab>
 
-        <Tab Title="Оголошення" Icon="report_icon.png">
+        <Tab Title="{localization:Translate Navigation_Reports}" Icon="report_icon.png">
             <ShellContent
-                Title="Оголошення"
+                Title="{localization:Translate Navigation_Reports}"
                 ContentTemplate="{DataTemplate local:ReportPage}"
-                Route="ReportPage"/>
+                Route="ReportPage" />
         </Tab>
     </TabBar>
 
     <ShellContent
-        Title="Створити оголошення"
+        Title="{localization:Translate Navigation_Reports_Create}"
         ContentTemplate="{DataTemplate local:CreateReportPage}"
-        Route="CreateReport"/>
+        Route="CreateReport" />
 
     <ShellContent
-        Title="Створити завдання"
+        Title="{localization:Translate Navigation_Tasks_Create}"
         ContentTemplate="{DataTemplate local:CreateTaskPage}"
-        Route="CreateTask"/>
+        Route="CreateTask" />
 
     <ShellContent
-        Title="Role"
+        Title="{localization:Translate Navigation_Settings_Roles}"
         ContentTemplate="{DataTemplate local:RolePage}"
         Route="RolePage" />
-    
+
     <ShellContent
-        Title="Invintation"
+        Title="{localization:Translate Navigation_Settings_Invitations}"
         ContentTemplate="{DataTemplate local:InvintationsPage}"
         Route="InvintationsPage" />
 

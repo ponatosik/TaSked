@@ -1,21 +1,33 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:TaSked.App"
-             xmlns:components="clr-namespace:TaSked.App.Components"
-             xmlns:domain="clr-namespace:TaSked.Domain;assembly=Domain"
-             x:DataType="local:UpdateSubjectViewModel"
-             x:Class="TaSked.App.UpdateSubjectPage"
-             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
-             HideSoftInputOnTapped="true">
+<ContentPage
+    x:Class="TaSked.App.UpdateSubjectPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:components="clr-namespace:TaSked.App.Components"
+    xmlns:domain="clr-namespace:TaSked.Domain;assembly=Domain"
+    xmlns:local="clr-namespace:TaSked.App"
+    xmlns:localization="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
+    xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+    x:DataType="local:UpdateSubjectViewModel"
+    HideSoftInputOnTapped="true">
 
     <StackLayout>
-        <Label Text="Змінти предмет" HorizontalTextAlignment="Center"/>
+        <Label HorizontalTextAlignment="Center" Text="{localization:Translate Subject_Form_Update_Title}" />
 
-        <material:TextField Title="Назва предмету" Text="{Binding SubjectDTO.Name}" Margin="30,10"/>
-        <material:TextField Title="Викладач" Text="{Binding SubjectDTO.Teacher.FullName}" Margin="30,10"/>
-        <Button Command="{Binding UpdateSubjectCommand}" Margin="100,10" Text="Оновити" TextColor="#242424"/>
-        
+        <material:TextField
+            Title="{localization:Translate Subject_Form_Title}"
+            Margin="30,10"
+            Text="{Binding SubjectDTO.Name}" />
+        <material:TextField
+            Title="{localization:Translate Subject_Form_TeacherName}"
+            Margin="30,10"
+            Text="{Binding SubjectDTO.Teacher.FullName}" />
+        <Button
+            Margin="100,10"
+            Command="{Binding UpdateSubjectCommand}"
+            Text="{localization:Translate Subject_Form_Update}"
+            TextColor="#242424" />
+
     </StackLayout>
 
 </ContentPage>

@@ -1,24 +1,47 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:TaSked.App"
-             xmlns:components="clr-namespace:TaSked.App.Components"
-             xmlns:domain="clr-namespace:TaSked.Domain;assembly=Domain"
-             x:DataType="local:CreateTaskViewModel"
-             x:Class="TaSked.App.CreateTaskPage"
-             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
-             HideSoftInputOnTapped="true">
+<ContentPage
+    x:Class="TaSked.App.CreateTaskPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:components="clr-namespace:TaSked.App.Components"
+    xmlns:domain="clr-namespace:TaSked.Domain;assembly=Domain"
+    xmlns:local="clr-namespace:TaSked.App"
+    xmlns:localization="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
+    xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+    x:DataType="local:CreateTaskViewModel"
+    HideSoftInputOnTapped="true">
 
     <StackLayout>
-        <Label Text="Створити завдання" HorizontalTextAlignment="Center"/>
+        <Label HorizontalTextAlignment="Center" Text="{localization:Translate Task_Form_Create_Title}" />
 
-        <material:PickerField Title="Завдання з предмету" SelectedItem="{Binding Subject}" ItemsSource="{Binding AvailableSubjects}" Margin="30,10" ItemDisplayBinding="{Binding Name}" TextColor="White"/>
-        <material:DatePickerField Title="Виберіть дату" Date="{Binding Deadline}" Margin="30,10" TextColor="White"/>
-        <material:TextField Title="Назва задвання" Text="{Binding Title}" Margin="30,10"/>
-        <material:EditorField Title="Опис завдання" Text="{Binding Description}" Margin="30,10" TextColor="White"/>
+        <material:PickerField
+            Title="{localization:Translate Task_Form_Subject}"
+            Margin="30,10"
+            ItemDisplayBinding="{Binding Name}"
+            ItemsSource="{Binding AvailableSubjects}"
+            SelectedItem="{Binding Subject}"
+            TextColor="White" />
+        <material:DatePickerField
+            Title="{localization:Translate Task_Form_Deadline}"
+            Margin="30,10"
+            Date="{Binding Deadline}"
+            TextColor="White" />
+        <material:TextField
+            Title="{localization:Translate Task_Form_Title}"
+            Margin="30,10"
+            Text="{Binding Title}" />
+        <material:EditorField
+            Title="{localization:Translate Task_Form_Description}"
+            Margin="30,10"
+            Text="{Binding Description}"
+            TextColor="White" />
 
-        <Button Command="{Binding CreateTaskCommand}" Margin="100,10" Text="Створити" TextColor="#242424"/>
-        
+        <Button
+            Margin="100,10"
+            Command="{Binding CreateTaskCommand}"
+            Text="{localization:Translate Task_Form_Create}"
+            TextColor="#242424" />
+
     </StackLayout>
 
 </ContentPage>

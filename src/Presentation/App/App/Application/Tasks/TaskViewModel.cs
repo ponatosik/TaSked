@@ -1,4 +1,5 @@
 ﻿using DynamicData;
+using LocalizationResourceManager.Maui;
 using ReactiveUI;
 using TaSked.Api.ApiClient;
 using TaSked.Api.Requests;
@@ -95,22 +96,27 @@ public partial class TaskViewModel : ReactiveObject
 
     private async Task StrokeChangeColor()
     {
-        var colors = new List<string>
+        ILocalizationResourceManager localization = ServiceHelper.GetService<ILocalizationResourceManager>();
+
+        var colors = new Dictionary<string, string>
         {
-            "White",
-            "Red",
-            "Green",
-            "Yellow",
-            "Purple",
-            "Orange"
+            [localization["Task.Action.ChangeColor.Color.White"]] =  "White",
+            [localization["Task.Action.ChangeColor.Color.Red"]] = "Red",
+            [localization["Task.Action.ChangeColor.Color.Green"]] = "Green",
+            [localization["Task.Action.ChangeColor.Color.Yellow"]] = "Yellow",
+            [localization["Task.Action.ChangeColor.Color.Purple"]] = "Purple",
+            [localization["Task.Action.ChangeColor.Color.Orange"]] = "Orange"
         };
 
-        string selectedColor = await Shell.Current.DisplayActionSheet("Виберіть колір", "Скасувати", null, colors.ToArray());
+        string actionSheetTile = localization["Task.Action.ChangeColor.Title"];
+        string actionSheetCancel = localization["Task.Action.ChangeColor.Cancel"];
 
-        if (selectedColor != "Скасувати" && selectedColor != null)
+        string selectedColor = await Shell.Current.DisplayActionSheet(actionSheetTile, actionSheetCancel, null, colors.Keys.ToArray());
+
+        if (selectedColor != null)
         {
-            StrokeColor = Color.Parse(selectedColor);
-            Task.MetaData = selectedColor;
+            StrokeColor = Color.Parse(colors[selectedColor]);
+            Task.MetaData = colors[selectedColor];
             await ServiceHelper.GetService<HomeworkTasksService>().UpdateStrokeColorAsync(Task);
         }
     }

@@ -10,6 +10,9 @@ using CommunityToolkit.Maui;
 using TaSked.App.Common.Notifications;
 using ReactiveUI;
 using TaSked.App.Common.Components;
+using LocalizationResourceManager.Maui;
+using TaSked.App.Resources.Localization;
+using System.Globalization;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace TaSked.App;
@@ -25,6 +28,12 @@ public static class MauiProgram
 			.UseUraniumUI()
 			.UseUraniumUIMaterial()
 			.RegisterFirebaseServices()
+			.UseLocalizationResourceManager(config =>
+			{
+				config.RestoreLatestCulture(true);
+				config.AddResource(LocalizationResources.ResourceManager);
+				config.SupportNameWithDots();
+			})
             .ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

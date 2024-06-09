@@ -1,20 +1,37 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:TaSked.App"
-             xmlns:components="clr-namespace:TaSked.App.Components"
-             xmlns:domain="clr-namespace:TaSked.Domain;assembly=Domain"
-             x:DataType="local:UpdateTaskViewModel"
-             x:Class="TaSked.App.UpdateTaskPage"
-             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
-             HideSoftInputOnTapped="true">
+<ContentPage
+    x:Class="TaSked.App.UpdateTaskPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:components="clr-namespace:TaSked.App.Components"
+    xmlns:domain="clr-namespace:TaSked.Domain;assembly=Domain"
+    xmlns:local="clr-namespace:TaSked.App"
+    xmlns:localization="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
+    xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+    x:DataType="local:UpdateTaskViewModel"
+    HideSoftInputOnTapped="true">
 
     <StackLayout>
-        <Label Text="Змінти завдання" HorizontalTextAlignment="Center"/>
-        <material:DatePickerField Title="Виберіть дату" Date="{Binding Homework.Deadline}" Margin="30,10" TextColor="White"/>
-        <material:TextField Title="Назва завдання" Text="{Binding Homework.Title}" Margin="30,10"/>
-        <material:EditorField Title="Опис завдання" Text="{Binding Homework.Description}" Margin="30,10" TextColor="White"/>
-        <Button Command="{Binding UpdateTaskCommand}" Margin="100,10" Text="Оновити" TextColor="#242424"/>
+        <Label HorizontalTextAlignment="Center" Text="{localization:Translate Task_Form_Update_Title}" />
+        <material:DatePickerField
+            Title="{localization:Translate Task_Form_Deadline}"
+            Margin="30,10"
+            Date="{Binding Homework.Deadline}"
+            TextColor="White" />
+        <material:TextField
+            Title="{localization:Translate Task_Form_Title}"
+            Margin="30,10"
+            Text="{Binding Homework.Title}" />
+        <material:EditorField
+            Title="{localization:Translate Task_Form_Description}"
+            Margin="30,10"
+            Text="{Binding Homework.Description}"
+            TextColor="White" />
+        <Button
+            Margin="100,10"
+            Command="{Binding UpdateTaskCommand}"
+            Text="{localization:Translate Task_Form_Update}"
+            TextColor="#242424" />
 
     </StackLayout>
 

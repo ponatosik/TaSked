@@ -84,10 +84,11 @@
       <None Remove="Resources\AppIcon\taskedico.png" />
       <None Remove="Resources\Splash\tasked.png" />
     </ItemGroup>
-
-	<ItemGroup>
+  
+    <ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="8.0.1" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+		<PackageReference Include="LocalizationResourceManager.Maui" Version="1.2.1" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.20" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.20" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
@@ -135,6 +136,9 @@
 	  <Compile Update="Application\Tasks\Uncompleted\UncompletedTasksPage.xaml.cs">
 	    <DependentUpon>UncompletedTasksPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Common\Components\LanguageSelector.xaml.cs">
+	    <DependentUpon>LanguageSelector.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Common\Components\Divider.xaml.cs">
 	    <DependentUpon>Divider.xaml</DependentUpon>
 	  </Compile>
@@ -143,6 +147,18 @@
 	  </Compile>
 	  <Compile Update="Common\Components\PopUpPage.xaml.cs">
 	    <DependentUpon>PopUpPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Resources\Localization\LocalizationResources.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>LocalizationResources.resx</DependentUpon>
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Compile>
+	  <Compile Update="Resources\Localization\LocalizationResources.uk.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>LocalizationResources.uk.resx</DependentUpon>
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Compile>
 	</ItemGroup>
 
@@ -210,6 +226,9 @@
 	  <MauiXaml Update="Application\Tasks\Update\UpdateTaskPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Common\Components\LanguageSelector.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Common\Components\Divider.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -224,6 +243,18 @@
 	<ItemGroup>
 	  <MauiSplashScreen Include="Resources\Splash\tasked.png" Color="Black" BaseSize="256,256" />
 	  <MauiIcon Include="Resources\AppIcon\taskedico.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Resources\Localization\LocalizationResources.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>LocalizationResources.Designer.cs</LastGenOutput>
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\Localization\LocalizationResources.uk.resx">
+	    <Generator></Generator>
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </EmbeddedResource>
 	</ItemGroup>
 
 </Project>
