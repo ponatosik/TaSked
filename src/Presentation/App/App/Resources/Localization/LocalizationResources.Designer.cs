@@ -394,6 +394,15 @@ namespace TaSked.App.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create report.
+        /// </summary>
+        internal static string Report_Form_Create_Title {
+            get {
+                return ResourceManager.GetString("Report.Form.Create.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reports can`t be changed or deleted.
         /// </summary>
         internal static string Report_Form_Hint {
