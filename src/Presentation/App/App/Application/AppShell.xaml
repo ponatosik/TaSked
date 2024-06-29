@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="TaSked.App.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:TaSked.App"
+    xmlns:localization="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
+    x:DataType="local:AppShell"
+    Shell.FlyoutBehavior="Disabled">
+
+    <Shell.ToolbarItems>
+        <ToolbarItem Clicked="OnSettingsClicked">
+            <ToolbarItem.IconImageSource>
+                <FileImageSource File="Resources/Images/settings_icon" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </Shell.ToolbarItems>
+
+    <FlyoutItem
+        Title="{localization:Translate Navigation_Tasks}"
+        FlyoutDisplayOptions="AsMultipleItems"
+        Shell.TabBarIsVisible="False">
+        <ShellContent
+            Title="{localization:Translate Navigation_Loading}"
+            ContentTemplate="{DataTemplate local:LoadingPage}"
+            Route="LoadingPage" />
+
+        <ShellContent
+            Title="{localization:Translate Navigation_Main}"
+            ContentTemplate="{DataTemplate local:MainPage}"
+            Route="MainPage" />
+
+        <ShellContent
+            Title="{localization:Translate Navigation_Groups_Create}"
+            ContentTemplate="{DataTemplate local:CreateGroupPage}"
+            Route="CreateGroupPage" />
+
+        <ShellContent
+            Title="{localization:Translate Navigation_Groups_Join}"
+            ContentTemplate="{DataTemplate local:JoinGroupPage}"
+            Route="JoinGroupPage" />
+
+        <ShellContent Title="{localization:Translate Navigation_Settings}" Route="Setting" />
+
+    </FlyoutItem>
+
+    <TabBar>
+        <Tab Title="{localization:Translate Navigation_Tasks}" Icon="task_icon.png">
+            <ShellContent
+                Title="{localization:Translate Navigation_Tasks_Uncompleted}"
+                ContentTemplate="{DataTemplate local:UncompletedTasksPage}"
+                Route="UncompletedTasksPage" />
+
+            <ShellContent
+                Title="{localization:Translate Navigation_Tasks_BySubjects}"
+                ContentTemplate="{DataTemplate local:SortBySubjPage}"
+                Route="SortBySubjPage" />
+
+            <ShellContent
+                Title="{localization:Translate Navigation_Tasks_All}"
+                ContentTemplate="{DataTemplate local:AllTasksPage}"
+                Route="AllTasksPage" />
+        </Tab>
+
+        <Tab Title="{localization:Translate Navigation_Subjects}" Icon="subject_icon.png">
+            <ShellContent
+                Title="{localization:Translate Navigation_Subjects}"
+                ContentTemplate="{DataTemplate local:SubjectPage}"
+                Route="SubjectPage" />
+        </Tab>
+
+        <Tab Title="{localization:Translate Navigation_Reports}" Icon="report_icon.png">
+            <ShellContent
+                Title="{localization:Translate Navigation_Reports}"
+                ContentTemplate="{DataTemplate local:ReportPage}"
+                Route="ReportPage" />
+        </Tab>
+    </TabBar>
+
+    <ShellContent
+        Title="{localization:Translate Navigation_Reports_Create}"
+        ContentTemplate="{DataTemplate local:CreateReportPage}"
+        Route="CreateReport" />
+
+    <ShellContent
+        Title="{localization:Translate Navigation_Tasks_Create}"
+        ContentTemplate="{DataTemplate local:CreateTaskPage}"
+        Route="CreateTask" />
+
+    <ShellContent
+        Title="{localization:Translate Navigation_Settings_Roles}"
+        ContentTemplate="{DataTemplate local:RolePage}"
+        Route="RolePage" />
+
+    <ShellContent
+        Title="{localization:Translate Navigation_Settings_Invitations}"
+        ContentTemplate="{DataTemplate local:InvintationsPage}"
+        Route="InvintationsPage" />
+
+</Shell>

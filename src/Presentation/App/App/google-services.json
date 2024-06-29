@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1050270964362",
+    "project_id": "tasked-82988",
+    "storage_bucket": "tasked-82988.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1050270964362:android:e703cee076e2f0c74b2b73",
+        "android_client_info": {
+          "package_name": "com.ponatosik.tasked.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAq101oYxVPI2wNSwa_GGD0B6_-TZs8oa0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

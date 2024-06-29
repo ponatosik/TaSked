@@ -25,9 +25,9 @@ public class Subject
 		return new Subject(Guid.NewGuid(), groupId, name, teacher);
 	}
 
-    public Homework CreateHomework(string title, string description)
+    public Homework CreateHomework(string title, string description, DateTime? deadline = null)
 	{
-		Homework homework = Homework.Create(this, title, description);
+		Homework homework = Homework.Create(this, title, description, deadline);
 		Homeworks.Add(homework);
 		return homework;
 	}

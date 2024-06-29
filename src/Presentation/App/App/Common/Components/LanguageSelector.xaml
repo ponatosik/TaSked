@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="TaSked.App.Components.LanguageSelector"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:TaSked.App.Components"
+    xmlns:localization="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
+    xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:DataType="local:LanguageSelector">
+
+    <Border
+        Margin="5,20"
+        BackgroundColor="{StaticResource DarkSurface}"
+        StrokeShape="{RoundRectangle CornerRadius=12}"
+        StrokeThickness="0">
+
+        <Grid
+            HorizontalOptions="FillAndExpand"
+            RadioButtonGroup.GroupName="language"
+            VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <VerticalStackLayout
+                x:Name="defaultLanguageOption"
+                Grid.Column="0"
+                Padding="5"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+                <Label
+                    HorizontalOptions="Center"
+                    Text="---"
+                    VerticalOptions="Start" />
+                <Label
+                    HorizontalOptions="Center"
+                    Text="{localization:Translate Language_Default}"
+                    VerticalOptions="End" />
+
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="DefaultLanguageTapped" />
+                </VerticalStackLayout.GestureRecognizers>
+
+            </VerticalStackLayout>
+
+            <VerticalStackLayout
+                x:Name="englishLanguageOption"
+                Grid.Column="1"
+                Padding="5"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+                <Label
+                    HorizontalOptions="Center"
+                    Text="🇬🇧"
+                    VerticalOptions="Start" />
+                <Label
+                    HorizontalOptions="Center"
+                    Text="{localization:Translate Language_English}"
+                    VerticalOptions="End" />
+
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="EnglishLanguageTapped" />
+                </VerticalStackLayout.GestureRecognizers>
+
+            </VerticalStackLayout>
+            <VerticalStackLayout
+                x:Name="ukrainianLanguageOption"
+                Grid.Column="2"
+                Padding="5"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+                <Label
+                    HorizontalOptions="Center"
+                    Text="🇺🇦"
+                    VerticalOptions="Start" />
+                <Label
+                    HorizontalOptions="Center"
+                    Text="{localization:Translate Language_Ukrainian}"
+                    VerticalOptions="End" />
+
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="UkrainianLanguageTapped" />
+                </VerticalStackLayout.GestureRecognizers>
+
+            </VerticalStackLayout>
+        </Grid>
+    </Border>
+</ContentView>

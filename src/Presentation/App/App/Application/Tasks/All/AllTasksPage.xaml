@@ -1,0 +1,53 @@
+<reactive:ReactiveContentPage
+    x:Class="TaSked.App.AllTasksPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:components="clr-namespace:TaSked.App.Components"
+    xmlns:local="clr-namespace:TaSked.App"
+    xmlns:localization="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
+    xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+    xmlns:reactive="clr-namespace:ReactiveUI.Maui;assembly=ReactiveUI.Maui"
+    x:DataType="local:AllTasksViewModel"
+    x:TypeArguments="local:AllTasksViewModel">
+
+    <AbsoluteLayout Margin="0,0" Padding="0,0">
+        <RefreshView
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="SizeProportional"
+            Command="{Binding RefreshCommand}"
+            IsRefreshing="{Binding IsRefreshing}">
+            <CollectionView ItemsSource="{Binding Tasks}" SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="local:TaskViewModel">
+                        <components:TaskCard Model="{Binding}" />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.EmptyView>
+                    <VerticalStackLayout
+                        Padding="0,0,0,80"
+                        HorizontalOptions="CenterAndExpand"
+                        VerticalOptions="Center">
+                        <Label
+                            Padding="5"
+                            HorizontalOptions="CenterAndExpand"
+                            Text="{localization:Translate Task_List_Empty}" />
+                        <Label
+                            Padding="5"
+                            FontAttributes="Italic"
+                            FontSize="Caption"
+                            HorizontalOptions="CenterAndExpand"
+                            IsVisible="{Binding IsModerator, Source={StaticResource AppState}}"
+                            Text="{localization:Translate Task_List_Empty_ModeratorHint}" />
+                    </VerticalStackLayout>
+                </CollectionView.EmptyView>
+            </CollectionView>
+        </RefreshView>
+        <Button
+            AbsoluteLayout.LayoutBounds="0.95,0.945"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            Command="{Binding CreateTaskCommand}"
+            CornerRadius="50"
+            IsVisible="{Binding IsModerator, Source={StaticResource AppState}}"
+            Text="+" />
+    </AbsoluteLayout>
+</reactive:ReactiveContentPage>

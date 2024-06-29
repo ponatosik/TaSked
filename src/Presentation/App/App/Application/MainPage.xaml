@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="TaSked.App.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:components="clr-namespace:TaSked.App.Components"
+    xmlns:local="clr-namespace:TaSked.App"
+    xmlns:localization="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
+    xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+    Shell.NavBarIsVisible="false">
+
+    <VerticalStackLayout Padding="20" Spacing="10">
+
+        <Label
+            Margin="0,160,0,0"
+            FontSize="60"
+            HorizontalOptions="Center"
+            Text="TaSked"
+            TextColor="#FFFFFF" />
+        <Label
+            Margin="0,30,0,0"
+            FontSize="15"
+            HorizontalOptions="Center"
+            Text="{localization:Translate Main_Slogan}"
+            TextColor="#DFD5EC" />
+
+        <components:LanguageSelector Margin="20,10,20,0" />
+
+        <Frame
+            Margin="20,40"
+            BackgroundColor="#141218"
+            BorderColor="#49454F"
+            CornerRadius="10">
+            <StackLayout Orientation="Horizontal">
+                <StackLayout>
+                    <Label
+                        FontSize="15"
+                        Text="{localization:Translate Main_JoinGroup}"
+                        TextColor="#D0BCFF" />
+                    <Label
+                        FontSize="10"
+                        Text="{localization:Translate Main_JoinGroupCaption}"
+                        TextColor="#E6E0E9" />
+                </StackLayout>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="JoinGroupTapped" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+        </Frame>
+
+        <Frame
+            Margin="20,-20"
+            BackgroundColor="#141218"
+            BorderColor="#49454F"
+            CornerRadius="10">
+            <StackLayout Orientation="Horizontal">
+                <StackLayout>
+                    <Label
+                        FontSize="15"
+                        Text="{localization:Translate Main_CreateGroup}"
+                        TextColor="#EFB8C8" />
+                    <Label
+                        FontSize="10"
+                        Text="{localization:Translate Main_CreateGroupCaption}"
+                        TextColor="#E6E0E9" />
+                </StackLayout>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="CreateGroupTapped" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+        </Frame>
+
+    </VerticalStackLayout>
+
+</ContentPage>

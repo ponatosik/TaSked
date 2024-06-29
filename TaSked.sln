@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34607.119
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "src\Presentation\Api\Api.csproj", "{42144756-EF63-4F72-985D-F39AC6B078AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "src\Presentation\Api\Api\Api.csproj", "{42144756-EF63-4F72-985D-F39AC6B078AC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{0D321749-7125-4B74-BCD9-9AA83B56378C}"
 EndProject
@@ -19,11 +19,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistance", "src\Infrastr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{AB6F5960-B3B3-46EF-B636-F7EE55A1D8BC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiClient", "src\Presentation\ApIClient\ApiClient.csproj", "{C02C8CF7-52AE-4309-9215-D23D8B7CB0EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiClient", "src\Presentation\Api\ApiClient\ApiClient.csproj", "{C02C8CF7-52AE-4309-9215-D23D8B7CB0EC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{7234793A-A529-4C57-9328-BFE5313DB5CA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App", "src\Presentation\App\App.csproj", "{28CBC957-9C22-4C75-9EA6-898AD1B3E457}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App", "src\Presentation\App\App\App.csproj", "{28CBC957-9C22-4C75-9EA6-898AD1B3E457}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authorization", "src\Infrastructure\Authorization\Authorization.csproj", "{73DDA9D5-1E54-4D24-B8EC-00825576CE74}"
 EndProject
@@ -35,7 +35,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistance.AzureMySqlInApp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{39A6B609-2150-4AD1-BFB8-2767772BDD4C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiContratcs", "src\Presentation\ApiContratcs\ApiContratcs.csproj", "{4F991E16-5B65-428D-B969-186589443DA6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiContratcs", "src\Presentation\Api\ApiContratcs\ApiContratcs.csproj", "{4F991E16-5B65-428D-B969-186589443DA6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LocalPersistence", "src\Presentation\App\LocalPersistence\LocalPersistence.csproj", "{E1E404B3-90BA-4569-8EB6-12C9FE8FB0CC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caching", "src\Presentation\App\Caching\Caching.csproj", "{05A36D16-E524-4440-8C55-C176CD8B73CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PushNotifications", "src\Infrastructure\PushNotifications\PushNotifications.csproj", "{3677FB3A-6E51-4F9E-8B5B-96F0D8F8CC40}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApplicationContracts", "ApplicationContracts\ApplicationContracts.csproj", "{C23F4B16-5BE6-4B84-8D79-7C522F14268C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -89,6 +97,22 @@ Global
 		{4F991E16-5B65-428D-B969-186589443DA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F991E16-5B65-428D-B969-186589443DA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F991E16-5B65-428D-B969-186589443DA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1E404B3-90BA-4569-8EB6-12C9FE8FB0CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1E404B3-90BA-4569-8EB6-12C9FE8FB0CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1E404B3-90BA-4569-8EB6-12C9FE8FB0CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1E404B3-90BA-4569-8EB6-12C9FE8FB0CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05A36D16-E524-4440-8C55-C176CD8B73CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05A36D16-E524-4440-8C55-C176CD8B73CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05A36D16-E524-4440-8C55-C176CD8B73CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05A36D16-E524-4440-8C55-C176CD8B73CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3677FB3A-6E51-4F9E-8B5B-96F0D8F8CC40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3677FB3A-6E51-4F9E-8B5B-96F0D8F8CC40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3677FB3A-6E51-4F9E-8B5B-96F0D8F8CC40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3677FB3A-6E51-4F9E-8B5B-96F0D8F8CC40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C23F4B16-5BE6-4B84-8D79-7C522F14268C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C23F4B16-5BE6-4B84-8D79-7C522F14268C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C23F4B16-5BE6-4B84-8D79-7C522F14268C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C23F4B16-5BE6-4B84-8D79-7C522F14268C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -107,6 +131,10 @@ Global
 		{2070C141-6398-4E6C-A151-2DC1693C2A76} = {7234793A-A529-4C57-9328-BFE5313DB5CA}
 		{39A6B609-2150-4AD1-BFB8-2767772BDD4C} = {952B33B3-B41F-4531-9337-67CB9EF2123F}
 		{4F991E16-5B65-428D-B969-186589443DA6} = {AB6F5960-B3B3-46EF-B636-F7EE55A1D8BC}
+		{E1E404B3-90BA-4569-8EB6-12C9FE8FB0CC} = {39A6B609-2150-4AD1-BFB8-2767772BDD4C}
+		{05A36D16-E524-4440-8C55-C176CD8B73CE} = {39A6B609-2150-4AD1-BFB8-2767772BDD4C}
+		{3677FB3A-6E51-4F9E-8B5B-96F0D8F8CC40} = {7234793A-A529-4C57-9328-BFE5313DB5CA}
+		{C23F4B16-5BE6-4B84-8D79-7C522F14268C} = {0D321749-7125-4B74-BCD9-9AA83B56378C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {27C0623E-8480-45B5-93D9-401FAD826043}

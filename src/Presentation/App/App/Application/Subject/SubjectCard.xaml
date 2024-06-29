@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="TaSked.App.Components.SubjectCard"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:domain="clr-namespace:TaSked.Domain;assembly=Domain"
+    xmlns:local="clr-namespace:TaSked.App.Components"
+    xmlns:localization="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
+    xmlns:the49="https://schemas.the49.com/dotnet/2023/maui"
+    xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
+    x:Name="SubjectCardComponent"
+    x:DataType="local:SubjectCard">
+
+    <uranium:StatefulContentView Margin="10" StyleClass="Elevation3">
+
+        <the49:ContextMenu.Menu>
+            <DataTemplate>
+                <the49:Menu>
+                    <the49:Action
+                        Title="{localization:Translate Subject_Action_Update}"
+                        Command="{Binding ViewModel.UpdateSubjectCommand, Source={Reference SubjectCardComponent}}"
+                        IsEnabled="{Binding HasInternetConnection, Source={StaticResource AppState}}"
+                        IsVisible="{Binding IsModerator, Source={StaticResource AppState}}" />
+                    <the49:Action
+                        Title="{localization:Translate Subject_Action_Delete}"
+                        Command="{Binding ViewModel.DeleteSubjectCommand, Source={Reference SubjectCardComponent}}"
+                        IsEnabled="{Binding HasInternetConnection, Source={StaticResource AppState}}"
+                        IsVisible="{Binding IsModerator, Source={StaticResource AppState}}" />
+                </the49:Menu>
+            </DataTemplate>
+        </the49:ContextMenu.Menu>
+
+        <FlyoutBase.ContextFlyout>
+            <MenuFlyout>
+                <MenuFlyoutItem Command="{Binding ViewModel.UpdateSubjectCommand, Source={Reference SubjectCardComponent}}" Text="{localization:Translate Subject_Action_Update}" />
+                <MenuFlyoutItem Command="{Binding ViewModel.DeleteSubjectCommand, Source={Reference SubjectCardComponent}}" Text="{localization:Translate Subject_Action_Delete}" />
+            </MenuFlyout>
+        </FlyoutBase.ContextFlyout>
+
+
+        <Border
+            Padding="20"
+            BackgroundColor="{StaticResource DarkSurface}"
+            Stroke="{StaticResource DarkOutlineVariant}"
+            StrokeShape="{RoundRectangle CornerRadius=12}">
+            <VerticalStackLayout>
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="Medium"
+                    Text="{Binding ViewModel.SubjectDTO.Name, Source={Reference SubjectCardComponent}}" />
+
+                <Label Text="{Binding ViewModel.SubjectDTO.Teacher.FullName, Source={Reference SubjectCardComponent}}" />
+            </VerticalStackLayout>
+        </Border>
+    </uranium:StatefulContentView>
+
+</ContentView>

@@ -1,13 +1,16 @@
-﻿namespace TaSked.Domain;
+﻿using System.Drawing;
+
+namespace TaSked.Domain;
 
 public class HomeworkTask
 {
-	public Guid HomeworkId { get; private set; }
+	public Homework Homework { get; private set; } 
 	public bool Completed { get; set; } = false;
+	public string? MetaData { get; set; }
 
-	private HomeworkTask() { }
-	public HomeworkTask(Guid homeworkId)
+    private HomeworkTask() { }
+	public HomeworkTask(Homework homework)
 	{
-		HomeworkId = homeworkId;
-	}
+		Homework = homework;
+    }
 }

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="TaSked.App.CreateSubjectPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:components="clr-namespace:TaSked.App.Components"
+    xmlns:domain="clr-namespace:TaSked.Domain;assembly=Domain"
+    xmlns:local="clr-namespace:TaSked.App"
+    xmlns:localization="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
+    xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+    x:DataType="local:CreateSubjectViewModel"
+    HideSoftInputOnTapped="true">
+
+    <StackLayout>
+        <Label HorizontalTextAlignment="Center" Text="{localization:Translate Subject_Form_Create_Title}" />
+
+        <material:TextField
+            Title="{localization:Translate Subject_Form_Title}"
+            Margin="30,10"
+            Text="{Binding Name}" />
+        <material:TextField
+            Title="{localization:Translate Subject_Form_TeacherName}"
+            Margin="30,10"
+            Text="{Binding TeacherName}" />
+        <Button
+            Margin="100,10"
+            Command="{Binding CreateSubjectCommand}"
+            Text="{localization:Translate Subject_Form_Create}"
+            TextColor="#242424" />
+
+    </StackLayout>
+
+</ContentPage>

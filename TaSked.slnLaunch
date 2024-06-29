@@ -3,12 +3,13 @@
     "Name": "Full-stack",
     "Projects": [
       {
-        "Name": "TaSked\\TaSked.Api.csproj",
+        "Name": "src\\Presentation\\Api\\Api.csproj",
         "Action": "Start"
       },
       {
-        "Name": "TaSked.App\\TaSked.App.csproj",
-        "Action": "Start"
+        "Name": "src\\Presentation\\App\\App.csproj",
+        "Action": "Start",
+        "DebugTarget": ""
       }
     ]
   }

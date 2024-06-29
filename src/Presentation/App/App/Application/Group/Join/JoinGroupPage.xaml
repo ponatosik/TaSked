@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="TaSked.App.JoinGroupPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:TaSked.App"
+    xmlns:localization="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
+    xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+    x:DataType="local:JoinGroupViewModel"
+    Shell.NavBarIsVisible="false">
+
+    <VerticalStackLayout>
+        <VerticalStackLayout>
+            <Label
+                Margin="0,200,0,0"
+                FontSize="30"
+                HorizontalOptions="Center"
+                Text="{localization:Translate JoinGroup_Form_Title}"
+                TextColor="#FFFFFF" />
+
+            <material:TextField
+                Title="{localization:Translate JoinGroup_Form_InvitationId}"
+                Margin="30,40"
+                Text="{Binding GroupInvitationId}" />
+            <material:TextField
+                Title="{localization:Translate JoinGroup_Form_Nickname}"
+                Margin="30,-20"
+                Text="{Binding UserNickname}" />
+            <Label
+                Margin="25,50"
+                FontSize="12"
+                HorizontalOptions="Center"
+                Text="{localization:Translate JoinGroup_Form_Hint}"
+                TextColor="#DFD5EC" />
+            <Button
+                Margin="190,-10,30,0"
+                Command="{Binding JoinGroupCommand}"
+                StyleClass="FilledButton"
+                Text="{localization:Translate JoinGroup_Form_ConfirmButton}"
+                TextColor="#242424" />
+        </VerticalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>

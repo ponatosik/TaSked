@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="TaSked.App.CreateTaskPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:components="clr-namespace:TaSked.App.Components"
+    xmlns:domain="clr-namespace:TaSked.Domain;assembly=Domain"
+    xmlns:local="clr-namespace:TaSked.App"
+    xmlns:localization="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
+    xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+    x:DataType="local:CreateTaskViewModel"
+    HideSoftInputOnTapped="true">
+
+    <StackLayout>
+        <Label HorizontalTextAlignment="Center" Text="{localization:Translate Task_Form_Create_Title}" />
+
+        <material:PickerField
+            Title="{localization:Translate Task_Form_Subject}"
+            Margin="30,10"
+            ItemDisplayBinding="{Binding Name}"
+            ItemsSource="{Binding AvailableSubjects}"
+            SelectedItem="{Binding Subject}"
+            TextColor="White" />
+        <material:DatePickerField
+            Title="{localization:Translate Task_Form_Deadline}"
+            Margin="30,10"
+            Date="{Binding Deadline}"
+            TextColor="White" />
+        <material:TextField
+            Title="{localization:Translate Task_Form_Title}"
+            Margin="30,10"
+            Text="{Binding Title}" />
+        <material:EditorField
+            Title="{localization:Translate Task_Form_Description}"
+            Margin="30,10"
+            Text="{Binding Description}"
+            TextColor="White" />
+
+        <Button
+            Margin="100,10"
+            Command="{Binding CreateTaskCommand}"
+            Text="{localization:Translate Task_Form_Create}"
+            TextColor="#242424" />
+
+    </StackLayout>
+
+</ContentPage>
