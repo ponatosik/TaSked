@@ -430,6 +430,24 @@ namespace TaSked.App.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There are no reports yet.
+        /// </summary>
+        internal static string Report_List_Empty {
+            get {
+                return ResourceManager.GetString("Report.List.Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create a new report by pressing the button below.
+        /// </summary>
+        internal static string Report_List_Empty_ModeratorHint {
+            get {
+                return ResourceManager.GetString("Report.List.Empty.ModeratorHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ban.
         /// </summary>
         internal static string Role_Card_Ban {
@@ -570,6 +588,24 @@ namespace TaSked.App.Resources.Localization {
         internal static string Subject_Form_Update_Title {
             get {
                 return ResourceManager.GetString("Subject.Form.Update.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There are no subjects in this group yet.
+        /// </summary>
+        internal static string Subject_List_Empty {
+            get {
+                return ResourceManager.GetString("Subject.List.Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can a new subject by pressing the button below.
+        /// </summary>
+        internal static string Subject_List_Empty_ModeratorHint {
+            get {
+                return ResourceManager.GetString("Subject.List.Empty.ModeratorHint", resourceCulture);
             }
         }
         
@@ -759,6 +795,24 @@ namespace TaSked.App.Resources.Localization {
         internal static string Task_Form_Update_Title {
             get {
                 return ResourceManager.GetString("Task.Form.Update.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is no homework in this group yet.
+        /// </summary>
+        internal static string Task_List_Empty {
+            get {
+                return ResourceManager.GetString("Task.List.Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can add homework by pressing the button below.
+        /// </summary>
+        internal static string Task_List_Empty_ModeratorHint {
+            get {
+                return ResourceManager.GetString("Task.List.Empty.ModeratorHint", resourceCulture);
             }
         }
     }

@@ -1,34 +1,58 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <reactive:ReactiveContentPage
-             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:TaSked.App"
-             xmlns:components="clr-namespace:TaSked.App.Components"
-             xmlns:domain="clr-namespace:TaSked.Domain;assembly=Domain"
-             x:TypeArguments="local:SubjectsViewModel"
-             x:Class="TaSked.App.SubjectPage"
-             x:DataType="local:SubjectsViewModel"
-             xmlns:reactive="clr-namespace:ReactiveUI.Maui;assembly=ReactiveUI.Maui"
-             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material">
+    x:Class="TaSked.App.SubjectPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:components="clr-namespace:TaSked.App.Components"
+    xmlns:domain="clr-namespace:TaSked.Domain;assembly=Domain"
+    xmlns:local="clr-namespace:TaSked.App"
+    xmlns:localization="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
+    xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+    xmlns:reactive="clr-namespace:ReactiveUI.Maui;assembly=ReactiveUI.Maui"
+    x:DataType="local:SubjectsViewModel"
+    x:TypeArguments="local:SubjectsViewModel">
 
-    <AbsoluteLayout
-        Margin="0,0"
-        Padding="0,0">
-        <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="SizeProportional">
+    <AbsoluteLayout Margin="0,0" Padding="0,0">
+        <RefreshView
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="SizeProportional"
+            Command="{Binding RefreshCommand}"
+            IsRefreshing="{Binding IsRefreshing}">
             <CollectionView ItemsSource="{Binding Subjects}" SelectionMode="None">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="local:SubjectViewModel">
-                        <components:SubjectCard ViewModel ="{Binding}"/>
+                        <components:SubjectCard ViewModel="{Binding}" />
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
+                <CollectionView.EmptyView>
+                    <VerticalStackLayout
+                        Padding="0,0,0,80"
+                        HorizontalOptions="CenterAndExpand"
+                        VerticalOptions="Center">
+                        <Label
+                            Padding="5"
+                            HorizontalOptions="CenterAndExpand"
+                            Text="{localization:Translate Subject_List_Empty}" />
+                        <Label
+                            Padding="5"
+                            FontAttributes="Italic"
+                            FontSize="Caption"
+                            HorizontalOptions="CenterAndExpand"
+                            IsVisible="{Binding IsModerator, Source={StaticResource AppState}}"
+                            Text="{localization:Translate Subject_List_Empty_ModeratorHint}" />
+                    </VerticalStackLayout>
+                </CollectionView.EmptyView>
+
             </CollectionView>
         </RefreshView>
 
         <Button
             AbsoluteLayout.LayoutBounds="0.95,0.95"
             AbsoluteLayout.LayoutFlags="PositionProportional"
-            Text="+" Command="{Binding CreateSubjectCommand}"
+            Command="{Binding CreateSubjectCommand}"
+            CornerRadius="50"
             IsVisible="{Binding IsModerator, Source={StaticResource AppState}}"
-            CornerRadius="50" TextColor="#242424"/>
+            Text="+"
+            TextColor="#242424" />
     </AbsoluteLayout>
 </reactive:ReactiveContentPage>
