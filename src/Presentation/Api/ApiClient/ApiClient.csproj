@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\ApplicationContracts\ApplicationContracts.csproj" />
+    <ProjectReference Include="..\..\..\Core\ApplicationContracts\ApplicationContracts.csproj" />
     <ProjectReference Include="..\..\..\Core\Domain\Domain.csproj" />
     <ProjectReference Include="..\ApiContratcs\ApiContratcs.csproj" />
   </ItemGroup>
