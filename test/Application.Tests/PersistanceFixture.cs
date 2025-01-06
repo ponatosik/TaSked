@@ -10,14 +10,14 @@ public class PersistanceFixture : IDisposable
 	private ApplicationDbContext _dbContext;
 	public ApplicationDbContext GetDbContext()
 	{
-		_dbContext.Database.EnsureDeleted();
+		_dbContext.Database.EnsureCreated();
 		return _dbContext;
 	}
 
 	public PersistanceFixture()
 	{
 		var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-			.UseInMemoryDatabase("TestDB")
+			.UseSqlite("DataSource=file::memory:?cache=shared")
 			.Options;
 
 		_dbContext = new ApplicationDbContext(options);
