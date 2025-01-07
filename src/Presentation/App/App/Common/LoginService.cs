@@ -9,12 +9,16 @@ namespace TaSked.App.Common;
 
 public class LoginService
 {
+	public event Action<GroupRole> UserRoleChanged;
+	
 	private ITaSkedSevice _api;
 	private ITaSkedUsers _usersService;
 	private ITaSkedInvitations _invitationsService;
 	private IUserTokenStore _tokenStore;
 	private NotificationsService? _notificationsService;
 	private IBlobCache? _userCache;
+	
+	private GroupRole _userRole;
 
 	public LoginService(
 		ITaSkedSevice api,
@@ -30,6 +34,8 @@ public class LoginService
 		_tokenStore = tokenStore;
 		_notificationsService = notificationsService;
 		_userCache = userCache;
+		
+		_ = FetchUserRoleAsync();
 	}
 
 	public async Task CreateGroupAsync(string username, string groupName)
@@ -42,6 +48,8 @@ public class LoginService
 		{
 			await _notificationsService.SubscribeToNotifications();
 		}
+		
+		await FetchUserRoleAsync();
 	}
 
 	public async Task JoinGroupAsync(string username, Guid invitation)
@@ -56,6 +64,8 @@ public class LoginService
 		{
 			await _notificationsService.SubscribeToNotifications();
 		}
+		
+		await FetchUserRoleAsync();
 	}
 
 	public async Task Logout()
@@ -79,9 +89,16 @@ public class LoginService
 		}
 	}
 
-	public async Task<GroupRole> GetUserRoleAsync()
+	public async Task<GroupRole> FetchUserRoleAsync()
 	{
-		return (await _usersService.CurrentUser()).Role;
+		GroupRole userRole = (await _usersService.CurrentUser()).Role;
+		if (_userRole != userRole)
+		{
+			_userRole = userRole;
+			UserRoleChanged?.Invoke(userRole);
+		}
+		
+		return userRole;
 	}
 
 	public async Task<bool> IsAuthorizedAsync()
