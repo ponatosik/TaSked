@@ -18,9 +18,9 @@ public class CreateHomeworkCommandHandler : IRequestHandler<CreateHomeworkComman
 
 	public async Task<Homework> Handle(CreateHomeworkCommand request, CancellationToken cancellationToken)
 	{
-		var user = _context.Users.FindById(request.UserId);
-		var group = _context.Groups.Include(group => group.Subjects).FindById(user.GroupId.Value);
-		var subject = group.Subjects.FindById(request.SubjectId);
+		var user = _context.Users.FindOrThrow(request.UserId);
+		var group = _context.Groups.Include(group => group.Subjects).FindOrThrow(user.GroupId.Value);
+		var subject = group.Subjects.FindOrThrow(request.SubjectId);
 
 		var homework = subject.CreateHomework(request.Title, request.Description, request.Deadline);
 		

@@ -16,8 +16,8 @@ public class CreateSubjectCommandHandler : IRequestHandler<CreateSubjectCommand,
 
 	public async Task<SubjectDTO> Handle(CreateSubjectCommand request, CancellationToken cancellationToken)
 	{
-		var user = _context.Users.FindById(request.UserId);
-		var group = _context.Groups.FindById(user.GroupId.Value);
+		var user = _context.Users.FindOrThrow(request.UserId);
+		var group = _context.Groups.FindOrThrow(user.GroupId.Value);
 
 		var subject = group.CreateSubject(request.SubjectName, request.Teacher);
 		var result = SubjectDTO.From(subject);

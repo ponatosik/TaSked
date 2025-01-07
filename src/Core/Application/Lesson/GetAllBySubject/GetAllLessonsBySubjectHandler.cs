@@ -16,9 +16,9 @@ public class GetAllLessonsBySubjectHandler : IRequestHandler<GetAllLessonsBySubj
 
     public Task<List<Lesson>> Handle(GetAllLessonsBySubjectQuery request, CancellationToken cancellationToken)
     {
-        var user = _context.Users.FindById(request.UserId);
-        var group = _context.Groups.Include(e => e.Subjects).ThenInclude(e => e.Lessons).FindById(user.GroupId.Value);
-        var lessons = group.Subjects.FindById(request.SubjectId)?.Lessons.ToList();
+        var user = _context.Users.FindOrThrow(request.UserId);
+        var group = _context.Groups.Include(e => e.Subjects).ThenInclude(e => e.Lessons).FindOrThrow(user.GroupId.Value);
+        var lessons = group.Subjects.FindOrThrow(request.SubjectId)?.Lessons.ToList();
 
         return Task.FromResult(lessons);
     }

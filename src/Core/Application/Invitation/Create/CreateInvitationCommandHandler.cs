@@ -17,8 +17,8 @@ public class CreateInvitationCommandHandler : IRequestHandler<CreateInvitationCo
 
     public async Task<Invitation> Handle(CreateInvitationCommand request, CancellationToken cancellationToken)
     {
-        var user = _context.Users.FindById(request.UserId);
-        var group = _context.Groups.FindById(user.GroupId.Value);
+        var user = _context.Users.FindOrThrow(request.UserId);
+        var group = _context.Groups.FindOrThrow(user.GroupId.Value);
 
         var invitation = group.CreateInvintation(request.InvitationCaption, request.MaxActivations, request.ExpirationDate);
 

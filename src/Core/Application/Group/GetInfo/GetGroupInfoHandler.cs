@@ -15,7 +15,7 @@ public class GetGroupInfoHandler : IRequestHandler<GetGroupInfoQuery, GroupDTO>
 
 	public Task<GroupDTO> Handle(GetGroupInfoQuery request, CancellationToken cancellationToken)
 	{
-		var group = _context.Groups.FindById(request.GroupId);
+		var group = _context.Groups.FindOrThrow(request.GroupId);
 
 		return Task.FromResult(GroupDTO.From(group));
 	}

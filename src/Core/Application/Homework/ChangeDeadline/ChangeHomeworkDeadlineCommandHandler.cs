@@ -16,13 +16,13 @@ public class ChangeHomeworkDeadlineCommandHandler : IRequestHandler<ChangeHomewo
 
     public async Task<Homework> Handle(ChangeHomeworkDeadlineCommand request, CancellationToken cancellationToken)
     {
-        var user = _context.Users.FindById(request.UserId);
+        var user = _context.Users.FindOrThrow(request.UserId);
         var group = _context.Groups
             .Include(group => group.Subjects)
             .ThenInclude(subject => subject.Homeworks)
-            .FindById(user.GroupId.Value);
-        var subject = group.Subjects.FindById(request.SubjectId);
-        var homework = subject.Homeworks.FindById(request.HomeworkId);
+            .FindOrThrow(user.GroupId.Value);
+        var subject = group.Subjects.FindOrThrow(request.SubjectId);
+        var homework = subject.Homeworks.FindOrThrow(request.HomeworkId);
 
         homework.Deadline = request.HomeworkDeadline;
 

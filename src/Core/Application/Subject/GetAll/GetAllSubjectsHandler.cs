@@ -16,13 +16,13 @@ public class GetAllSubjectsHandler : IRequestHandler<GetAllSubjectsQuery, List<S
 
     public Task<List<SubjectDTO>> Handle(GetAllSubjectsQuery request, CancellationToken cancellationToken)
     {
-        var user = _context.Users.FindById(request.UserId);
+        var user = _context.Users.FindOrThrow(request.UserId);
         var group = _context.Groups
             .Include(e => e.Subjects)
             .ThenInclude(e => e.Homeworks)
             .Include(e => e.Subjects)
             .ThenInclude(e => e.Lessons)
-            .FindById(user.GroupId.Value);
+            .FindOrThrow(user.GroupId.Value);
 
         var subjects = group.Subjects;
         return Task.FromResult(subjects.Select(subject => SubjectDTO.From(subject)).ToList());

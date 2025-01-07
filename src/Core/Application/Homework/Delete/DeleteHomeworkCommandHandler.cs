@@ -18,14 +18,14 @@ public class DeleteHomeworkCommandHandler : IRequestHandler<DeleteHomeworkComman
 
     public async Task Handle(DeleteHomeworkCommand request, CancellationToken cancellationToken)
     {
-        var user = _context.Users.FindById(request.UserId);
+        var user = _context.Users.FindOrThrow(request.UserId);
         var group = _context.Groups
             .Include(group => group.Subjects)
             .ThenInclude(subject => subject.Homeworks)
-            .FindById(user.GroupId.Value);
+            .FindOrThrow(user.GroupId.Value);
 
-        var subject = group.Subjects.FindById(request.SubjectId);
-        var homework = subject.Homeworks.FindById(request.HomeworkId);
+        var subject = group.Subjects.FindOrThrow(request.SubjectId);
+        var homework = subject.Homeworks.FindOrThrow(request.HomeworkId);
         
         subject.Homeworks.Remove(homework);
         

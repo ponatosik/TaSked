@@ -18,10 +18,10 @@ public class DeleteLessonCommandHandler : IRequestHandler<DeleteLessonCommand>
 
     public async Task Handle(DeleteLessonCommand request, CancellationToken cancellationToken)
     {
-        var user = _context.Users.FindById(request.UserId);
-        var group = _context.Groups.Include(group => group.Subjects).FindById(user.GroupId.Value);
-        var subject = group.Subjects.FindById(request.SubjectId);
-        var lesson = subject.Lessons.FindById(request.LessonId);
+        var user = _context.Users.FindOrThrow(request.UserId);
+        var group = _context.Groups.Include(group => group.Subjects).FindOrThrow(user.GroupId.Value);
+        var subject = group.Subjects.FindOrThrow(request.SubjectId);
+        var lesson = subject.Lessons.FindOrThrow(request.LessonId);
         
         subject.Lessons.Remove(lesson);
         

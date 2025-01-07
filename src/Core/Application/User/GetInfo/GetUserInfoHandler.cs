@@ -17,7 +17,7 @@ public class GetUserInfoHandler : IRequestHandler<GetUserInfoQuery, User>
 
 	public Task<User> Handle(GetUserInfoQuery request, CancellationToken cancellationToken)
 	{
-		var user = _context.Users.FindById(request.UserId);
+		var user = _context.Users.FindOrThrow(request.UserId);
 
 		return Task.FromResult(user);
 	}

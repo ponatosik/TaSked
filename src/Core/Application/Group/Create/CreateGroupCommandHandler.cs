@@ -15,7 +15,7 @@ public class CreateGroupCommandHandler : IRequestHandler<CreateGroupCommand, Gro
 
 	public async Task<GroupDTO> Handle(CreateGroupCommand request, CancellationToken cancellationToken)
 	{
-		var user = _context.Users.FindById(request.CreatorId);
+		var user = _context.Users.FindOrThrow(request.CreatorId);
 
 		var group = Group.Create(request.GroupName, user);
 		await _context.Groups.AddAsync(group, cancellationToken);

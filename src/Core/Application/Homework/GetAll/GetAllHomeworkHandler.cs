@@ -16,8 +16,8 @@ public class GetAllHomeworkHandler : IRequestHandler<GetAllHomeworkQuery, List<H
 
 	public Task<List<Homework>> Handle(GetAllHomeworkQuery request, CancellationToken cancellationToken)
 	{
-		var user = _context.Users.FindById(request.UserId);
-		var group = _context.Groups.Include(e => e.Subjects).ThenInclude(e => e.Homeworks).FindById(user.GroupId.Value);
+		var user = _context.Users.FindOrThrow(request.UserId);
+		var group = _context.Groups.Include(e => e.Subjects).ThenInclude(e => e.Homeworks).FindOrThrow(user.GroupId.Value);
 
 		return Task.FromResult(group.Subjects.SelectMany(subject => subject.Homeworks, (subject, hw) => hw).ToList());
 	}

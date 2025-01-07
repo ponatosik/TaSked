@@ -16,9 +16,9 @@ public class ChangeSubjectNameCommandHandler : IRequestHandler<ChangeSubjectName
 
     public async Task<UpdateSubjectDTO> Handle(ChangeSubjectNameCommand request, CancellationToken cancellationToken)
     {
-        var user = _context.Users.FindById(request.UserId);
-        var group = _context.Groups.Include(g => g.Subjects).FindById(user.GroupId.Value);
-        var subject = group.Subjects.FindById(request.SubjectId);
+        var user = _context.Users.FindOrThrow(request.UserId);
+        var group = _context.Groups.Include(g => g.Subjects).FindOrThrow(user.GroupId.Value);
+        var subject = group.Subjects.FindOrThrow(request.SubjectId);
 
         subject.Name = request.NewSubjectName;
 

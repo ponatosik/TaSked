@@ -18,9 +18,9 @@ public class ActivateInvitationCommandHandler : IRequestHandler<ActivateInvitati
 
     public async Task Handle(ActivateInvitationCommand request, CancellationToken cancellationToken)
     {
-        var user = _context.Users.FindById(request.UserId);
-        var group = _context.Groups.Include(x => x.Invitations).FindById(request.GroupId);
-        var invitation = group.Invitations.FindById(request.InvitationId);
+        var user = _context.Users.FindOrThrow(request.UserId);
+        var group = _context.Groups.Include(x => x.Invitations).FindOrThrow(request.GroupId);
+        var invitation = group.Invitations.FindOrThrow(request.InvitationId);
 
         group.JoinByInvintation(invitation, user);
 

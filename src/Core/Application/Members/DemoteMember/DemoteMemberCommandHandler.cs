@@ -16,13 +16,13 @@ public class DemoteMemberCommandHandler : IRequestHandler<DemoteMemberCommand>
 
     public Task Handle(DemoteMemberCommand request, CancellationToken cancellationToken)
     {
-        var promoter = _context.Users.FindById(request.PromotedBy);
+        var promoter = _context.Users.FindOrThrow(request.PromotedBy);
         if (promoter.GroupId != request.GroupId)
         {
             throw new UserIsNotGroupMemberException(request.GroupId, request.UserId);
         }
-        var group = _context.Groups.Include(e => e.Members).FindById(request.GroupId);
-        var user = _context.Users.FindById(request.UserId);
+        var group = _context.Groups.Include(e => e.Members).FindOrThrow(request.GroupId);
+        var user = _context.Users.FindOrThrow(request.UserId);
 
         user.Demote(request.Role, group);
 

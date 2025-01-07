@@ -16,8 +16,8 @@ public class GetAllLessonsInDateRangeHandler : IRequestHandler<GetAllLessonsInDa
 
     public Task<List<Lesson>> Handle(GetAllLessonsInDateRangeQuery request, CancellationToken cancellationToken)
     {
-        var user = _context.Users.FindById(request.UserId);
-        var group = _context.Groups.Include(e => e.Subjects).ThenInclude(e => e.Lessons).FindById(user.GroupId.Value);
+        var user = _context.Users.FindOrThrow(request.UserId);
+        var group = _context.Groups.Include(e => e.Subjects).ThenInclude(e => e.Lessons).FindOrThrow(user.GroupId.Value);
 
         var startDate = request.StartDate ?? DateTime.MinValue;
         var endDate = request.EndDate ?? DateTime.Now.AddYears(1);
