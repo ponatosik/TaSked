@@ -2,6 +2,7 @@
 using TaSked.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using TaSked.Application.Exceptions;
 
 namespace TaSked.Application;
 
@@ -19,7 +20,10 @@ public class DeleteSubjectCommandHandler : IRequestHandler<DeleteSubjectCommand>
     public async Task Handle(DeleteSubjectCommand request, CancellationToken cancellationToken)
     {
         var user = _context.Users.FindOrThrow(request.UserId);
-        var group = _context.Groups.Include(group => group.Subjects).FindOrThrow(user.GroupId.Value);
+        var groupId = user.GroupId ?? throw new UserIsNotGroupMemberException(user.Id, Guid.Empty);
+        var group = _context.Groups
+            .Include(group => group.Subjects)
+            .FindOrThrow(groupId);
         var subject = group.Subjects.FindOrThrow(request.SubjectId);
         
         group.Subjects.Remove(subject);

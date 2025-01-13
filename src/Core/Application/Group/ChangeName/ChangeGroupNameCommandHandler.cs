@@ -1,6 +1,6 @@
 ﻿using TaSked.Application.Data;
-using TaSked.Domain;
 using MediatR;
+using TaSked.Application.Exceptions;
 
 namespace TaSked.Application;
 
@@ -16,7 +16,8 @@ public class ChangeGroupNameCommandHandler : IRequestHandler<ChangeGroupNameComm
     public async Task<GroupDTO> Handle(ChangeGroupNameCommand request, CancellationToken cancellationToken)
     {
         var user = _context.Users.FindOrThrow(request.UserId);
-        var group = _context.Groups.FindOrThrow(user.GroupId.Value);
+        var groupId = user.GroupId ?? throw new UserIsNotGroupMemberException(user.Id, Guid.Empty);
+        var group = _context.Groups.FindOrThrow(groupId);
 
         group.Name = request.GroupName;
 

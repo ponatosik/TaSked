@@ -16,13 +16,15 @@ public class PromoteMemberCommandHandler : IRequestHandler<PromoteMemberCommand>
 
     public Task Handle(PromoteMemberCommand request, CancellationToken cancellationToken)
     {
-        var promoter = _context.Users.FindOrThrow(request.PromotedBy);
-        if (promoter.GroupId != request.GroupId)
+        var moderator = _context.Users.FindOrThrow(request.PromotedBy);
+        if (moderator.GroupId != request.GroupId)
         {
             throw new UserIsNotGroupMemberException(request.GroupId, request.UserId);
         }
-        var group = _context.Groups.Include(e => e.Members).FindOrThrow(request.GroupId);
-        var user = _context.Users.FindOrThrow(request.UserId);
+        var group = _context.Groups
+            .Include(e => e.Members)
+            .FindOrThrow(request.GroupId);
+        var user = group.Members.FindOrThrow(request.UserId);
 
         user.Promote(request.Role, group);
 

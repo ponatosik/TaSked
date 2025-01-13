@@ -22,7 +22,10 @@ public class GetGroupMembersHandler : IRequestHandler<GetGroupMembersQuery, List
         {
             throw new UserIsNotGroupMemberException(request.UserId, request.GroupId);
         }
-        var group = _context.Groups.Include(e => e.Members).FindOrThrow(request.GroupId);
+        var group = _context.Groups
+            .Include(e => e.Members)
+            .AsNoTracking()
+            .FindOrThrow(request.GroupId);
 
         return Task.FromResult(group.Members.ToList());
     }

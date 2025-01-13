@@ -24,12 +24,7 @@ public class MinimalGroupRoleRequirmentHandler : AuthorizationHandler<MinimalGro
 		}
 
 		User? user = _dbContext.Users.Find(userId.Value);
-		if (user == null)
-		{
-			context.Fail();
-			return;
-		}
-		if (user.Role < requiredRole)
+		if (user == null || user.Role < requiredRole)
 		{
 			context.Fail();
 			return;
