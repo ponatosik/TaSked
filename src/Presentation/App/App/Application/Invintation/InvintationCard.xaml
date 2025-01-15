@@ -16,7 +16,7 @@
             BackgroundColor="{StaticResource DarkSurface}"
             Stroke="{StaticResource DarkOutlineVariant}"
             StrokeShape="{RoundRectangle CornerRadius=12}">
-            <VerticalStackLayout>
+            <VerticalStackLayout Spacing="10">
                 <Label
                     FontAttributes="Bold"
                     FontSize="Medium"
@@ -27,6 +27,10 @@
                 <Button
                     Clicked="CopyInvitation_Clicked"
                     Text="{localization:Translate Invitation_Card_CopyId}"
+                    TextColor="#242424" />
+                <Button
+                    Clicked="GenerateLinkAndCopy"
+                    Text="{localization:Translate Invitation_Card_CopyLink}"
                     TextColor="#242424" />
             </VerticalStackLayout>
         </Border>
