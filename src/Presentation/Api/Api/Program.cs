@@ -7,6 +7,8 @@ using TaSked.Api.Configuration;
 using PushNotifications.Requests;
 using TaSked.Infrastructure.PushNotifications;
 using Google.Apis.Auth.OAuth2;
+using Microsoft.EntityFrameworkCore;
+
 
 var builder = WebApplication.CreateBuilder(args);
 

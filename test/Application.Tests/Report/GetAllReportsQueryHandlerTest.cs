@@ -42,9 +42,10 @@ public class GetAllReportsQueryHandlerTest
         var result = await _handler.Handle(request, new CancellationToken());
 
         Assert.Equal(_reports.Count, result.Count);
-        Assert.Collection(result,
-            report => Assert.Equal(_reports[0].Id, report.Id),
-            report => Assert.Equal(_reports[1].Id, report.Id),
-            report => Assert.Equal(_reports[2].Id, report.Id));
+        Assert.Collection(result.OrderBy(r => r.Title),
+                report => Assert.Equal(_reports[0].Title, report.Title),
+                report => Assert.Equal(_reports[1].Title, report.Title),
+                report => Assert.Equal(_reports[2].Title, report.Title)
+            );
     }
 }

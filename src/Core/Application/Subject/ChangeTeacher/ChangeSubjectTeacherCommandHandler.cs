@@ -2,6 +2,7 @@
 using TaSked.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using TaSked.Application.Exceptions;
 
 namespace TaSked.Application;
 
@@ -16,9 +17,12 @@ public class ChangeSubjectTeacherCommandHandler : IRequestHandler<ChangeSubjectT
 
     public async Task<UpdateSubjectDTO> Handle(ChangeSubjectTeacherCommand request, CancellationToken cancellationToken)
     {
-        var user = _context.Users.FindById(request.UserId);
-        var group = _context.Groups.Include(g => g.Subjects).FindById(user.GroupId.Value);
-        var subject = group.Subjects.FindById(request.SubjectId);
+        var user = _context.Users.FindOrThrow(request.UserId);
+        var groupId = user.GroupId ?? throw new UserIsNotGroupMemberException(user.Id, Guid.Empty);
+        var group = _context.Groups
+            .Include(g => g.Subjects)
+            .FindOrThrow(groupId);
+        var subject = group.Subjects.FindOrThrow(request.SubjectId);
 
         subject.Teacher = request.NewSubjectTeacher;
 

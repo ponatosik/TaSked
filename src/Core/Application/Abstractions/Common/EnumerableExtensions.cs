@@ -3,40 +3,40 @@ using TaSked.Domain;
 
 namespace TaSked.Application;
 
-internal static class QuriableExtentions
+internal static class EnumerableExtensions
 {
-	public static User FindById(this IQueryable<User> query, Guid id)
+	public static User FindOrThrow(this IEnumerable <User> query, Guid id)
 	{
 		return query.FirstOrDefault(user => user.Id == id) ?? throw new EntityNotFoundException(id, nameof(User));
 	}
 
-	public static Group FindById(this IQueryable<Group> query, Guid id)
+	public static Group FindOrThrow(this IEnumerable <Group> query, Guid id)
 	{
 		return query.FirstOrDefault(group => group.Id == id) ?? throw new EntityNotFoundException(id, nameof(Group));
 	}
 
-	public static Subject FindById(this IQueryable<Subject> query, Guid id)
+	public static Subject FindOrThrow(this IEnumerable <Subject> query, Guid id)
 	{
 		return query.FirstOrDefault(subject => subject.Id == id) ?? throw new EntityNotFoundException(id, nameof(Subject));
 	}
 
-	public static Homework FindById(this IQueryable<Homework> query, Guid id)
+	public static Homework FindOrThrow(this IEnumerable <Homework> query, Guid id)
 	{
 		return query.FirstOrDefault(homework => homework.Id == id) ?? throw new EntityNotFoundException(id, nameof(Homework));
 	}
 
-	public static Lesson FindById(this IQueryable<Lesson> query, Guid id)
+	public static Lesson FindOrThrow(this IEnumerable <Lesson> query, Guid id)
 	{
 		return query.FirstOrDefault(lesson => lesson.Id == id) ?? throw new EntityNotFoundException(id, nameof(Lesson));
 	}
 
-	public static Invitation FindById(this IQueryable<Invitation> query, Guid id)
+	public static Invitation FindOrThrow(this IEnumerable <Invitation> query, Guid id)
 	{
 		return query.FirstOrDefault(invitation => invitation.Id == id) ?? throw new EntityNotFoundException(id, nameof(Invitation));
 	}
 
-	public static Report FindById(this IQueryable<Report> query, Guid id)
+	public static Report FindOrThrow(this IEnumerable <Report> query, Guid id)
 	{
-		return query.FirstOrDefault(Report => Report.Id == id) ?? throw new EntityNotFoundException(id, nameof(Report));
+		return query.FirstOrDefault(report => report.Id == id) ?? throw new EntityNotFoundException(id, nameof(Report));
 	}
 }

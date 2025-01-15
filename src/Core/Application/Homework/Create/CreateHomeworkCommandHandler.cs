@@ -2,6 +2,7 @@
 using TaSked.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using TaSked.Application.Exceptions;
 
 namespace TaSked.Application;
 
@@ -18,16 +19,17 @@ public class CreateHomeworkCommandHandler : IRequestHandler<CreateHomeworkComman
 
 	public async Task<Homework> Handle(CreateHomeworkCommand request, CancellationToken cancellationToken)
 	{
-		var user = _context.Users.FindById(request.UserId);
-		var group = _context.Groups.Include(group => group.Subjects).FindById(user.GroupId.Value);
-		var subject = group.Subjects.FindById(request.SubjectId);
-
+		var user = _context.Users.FindOrThrow(request.UserId);
+		var group = _context.Groups
+			.Include(group => group.Subjects.Where(s => s.Id == request.SubjectId))
+			.FindOrThrow(user.GroupId ?? throw new UserIsNotGroupMemberException(user.Id, Guid.Empty));
+		var subject = group.Subjects.FindOrThrow(request.SubjectId);
 		var homework = subject.CreateHomework(request.Title, request.Description, request.Deadline);
 		
 		await _context.SaveChangesAsync(cancellationToken);
 		if(_eventPublisher is not null)
 		{
-			await _eventPublisher.Publish(new HomeworkCreatedEvent(homework, group.Id));
+			await _eventPublisher.Publish(new HomeworkCreatedEvent(homework, group.Id), cancellationToken);
 		}
 		return homework;
 	}

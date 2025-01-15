@@ -42,9 +42,10 @@ public class GetAllSubjectsCommandHandlerTest
         var result = await _handler.Handle(request, new CancellationToken());
 
         Assert.Equal(_subjects.Count, result.Count);
-        Assert.Collection(result,
-            subject => Assert.Equal(_subjects[0].Id, subject.Id),
-            subject => Assert.Equal(_subjects[1].Id, subject.Id),
-            subject => Assert.Equal(_subjects[2].Id, subject.Id));
+        Assert.Collection(result.OrderBy(r => r.Name),
+                subject => Assert.Equal(_subjects[0].Name, subject.Name),
+                subject => Assert.Equal(_subjects[1].Name, subject.Name),
+                subject => Assert.Equal(_subjects[2].Name, subject.Name)
+            );
     }
 }

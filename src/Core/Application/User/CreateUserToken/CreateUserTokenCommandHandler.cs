@@ -21,7 +21,7 @@ public class CreateUserTokenCommandHandler : IRequestHandler<CreateUserTokenComm
 		await _context.Users.AddAsync(user, cancellationToken);
 		await _context.SaveChangesAsync(cancellationToken);
 
-		string token = _jwtProvider.Generate(user);
+		var token = _jwtProvider.Generate(user);
 		return token;
 	}  
 }

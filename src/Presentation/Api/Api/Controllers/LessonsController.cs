@@ -59,7 +59,7 @@ public class LessonsController : ControllerBase
 
     [HttpGet]
     [Route("ByDateRange")]
-    public async Task<IActionResult> Get([FromQuery] DateTime fromDate, [FromQuery] DateTime toDate)
+    public async Task<IActionResult> Get([FromQuery] DateTime? fromDate, [FromQuery] DateTime? toDate)
     {
         Guid userId = User.GetUserId()!.Value;
         var result = await _mediator.Send(new GetAllLessonsInDateRangeQuery(userId, fromDate, toDate));

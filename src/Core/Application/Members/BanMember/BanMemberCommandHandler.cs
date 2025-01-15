@@ -16,13 +16,15 @@ public class BanMemberCommandHandler : IRequestHandler<BanMemberCommand>
 
     public Task Handle(BanMemberCommand request, CancellationToken cancellationToken)
     {
-        var promoter = _context.Users.FindById(request.BannedBy);
-        if (promoter.GroupId != request.GroupId)
+        var moderator = _context.Users.FindOrThrow(request.BannedBy);
+        if (moderator.GroupId != request.GroupId)
         {
             throw new UserIsNotGroupMemberException(request.GroupId, request.UserId);
         }
-        var group = _context.Groups.Include(e => e.Members).FindById(request.GroupId);
-        var user = _context.Users.FindById(request.UserId);
+        var group = _context.Groups
+            .Include(e => e.Members)
+            .FindOrThrow(request.GroupId);
+        var user = group.Members.FindOrThrow(request.UserId);
 
         group.Leave(user);
 

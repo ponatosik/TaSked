@@ -2,6 +2,7 @@
 using TaSked.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using TaSked.Application.Exceptions;
 
 namespace TaSked.Application;
 
@@ -18,14 +19,15 @@ public class DeleteHomeworkCommandHandler : IRequestHandler<DeleteHomeworkComman
 
     public async Task Handle(DeleteHomeworkCommand request, CancellationToken cancellationToken)
     {
-        var user = _context.Users.FindById(request.UserId);
+        var user = _context.Users.FindOrThrow(request.UserId);
+        var groupId = user.GroupId ?? throw new UserIsNotGroupMemberException(user.Id, Guid.Empty);
         var group = _context.Groups
             .Include(group => group.Subjects)
             .ThenInclude(subject => subject.Homeworks)
-            .FindById(user.GroupId.Value);
+            .FindOrThrow(groupId);
 
-        var subject = group.Subjects.FindById(request.SubjectId);
-        var homework = subject.Homeworks.FindById(request.HomeworkId);
+        var subject = group.Subjects.FindOrThrow(request.SubjectId);
+        var homework = subject.Homeworks.FindOrThrow(request.HomeworkId);
         
         subject.Homeworks.Remove(homework);
         

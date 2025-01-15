@@ -1,7 +1,7 @@
-﻿using TaSked.Application.Data;
+﻿using MediatR;
+using TaSked.Application.Data;
+using TaSked.Application.Exceptions;
 using TaSked.Domain;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace TaSked.Application;
 
@@ -16,13 +16,14 @@ public class GetAllLessonsInDateRangeHandler : IRequestHandler<GetAllLessonsInDa
 
     public Task<List<Lesson>> Handle(GetAllLessonsInDateRangeQuery request, CancellationToken cancellationToken)
     {
-        var user = _context.Users.FindById(request.UserId);
-        var group = _context.Groups.Include(e => e.Subjects).ThenInclude(e => e.Lessons).FindById(user.GroupId.Value);
-
         var startDate = request.StartDate ?? DateTime.MinValue;
-        var endDate = request.EndDate ?? DateTime.Now.AddYears(1);
-        var lessonsInRange = group.Subjects
-            .SelectMany(subject => subject.Lessons)
+        var endDate = request.EndDate ?? DateTime.MaxValue;
+        
+        var user = _context.Users.FindOrThrow(request.UserId);
+        var groupId = user.GroupId ?? throw new UserIsNotGroupMemberException(user.Id, Guid.Empty);
+        var lessonsInRange = _context.Groups
+            .Where(g => g.Id == groupId)
+            .SelectMany(g => g.Subjects.SelectMany(s => s.Lessons))
             .Where(lesson => lesson.Time >= startDate && lesson.Time <= endDate)
             .ToList();
 
