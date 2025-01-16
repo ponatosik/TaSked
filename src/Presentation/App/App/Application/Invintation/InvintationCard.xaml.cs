@@ -24,4 +24,13 @@ public partial class InvintationCard : ContentView
             Clipboard.SetTextAsync(InvintationModel.Id.ToString());
         }
     }
+    
+    public void GenerateLinkAndCopy(object sender, EventArgs e)
+    {
+        if (InvintationModel != null)
+        {
+            string link = $"https://tasked.com/group/join?invitationId={InvintationModel.Id}";
+            Clipboard.SetTextAsync(link);
+        }
+    }
 }

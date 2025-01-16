@@ -181,7 +181,7 @@
     <value>TaSked - місце для спільної домашки</value>
   </data>
   <data name="Navigation.Groups.Create" xml:space="preserve">
-    <value>Create group</value>
+    <value>Створити групу</value>
   </data>
   <data name="Navigation.Groups.Join" xml:space="preserve">
     <value>Доєднатися до групи</value>
@@ -368,5 +368,17 @@
   </data>
   <data name="Task.List.Empty.ModeratorHint" xml:space="preserve">
     <value>Додайте домашнє завдання натиснувши кнопку знизу</value>
+  </data>
+  <data name="Invitation.Card.CopyLink" xml:space="preserve">
+    <value>Копіювати посилання</value>
+  </data>
+  <data name="Invitation.Alert.AlreadyLoggedIn.Title" xml:space="preserve">
+    <value>Ви вже залогінені</value>
+  </data>
+  <data name="Invitation.Alert.AlreadyLoggedIn.Message" xml:space="preserve">
+    <value>Вийдіть з вашої групи, щоб доєднатися до наступної</value>
+  </data>
+  <data name="General.Alert.OkButton" xml:space="preserve">
+    <value>Ок</value>
   </data>
 </root>

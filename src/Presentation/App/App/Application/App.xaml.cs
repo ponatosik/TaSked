@@ -1,11 +1,47 @@
-﻿namespace TaSked.App;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using TaSked.App.Common;
+using LocalizationResourceManager.Maui;
+
+
+namespace TaSked.App;
 
 public partial class App : Microsoft.Maui.Controls.Application
 {
-	public App()
+	private readonly ILocalizationResourceManager _localizationResourceManager;
+	public App(ILocalizationResourceManager localizationResourceManager)
 	{
 		InitializeComponent();
-        Microsoft.Maui.Controls.Application.Current.UserAppTheme = AppTheme.Dark;
+		Microsoft.Maui.Controls.Application.Current.UserAppTheme = AppTheme.Dark;
+		_localizationResourceManager = localizationResourceManager;
+        WeakReferenceMessenger.Default.Register<InvintationItemMessage>(this, async (r, m) =>
+        {
+	        string getinvintationid = m.Value.ToString();
+	        var _loginService = ServiceHelper.GetService<LoginService>();
+	        bool isAuthorized = await _loginService.IsAuthorizedAsync();
+	        Device.StartTimer(TimeSpan.FromSeconds(2), () =>
+	        {
+		        if (isAuthorized)
+		        {
+			        string title = _localizationResourceManager["Invitation_Alert_AlreadyLoggedIn_Title"];
+			        string message = _localizationResourceManager["Invitation_Alert_AlreadyLoggedIn_Message"];
+			        string cancel = _localizationResourceManager["General_Alert_OkButton"];
+                    
+			        AppShell.Current.DisplayAlert(title, message, cancel);
+		        }
+		        else
+		        {
+			        AppShell.Current.GoToAsync($"JoinGroupPage").ContinueWith(async _ =>
+			        {
+				        var joinGroupPage = AppShell.Current.Navigation.NavigationStack.OfType<JoinGroupPage>().LastOrDefault();
+				        if (joinGroupPage != null && joinGroupPage.BindingContext is JoinGroupViewModel viewModel)
+				        {
+					        viewModel.GroupInvitationId = getinvintationid;
+				        }
+			        });
+		        }
+		        return false;
+	        });
+        });
 		MainPage = new AppShell();
 	}
 }
