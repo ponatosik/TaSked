@@ -1,5 +1,4 @@
 using Application.Tests;
-using Microsoft.EntityFrameworkCore;
 using TaSked.Application;
 using TaSked.Application.Data;
 using TaSked.Domain;
@@ -34,7 +33,7 @@ public class GetInvitationInfoQueryHandlerTest
     public async Task Handle_ValidCommand_ShouldReturnInvitation()
     {
         var invitationCaption = "Test invitation";
-        var id = _context.Groups.First(group => group.Id == _groupId).CreateInvintation(invitationCaption).Id;
+        var id = _context.Groups.First(group => group.Id == _groupId).CreateInvitation(invitationCaption).Id;
         await _context.SaveChangesAsync(new CancellationToken());
         var query = new GetInvitationInfoQuery(id);
 

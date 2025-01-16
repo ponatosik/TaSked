@@ -20,7 +20,7 @@ public class ExpireInvitationCommandHandlerTest
 
         var groupAdmin = User.Create("Test admin");
         var group = Group.Create("Test group", groupAdmin);
-        var invitation = group.CreateInvintation("Test invitation");
+        var invitation = group.CreateInvitation("Test invitation");
 
         _groupId = group.Id;
         _inviationId = invitation.Id;

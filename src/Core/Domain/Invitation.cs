@@ -4,18 +4,24 @@ namespace TaSked.Domain;
 
 public class Invitation
 {
-	public Guid Id { get; set; }
-	public Guid GroupId { get; set; }
+	public Guid Id { get; init; }
+	public Guid GroupId { get; init; }
 	public string? Caption { get; set; }
-	public bool IsExpired {  get; private set; }
-	public DateTime? ExpirationDate { get; private set; }
-	public int? MaxActivations {  get; private set; }
-	public int ActivationCount { get; private set; } = 0;
+	public bool IsExpired { get; private set; }
+	public DateTime? ExpirationDate { get; init; }
+	public int? MaxActivations { get; init; }
+	public int ActivationCount { get; private set; }
 
 	private Invitation() { }
-	internal Invitation(Guid id, Guid groupId, string? caption = null, int? maxActivation = null, DateTime? expirationDate = null) 
+
+	private Invitation(Guid id)
 	{
 		Id = id;
+	}
+
+	internal Invitation(Guid id, Guid groupId, string? caption = null, int? maxActivation = null, DateTime? expirationDate = null)
+		: this(id)
+	{
 		GroupId = groupId;
 		Caption = caption;
 		MaxActivations = maxActivation;
@@ -37,12 +43,8 @@ public class Invitation
 		{
 			return true;
 		}
-		if (MaxActivations is not null && ActivationCount >= MaxActivations)
-		{
-			Expire();
-			return true;
-		}
-		if (DateTime.UtcNow > ExpirationDate)
+
+		if (ActivationCount >= MaxActivations || DateTime.UtcNow > ExpirationDate)
 		{
 			Expire();
 			return true;

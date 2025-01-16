@@ -1,7 +1,6 @@
-﻿using TaSked.Application.Data;
-using TaSked.Domain;
-using MediatR;
+﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
+using TaSked.Application.Data;
 
 namespace TaSked.Application;
 
@@ -24,7 +23,7 @@ public class ActivateInvitationCommandHandler : IRequestHandler<ActivateInvitati
             .FindOrThrow(request.GroupId);
         var invitation = group.Invitations.FindOrThrow(request.InvitationId);
 
-        group.JoinByInvintation(invitation, user);
+        group.JoinByInvitation(invitation, user);
 
         await _context.SaveChangesAsync(cancellationToken);
         if(_eventPublisher is not null)

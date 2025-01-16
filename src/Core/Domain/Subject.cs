@@ -1,18 +1,23 @@
-﻿using System.Runtime.InteropServices;
-
-namespace TaSked.Domain;
+﻿namespace TaSked.Domain;
 
 public class Subject
 {
-	public Guid Id { get; private set; }
+	public Guid Id { get; init; }
 	public Guid GroupId { get; private set; }
-	public string Name { get; set; }
-	public List<Homework> Homeworks { get; private set; } = new List<Homework>();
-	public List<Lesson> Lessons { get; private set; } = new List<Lesson>();
-	public Teacher Teacher { get; set; }
+	public string Name { get; set; } = null!;
+	public List<Homework> Homeworks { get; init; } = [];
+	public List<Lesson> Lessons { get; init; } = [];
+	public Teacher? Teacher { get; set; }
 
 	private Subject() { }
-	internal Subject(Guid id, Guid groupId, string name, Teacher? teacher = null)
+
+	private Subject(Guid id, string name)
+	{
+		Id = id;
+		Name = name;
+	}
+
+	internal Subject(Guid id, Guid groupId, string name, Teacher? teacher = null) : this(id, name)
 	{
 		Id = id;
 		GroupId = groupId;

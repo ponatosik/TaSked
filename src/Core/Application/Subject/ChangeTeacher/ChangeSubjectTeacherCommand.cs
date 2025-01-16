@@ -1,6 +1,7 @@
-﻿using TaSked.Domain;
-using MediatR;
+﻿using MediatR;
+using TaSked.Domain;
 
 namespace TaSked.Application;
 
-public record ChangeSubjectTeacherCommand(Guid UserId, Guid SubjectId, Teacher NewSubjectTeacher) : IRequest<UpdateSubjectDTO>;
+public record ChangeSubjectTeacherCommand(Guid UserId, Guid SubjectId, Teacher? NewSubjectTeacher)
+	: IRequest<UpdateSubjectDTO>;

@@ -11,7 +11,7 @@ public class ChangeGroupNameCommandHadlerTest
     private readonly IApplicationDbContext _context;
     private readonly ChangeGroupNameCommandHandler _handler;
 
-    private readonly Guid _userId, _groupId, _subjectId;
+    private readonly Guid _userId, _groupId;
 
     public ChangeGroupNameCommandHadlerTest(PersistanceFixture persistanceFixture)
     {
