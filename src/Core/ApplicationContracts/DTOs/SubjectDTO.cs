@@ -9,9 +9,9 @@ public class SubjectDTO
 	public string Name { get; set; }
 	public int HomeworksCount { get; set; }
 	public int LessonsCount { get; set; }
-	public Teacher Teacher { get; set; }
+	public Teacher? Teacher { get; set; }
 
-	public SubjectDTO(Guid Id, Guid GroupId, string Name, int HomeworksCount, int LessonsCount, Teacher Teacher)
+	public SubjectDTO(Guid Id, Guid GroupId, string Name, int HomeworksCount, int LessonsCount, Teacher? Teacher)
 	{
 		this.Id = Id;
 		this.GroupId = GroupId;

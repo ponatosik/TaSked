@@ -20,7 +20,7 @@ public class ChangeLessonTeacherCommandHadlerTest
 
         User user = User.Create("Test user");
         Group group = Group.Create("Test group", user);
-        Teacher teacher = Teacher.Create("Test", "Test", "Test", "Test", "Test");
+        var teacher = Teacher.Create("Test", "Test", "Test", "Test", "Test");
         Subject subject = group.CreateSubject("Test subject");
 
         _userId = user.Id;

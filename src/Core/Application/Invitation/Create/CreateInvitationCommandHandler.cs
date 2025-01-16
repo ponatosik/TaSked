@@ -1,7 +1,7 @@
-﻿using TaSked.Application.Data;
-using TaSked.Domain;
-using MediatR;
+﻿using MediatR;
+using TaSked.Application.Data;
 using TaSked.Application.Exceptions;
+using TaSked.Domain;
 
 namespace TaSked.Application;
 
@@ -22,7 +22,8 @@ public class CreateInvitationCommandHandler : IRequestHandler<CreateInvitationCo
         var groupId = user.GroupId ?? throw new UserIsNotGroupMemberException(user.Id, Guid.Empty);
         var group = _context.Groups.FindOrThrow(groupId);
 
-        var invitation = group.CreateInvintation(request.InvitationCaption, request.MaxActivations, request.ExpirationDate);
+        var invitation =
+	        group.CreateInvitation(request.InvitationCaption, request.MaxActivations, request.ExpirationDate);
 
         await _context.SaveChangesAsync(cancellationToken);
         if (_eventPublisher is not null)

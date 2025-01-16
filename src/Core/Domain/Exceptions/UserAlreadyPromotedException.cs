@@ -2,7 +2,7 @@
 
 namespace Domain.Exceptions;
 
-public class UserAllreadyPromotedException : DomainException
+public class UserAlreadyPromotedException : DomainException
 {
 	public string UserNickname { get; private set; }
 	public Guid UserId { get; private set; }
@@ -12,7 +12,7 @@ public class UserAllreadyPromotedException : DomainException
 	private static string GenerateMessage(User user, Group group, GroupRole role) =>
 		$"User \"{user.Nickname}\" is already a {role.RoleName} or higher in group \"{group.Name}\".";
 
-	internal UserAllreadyPromotedException(User user, Group group, GroupRole role)
+	internal UserAlreadyPromotedException(User user, Group group, GroupRole role)
 		: base(GenerateMessage(user, group, role))
 	{
 		UserId = user.Id;
@@ -20,7 +20,7 @@ public class UserAllreadyPromotedException : DomainException
 		GroupId = group.Id;
 		Role = role;
 	}
-	internal UserAllreadyPromotedException(User user, Group group, GroupRole role, Exception inner)
+	internal UserAlreadyPromotedException(User user, Group group, GroupRole role, Exception inner)
 		: base(GenerateMessage(user, group, role), inner)
 	{
 		UserId = user.Id;
