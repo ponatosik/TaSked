@@ -12,6 +12,7 @@ using ReactiveUI;
 using TaSked.App.Common.Components;
 using LocalizationResourceManager.Maui;
 using TaSked.App.Resources.Localization;
+using Auth0.OidcClient;
 using System.Globalization;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
@@ -116,6 +117,17 @@ public static class MauiProgram
 		builder.Logging.AddDebug();
 #endif
 
+		builder.Services.AddSingleton<MainPage>();
+
+		builder.Services.AddSingleton(new Auth0Client(new()
+		{
+			Domain = "dev-fbpwu2ytoud86qqi.us.auth0.com",
+			ClientId = "USHVDENGCwoqcUsSzSEtlm8Wkmg6Wp09",
+			RedirectUri = "myapp://callback/",
+			PostLogoutRedirectUri = "myapp://callback/",
+			Scope = "openid profile email"
+		}));
+		
 		RxApp.DefaultExceptionHandler = new AppExceptionHandler();
 
 		var app = builder.Build();

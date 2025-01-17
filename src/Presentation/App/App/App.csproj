@@ -86,6 +86,7 @@
     </ItemGroup>
   
     <ItemGroup>
+		<PackageReference Include="Auth0.OidcClient.MAUI" Version="1.1.0" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="8.0.1" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="LocalizationResourceManager.Maui" Version="1.2.1" />
