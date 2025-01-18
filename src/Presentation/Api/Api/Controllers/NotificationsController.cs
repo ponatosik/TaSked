@@ -1,12 +1,10 @@
-﻿using Api.Requests;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using TaSked.Application;
-using TaSked.Domain;
-using TaSked.Infrastructure.Authorization;
+﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PushNotifications.Requests;
 using TaSked.Api.Requests;
+using TaSked.Application;
+using TaSked.Infrastructure.Authorization;
 
 namespace TaSked.Api.Controllers;
 
@@ -23,7 +21,7 @@ public class NotificationsController : ControllerBase
     }
 
 	[HttpPost]
-	[Authorize(AccessPolicise.Member)]
+	[Authorize(AccessPolicies.Member)]
 	[Route("Subscribe")]
 	public async Task<IActionResult> Subscribe([FromBody] SubscribeToNotificationsRequest request)
 	{
@@ -35,7 +33,7 @@ public class NotificationsController : ControllerBase
 	}
 
 	[HttpPost]
-	[Authorize(AccessPolicise.Member)]
+	[Authorize(AccessPolicies.Member)]
 	[Route("Unsubscribe")]
 	public async Task<IActionResult> Unsubscribe([FromBody] UnsubscribeFromNotificationsRequest request)
 	{

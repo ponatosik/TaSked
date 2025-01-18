@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-
 using TaSked.Application;
 using TaSked.Domain;
 
@@ -12,12 +11,9 @@ namespace TaSked.Infrastructure.Authorization;
 
 public static class DependencyInjection
 {
-	public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, Action<JwtOptions> options)
+	public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, JwtOptions jwtOptions)
 	{
-		var opt = new JwtOptions();
-		options(opt);
-
-		services.AddSingleton(opt);
+		services.AddSingleton(jwtOptions);
 		services.AddSingleton<IJwtProvider, JwtProvider>();
 
 		services.AddAuthentication(options =>
@@ -31,12 +27,12 @@ public static class DependencyInjection
 			o.TokenValidationParameters = new()
 			{
 				ValidateIssuer = true,
-				ValidIssuer = opt.Issuer,
+				ValidIssuer = jwtOptions.Issuer,
 				ValidateAudience = true,
-				ValidAudience = opt.Audience,
+				ValidAudience = jwtOptions.Audience,
 				ValidateIssuerSigningKey = true,
 				ValidateLifetime = false,
-				IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(opt.SecretKey))
+				IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecretKey))
 			};
 			o.RequireHttpsMetadata = false;
 		});
@@ -48,13 +44,14 @@ public static class DependencyInjection
 
 	public static IServiceCollection AddPolicyBasedAuthorization(this IServiceCollection services)
 	{
-		services.AddScoped<IAuthorizationHandler, MinimalGroupRoleRequirmentHandler>();
-		services.AddAuthorization(options =>
-		{
-			options.AddPolicy(AccessPolicise.Member, policy => policy.Requirements.Add(new MinimalGroupRoleRequirment(GroupRole.Member)));
-			options.AddPolicy(AccessPolicise.Moderator, policy => policy.Requirements.Add(new MinimalGroupRoleRequirment(GroupRole.Moderator)));
-			options.AddPolicy(AccessPolicise.Admin, policy => policy.Requirements.Add(new MinimalGroupRoleRequirment(GroupRole.Admin)));
-		});
+		services.AddScoped<IAuthorizationHandler, MinimalGroupRoleRequirementHandler>();
+		services.AddAuthorizationBuilder()
+			.AddPolicy(AccessPolicies.Member,
+				policy => policy.Requirements.Add(new MinimalGroupRoleRequirment(GroupRole.Member)))
+			.AddPolicy(AccessPolicies.Moderator,
+				policy => policy.Requirements.Add(new MinimalGroupRoleRequirment(GroupRole.Moderator)))
+			.AddPolicy(AccessPolicies.Admin,
+				policy => policy.Requirements.Add(new MinimalGroupRoleRequirment(GroupRole.Admin)));
 
 		return services;
 	}

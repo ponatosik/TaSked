@@ -1,9 +1,9 @@
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using TaSked.Application;
 using Microsoft.AspNetCore.Authorization;
-using TaSked.Infrastructure.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TaSked.Api.Requests;
+using TaSked.Application;
+using TaSked.Infrastructure.Authorization;
 
 namespace TaSked.Api.Controllers;
 
@@ -28,7 +28,7 @@ public class GroupsController : ControllerBase
 	}
 
     [HttpDelete]
-	[Authorize(AccessPolicise.Admin)]
+    [Authorize(AccessPolicies.Admin)]
     public async Task<IActionResult> Delete()
     {
         Guid userId = User.GetUserId()!.Value;
@@ -37,7 +37,7 @@ public class GroupsController : ControllerBase
     }
 
     [HttpPatch]
-    [Authorize(AccessPolicise.Admin)]
+    [Authorize(AccessPolicies.Admin)]
     [Route("Name")]
     public async Task<IActionResult> Patch(ChangeGroupNameRequest request)
     {
@@ -47,7 +47,7 @@ public class GroupsController : ControllerBase
     }
 
     [HttpPatch]
-    [Authorize(AccessPolicise.Member)]
+    [Authorize(AccessPolicies.Member)]
     [Route("Leave")]
     public async Task<IActionResult> Patch()
     {

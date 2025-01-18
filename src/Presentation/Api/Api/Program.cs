@@ -1,14 +1,12 @@
+using Google.Apis.Auth.OAuth2;
+using PushNotifications.Requests;
+using TaSked.Api.Configuration;
 using TaSked.Application;
-using TaSked.Infrastructure.Persistance;
-using TaSked.Infrastructure.Persistance.AzureMySqlInApp;
 using TaSked.Infrastructure.Authorization;
 using TaSked.Infrastructure.ExceptionHandling;
-using TaSked.Api.Configuration;
-using PushNotifications.Requests;
+using TaSked.Infrastructure.Persistance;
+using TaSked.Infrastructure.Persistance.AzureMySqlInApp;
 using TaSked.Infrastructure.PushNotifications;
-using Google.Apis.Auth.OAuth2;
-using Microsoft.EntityFrameworkCore;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,11 +27,11 @@ builder.Services.AddFirebaseNotifications(googleCredential);
 builder.Services.AddPolicyBasedAuthorization();
 builder.Services.AddPersistance(useAzureMySqlInApp ? opt => opt.UseAzureMysqlInApp() : null);
 builder.Services.AddSwaggerConfiguration();
-builder.Services.AddJwtAuthentication(options =>
+builder.Services.AddJwtAuthentication(new JwtOptions
 {
-	options.Issuer = baseUrlList.First();
-	options.Audience = baseUrlList.First();
-	options.SecretKey = JwtSecretKey;
+	Issuer = baseUrlList.First(),
+	Audience = baseUrlList.First(),
+	SecretKey = JwtSecretKey
 });
 
 

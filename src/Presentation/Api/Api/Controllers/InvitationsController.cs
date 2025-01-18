@@ -1,10 +1,9 @@
-﻿using TaSked.Domain;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using TaSked.Application;
+﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using TaSked.Infrastructure.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TaSked.Api.Requests;
+using TaSked.Application;
+using TaSked.Infrastructure.Authorization;
 
 namespace TaSked.Api.Controllers;
 
@@ -21,7 +20,7 @@ public class InvitationsController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(AccessPolicise.Moderator)]
+    [Authorize(AccessPolicies.Moderator)]
     public async Task<IActionResult> Post(CreateInvintationRequest request)
     {
         Guid userId = User.GetUserId()!.Value;
@@ -39,7 +38,7 @@ public class InvitationsController : ControllerBase
     }
 
     [HttpPatch]
-    [Authorize(AccessPolicise.Moderator)]
+    [Authorize(AccessPolicies.Moderator)]
     [Route("Expire")]
     public async Task<IActionResult> Patch(ExpireInvintationRequest request)
     {
@@ -58,7 +57,7 @@ public class InvitationsController : ControllerBase
     }
 
 	[HttpGet]
-    [Authorize(AccessPolicise.Admin)]
+	[Authorize(AccessPolicies.Admin)]
 	public async Task<IActionResult> Get()
 	{
 		Guid userId = User.GetUserId()!.Value;
