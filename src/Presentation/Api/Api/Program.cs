@@ -12,15 +12,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 var useAzureMySqlInApp = builder.WebHost.GetSetting("UseAzureMySqlInApp")?.ToLower() == "true";
-var jwtSecretKey = builder.WebHost.GetSetting("JwtSecretKey");
-var baseUrls = builder.WebHost.GetSetting(WebHostDefaults.ServerUrlsKey) ?? "http://localhost:5070";
-var baseUrlList = baseUrls.Split(';');
 var googleCredential = GoogleCredential.FromJson(builder.WebHost.GetSetting("FIREBASE_ADMIN_CREDENTIALS"));
 
-if (jwtSecretKey is null && builder.Environment.IsDevelopment())
-{
-	jwtSecretKey = "{774F9515-F749-42F1-8578-8BA810C3BA78}";
-}
 
 builder.Services.AddControllers();
 builder.Services.AddMediatR(config => config.RegisterServicesFromAssemblies(
@@ -32,12 +25,9 @@ builder.Services.AddFirebaseNotifications(googleCredential);
 builder.Services.AddPolicyBasedAuthorization();
 builder.Services.AddPersistance(useAzureMySqlInApp ? opt => opt.UseAzureMysqlInApp() : null);
 builder.Services.AddSwaggerConfiguration();
-builder.Services.AddJwtAuthentication(new JwtOptions
-{
-	Issuer = baseUrlList.First(),
-	Audience = baseUrlList.First(),
-	SecretKey = jwtSecretKey!
-});
+
+builder.AddJwtAuthentication();
+
 
 
 var app = builder.Build();
