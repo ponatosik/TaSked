@@ -1,16 +1,15 @@
-using TaSked.Domain;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using TaSked.Application;
 using Microsoft.AspNetCore.Authorization;
-using TaSked.Infrastructure.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TaSked.Api.Requests;
+using TaSked.Application;
+using TaSked.Infrastructure.Authorization;
 
 namespace TaSked.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-[Authorize(AccessPolicise.Member)]
+[Authorize(AccessPolicies.Member)]
 public class HomeworksController : ControllerBase
 {
 	private readonly IMediator _mediator;
@@ -29,7 +28,7 @@ public class HomeworksController : ControllerBase
 	}
 	
 	[HttpPost]
-	[Authorize(AccessPolicise.Moderator)]
+	[Authorize(AccessPolicies.Moderator)]
 	public async Task<IActionResult> Post(CreateHomeworkRequest request)
 	{
 		Guid userId = User.GetUserId()!.Value;
@@ -38,7 +37,7 @@ public class HomeworksController : ControllerBase
 	}
 
     [HttpDelete]
-    [Authorize(AccessPolicise.Moderator)]
+    [Authorize(AccessPolicies.Moderator)]
     public async Task<IActionResult> Delete(DeleteHomeworkRequest request)
     {
         Guid userId = User.GetUserId()!.Value;
@@ -47,7 +46,7 @@ public class HomeworksController : ControllerBase
     }
 
     [HttpPatch]
-    [Authorize(AccessPolicise.Moderator)]
+    [Authorize(AccessPolicies.Moderator)]
     [Route("Deadline")]
     public async Task<IActionResult> Patch(ChangeHomeworkDeadlineRequest request)
     {
@@ -57,7 +56,7 @@ public class HomeworksController : ControllerBase
     }
 
     [HttpPatch]
-    [Authorize(AccessPolicise.Moderator)]
+    [Authorize(AccessPolicies.Moderator)]
     [Route("Description")]
     public async Task<IActionResult> Patch(ChangeHomeworkDescriptionRequest request)
     {
@@ -67,7 +66,7 @@ public class HomeworksController : ControllerBase
     }
 
     [HttpPatch]
-    [Authorize(AccessPolicise.Moderator)]
+    [Authorize(AccessPolicies.Moderator)]
     [Route("SourceUrl")]
     public async Task<IActionResult> Patch(ChangeHomeworkSourceUrlRequest request)
     {
@@ -77,7 +76,7 @@ public class HomeworksController : ControllerBase
     }
 
     [HttpPatch]
-    [Authorize(AccessPolicise.Moderator)]
+    [Authorize(AccessPolicies.Moderator)]
     [Route("Title")]
     public async Task<IActionResult> Patch(ChangeHomeworkTitleRequest request)
     {

@@ -1,16 +1,15 @@
-﻿using TaSked.Domain;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using TaSked.Application;
+﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using TaSked.Infrastructure.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TaSked.Api.Requests;
+using TaSked.Application;
+using TaSked.Infrastructure.Authorization;
 
 namespace TaSked.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-[Authorize(AccessPolicise.Member)]
+[Authorize(AccessPolicies.Member)]
 public class LessonsController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -21,7 +20,7 @@ public class LessonsController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(AccessPolicise.Moderator)]
+    [Authorize(AccessPolicies.Moderator)]
     public async Task<IActionResult> Post(CreateLessonRequest request)
     {
         Guid userId = User.GetUserId()!.Value;
@@ -30,7 +29,7 @@ public class LessonsController : ControllerBase
     }
 
     [HttpDelete]
-    [Authorize(AccessPolicise.Moderator)]
+    [Authorize(AccessPolicies.Moderator)]
     public async Task<IActionResult> Delete(DeleteLessonRequest request)
     {
         Guid userId = User.GetUserId()!.Value;
@@ -39,7 +38,7 @@ public class LessonsController : ControllerBase
     }
 
     [HttpPatch]
-    [Authorize(AccessPolicise.Moderator)]
+    [Authorize(AccessPolicies.Moderator)]
     [Route("Time")]
     public async Task<IActionResult> Patch(ChangeLessonTimeRequest request)
     {

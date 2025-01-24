@@ -1,16 +1,15 @@
-﻿using TaSked.Domain;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using TaSked.Application;
+﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using TaSked.Infrastructure.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TaSked.Api.Requests;
+using TaSked.Application;
+using TaSked.Infrastructure.Authorization;
 
 namespace TaSked.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-[Authorize(AccessPolicise.Member)]
+[Authorize(AccessPolicies.Member)]
 public class ReportsController : ControllerBase
 {
 	private readonly IMediator _mediator;
@@ -21,7 +20,7 @@ public class ReportsController : ControllerBase
 	}
 
 	[HttpPost]
-	[Authorize(AccessPolicise.Moderator)]
+	[Authorize(AccessPolicies.Moderator)]
 	public async Task<IActionResult> Post(CreateReportRequest request)
 	{
 		Guid userId = User.GetUserId()!.Value;

@@ -5,10 +5,11 @@ using TaSked.Infrastructure.Authorization;
 
 namespace Infrastructure.Authorization;
 
-public class MinimalGroupRoleRequirmentHandler : AuthorizationHandler<MinimalGroupRoleRequirment>
+public class MinimalGroupRoleRequirementHandler : AuthorizationHandler<MinimalGroupRoleRequirment>
 {
 	private readonly IApplicationDbContext _dbContext;
-	public MinimalGroupRoleRequirmentHandler(IApplicationDbContext dbContext) 
+
+	public MinimalGroupRoleRequirementHandler(IApplicationDbContext dbContext) 
 	{
 		_dbContext = dbContext;
 	}
@@ -23,7 +24,7 @@ public class MinimalGroupRoleRequirmentHandler : AuthorizationHandler<MinimalGro
 			return;
 		}
 
-		User? user = _dbContext.Users.Find(userId.Value);
+		User? user = await _dbContext.Users.FindAsync(userId.Value);
 		if (user == null || user.Role < requiredRole)
 		{
 			context.Fail();
