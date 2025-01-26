@@ -1,5 +1,4 @@
 ﻿using Infrastructure.Authorization;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +13,9 @@ namespace TaSked.Infrastructure.Authorization;
 
 public static class DependencyInjection
 {
+	private const string Auth0Schema = "Auth0";
+	private const string AnonymousSchema = "Anonymous";
+	
 	public static IHostApplicationBuilder AddJwtAuthentication(this IHostApplicationBuilder builder)
 	{
 		var jwtOptionsSection = builder.Configuration.GetRequiredSection(JwtOptions.SectionName);
@@ -26,15 +28,8 @@ public static class DependencyInjection
 			.ValidateDataAnnotations()
 			.ValidateOnStart();
 
-
 		builder.Services.AddSingleton<IJwtProvider, JwtProvider>();
-		builder.Services.AddAuthentication(options =>
-		{
-			options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-			options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-			options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-		})
-		.AddJwtBearer(o =>
+		builder.Services.AddAuthentication().AddJwtBearer(AnonymousSchema, o =>
 		{
 			o.TokenValidationParameters = new TokenValidationParameters
 			{
@@ -47,7 +42,8 @@ public static class DependencyInjection
 				IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecretKey))
 			};
 			o.RequireHttpsMetadata = false;
-		});
+		})
+		.AddJwtBearer(Auth0Schema);
 
 		return builder;
 	}
@@ -56,7 +52,13 @@ public static class DependencyInjection
 	public static IServiceCollection AddPolicyBasedAuthorization(this IServiceCollection services)
 	{
 		services.AddScoped<IAuthorizationHandler, MinimalGroupRoleRequirementHandler>();
+
+		var multiAuthorizationPolicy = new AuthorizationPolicyBuilder(Auth0Schema, AnonymousSchema)
+			.RequireAuthenticatedUser()
+			.Build();
+		
 		services.AddAuthorizationBuilder()
+			.SetDefaultPolicy(multiAuthorizationPolicy)
 			.AddPolicy(AccessPolicies.Member,
 				policy => policy.Requirements.Add(new MinimalGroupRoleRequirment(GroupRole.Member)))
 			.AddPolicy(AccessPolicies.Moderator,
