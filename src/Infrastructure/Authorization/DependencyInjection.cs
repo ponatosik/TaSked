@@ -1,4 +1,5 @@
 ﻿using Infrastructure.Authorization;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,8 +14,6 @@ namespace TaSked.Infrastructure.Authorization;
 
 public static class DependencyInjection
 {
-	private const string Auth0Schema = "Auth0";
-	private const string AnonymousSchema = "Anonymous";
 	
 	public static IHostApplicationBuilder AddJwtAuthentication(this IHostApplicationBuilder builder)
 	{
@@ -28,8 +27,9 @@ public static class DependencyInjection
 			.ValidateDataAnnotations()
 			.ValidateOnStart();
 
+		builder.Services.AddTransient<IClaimsTransformation, CustomClaimsTransformation>();
 		builder.Services.AddSingleton<IJwtProvider, JwtProvider>();
-		builder.Services.AddAuthentication().AddJwtBearer(AnonymousSchema, o =>
+		builder.Services.AddAuthentication().AddJwtBearer(AuthenticationSchemas.AnonymousSchema, o =>
 		{
 			o.TokenValidationParameters = new TokenValidationParameters
 			{
@@ -43,7 +43,7 @@ public static class DependencyInjection
 			};
 			o.RequireHttpsMetadata = false;
 		})
-		.AddJwtBearer(Auth0Schema);
+		.AddJwtBearer(AuthenticationSchemas.Auth0Schema);
 
 		return builder;
 	}
@@ -53,7 +53,8 @@ public static class DependencyInjection
 	{
 		services.AddScoped<IAuthorizationHandler, MinimalGroupRoleRequirementHandler>();
 
-		var multiAuthorizationPolicy = new AuthorizationPolicyBuilder(Auth0Schema, AnonymousSchema)
+		var multiAuthorizationPolicy =
+			new AuthorizationPolicyBuilder(AuthenticationSchemas.AnonymousSchema, AuthenticationSchemas.Auth0Schema)
 			.RequireAuthenticatedUser()
 			.Build();
 		
