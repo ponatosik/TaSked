@@ -23,7 +23,7 @@ public partial class MainPage : ContentPage
     
     private async void OnLoginClicked(object sender, EventArgs e)
     {
-	    var loginResult = await auth0Client.LoginAsync();
+	    var loginResult = await auth0Client.LoginAsync(new { audience = "https://tasked.com" });
 	    //auth0Client.GetUserInfoAsync();
 
 	    if (!loginResult.IsError)

@@ -1,19 +1,17 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Auth0.OidcClient;
+using CommunityToolkit.Maui;
+using LocalizationResourceManager.Maui;
+using ReactiveUI;
 using TaSked.Api.ApiClient;
 using TaSked.App.Application;
-using TaSked.App.Common;
 using TaSked.App.Caching;
+using TaSked.App.Common;
+using TaSked.App.Common.Components;
+using TaSked.App.Common.Notifications;
+using TaSked.App.Resources.Localization;
 using TaSked.Infrastructure.LocalPersistence;
 using The49.Maui.ContextMenu;
 using UraniumUI;
-using CommunityToolkit.Maui;
-using TaSked.App.Common.Notifications;
-using ReactiveUI;
-using TaSked.App.Common.Components;
-using LocalizationResourceManager.Maui;
-using TaSked.App.Resources.Localization;
-using Auth0.OidcClient;
-using System.Globalization;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace TaSked.App;
@@ -121,11 +119,13 @@ public static class MauiProgram
 
 		builder.Services.AddSingleton(new Auth0Client(new()
 		{
-			Domain = "dev-fbpwu2ytoud86qqi.us.auth0.com",
-			ClientId = "USHVDENGCwoqcUsSzSEtlm8Wkmg6Wp09",
+			Domain = "tasked-app.eu.auth0.com",
+			ClientId = "dpA38Qq0JOmU2uvilzl52OkXjqjFreTq",
 			RedirectUri = "myapp://callback/",
 			PostLogoutRedirectUri = "myapp://callback/",
-			Scope = "openid profile email"
+			Scope = "openid profile"
+
+
 		}));
 		
 		RxApp.DefaultExceptionHandler = new AppExceptionHandler();
