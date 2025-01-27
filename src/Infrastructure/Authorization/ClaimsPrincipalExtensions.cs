@@ -6,10 +6,13 @@ public static class ClaimsPrincipalExtensions
 {
 	public static Guid? GetUserId(this ClaimsPrincipal claims)
 	{
-		var id = claims.FindFirstValue("https://tasked.com/user_id");
-		id ??= claims.FindFirstValue(ClaimTypes.NameIdentifier);
-
-		if (Guid.TryParse(id, out var userId))
+		if (!claims.HasClaim(c => c.Type == CustomClaimTypes.UserId))
+		{
+			return null;
+		}
+		
+		var userIdStr = claims.FindFirst(CustomClaimTypes.UserId)!.Value;
+		if (Guid.TryParse(userIdStr, out var userId))
 		{
 			return userId;
 		}
