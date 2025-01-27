@@ -57,16 +57,27 @@ public static class DependencyInjection
 			new AuthorizationPolicyBuilder(AuthenticationSchemas.AnonymousSchema, AuthenticationSchemas.Auth0Schema)
 			.RequireAuthenticatedUser()
 			.Build();
-		
+
 		services.AddAuthorizationBuilder()
 			.SetDefaultPolicy(multiAuthorizationPolicy)
 			.AddPolicy(AccessPolicies.Member,
-				policy => policy.Requirements.Add(new MinimalGroupRoleRequirment(GroupRole.Member)))
+				policy => policy.UseMultipleSchemas().Requirements
+					.Add(new MinimalGroupRoleRequirment(GroupRole.Member)))
 			.AddPolicy(AccessPolicies.Moderator,
-				policy => policy.Requirements.Add(new MinimalGroupRoleRequirment(GroupRole.Moderator)))
+				policy => policy.UseMultipleSchemas().Requirements
+					.Add(new MinimalGroupRoleRequirment(GroupRole.Moderator)))
 			.AddPolicy(AccessPolicies.Admin,
-				policy => policy.Requirements.Add(new MinimalGroupRoleRequirment(GroupRole.Admin)));
+				policy => policy.UseMultipleSchemas().Requirements
+					.Add(new MinimalGroupRoleRequirment(GroupRole.Admin)));
 
 		return services;
+	}
+
+	public static AuthorizationPolicyBuilder UseMultipleSchemas(this AuthorizationPolicyBuilder policy)
+	{
+		policy.RequireClaim(CustomClaimTypes.UserId);
+		policy.AddAuthenticationSchemes(AuthenticationSchemas.Auth0Schema, AuthenticationSchemas.AnonymousSchema);
+		policy.RequireAuthenticatedUser();
+		return policy;
 	}
 }
