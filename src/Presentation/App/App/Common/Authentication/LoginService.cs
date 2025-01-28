@@ -1,7 +1,9 @@
 ﻿using Akavache;
+using Auth0.OidcClient;
 using Refit;
 using System.Net;
 using TaSked.Api.ApiClient;
+using TaSked.Api.Requests;
 using TaSked.App.Common.Notifications;
 using TaSked.Domain;
 
@@ -9,18 +11,20 @@ namespace TaSked.App.Common;
 
 public class LoginService
 {
-	private ITaSkedSevice _api;
-	private ITaSkedUsers _usersService;
-	private ITaSkedInvitations _invitationsService;
-	private IUserTokenStore _tokenStore;
-	private NotificationsService? _notificationsService;
-	private IBlobCache? _userCache;
+	private readonly ITaSkedSevice _api;
+	private readonly ITaSkedUsers _usersService;
+	private readonly ITaSkedInvitations _invitationsService;
+	private readonly IUserTokenStore _tokenStore;
+	private readonly NotificationsService? _notificationsService;
+	private readonly IBlobCache? _userCache;
+	private readonly Auth0Client _auth0Client;
 
 	public LoginService(
 		ITaSkedSevice api,
 		ITaSkedUsers usersService,
 		ITaSkedInvitations invitationsService,
 		IUserTokenStore tokenStore,
+		Auth0Client auth0Client,
 		NotificationsService? notificationsService = null,
 		IBlobCache? userCache = null)
 	{
@@ -28,15 +32,14 @@ public class LoginService
 		_invitationsService = invitationsService;
 		_usersService = usersService;
 		_tokenStore = tokenStore;
+		_auth0Client = auth0Client;
 		_notificationsService = notificationsService;
 		_userCache = userCache;
 	}
 
-	public async Task CreateGroupAsync(string username, string groupName)
+	public async Task CreateGroupAsync(string groupName)
 	{
-		string token = await _api.RegisterAnonymous(new Api.Requests.CreateUserTokenRequest(username));
-		_tokenStore.AccessToken = token;
-		await _api.CreateGroup(new Api.Requests.CreateGroupRequest(groupName));
+		await _api.CreateGroup(new CreateGroupRequest(groupName));
 
 		if (_notificationsService is not null)
 		{
@@ -44,13 +47,33 @@ public class LoginService
 		}
 	}
 
-	public async Task JoinGroupAsync(string username, Guid invitation)
+	public async Task RegisterAnonymousUser(string username)
 	{
-		string token = await _api.RegisterAnonymous(new Api.Requests.CreateUserTokenRequest(username));
+		var token = await _api.RegisterAnonymous(new CreateUserTokenRequest(username));
 		_tokenStore.AccessToken = token;
+	}
 
+	public async Task LoginWithAuth0()
+	{
+		var loginResult = await _auth0Client.LoginAsync(new { audience = "https://tasked.com" });
+
+		if (loginResult.IsError)
+		{
+			throw new AuthenticationException(loginResult.Error);
+		}
+
+		if (loginResult.AccessToken == null)
+		{
+			throw new AuthenticationException("Failed to login");
+		}
+
+		_tokenStore.AccessToken = loginResult.AccessToken;
+	}
+
+	public async Task JoinGroupAsync(Guid invitation)
+	{
 		Guid groupId = (await _invitationsService.GetInvitationById(invitation)).GroupId;
-		await _invitationsService.ActivateInvitation(new Api.Requests.ActivateInvintationRequest(invitation, groupId));
+		await _invitationsService.ActivateInvitation(new ActivateInvintationRequest(invitation, groupId));
 
 		if (_notificationsService is not null)
 		{
@@ -84,38 +107,14 @@ public class LoginService
 		return (await _usersService.CurrentUser()).Role;
 	}
 
-	public async Task<bool> IsAuthorizedAsync()
+	public Task<bool> HasGroupAsync()
 	{
-		return HasAccessToken() && await HasGroup();
+		return GetGroupIdAsync().ContinueWith(groupId => groupId.Result is not null);
 	}
 
 	private bool HasAccessToken()
 	{
 		return _tokenStore.AccessToken != null;
-	}
-
-	private async Task<bool> HasGroup()
-	{
-		User user;
-
-		try
-		{
-			user = await _usersService.CurrentUser();
-		}
-		catch (ApiException exception)
-		{
-			if (exception.StatusCode == HttpStatusCode.Unauthorized ||
-				exception.StatusCode == HttpStatusCode.Forbidden)
-			{
-				return false;
-			}
-			else
-			{
-				throw;
-			}
-		}
-
-		return user.GroupId != null;
 	}
 
 	public async Task<Guid?> GetGroupIdAsync()
@@ -133,15 +132,12 @@ public class LoginService
 		}
 		catch (ApiException exception)
 		{
-			if (exception.StatusCode == HttpStatusCode.Unauthorized ||
-				exception.StatusCode == HttpStatusCode.Forbidden)
+			if (exception.StatusCode is HttpStatusCode.Unauthorized or HttpStatusCode.Forbidden)
 			{
 				return null;
 			}
-			else
-			{
-				throw;
-			}
+
+			throw;
 		}
 
 		return user.GroupId;

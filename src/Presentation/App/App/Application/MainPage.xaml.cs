@@ -1,14 +1,16 @@
-﻿using Auth0.OidcClient;
+﻿using Refit;
+using TaSked.App.Common;
 
 namespace TaSked.App;
 
 public partial class MainPage : ContentPage
 {
-	private readonly Auth0Client auth0Client;
-	public MainPage(Auth0Client client)
+	private readonly LoginService _loginService;
+
+	public MainPage(LoginService loginService)
 	{
+		_loginService = loginService;
 		InitializeComponent();
-		auth0Client = client;
 	}
 
     private void JoinGroupTapped(object sender, EventArgs e)
@@ -23,17 +25,13 @@ public partial class MainPage : ContentPage
     
     private async void OnLoginClicked(object sender, EventArgs e)
     {
-	    var loginResult = await auth0Client.LoginAsync(new { audience = "https://tasked.com" });
-	    //auth0Client.GetUserInfoAsync();
-
-	    if (!loginResult.IsError)
+	    try
 	    {
-		    LoginView.IsVisible = false;
-		    HomeView.IsVisible = true;
+		    await _loginService.LoginWithAuth0();
 	    }
-	    else
+	    catch (Exception exception) when (exception is ApiException or AuthenticationException)
 	    {
-		    await DisplayAlert("Error", loginResult.ErrorDescription, "OK");
+		    await DisplayAlert("Error", exception.Message, "OK");
 	    }
     }
 }
