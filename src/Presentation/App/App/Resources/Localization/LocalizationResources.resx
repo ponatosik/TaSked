@@ -381,4 +381,31 @@
   <data name="General.Alert.OkButton" xml:space="preserve">
     <value>Ok</value>
   </data>
+  <data name="Subject.Details.Title" xml:space="preserve">
+    <value>Subjct details</value>
+  </data>
+  <data name="Subject.Details.Teacher" xml:space="preserve">
+    <value>Teacher</value>
+  </data>
+  <data name="Subject.Details.TotalTasks" xml:space="preserve">
+    <value>Total tasks for the subject:</value>
+  </data>
+  <data name="Subject.Details.TotalLessons" xml:space="preserve">
+    <value>Total pairs in the schedule:</value>
+  </data>
+  <data name="Task.Details.Title" xml:space="preserve">
+    <value>Task details</value>
+  </data>
+  <data name="Task.Details.TaskLink" xml:space="preserve">
+    <value>Link to the task:</value>
+  </data>
+  <data name="Task.Details.DateCreated" xml:space="preserve">
+    <value>Created at: </value>
+  </data>
+  <data name="Details.None" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="Subject.Details.LessonLink" xml:space="preserve">
+    <value>Link to the lesson:</value>
+  </data>
 </root>

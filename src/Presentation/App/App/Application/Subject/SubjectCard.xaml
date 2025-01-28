@@ -11,7 +11,7 @@
     x:Name="SubjectCardComponent"
     x:DataType="local:SubjectCard">
 
-    <uranium:StatefulContentView Margin="10" StyleClass="Elevation3">
+    <uranium:StatefulContentView Margin="10" StyleClass="Elevation3" TappedCommand="{Binding ViewModel.NavigateToDetailsCommand, Source={Reference SubjectCardComponent}}">
 
         <the49:ContextMenu.Menu>
             <DataTemplate>

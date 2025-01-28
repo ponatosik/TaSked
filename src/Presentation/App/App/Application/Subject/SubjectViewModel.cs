@@ -55,4 +55,13 @@ public partial class SubjectViewModel : ReactiveObject
 			subjectSource.SubjectSource.Remove(SubjectDTO.Id);
 		});
 	}
+	
+	[RelayCommand]
+	private async Task NavigateToDetails()
+	{
+		await Shell.Current.GoToAsync("SubjectDetailsPage", new Dictionary<string, object>
+		{
+			["subject"] = SubjectDTO
+		});
+	}
 }
