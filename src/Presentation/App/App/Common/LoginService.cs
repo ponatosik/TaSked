@@ -88,7 +88,6 @@ public class LoginService
 	{
 		return HasAccessToken() && await HasGroup();
 	}
-
 	private bool HasAccessToken()
 	{
 		return _tokenStore.AccessToken != null;

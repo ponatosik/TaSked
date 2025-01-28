@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="TaSked.App.TasksDetailsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:components="clr-namespace:TaSked.App.Components"
+    xmlns:domain="clr-namespace:TaSked.Domain;assembly=Domain"
+    xmlns:local="clr-namespace:TaSked.App"
+    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:localization="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
+    xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+    x:DataType="local:TasksDetailsViewModel"
+    HideSoftInputOnTapped="true"
+    Title="{localization:Translate Task_Details_Title}">
+
+    <AbsoluteLayout>
+        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
+                 AbsoluteLayout.LayoutFlags="All">
+            <Label HorizontalTextAlignment="Center" FontAttributes="Bold" FontSize="28" Margin="0,20,0,0" Text="{Binding Homework.Title}" />
+            <Grid ColumnDefinitions="Auto, *" Margin="30,30,30,0">
+                <Label Text="{localization:Translate Task_Form_Deadline, StringFormat='{}{0}:'}" />
+                        
+                <Label Text="{Binding Homework.Deadline, StringFormat='{0:dd/MM}'}" TextColor="#403d47"
+                       HorizontalOptions="End"
+                       Grid.Column="1" />
+            </Grid>
+            <mct:Expander>
+                <mct:Expander.Header>
+                    <Grid ColumnDefinitions="Auto, *">
+                        <Label Text="{localization:Translate Task_Form_Description}"
+                               Padding="30,30"
+                               FontAttributes="Bold" 
+                               FontSize="18" />
+                        
+                        <BoxView StyleClass="Divider" 
+                                 Margin="0,30,30,30"
+                                 HeightRequest="1"
+                                 Grid.Column="1" />
+                    </Grid>
+                </mct:Expander.Header>
+                <mct:Expander.Content>
+                    <VerticalStackLayout>
+                        <Label Text="{Binding Homework.Description}" Padding="30,0"/>
+                        <Grid ColumnDefinitions="Auto, *" Padding="30,15">
+                            <Label Text="{localization:Translate Task_Form_Subject, StringFormat='{}{0}:'}" />
+                        
+                            <Label Text="{Binding Homework.SubjectId}" TextColor="#403d47"
+                                   HorizontalOptions="End"
+                                   Grid.Column="1"
+                                   LineBreakMode="TailTruncation" 
+                                   MaxLines="1" />
+                        </Grid>
+                        <Grid ColumnDefinitions="Auto, *" Margin="30,0,30,30">
+                            <Label Text="{localization:Translate Task_Details_TaskLink}" />
+                        
+                            <Label Text="{Binding LessonUrlDisplay}" TextColor="#403d47"
+                                   HorizontalOptions="End"
+                                   Grid.Column="1" />
+                        </Grid>
+                    </VerticalStackLayout>
+                </mct:Expander.Content>
+            </mct:Expander>
+            <Label Padding="30,0">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="{localization:Translate Task_Details_DateCreated}" TextColor="#403d47"/>
+                        <Span Text="{Binding Homework.CreatedAt, StringFormat='{0:dd/MM}'}" TextColor="#403d47"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+        </StackLayout>
+    
+        <Button
+            AbsoluteLayout.LayoutBounds="0.95,0.80"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            Command="{Binding UpdateHomeworkCommand}"
+            CornerRadius="10"
+            IsVisible="{Binding IsModerator, Source={StaticResource AppState}}"
+            ImageSource="pencil"
+            StyleClass="Elevation5"
+            BackgroundColor="#2a292f"/>
+        
+        <Button
+            AbsoluteLayout.LayoutBounds="0.95,0.90"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            Command="{Binding DeleteHomeworkCommand}"
+            CornerRadius="10"
+            IsVisible="{Binding IsModerator, Source={StaticResource AppState}}"
+            ImageSource="delete"
+            StyleClass="Elevation5"
+            BackgroundColor="#7c5260"/>
+    </AbsoluteLayout>
+
+</ContentPage>
