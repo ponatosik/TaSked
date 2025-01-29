@@ -22,10 +22,6 @@
                 Title="{localization:Translate JoinGroup_Form_InvitationId}"
                 Margin="30,40"
                 Text="{Binding GroupInvitationId}" />
-            <material:TextField
-                Title="{localization:Translate JoinGroup_Form_Nickname}"
-                Margin="30,-20"
-                Text="{Binding UserNickname}" />
             <Label
                 Margin="25,50"
                 FontSize="12"

@@ -5,11 +5,8 @@ namespace TaSked.App;
 
 public partial class MainPage : ContentPage
 {
-	private readonly LoginService _loginService;
-
-	public MainPage(LoginService loginService)
+	public MainPage()
 	{
-		_loginService = loginService;
 		InitializeComponent();
 	}
 
@@ -21,17 +18,5 @@ public partial class MainPage : ContentPage
     private void CreateGroupTapped(object sender, EventArgs e)
     {
         Shell.Current.GoToAsync("CreateGroupPage");
-    }
-    
-    private async void OnLoginClicked(object sender, EventArgs e)
-    {
-	    try
-	    {
-		    await _loginService.LoginWithAuth0();
-	    }
-	    catch (Exception exception) when (exception is ApiException or AuthenticationException)
-	    {
-		    await DisplayAlert("Error", exception.Message, "OK");
-	    }
     }
 }

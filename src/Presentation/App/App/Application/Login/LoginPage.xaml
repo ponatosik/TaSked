@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="TaSked.App.LoginPage"
+    x:DataType="local:LoginViewModel"
+    xmlns:components="clr-namespace:TaSked.App.Components"
+    xmlns:local="using:TaSked.App">
+    
+    <VerticalStackLayout>
+        <StackLayout>
+            <Button 
+                Text="Log In"
+                SemanticProperties.Hint="Click to log in"
+                Clicked="OnLoginClicked"
+                HorizontalOptions="Center" />
+            
+            <Button 
+                Text="Log In Anonym"
+                SemanticProperties.Hint="Click to log in"
+                Clicked="OnLoginClicked2"
+                HorizontalOptions="Center" />
+        </StackLayout>
+    </VerticalStackLayout>
+</ContentPage>

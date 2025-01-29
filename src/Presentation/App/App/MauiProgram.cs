@@ -1,6 +1,7 @@
 ﻿using Auth0.OidcClient;
 using CommunityToolkit.Maui;
 using LocalizationResourceManager.Maui;
+using Microsoft.Extensions.Logging;
 using ReactiveUI;
 using TaSked.Api.ApiClient;
 using TaSked.App.Application;
@@ -94,6 +95,9 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<InvintationViewModel>();
         builder.Services.AddSingleton<InvintationsPage>();
+        
+        builder.Services.AddSingleton<LoginViewModel>();
+        builder.Services.AddSingleton<LoginPage>();
 
         builder.Services.AddSingleton<SettingsViewModel>();
 		builder.Services.AddSingleton<AppShell>();
@@ -132,6 +136,7 @@ public static class MauiProgram
 
 		var app = builder.Build();
 		ServiceHelper.Initialize(app.Services);
+		//app.Services.GetService<Auth0Client>().LogoutAsync();
 		return app;
 	}
 }

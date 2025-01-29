@@ -1,4 +1,5 @@
 using TaSked.App.Common;
+using TaSked.Domain;
 
 namespace TaSked.App;
 
@@ -20,9 +21,13 @@ public partial class LoadingPage : ContentPage
         {
             await Shell.Current.GoToAsync("//UncompletedTasksPage");
         }
-        else
+        else if ((await _loginService.GetUserRoleAsync()) == GroupRole.NoGroup )
         {
             await Shell.Current.GoToAsync("//MainPage");
+        }
+        else
+        {
+	        await Shell.Current.GoToAsync("//LoginPage");
         }
         base.OnNavigatedTo(args);
     }
