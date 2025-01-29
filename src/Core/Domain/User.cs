@@ -4,12 +4,13 @@ namespace TaSked.Domain;
 
 public class User
 {
-	public Guid Id { get; private set; }
+	public Guid Id { get; init; }
 	public Guid? GroupId { get; set; }
-	public string Nickname { get; set; }
+	public string Nickname { get; set; } = null!;
 	public GroupRole Role { get; internal set; } = GroupRole.NoGroup;
 
 	private User() { }
+
 	private User(Guid id, string nickname)
 	{
 		Id = id;
@@ -37,7 +38,7 @@ public class User
 	{
 		if (Role > role)
 		{
-			throw new UserAllreadyPromotedException(this, group, role);
+			throw new UserAlreadyPromotedException(this, group, role);
 		}
 		if (GroupId is null || role == GroupRole.NoGroup)
 		{
@@ -50,7 +51,7 @@ public class User
 	{
 		if (Role < role)
 		{
-			throw new UserAllreadyDemotedException(this, group, role);
+			throw new UserAlreadyDemotedException(this, group, role);
 		}
 		if (GroupId is null || role == GroupRole.NoGroup)
 		{

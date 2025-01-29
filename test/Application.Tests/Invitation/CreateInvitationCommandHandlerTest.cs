@@ -41,7 +41,7 @@ public class CreateInvitationCommandHandlerTets
         Assert.Contains(_context
             .Groups.First(group => group.Id == _groupId)
             .Invitations
-            , invitation => invitation.Caption.Equals(invitationCaption));
+            , invitation => invitation.Caption!.Equals(invitationCaption));
     }
 
     [Fact]

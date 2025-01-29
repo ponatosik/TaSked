@@ -2,21 +2,28 @@
 
 public class Homework
 {
-	public Guid Id { get; private set; }
-	public Guid SubjectId {  get; private set; }
-	public string Title { get; set; }
-	public string Description { get; set; }
+	public Guid Id { get; init; }
+	public Guid SubjectId { get; private set; }
+	public string Title { get; set; } = null!;
+	public string Description { get; set; } = null!;
 	public DateTime? Deadline { get; set; }
 	public DateTime CreatedAt { get; private set; }
 	public string? SourceUrl {  get; set; }
 
 	private Homework() { }
-	internal Homework(Guid id, Guid subjectId, string title, string description, DateTime createdAt, DateTime? deadline = null, string? url = null)
+
+	private Homework(Guid id, string title, string description)
 	{
 		Id = id;
-		SubjectId = subjectId;
 		Title = title;
 		Description = description;
+	}
+	
+	
+	internal Homework(Guid id, Guid subjectId, string title, string description, DateTime createdAt, DateTime? deadline = null, string? url = null)
+		: this(id, title, description)
+	{
+		SubjectId = subjectId;
 		CreatedAt = createdAt;
 		Deadline = deadline;
 		SourceUrl = url;

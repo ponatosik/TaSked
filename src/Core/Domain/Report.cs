@@ -2,9 +2,9 @@
 
 public class Report
 {
-	public Guid Id { get; private set; }
-	public string Title { get; private set; }
-	public string Message { get; private set; }
+	public Guid Id { get; init; }
+	public string Title { get; private set; } = null!;
+	public string Message { get; set; } = null!;
 
 	private Report() { }
 
