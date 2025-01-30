@@ -21,6 +21,10 @@
             Title="{localization:Translate CreateGroup_Form_GroupName}"
             Margin="30,40"
             Text="{Binding GroupName}" />
+        <material:TextField
+            Title="{localization:Translate CreateGroup_Form_Nickname}"
+            Margin="30,-20"
+            Text="{Binding UserNickname}" />
         <Label
             Margin="25,50"
             FontSize="12"

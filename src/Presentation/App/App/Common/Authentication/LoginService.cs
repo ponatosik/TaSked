@@ -80,31 +80,43 @@ public class LoginService
 			await _notificationsService.SubscribeToNotifications();
 		}
 	}
-
-	public async Task Logout()
+	
+	public async Task LogoutAuth0Async()
 	{
-		try
-		{
-			if (_notificationsService is not null)
-			{
-				await _notificationsService.UnsubscribeFromNotifications();
-			}
-			if (_userCache is not null)
-			{
-				_userCache.InvalidateAll();
-				_userCache.Vacuum();
-			}
-		}
-		finally
-		{
-			_tokenStore.AccessToken = null;
-			Microsoft.Maui.Controls.Application.Current?.Quit();
-		}
+		await _auth0Client.LogoutAsync();
 	}
 
-	public async Task<GroupRole> GetUserRoleAsync()
+	public async Task ClearSessionAsync()
 	{
+		if (_notificationsService is not null)
+		{
+			await _notificationsService.UnsubscribeFromNotifications();
+		}
+		_tokenStore.AccessToken = null;
+		if (_userCache is not null)
+		{
+			_userCache.InvalidateAll();
+			_userCache.Vacuum();
+		}
+		await Shell.Current.GoToAsync("//LoginPage");
+	}
+
+	public async Task<GroupRole?> GetUserRoleAsync()
+	{
+		if (!HasAccessToken())
+		{
+			return null;
+		}
 		return (await _usersService.CurrentUser()).Role;
+	}
+	
+	public async Task<string?> GetUserNicknameAsync()
+	{
+		if (!HasAccessToken())
+		{
+			return null;
+		}
+		return (await _usersService.CurrentUser()).Nickname;
 	}
 
 	public Task<bool> HasGroupAsync()
