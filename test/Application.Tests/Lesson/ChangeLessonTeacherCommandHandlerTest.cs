@@ -5,17 +5,17 @@ using TaSked.Domain;
 
 namespace Application.LessonTests;
 
-[Collection("Persistance tests")]
-public class ChangeLessonTeacherCommandHadlerTest
+[Collection("Database tests")]
+public class ChangeLessonTeacherCommandHandlerTest
 {
     private readonly IApplicationDbContext _context;
     private readonly ChangeSubjectTeacherCommandHandler _handler;
 
     private readonly Guid _userId, _groupId, _subjectId;
 
-    public ChangeLessonTeacherCommandHadlerTest(PersistanceFixture persistanceFixture)
+    public ChangeLessonTeacherCommandHandlerTest(DbTestFixture dbTestFixture)
     {
-        _context = persistanceFixture.GetDbContext();
+        _context = dbTestFixture.GetDbContext();
         _handler = new ChangeSubjectTeacherCommandHandler(_context);
 
         User user = User.Create("Test user");
@@ -29,7 +29,7 @@ public class ChangeLessonTeacherCommandHadlerTest
 
         _context.Users.Add(user);
         _context.Groups.Add(group);
-        _context.SaveChangesAsync(new CancellationToken()).Wait();
+        _context.SaveChangesAsync(CancellationToken.None).Wait();
     }
 
     [Fact]
@@ -38,7 +38,7 @@ public class ChangeLessonTeacherCommandHadlerTest
         var newTeacher = Teacher.Create("updated", "updated", "updated", "updated", "updated");
         var command = new ChangeSubjectTeacherCommand(_userId, _subjectId, newTeacher);
 
-        await _handler.Handle(command, new CancellationToken());
+        await _handler.Handle(command, CancellationToken.None);
 
         Assert.Equal(newTeacher,
             _context

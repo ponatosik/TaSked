@@ -6,7 +6,7 @@ using TaSked.Domain;
 
 namespace Application.ReportTests;
 
-[Collection("Persistance tests")]
+[Collection("Database tests")]
 public class GetAllReportsQueryHandlerTest
 {
     private readonly IApplicationDbContext _context;
@@ -15,9 +15,9 @@ public class GetAllReportsQueryHandlerTest
     private readonly Guid _userId;
     private readonly List<Report> _reports = new List<Report>();
 
-    public GetAllReportsQueryHandlerTest(PersistanceFixture persistanceFixture)
+    public GetAllReportsQueryHandlerTest(DbTestFixture dbTestFixture)
     {
-        _context = persistanceFixture.GetDbContext();
+        _context = dbTestFixture.GetDbContext();
         _handler = new GetAllReportHandler(_context);
 
         User user = User.Create("Test user");
@@ -31,7 +31,7 @@ public class GetAllReportsQueryHandlerTest
 
         _context.Users.Add(user);
         _context.Groups.Add(group);
-        _context.SaveChangesAsync(new CancellationToken()).Wait();
+        _context.SaveChangesAsync(CancellationToken.None).Wait();
     }
 
     [Fact]
@@ -39,7 +39,7 @@ public class GetAllReportsQueryHandlerTest
     {
         var request = new GetAllReportQuery(_userId);
 
-        var result = await _handler.Handle(request, new CancellationToken());
+        var result = await _handler.Handle(request, CancellationToken.None);
 
         Assert.Equal(_reports.Count, result.Count);
         Assert.Collection(result.OrderBy(r => r.Title),

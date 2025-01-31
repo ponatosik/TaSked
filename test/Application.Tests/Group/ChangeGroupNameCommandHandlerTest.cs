@@ -5,17 +5,17 @@ using TaSked.Domain;
 
 namespace Application.GroupTests;
 
-[Collection("Persistance tests")]
-public class ChangeGroupNameCommandHadlerTest
+[Collection("Database tests")]
+public class ChangeGroupNameCommandHandlerTest
 {
     private readonly IApplicationDbContext _context;
     private readonly ChangeGroupNameCommandHandler _handler;
 
     private readonly Guid _userId, _groupId;
 
-    public ChangeGroupNameCommandHadlerTest(PersistanceFixture persistanceFixture)
+    public ChangeGroupNameCommandHandlerTest(DbTestFixture dbTestFixture)
     {
-        _context = persistanceFixture.GetDbContext();
+        _context = dbTestFixture.GetDbContext();
         _handler = new ChangeGroupNameCommandHandler(_context);
 
         User user = User.Create("Test user");
@@ -26,7 +26,7 @@ public class ChangeGroupNameCommandHadlerTest
 
         _context.Users.Add(user);
         _context.Groups.Add(group);
-        _context.SaveChangesAsync(new CancellationToken()).Wait();
+        _context.SaveChangesAsync(CancellationToken.None).Wait();
     }
 
     [Fact]
@@ -35,7 +35,7 @@ public class ChangeGroupNameCommandHadlerTest
         var newName = "updated";
         var command = new ChangeGroupNameCommand(_userId, newName);
 
-        await _handler.Handle(command, new CancellationToken());
+        await _handler.Handle(command, CancellationToken.None);
 
         Assert.Equal(newName,
             _context

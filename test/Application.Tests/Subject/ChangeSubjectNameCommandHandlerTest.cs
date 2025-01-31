@@ -5,17 +5,17 @@ using TaSked.Domain;
 
 namespace Application.SubjectTests;
 
-[Collection("Persistance tests")]
-public class ChangeSubjectNameCommandHadlerTest
+[Collection("Database tests")]
+public class ChangeSubjectNameCommandHandlerTest
 {
     private readonly IApplicationDbContext _context;
     private readonly ChangeSubjectNameCommandHandler _handler;
 
     private readonly Guid _userId, _groupId, _subjectId;
 
-    public ChangeSubjectNameCommandHadlerTest(PersistanceFixture persistanceFixture)
+    public ChangeSubjectNameCommandHandlerTest(DbTestFixture dbTestFixture)
     {
-        _context = persistanceFixture.GetDbContext();
+        _context = dbTestFixture.GetDbContext();
         _handler = new ChangeSubjectNameCommandHandler(_context);
 
         User user = User.Create("Test user");
@@ -28,7 +28,7 @@ public class ChangeSubjectNameCommandHadlerTest
 
         _context.Users.Add(user);
         _context.Groups.Add(group);
-        _context.SaveChangesAsync(new CancellationToken()).Wait();
+        _context.SaveChangesAsync(CancellationToken.None).Wait();
     }
 
     [Fact]
@@ -37,7 +37,7 @@ public class ChangeSubjectNameCommandHadlerTest
         var newSubjectName = "Updated subject name";
         var command = new ChangeSubjectNameCommand(_userId, _subjectId, newSubjectName);
 
-        await _handler.Handle(command, new CancellationToken());
+        await _handler.Handle(command, CancellationToken.None);
 
         Assert.Equal(newSubjectName,
             _context

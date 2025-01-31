@@ -6,7 +6,7 @@ using TaSked.Domain;
 
 namespace Application.MemberTests;
 
-[Collection("Persistance tests")]
+[Collection("Database tests")]
 public class GetGroupMembersHandlerTest
 {
     private readonly IApplicationDbContext _context;
@@ -15,9 +15,9 @@ public class GetGroupMembersHandlerTest
     private readonly Guid _userId, _groupId;
     private readonly List<User> _users = new List<User>();
 
-    public GetGroupMembersHandlerTest(PersistanceFixture persistanceFixture)
+    public GetGroupMembersHandlerTest(DbTestFixture dbTestFixture)
     {
-        _context = persistanceFixture.GetDbContext();
+        _context = dbTestFixture.GetDbContext();
         _handler = new GetGroupMembersHandler(_context);
 
         User user = User.Create("Test user");
@@ -35,7 +35,7 @@ public class GetGroupMembersHandlerTest
 
         _context.Users.Add(user);
         _context.Groups.Add(group);
-        _context.SaveChangesAsync(new CancellationToken()).Wait();
+        _context.SaveChangesAsync(CancellationToken.None).Wait();
     }
 
     [Fact]
@@ -43,7 +43,7 @@ public class GetGroupMembersHandlerTest
     {
         var request = new GetGroupMembersQuery(_userId, _groupId);
 
-        var result = await _handler.Handle(request, new CancellationToken());
+        var result = await _handler.Handle(request, CancellationToken.None);
 
         Assert.Equal(_users.Count, result.Count);
         Assert.Contains(result, member => member.Id == _users[0].Id);

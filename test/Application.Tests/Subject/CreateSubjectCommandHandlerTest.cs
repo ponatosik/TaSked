@@ -6,7 +6,7 @@ using TaSked.Domain;
 
 namespace Application.SubjectTests;
 
-[Collection("Persistance tests")]
+[Collection("Database tests")]
 public class CreateSubjectCommandHandlerTest
 {
     private readonly IApplicationDbContext _context;
@@ -14,9 +14,9 @@ public class CreateSubjectCommandHandlerTest
 
     private readonly Guid _userId, _groupId;
 
-    public CreateSubjectCommandHandlerTest(PersistanceFixture persistanceFixture)
+    public CreateSubjectCommandHandlerTest(DbTestFixture dbTestFixture)
     {
-        _context = persistanceFixture.GetDbContext();
+        _context = dbTestFixture.GetDbContext();
         _handler = new CreateSubjectCommandHandler(_context);
 
         User user = User.Create("Test user");
@@ -26,7 +26,7 @@ public class CreateSubjectCommandHandlerTest
 
         _context.Users.Add(user);
         _context.Groups.Add(group);
-        _context.SaveChangesAsync(new CancellationToken()).Wait();
+        _context.SaveChangesAsync(CancellationToken.None).Wait();
     }
 
     [Fact]
@@ -35,7 +35,7 @@ public class CreateSubjectCommandHandlerTest
         var subjectName = "Test subject";
         var command = new CreateSubjectCommand(_userId, subjectName);
 
-        await _handler.Handle(command, new CancellationToken());
+        await _handler.Handle(command, CancellationToken.None);
 
         Assert.Contains(_context.Groups.First(g => g.Id == _groupId).Subjects, subj => subj.Name == subjectName);
     }
@@ -46,7 +46,7 @@ public class CreateSubjectCommandHandlerTest
         var subjectName = "Test subject";
         var command = new CreateSubjectCommand(_userId, subjectName);
 
-        var result = await _handler.Handle(command, new CancellationToken());
+        var result = await _handler.Handle(command, CancellationToken.None);
 
         Assert.True(result is not null);
         Assert.Equal(subjectName, result.Name);

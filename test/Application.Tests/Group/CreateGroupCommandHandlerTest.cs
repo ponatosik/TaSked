@@ -6,7 +6,7 @@ using TaSked.Domain;
 
 namespace Application.GroupTests;
 
-[Collection("Persistance tests")]
+[Collection("Database tests")]
 public class CreateGroupCommandHandlerTest
 {
     private readonly IApplicationDbContext _context;
@@ -14,16 +14,16 @@ public class CreateGroupCommandHandlerTest
 
     private readonly Guid _userId;
 
-    public CreateGroupCommandHandlerTest(PersistanceFixture persistanceFixture)
+    public CreateGroupCommandHandlerTest(DbTestFixture dbTestFixture)
     {
-        _context = persistanceFixture.GetDbContext();
+        _context = dbTestFixture.GetDbContext();
         _handler = new CreateGroupCommandHandler(_context);
 
         User user = User.Create("Test user");
         _userId = user.Id;
 
         _context.Users.Add(user);
-        _context.SaveChangesAsync(new CancellationToken()).Wait();
+        _context.SaveChangesAsync(CancellationToken.None).Wait();
     }
 
     [Fact]
@@ -32,7 +32,7 @@ public class CreateGroupCommandHandlerTest
         var groupName = "Test group";
         var command = new CreateGroupCommand(_userId, groupName);
 
-        await _handler.Handle(command, new CancellationToken());
+        await _handler.Handle(command, CancellationToken.None);
 
         Assert.Contains(_context.Groups, group => group.Name == groupName);
     }
@@ -43,7 +43,7 @@ public class CreateGroupCommandHandlerTest
         var groupName = "Test group";
         var command = new CreateGroupCommand(_userId, groupName);
 
-        var result = await _handler.Handle(command, new CancellationToken());
+        var result = await _handler.Handle(command, CancellationToken.None);
 
         Assert.True(result is not null);
         Assert.Equal(groupName, result.Name);
@@ -54,7 +54,7 @@ public class CreateGroupCommandHandlerTest
     {
         var command = new CreateGroupCommand(_userId, "Test group");
 
-        await _handler.Handle(command, new CancellationToken());
+        await _handler.Handle(command, CancellationToken.None);
 
         Assert.Equal(_context.Users.First(u => u.Id == _userId).Role, GroupRole.Admin);
     }
@@ -64,7 +64,7 @@ public class CreateGroupCommandHandlerTest
     {
         var command = new CreateGroupCommand(_userId, "Test group");
 
-        var group = await _handler.Handle(command, new CancellationToken());
+        var group = await _handler.Handle(command, CancellationToken.None);
 
         Assert.Equal(_context.Users.First(u => u.Id == _userId).GroupId, group.Id);
     }

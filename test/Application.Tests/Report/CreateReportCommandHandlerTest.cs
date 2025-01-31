@@ -6,7 +6,7 @@ using TaSked.Domain;
 
 namespace Application.ReportTests;
 
-[Collection("Persistance tests")]
+[Collection("Database tests")]
 public class CreateReportCommandHandlerTest
 {
     private readonly IApplicationDbContext _context;
@@ -14,9 +14,9 @@ public class CreateReportCommandHandlerTest
 
     private readonly Guid _userId, _groupId;
 
-    public CreateReportCommandHandlerTest(PersistanceFixture persistanceFixture)
+    public CreateReportCommandHandlerTest(DbTestFixture dbTestFixture)
     {
-        _context = persistanceFixture.GetDbContext();
+        _context = dbTestFixture.GetDbContext();
         _handler = new CreateReportCommandHandler(_context);
 
         User user = User.Create("Test user");
@@ -26,7 +26,7 @@ public class CreateReportCommandHandlerTest
 
         _context.Users.Add(user);
         _context.Groups.Add(group);
-        _context.SaveChangesAsync(new CancellationToken()).Wait();
+        _context.SaveChangesAsync(CancellationToken.None).Wait();
     }
 
     [Fact]
@@ -36,7 +36,7 @@ public class CreateReportCommandHandlerTest
         var reportMessage = "Test message";
         var command = new CreateReportCommand(_userId, reportTitle, reportMessage);
 
-        await _handler.Handle(command, new CancellationToken());
+        await _handler.Handle(command, CancellationToken.None);
 
         Assert.Contains(_context.Groups.First(g => g.Id == _groupId).Reports
             , report => report.Title == reportTitle && report.Message == reportMessage);
@@ -49,7 +49,7 @@ public class CreateReportCommandHandlerTest
         var reportMessage = "Test message";
         var command = new CreateReportCommand(_userId, reportTitle, reportMessage);
 
-        var result = await _handler.Handle(command, new CancellationToken());
+        var result = await _handler.Handle(command, CancellationToken.None);
 
         Assert.True(result is not null);
         Assert.Equal(reportTitle, result.Title);

@@ -6,7 +6,7 @@ using TaSked.Domain;
 
 namespace Application.HomeworkTests;
 
-[Collection("Persistance tests")]
+[Collection("Database tests")]
 public class CreateHomeworkCommandHandlerTest
 {
     private readonly IApplicationDbContext _context;
@@ -14,9 +14,9 @@ public class CreateHomeworkCommandHandlerTest
 
     private readonly Guid _userId, _groupId, _subjectId;
 
-    public CreateHomeworkCommandHandlerTest(PersistanceFixture persistanceFixture)
+    public CreateHomeworkCommandHandlerTest(DbTestFixture dbTestFixture)
     {
-        _context = persistanceFixture.GetDbContext();
+        _context = dbTestFixture.GetDbContext();
         _handler = new CreateHomeworkCommandHandler(_context);
 
         User user = User.Create("Test user");
@@ -29,7 +29,7 @@ public class CreateHomeworkCommandHandlerTest
 
         _context.Users.Add(user);
         _context.Groups.Add(group);
-        _context.SaveChangesAsync(new CancellationToken()).Wait();
+        _context.SaveChangesAsync(CancellationToken.None).Wait();
     }
 
     [Fact]
@@ -39,7 +39,7 @@ public class CreateHomeworkCommandHandlerTest
         var homeworkDescription = "Test description";
         var command = new CreateHomeworkCommand(_userId, _subjectId, homeworkTitle, homeworkDescription);
 
-        await _handler.Handle(command, new CancellationToken());
+        await _handler.Handle(command, CancellationToken.None);
 
         Assert.Contains(_context
             .Groups.First(group => group.Id == _groupId)
@@ -55,7 +55,7 @@ public class CreateHomeworkCommandHandlerTest
         var homeworkDescription = "Test description";
         var command = new CreateHomeworkCommand(_userId, _subjectId, homeworkTitle, homeworkDescription);
 
-        var result = await _handler.Handle(command, new CancellationToken());
+        var result = await _handler.Handle(command, CancellationToken.None);
 
         Assert.True(result is not null);
         Assert.Equal(homeworkTitle, result.Title);

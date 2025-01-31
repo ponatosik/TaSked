@@ -5,17 +5,17 @@ using TaSked.Domain;
 
 namespace Application.HomeworkTests;
 
-[Collection("Persistance tests")]
-public class ChangeHomeworkTitleCommandHadlerTest
+[Collection("Database tests")]
+public class ChangeHomeworkTitleCommandHandlerTest
 {
     private readonly IApplicationDbContext _context;
     private readonly ChangeHomeworkTitleCommandHandler _handler;
 
     private readonly Guid _userId, _groupId, _subjectId, _homeworkId;
 
-    public ChangeHomeworkTitleCommandHadlerTest(PersistanceFixture persistanceFixture)
+    public ChangeHomeworkTitleCommandHandlerTest(DbTestFixture dbTestFixture)
     {
-        _context = persistanceFixture.GetDbContext();
+        _context = dbTestFixture.GetDbContext();
         _handler = new ChangeHomeworkTitleCommandHandler(_context);
 
         User user = User.Create("Test user");
@@ -30,7 +30,7 @@ public class ChangeHomeworkTitleCommandHadlerTest
 
         _context.Users.Add(user);
         _context.Groups.Add(group);
-        _context.SaveChangesAsync(new CancellationToken()).Wait();
+        _context.SaveChangesAsync(CancellationToken.None).Wait();
     }
 
     [Fact]
@@ -39,7 +39,7 @@ public class ChangeHomeworkTitleCommandHadlerTest
         var newTitle = "new title";
         var command = new ChangeHomeworkTitleCommand(_userId, _subjectId, _homeworkId, newTitle);
 
-        await _handler.Handle(command, new CancellationToken());
+        await _handler.Handle(command, CancellationToken.None);
 
         Assert.Equal(newTitle,
             _context

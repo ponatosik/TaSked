@@ -5,7 +5,7 @@ using TaSked.Domain;
 
 namespace Application.LessonTests;
 
-[Collection("Persistance tests")]
+[Collection("Database tests")]
 public class ChangeLessonTimeCommandHandlerTest
 {
     private readonly IApplicationDbContext _context;
@@ -13,9 +13,9 @@ public class ChangeLessonTimeCommandHandlerTest
 
     private readonly Guid _userId, _groupId, _subjectId, _lessonId;
 
-    public ChangeLessonTimeCommandHandlerTest(PersistanceFixture persistanceFixture)
+    public ChangeLessonTimeCommandHandlerTest(DbTestFixture dbTestFixture)
     {
-        _context = persistanceFixture.GetDbContext();
+        _context = dbTestFixture.GetDbContext();
         _handler = new ChangeLessonTimeCommandHandler(_context);
 
         User user = User.Create("Test user");
@@ -30,7 +30,7 @@ public class ChangeLessonTimeCommandHandlerTest
 
         _context.Users.Add(user);
         _context.Groups.Add(group);
-        _context.SaveChangesAsync(new CancellationToken()).Wait();
+        _context.SaveChangesAsync(CancellationToken.None).Wait();
     }
 
     [Fact]
@@ -39,7 +39,7 @@ public class ChangeLessonTimeCommandHandlerTest
         var newTime = DateTime.Parse("2012-02-20 14:30");
         var command = new ChangeLessonTimeCommand(_userId, _subjectId, _lessonId, newTime);
 
-        await _handler.Handle(command, new CancellationToken());
+        await _handler.Handle(command, CancellationToken.None);
 
         Assert.Equal(newTime,
             _context

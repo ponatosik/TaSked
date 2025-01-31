@@ -5,17 +5,17 @@ using TaSked.Domain;
 
 namespace Application.HomeworkTests;
 
-[Collection("Persistance tests")]
-public class ChangeHomeworkRelatedLinksCommandHadlerTest
+[Collection("Database tests")]
+public class ChangeHomeworkRelatedLinksCommandHandlerTest
 {
 	private readonly IApplicationDbContext _context;
 	private readonly ChangeHomeworkRelatedLinksCommandHandler _handler;
 
 	private readonly Guid _userId, _groupId, _subjectId, _homeworkId;
 
-	public ChangeHomeworkRelatedLinksCommandHadlerTest(PersistanceFixture persistanceFixture)
+	public ChangeHomeworkRelatedLinksCommandHandlerTest(DbTestFixture dbTestFixture)
 	{
-		_context = persistanceFixture.GetDbContext();
+		_context = dbTestFixture.GetDbContext();
 		_handler = new ChangeHomeworkRelatedLinksCommandHandler(_context);
 
 		var user = User.Create("Test user");
@@ -35,7 +35,7 @@ public class ChangeHomeworkRelatedLinksCommandHadlerTest
 
 		_context.Users.Add(user);
 		_context.Groups.Add(group);
-		_context.SaveChangesAsync(new CancellationToken()).Wait();
+		_context.SaveChangesAsync(CancellationToken.None).Wait();
 	}
 
 	[Fact]
@@ -48,7 +48,7 @@ public class ChangeHomeworkRelatedLinksCommandHadlerTest
 		];
 		var command = new ChangeHomeworkRelatedLinksCommand(_userId, _subjectId, _homeworkId, newLinks);
 
-		await _handler.Handle(command, new CancellationToken());
+		await _handler.Handle(command, CancellationToken.None);
 
 		Assert.Equal(newLinks,
 			_context

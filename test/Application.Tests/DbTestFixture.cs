@@ -5,7 +5,7 @@ namespace Application.Tests;
 
 // A class to share context between tests.
 // About Xunit Fixtures: https://xunit.net/docs/shared-context#collection-fixture
-public class PersistanceFixture : IDisposable
+public class DbTestFixture : IDisposable
 {
 	private ApplicationDbContext _dbContext;
 	public ApplicationDbContext GetDbContext()
@@ -14,7 +14,7 @@ public class PersistanceFixture : IDisposable
 		return _dbContext;
 	}
 
-	public PersistanceFixture()
+	public DbTestFixture()
 	{
 		var options = new DbContextOptionsBuilder<ApplicationDbContext>()
 			.UseSqlite("DataSource=file::memory:?cache=shared")
@@ -29,5 +29,5 @@ public class PersistanceFixture : IDisposable
 	}
 }
 
-[CollectionDefinition("Persistance tests")]
-public class PersistanceTestsCollection : ICollectionFixture<PersistanceFixture>;
+[CollectionDefinition("Database tests")]
+public class DatabaseTestsCollection : ICollectionFixture<DbTestFixture>;

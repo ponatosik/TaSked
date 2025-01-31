@@ -6,17 +6,17 @@ using TaSked.Domain;
 
 namespace Application.HomeworkTests;
 
-[Collection("Persistance tests")]
-public class DeleteHomeworkCommandHadlerTest
+[Collection("Database tests")]
+public class DeleteHomeworkCommandHandlerTest
 {
     private readonly IApplicationDbContext _context;
     private readonly DeleteHomeworkCommandHandler _handler;
 
     private readonly Guid _userId, _groupId, _subjectId, _homeworkId;
 
-    public DeleteHomeworkCommandHadlerTest(PersistanceFixture persistanceFixture)
+    public DeleteHomeworkCommandHandlerTest(DbTestFixture dbTestFixture)
     {
-        _context = persistanceFixture.GetDbContext();
+        _context = dbTestFixture.GetDbContext();
         _handler = new DeleteHomeworkCommandHandler(_context);
 
         User user = User.Create("Test user");
@@ -31,7 +31,7 @@ public class DeleteHomeworkCommandHadlerTest
 
         _context.Users.Add(user);
         _context.Groups.Add(group);
-        _context.SaveChangesAsync(new CancellationToken()).Wait();
+        _context.SaveChangesAsync(CancellationToken.None).Wait();
     }
 
     [Fact]
@@ -39,7 +39,7 @@ public class DeleteHomeworkCommandHadlerTest
     {
         var command = new DeleteHomeworkCommand(_userId, _subjectId, _homeworkId);
 
-        await _handler.Handle(command, new CancellationToken());
+        await _handler.Handle(command, CancellationToken.None);
 
         Assert.DoesNotContain(_context
             .Groups.First(group => group.Id == _groupId)

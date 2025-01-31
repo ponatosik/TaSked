@@ -5,7 +5,7 @@ using TaSked.Domain;
 
 namespace Application.InvitationTests;
 
-[Collection("Persistance tests")]
+[Collection("Database tests")]
 public class GetInvitationInfoQueryHandlerTest
 {
     private readonly IApplicationDbContext _context;
@@ -13,9 +13,9 @@ public class GetInvitationInfoQueryHandlerTest
 
     private readonly Guid _userId, _groupId;
 
-    public GetInvitationInfoQueryHandlerTest(PersistanceFixture persistanceFixture)
+    public GetInvitationInfoQueryHandlerTest(DbTestFixture dbTestFixture)
     {
-        _context = persistanceFixture.GetDbContext();
+        _context = dbTestFixture.GetDbContext();
         _handler = new GetInvitationInfoHandler(_context);
 
         User user = User.Create("Test user");
@@ -26,7 +26,7 @@ public class GetInvitationInfoQueryHandlerTest
 
         _context.Users.Add(user);
         _context.Groups.Add(group);
-        _context.SaveChangesAsync(new CancellationToken()).Wait();
+        _context.SaveChangesAsync(CancellationToken.None).Wait();
     }
 
     [Fact]
@@ -34,10 +34,10 @@ public class GetInvitationInfoQueryHandlerTest
     {
         var invitationCaption = "Test invitation";
         var id = _context.Groups.First(group => group.Id == _groupId).CreateInvitation(invitationCaption).Id;
-        await _context.SaveChangesAsync(new CancellationToken());
+        await _context.SaveChangesAsync(CancellationToken.None);
         var query = new GetInvitationInfoQuery(id);
 
-        var result = await _handler.Handle(query, new CancellationToken());
+        var result = await _handler.Handle(query, CancellationToken.None);
 
         Assert.Equal(invitationCaption, result.Caption);
     }

@@ -5,7 +5,7 @@ using TaSked.Domain;
 
 namespace Application.InvitationTests;
 
-[Collection("Persistance tests")]
+[Collection("Database tests")]
 public class ActivateInvitationCommandHandlerTest
 {
     private readonly IApplicationDbContext _context;
@@ -13,9 +13,9 @@ public class ActivateInvitationCommandHandlerTest
 
     private Guid _userId, _groupId, _inviationId;
 
-    public ActivateInvitationCommandHandlerTest(PersistanceFixture persistanceFixture)
+    public ActivateInvitationCommandHandlerTest(DbTestFixture dbTestFixture)
     {
-        _context = persistanceFixture.GetDbContext();
+        _context = dbTestFixture.GetDbContext();
         _handler = new ActivateInvitationCommandHandler(_context);
 
         var groupAdmin = User.Create("Test admin");
@@ -30,7 +30,7 @@ public class ActivateInvitationCommandHandlerTest
 
         _context.Users.Add(user);
         _context.Groups.Add(group);
-        _context.SaveChangesAsync(new CancellationToken()).Wait();
+        _context.SaveChangesAsync(CancellationToken.None).Wait();
     }
 
     [Fact]
@@ -38,7 +38,7 @@ public class ActivateInvitationCommandHandlerTest
     {
         var command = new ActivateInvitationCommand(_userId, _inviationId, _groupId);
 
-        await _handler.Handle(command, new CancellationToken());
+        await _handler.Handle(command, CancellationToken.None);
 
         Assert.Contains(_context.Groups.First(g => g.Id == _groupId).Members, user => user.Id == _userId);
     }

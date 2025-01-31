@@ -5,7 +5,7 @@ using TaSked.Domain;
 
 namespace Application.LessonTests;
 
-[Collection("Persistance tests")]
+[Collection("Database tests")]
 public class ChangeLessonRelatedLinksCommandHandlerTest
 {
     private readonly IApplicationDbContext _context;
@@ -13,9 +13,9 @@ public class ChangeLessonRelatedLinksCommandHandlerTest
 
     private readonly Guid _userId, _groupId, _subjectId, _lessonId;
 
-    public ChangeLessonRelatedLinksCommandHandlerTest(PersistanceFixture persistanceFixture)
+    public ChangeLessonRelatedLinksCommandHandlerTest(DbTestFixture dbTestFixture)
     {
-        _context = persistanceFixture.GetDbContext();
+        _context = dbTestFixture.GetDbContext();
         _handler = new ChangeLessonLinkCommandHandler(_context);
 
         User user = User.Create("Test user");
@@ -30,7 +30,7 @@ public class ChangeLessonRelatedLinksCommandHandlerTest
 
         _context.Users.Add(user);
         _context.Groups.Add(group);
-        _context.SaveChangesAsync(new CancellationToken()).Wait();
+        _context.SaveChangesAsync(CancellationToken.None).Wait();
     }
 
     [Fact]
@@ -39,7 +39,7 @@ public class ChangeLessonRelatedLinksCommandHandlerTest
 	    var newLink = RelatedLink.Create(new Uri("http://zoom.com/test"), "Zoom lecture");
 	    var command = new ChangeLessonLinkCommand(_userId, _subjectId, _lessonId, newLink);
 
-        await _handler.Handle(command, new CancellationToken());
+        await _handler.Handle(command, CancellationToken.None);
 
         Assert.Equal(newLink,
             _context

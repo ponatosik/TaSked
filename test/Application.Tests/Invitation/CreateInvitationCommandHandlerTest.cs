@@ -6,7 +6,7 @@ using TaSked.Domain;
 
 namespace Application.InvitationTests;
 
-[Collection("Persistance tests")]
+[Collection("Database tests")]
 public class CreateInvitationCommandHandlerTets
 {
     private readonly IApplicationDbContext _context;
@@ -14,9 +14,9 @@ public class CreateInvitationCommandHandlerTets
 
     private readonly Guid _userId, _groupId;
 
-    public CreateInvitationCommandHandlerTets(PersistanceFixture persistanceFixture)
+    public CreateInvitationCommandHandlerTets(DbTestFixture dbTestFixture)
     {
-        _context = persistanceFixture.GetDbContext();
+        _context = dbTestFixture.GetDbContext();
         _handler = new CreateInvitationCommandHandler(_context);
 
         User user = User.Create("Test user");
@@ -27,7 +27,7 @@ public class CreateInvitationCommandHandlerTets
 
         _context.Users.Add(user);
         _context.Groups.Add(group);
-        _context.SaveChangesAsync(new CancellationToken()).Wait();
+        _context.SaveChangesAsync(CancellationToken.None).Wait();
     }
 
     [Fact]
@@ -36,7 +36,7 @@ public class CreateInvitationCommandHandlerTets
         var invitationCaption = "Test invitation";
         var command = new CreateInvitationCommand(_userId, invitationCaption);
 
-        await _handler.Handle(command, new CancellationToken());
+        await _handler.Handle(command, CancellationToken.None);
 
         Assert.Contains(_context
             .Groups.First(group => group.Id == _groupId)
@@ -50,7 +50,7 @@ public class CreateInvitationCommandHandlerTets
         var invitationCaption = "Test invitation";
         var command = new CreateInvitationCommand(_userId, invitationCaption);
 
-        var result = await _handler.Handle(command, new CancellationToken());
+        var result = await _handler.Handle(command, CancellationToken.None);
 
         Assert.True(result is not null);
         Assert.Equal(invitationCaption, result.Caption);

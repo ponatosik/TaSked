@@ -5,7 +5,7 @@ using TaSked.Domain;
 
 namespace Application.SubjectTests;
 
-[Collection("Persistance tests")]
+[Collection("Database tests")]
 public class ChangeSubjectRelatedLinksCommandHandlerTest
 {
 	private readonly IApplicationDbContext _context;
@@ -13,9 +13,9 @@ public class ChangeSubjectRelatedLinksCommandHandlerTest
 
 	private readonly Guid _userId, _groupId, _subjectId;
 
-	public ChangeSubjectRelatedLinksCommandHandlerTest(PersistanceFixture persistanceFixture)
+	public ChangeSubjectRelatedLinksCommandHandlerTest(DbTestFixture dbTestFixture)
 	{
-		_context = persistanceFixture.GetDbContext();
+		_context = dbTestFixture.GetDbContext();
 		_handler = new ChangeSubjectLinksCommandHandler(_context);
 
 		var user = User.Create("Test user");
@@ -28,7 +28,7 @@ public class ChangeSubjectRelatedLinksCommandHandlerTest
 
 		_context.Users.Add(user);
 		_context.Groups.Add(group);
-		_context.SaveChangesAsync(new CancellationToken()).Wait();
+		_context.SaveChangesAsync(CancellationToken.None).Wait();
 	}
 
 	[Fact]
@@ -42,7 +42,7 @@ public class ChangeSubjectRelatedLinksCommandHandlerTest
 
 		var command = new ChangeSubjectRelatedLinksCommand(_userId, _subjectId, newSubjectRelatedLinks);
 
-		await _handler.Handle(command, new CancellationToken());
+		await _handler.Handle(command, CancellationToken.None);
 
 		Assert.Equal(newSubjectRelatedLinks,
 			_context

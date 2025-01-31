@@ -5,17 +5,17 @@ using TaSked.Domain;
 
 namespace Application.SubjectTests;
 
-[Collection("Persistance tests")]
-public class DeleteSubjectCommandHadlerTest
+[Collection("Database tests")]
+public class DeleteSubjectCommandHandlerTest
 {
     private readonly IApplicationDbContext _context;
     private readonly DeleteSubjectCommandHandler _handler;
 
     private readonly Guid _userId, _groupId, _subjectId;
 
-    public DeleteSubjectCommandHadlerTest(PersistanceFixture persistanceFixture)
+    public DeleteSubjectCommandHandlerTest(DbTestFixture dbTestFixture)
     {
-        _context = persistanceFixture.GetDbContext();
+        _context = dbTestFixture.GetDbContext();
         _handler = new DeleteSubjectCommandHandler(_context);
 
         User user = User.Create("Test user");
@@ -28,7 +28,7 @@ public class DeleteSubjectCommandHadlerTest
 
         _context.Users.Add(user);
         _context.Groups.Add(group);
-        _context.SaveChangesAsync(new CancellationToken()).Wait();
+        _context.SaveChangesAsync(CancellationToken.None).Wait();
     }
 
     [Fact]
@@ -36,7 +36,7 @@ public class DeleteSubjectCommandHadlerTest
     {
         var command = new DeleteSubjectCommand(_userId, _subjectId);
 
-        await _handler.Handle(command, new CancellationToken());
+        await _handler.Handle(command, CancellationToken.None);
 
         Assert.DoesNotContain(_context
             .Groups.First(group => group.Id == _groupId)

@@ -6,7 +6,7 @@ using TaSked.Domain;
 
 namespace Application.HomeworkTests;
 
-[Collection("Persistance tests")]
+[Collection("Database tests")]
 public class GetAllHomeworkQueryHandlerTest
 {
     private readonly IApplicationDbContext _context;
@@ -15,9 +15,9 @@ public class GetAllHomeworkQueryHandlerTest
     private readonly Guid _userId;
     private readonly List<Homework> _homeworks = new List<Homework>();
 
-    public GetAllHomeworkQueryHandlerTest(PersistanceFixture persistanceFixture)
+    public GetAllHomeworkQueryHandlerTest(DbTestFixture dbTestFixture)
     {
-        _context = persistanceFixture.GetDbContext();
+        _context = dbTestFixture.GetDbContext();
         _handler = new GetAllHomeworkHandler(_context);
 
         User user = User.Create("Test user");
@@ -33,7 +33,7 @@ public class GetAllHomeworkQueryHandlerTest
 
         _context.Users.Add(user);
         _context.Groups.Add(group);
-        _context.SaveChangesAsync(new CancellationToken()).Wait();
+        _context.SaveChangesAsync(CancellationToken.None).Wait();
     }
 
     [Fact]
@@ -41,7 +41,7 @@ public class GetAllHomeworkQueryHandlerTest
     {
         var request = new GetAllHomeworkQuery(_userId);
 
-        var result = await _handler.Handle(request, new CancellationToken());
+        var result = await _handler.Handle(request, CancellationToken.None);
 
         Assert.Equal(_homeworks.Count, result.Count);
         Assert.Contains(result, homework => homework.Id == _homeworks[0].Id);

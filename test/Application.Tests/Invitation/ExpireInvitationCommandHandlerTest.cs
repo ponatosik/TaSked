@@ -5,7 +5,7 @@ using TaSked.Domain;
 
 namespace Application.InvitationTests;
 
-[Collection("Persistance tests")]
+[Collection("Database tests")]
 public class ExpireInvitationCommandHandlerTest
 {
     private readonly IApplicationDbContext _context;
@@ -13,9 +13,9 @@ public class ExpireInvitationCommandHandlerTest
 
     private Guid _groupId, _inviationId, _userId;
 
-    public ExpireInvitationCommandHandlerTest(PersistanceFixture persistanceFixture)
+    public ExpireInvitationCommandHandlerTest(DbTestFixture dbTestFixture)
     {
-        _context = persistanceFixture.GetDbContext();
+        _context = dbTestFixture.GetDbContext();
         _handler = new ExpireInvitationCommandHandler(_context);
 
         var groupAdmin = User.Create("Test admin");
@@ -28,7 +28,7 @@ public class ExpireInvitationCommandHandlerTest
 
         _context.Groups.Add(group);
         _context.Users.Add(groupAdmin);
-        _context.SaveChangesAsync(new CancellationToken()).Wait();
+        _context.SaveChangesAsync(CancellationToken.None).Wait();
     }
 
     [Fact]
@@ -36,7 +36,7 @@ public class ExpireInvitationCommandHandlerTest
     {
         var command = new ExpireInvitationCommand(_userId, _inviationId);
 
-        await _handler.Handle(command, new CancellationToken());
+        await _handler.Handle(command, CancellationToken.None);
 
         Assert.True(_context.Groups
             .First(g => g.Id == _groupId).Invitations

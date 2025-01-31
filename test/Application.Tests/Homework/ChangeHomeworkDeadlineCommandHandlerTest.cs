@@ -5,18 +5,18 @@ using TaSked.Domain;
 
 namespace Application.HomeworkTests;
 
-[Collection("Persistance tests")]
-public class ChangeHomeworkDesctiptionCommandHadlerTest
+[Collection("Database tests")]
+public class ChangeHomeworkDeadlineCommandHandlerTest
 {
     private readonly IApplicationDbContext _context;
-    private readonly ChangeHomeworkDescriptionCommandHandler _handler;
+    private readonly ChangeHomeworkDeadlineCommandHandler _handler;
 
     private readonly Guid _userId, _groupId, _subjectId, _homeworkId;
 
-    public ChangeHomeworkDesctiptionCommandHadlerTest(PersistanceFixture persistanceFixture)
+    public ChangeHomeworkDeadlineCommandHandlerTest(DbTestFixture dbTestFixture)
     {
-        _context = persistanceFixture.GetDbContext();
-        _handler = new ChangeHomeworkDescriptionCommandHandler(_context);
+        _context = dbTestFixture.GetDbContext();
+        _handler = new ChangeHomeworkDeadlineCommandHandler(_context);
 
         User user = User.Create("Test user");
         Group group = Group.Create("Test group", user);
@@ -30,22 +30,22 @@ public class ChangeHomeworkDesctiptionCommandHadlerTest
 
         _context.Users.Add(user);
         _context.Groups.Add(group);
-        _context.SaveChangesAsync(new CancellationToken()).Wait();
+        _context.SaveChangesAsync(CancellationToken.None).Wait();
     }
 
     [Fact]
     public async Task Handle_ValidCommand_ShouldPersistChanges()
     {
-        var newDescription = "new description";
-        var command = new ChangeHomeworkDescriptionCommand(_userId, _subjectId, _homeworkId, newDescription);
+        var newDeadline = DateTime.Parse("2011-03-21 13:26");
+        var command = new ChangeHomeworkDeadlineCommand(_userId, _subjectId, _homeworkId, newDeadline);
 
-        await _handler.Handle(command, new CancellationToken());
+        await _handler.Handle(command, CancellationToken.None);
 
-        Assert.Equal(newDescription,
+        Assert.Equal(newDeadline,
             _context
             .Groups.First(group => group.Id == _groupId)
             .Subjects.First(subject => subject.Id == _subjectId)
             .Homeworks.First(homework => homework.Id == _homeworkId)
-            .Description);
+            .Deadline);
     }
 }
