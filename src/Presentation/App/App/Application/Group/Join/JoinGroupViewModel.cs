@@ -27,13 +27,10 @@ public partial class JoinGroupViewModel : ObservableObject
 	public async Task JoinGroup()
 	{
 		if (string.IsNullOrEmpty(GroupInvitationId)
-		    || string.IsNullOrEmpty(UserNickname)
 		    || !Guid.TryParse(GroupInvitationId, out var invitationId))
 		{
 			return;
 		}
-
-		await _loginService.RegisterAnonymousUser(UserNickname);
 		await _loginService.JoinGroupAsync(invitationId);
         
         await Shell.Current.GoToAsync("//UncompletedTasksPage");

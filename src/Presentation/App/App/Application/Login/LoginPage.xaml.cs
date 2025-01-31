@@ -18,7 +18,7 @@ public partial class LoginPage : ContentPage
 		InitializeComponent();
 	}
 	
-	private async void OnLoginClicked(object sender, EventArgs e)
+	private async void LoginTapped(object sender, EventArgs e)
 	{
 		try
 		{
@@ -30,8 +30,8 @@ public partial class LoginPage : ContentPage
 		}
 		await Shell.Current.GoToAsync("//LoadingPage");
 	}
-	
-	private async void OnLoginClicked2(object sender, EventArgs e)
+
+	private async void AnonymLoginTapped(object sender, EventArgs e)
 	{
 		try
 		{

@@ -6,21 +6,68 @@
     x:Class="TaSked.App.LoginPage"
     x:DataType="local:LoginViewModel"
     xmlns:components="clr-namespace:TaSked.App.Components"
-    xmlns:local="using:TaSked.App">
+    xmlns:local="using:TaSked.App"
+    Shell.NavBarIsVisible="false">
     
-    <VerticalStackLayout>
-        <StackLayout>
-            <Button 
-                Text="Log In"
-                SemanticProperties.Hint="Click to log in"
-                Clicked="OnLoginClicked"
-                HorizontalOptions="Center" />
-            
-            <Button 
-                Text="Log In Anonym"
-                SemanticProperties.Hint="Click to log in"
-                Clicked="OnLoginClicked2"
-                HorizontalOptions="Center" />
-        </StackLayout>
+    <VerticalStackLayout Padding="20" Spacing="10">
+
+        <Label
+            Margin="0,160,0,0"
+            FontSize="60"
+            HorizontalOptions="Center"
+            Text="TaSked"
+            TextColor="#FFFFFF" />
+        <Label
+            Margin="0,30,0,0"
+            FontSize="15"
+            HorizontalOptions="Center"
+            Text="Створіть або увійдіть в свій акаунт TaSked"
+            TextColor="#DFD5EC" />
+
+        <components:LanguageSelector Margin="20,10,20,0" />
+
+        <Frame
+            Margin="20,40"
+            BackgroundColor="#141218"
+            BorderColor="#49454F"
+            CornerRadius="10">
+            <StackLayout Orientation="Horizontal">
+                <StackLayout>
+                    <Label
+                        FontSize="15"
+                        Text="Авторизація"
+                        TextColor="#D0BCFF" />
+                    <Label
+                        FontSize="10"
+                        Text="Зареєструватися або увійти за допомогою Auth0"
+                        TextColor="#E6E0E9" />
+                </StackLayout>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="LoginTapped" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+        </Frame>
+
+        <Frame
+            Margin="20,-20"
+            BackgroundColor="#141218"
+            BorderColor="#49454F"
+            CornerRadius="10">
+            <StackLayout Orientation="Horizontal">
+                <StackLayout>
+                    <Label
+                        FontSize="15"
+                        Text="Створити анонімний акаунт"
+                        TextColor="#EFB8C8" />
+                    <Label
+                        FontSize="10"
+                        Text="Ваші дані зберігатимуться локально. В разі втрати доступу відновити акаунт буде неможливо."
+                        TextColor="#E6E0E9" />
+                </StackLayout>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="AnonymLoginTapped" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+        </Frame>
     </VerticalStackLayout>
 </ContentPage>

@@ -24,12 +24,10 @@ public partial class CreateGroupViewModel : ObservableObject
 
 	public async Task CreateGroup()
 	{
-		if (string.IsNullOrEmpty(GroupName) || string.IsNullOrEmpty(UserNickname))
+		if (string.IsNullOrEmpty(GroupName))
 		{
 			return;
 		}
-
-		await _loginService.RegisterAnonymousUser(UserNickname);
 		await _loginService.CreateGroupAsync(GroupName);
 
 		await Shell.Current.GoToAsync("//UncompletedTasksPage");
