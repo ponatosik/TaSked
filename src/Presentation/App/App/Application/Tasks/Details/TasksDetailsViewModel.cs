@@ -1,18 +1,12 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using DynamicData;
-using ReactiveUI;
-using TaSked.Api.ApiClient;
-using TaSked.Api.Requests;
-using TaSked.App.Common;
-using CommunityToolkit.Mvvm.ComponentModel;
+using LocalizationResourceManager.Maui;
 using ReactiveUI;
 using TaSked.Api.ApiClient;
 using TaSked.Api.Requests;
 using TaSked.App.Common;
 using TaSked.App.Common.Components;
 using TaSked.Domain;
-using LocalizationResourceManager.Maui;
-
 
 namespace TaSked.App;
 
@@ -64,7 +58,9 @@ public partial class TasksDetailsViewModel : ObservableObject
         
         await Shell.Current.GoToAsync("..");
     }
-	
-	public string LessonUrlDisplay =>
-		Homework?.SourceUrl is null ? _localizationResourceManager["Details_None"] : Homework.SourceUrl;
+
+    public string LessonUrlDisplay =>
+	    Homework?.RelatedLinks.Count != 0
+		    ? string.Join(" ", Homework!.RelatedLinks.Select(link => $"{link.Title}: {link:Url}"))
+		    : _localizationResourceManager["Details_None"];
 }

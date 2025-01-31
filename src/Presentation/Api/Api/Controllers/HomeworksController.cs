@@ -32,7 +32,8 @@ public class HomeworksController : ControllerBase
 	public async Task<IActionResult> Post(CreateHomeworkRequest request)
 	{
 		Guid userId = User.GetUserId()!.Value;
-        var result = await _mediator.Send(new CreateHomeworkCommand(userId, request.SubjectId, request.Title, request.Description, request.Deadline));
+		var result = await _mediator.Send(new CreateHomeworkCommand(
+			userId, request.SubjectId, request.Title, request.Description, request.Deadline, request.RelatedLinks));
 		return CreatedAtAction(nameof(Get), new { }, result);
 	}
 
@@ -67,11 +68,12 @@ public class HomeworksController : ControllerBase
 
     [HttpPatch]
     [Authorize(AccessPolicies.Moderator)]
-    [Route("SourceUrl")]
+    [Route("RelatedLinks")]
     public async Task<IActionResult> Patch(ChangeHomeworkSourceUrlRequest request)
     {
         Guid userId = User.GetUserId()!.Value;
-        var result = await _mediator.Send(new ChangeHomeworkSourceUrlCommand(userId, request.SubjectId, request.HomeworkId, request.HomeworkSourceUrl));
+        var result = await _mediator.Send(
+	        new ChangeHomeworkRelatedLinksCommand(userId, request.SubjectId, request.HomeworkId, request.RelatedLinks));
         return Ok(result);
     }
 

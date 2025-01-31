@@ -6,17 +6,17 @@ using TaSked.Domain;
 namespace Application.HomeworkTests;
 
 [Collection("Persistance tests")]
-public class ChangeHomeworkSourceUrlCommandHadlerTest
+public class ChangeHomeworkRelatedLinksCommandHadlerTest
 {
     private readonly IApplicationDbContext _context;
-    private readonly ChangeHomeworkSourceUrlCommandHandler _handler;
+    private readonly ChangeHomeworkRelatedLinksCommandHandler _handler;
 
     private readonly Guid _userId, _groupId, _subjectId, _homeworkId;
 
-    public ChangeHomeworkSourceUrlCommandHadlerTest(PersistanceFixture persistanceFixture)
+    public ChangeHomeworkRelatedLinksCommandHadlerTest(PersistanceFixture persistanceFixture)
     {
         _context = persistanceFixture.GetDbContext();
-        _handler = new ChangeHomeworkSourceUrlCommandHandler(_context);
+        _handler = new ChangeHomeworkRelatedLinksCommandHandler(_context);
 
         User user = User.Create("Test user");
         Group group = Group.Create("Test group", user);
@@ -36,16 +36,20 @@ public class ChangeHomeworkSourceUrlCommandHadlerTest
     [Fact]
     public async Task Handle_ValidCommand_ShouldPersistChanges()
     {
-        var newSourceUrl = "new description";
-        var command = new ChangeHomeworkSourceUrlCommand(_userId, _subjectId, _homeworkId, newSourceUrl);
+	    List<RelatedLink> relatedLinks =
+	    [
+		    RelatedLink.Create(new Uri("https://classroom.google.com/myTask")),
+		    RelatedLink.Create(new Uri("https://classroom.google.com/myTask"), "lecture materials")
+	    ];
+	    var command = new ChangeHomeworkRelatedLinksCommand(_userId, _subjectId, _homeworkId, relatedLinks);
 
         await _handler.Handle(command, new CancellationToken());
 
-        Assert.Equal(newSourceUrl,
+        Assert.Equal(relatedLinks,
             _context
             .Groups.First(group => group.Id == _groupId)
             .Subjects.First(subject => subject.Id == _subjectId)
             .Homeworks.First(homework => homework.Id == _homeworkId)
-            .SourceUrl);
+            .RelatedLinks);
     }
 }

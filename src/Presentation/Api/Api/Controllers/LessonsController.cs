@@ -24,7 +24,8 @@ public class LessonsController : ControllerBase
     public async Task<IActionResult> Post(CreateLessonRequest request)
     {
         Guid userId = User.GetUserId()!.Value;
-        var result = await _mediator.Send(new CreateLessonCommand(userId, request.SubjectId, request.LessonTime));
+        var result = await _mediator.Send(
+	        new CreateLessonCommand(userId, request.SubjectId, request.LessonTime, request.LessonLink));
 		return CreatedAtAction(nameof(Get), new { SubjectId = result.SubjectId }, result);
     }
 
@@ -46,6 +47,18 @@ public class LessonsController : ControllerBase
         var result = await _mediator.Send(new ChangeLessonTimeCommand(userId, request.SubjectId, request.LessonId, request.NewTime));
         return Ok(result);
     }
+
+    [HttpPatch]
+    [Authorize(AccessPolicies.Moderator)]
+    [Route("Link")]
+    public async Task<IActionResult> Patch(ChangeLessonLinkRequest request)
+    {
+	    var userId = User.GetUserId()!.Value;
+	    var result = await _mediator.Send(
+		    new ChangeLessonLinkCommand(userId, request.SubjectId, request.LessonId, request.NewLink));
+	    return Ok(result);
+    }
+
 
     [HttpGet]
     [Route("BySubject/{SubjectId:guid}")]

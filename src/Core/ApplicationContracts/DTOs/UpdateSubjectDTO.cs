@@ -8,17 +8,19 @@ public class UpdateSubjectDTO
 	public Guid GroupId { get; private set; }
 	public string Name { get; set; }
 	public Teacher? Teacher { get; set; }
+	public List<RelatedLink> RelatedLinks { get; set; }
 
-	public UpdateSubjectDTO(Guid Id, Guid GroupId, string Name, Teacher? Teacher)
+	public UpdateSubjectDTO(Guid id, Guid groupId, string name, Teacher? teacher, List<RelatedLink> relatedLinks)
 	{
-		this.Id = Id;
-		this.GroupId = GroupId;
-		this.Name = Name;
-		this.Teacher = Teacher;
+		Id = id;
+		GroupId = groupId;
+		Name = name;
+		Teacher = teacher;
+		RelatedLinks = relatedLinks;
 	}
 
 	public static UpdateSubjectDTO From(Subject subject)
 	{
-		return new UpdateSubjectDTO(subject.Id, subject.GroupId, subject.Name, subject.Teacher);
+		return new UpdateSubjectDTO(subject.Id, subject.GroupId, subject.Name, subject.Teacher, subject.RelatedLinks);
 	}
 }

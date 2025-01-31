@@ -18,6 +18,9 @@ public interface ITaSkedSubjects
 	[Patch("/Subjects/Name")]
 	public Task<UpdateSubjectDTO> ChangeSubjectName([Body] ChangeSubjectNameRequest request);
 
+	[Patch("/Subjects/Links")]
+	public Task<UpdateSubjectDTO> ChangeSubjectLinks([Body] ChangeSubjectLinksRequest request);
+
 	[Patch("/Subjects/Teacher")]
 	public Task<UpdateSubjectDTO> ChangeSubjectTeacher([Body] ChangeSubjectTeacherRequest request);
 }

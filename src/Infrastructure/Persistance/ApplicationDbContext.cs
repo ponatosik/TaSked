@@ -1,6 +1,7 @@
-﻿using TaSked.Application.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using TaSked.Application.Data;
 using TaSked.Domain;
-using Microsoft.EntityFrameworkCore;
+
 namespace TaSked.Infrastructure.Persistance;
 
 public class ApplicationDbContext : DbContext, IApplicationDbContext
@@ -16,6 +17,16 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 	{
 		modelBuilder.Entity<User>().OwnsOne(e => e.Role);
 		modelBuilder.Entity<Subject>().OwnsOne(e => e.Teacher);
+
+		modelBuilder.Entity<Subject>().OwnsMany(
+			e => e.RelatedLinks,
+			navigation => navigation.ToJson());
+		modelBuilder.Entity<Homework>().OwnsMany(
+			e => e.RelatedLinks,
+			navigation => navigation.ToJson());
+		modelBuilder.Entity<Lesson>().OwnsOne<RelatedLink>(
+			e => e.OnlineLessonUrl,
+			navigation => navigation.ToJson());
 
 		modelBuilder.Entity<Subject>().Property(e => e.Id).ValueGeneratedNever();
 		modelBuilder.Entity<Homework>().Property(e => e.Id).ValueGeneratedNever();

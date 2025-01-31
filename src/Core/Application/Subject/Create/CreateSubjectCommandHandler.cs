@@ -22,6 +22,8 @@ public class CreateSubjectCommandHandler : IRequestHandler<CreateSubjectCommand,
 		var group = _context.Groups.FindOrThrow(groupId);
 
 		var subject = group.CreateSubject(request.SubjectName, request.Teacher);
+		subject.RelatedLinks.AddRange(request.RelatedLinks ?? []);
+		
 		var result = SubjectDTO.From(subject);
 
 		await _context.SaveChangesAsync(cancellationToken);

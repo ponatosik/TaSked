@@ -48,14 +48,22 @@ public class CachedTaSkedSubjects : CachedRepository<SubjectDTO>, ITaSkedSubject
 	public async Task<UpdateSubjectDTO> ChangeSubjectName(ChangeSubjectNameRequest request)
 	{
 		var subject = await _api.ChangeSubjectName(request);
-		await UpdateEntity(new SubjectDTO(subject.Id, subject.GroupId, subject.Name, 0, 0, subject.Teacher));
+		await UpdateEntity(ToSubjectDto(subject));
+		return subject;
+	}
+
+	public async Task<UpdateSubjectDTO> ChangeSubjectLinks(ChangeSubjectLinksRequest request)
+	{
+		var subject = await _api.ChangeSubjectLinks(request);
+		await UpdateEntity(ToSubjectDto(subject));
+
 		return subject;
 	}
 
 	public async Task<UpdateSubjectDTO> ChangeSubjectTeacher(ChangeSubjectTeacherRequest request)
 	{
 		var subject = await _api.ChangeSubjectTeacher(request);
-		await UpdateEntity(new SubjectDTO(subject.Id, subject.GroupId, subject.Name, 0, 0, subject.Teacher));
+		await UpdateEntity(ToSubjectDto(subject));
 		return subject;
 	}
 
@@ -67,5 +75,17 @@ public class CachedTaSkedSubjects : CachedRepository<SubjectDTO>, ITaSkedSubject
 	protected override async Task<IEnumerable<SubjectDTO>> FetchEntities()
 	{
 		return await _api.GetAllSubjects();
+	}
+
+	private static SubjectDTO ToSubjectDto(UpdateSubjectDTO subject)
+	{
+		return new SubjectDTO(
+			subject.Id,
+			subject.GroupId,
+			subject.Name,
+			0,
+			0,
+			subject.Teacher,
+			subject.RelatedLinks);
 	}
 }

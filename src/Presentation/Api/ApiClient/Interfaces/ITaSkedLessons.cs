@@ -15,8 +15,11 @@ public interface ITaSkedLessons
 	[Patch("/Lessons/Time")]
 	public Task<Lesson> ChangeTime([Body] ChangeLessonTimeRequest request);
 
+	[Patch("/Lessons/Link")]
+	public Task<Lesson> ChangeLessonLink([Body] ChangeLessonLinkRequest request);
+	
 	[Get("/Lessons/BySubject/{SubjectId}")]
-	public Task<List<Lesson>> GetBySubject(Guid SubjectId);
+	public Task<List<Lesson>> GetBySubject(Guid subjectId);
 
 	[Get("/Lessons/ByDateRange")]
 	public Task<List<Lesson>> Get([Query("fromDate")] DateTime? from = null, [Query("toDate")] DateTime? to = null);

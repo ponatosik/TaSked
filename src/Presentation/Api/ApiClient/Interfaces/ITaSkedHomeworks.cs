@@ -22,7 +22,7 @@ public interface ITaSkedHomeworks
 	[Patch("/Homeworks/Description")]
 	public Task<Homework> ChangeDescription([Body] ChangeHomeworkDescriptionRequest request);
 
-	[Patch("/Homeworks/SourceUrl")]
+	[Patch("/Homeworks/RelatedLinks")]
 	public Task<Homework> ChangeSourceUrl([Body] ChangeHomeworkSourceUrlRequest request);
 
 	[Patch("/Homeworks/Title")]

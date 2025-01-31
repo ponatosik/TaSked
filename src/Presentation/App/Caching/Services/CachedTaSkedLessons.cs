@@ -42,6 +42,13 @@ public class CachedTaSkedLessons : CachedRepository<Lesson>, ITaSkedLessons
 		return lesson;
 	}
 
+	public async Task<Lesson> ChangeLessonLink(ChangeLessonLinkRequest request)
+	{
+		var lesson = await _api.ChangeLessonLink(request);
+		await UpdateEntity(lesson);
+		return lesson;
+	}
+
 	public async Task<List<Lesson>> GetBySubject(Guid SubjectId)
 	{
 		IEnumerable<Lesson> allLessons = await GetCachedEntities();
