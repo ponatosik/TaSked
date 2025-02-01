@@ -4,7 +4,7 @@ namespace TaSked.App.Common;
 
 internal class UserTokenSecureStorage : IUserTokenStore
 {
-	private const string SECURE_STORAGE_KEY = "TaSked.AccessToken";
+	private const string SecureStorageKey = "TaSked.AccessToken";
 	private readonly ISecureStorage _storage;
 
 	private string? _accessToken;
@@ -20,7 +20,7 @@ internal class UserTokenSecureStorage : IUserTokenStore
 		{
 			if(_accessToken == null)
 			{
-				_accessToken = _storage.GetAsync(SECURE_STORAGE_KEY).Result;
+				_accessToken = _storage.GetAsync(SecureStorageKey).Result;
 			}
 			return _accessToken;
 		}
@@ -29,11 +29,11 @@ internal class UserTokenSecureStorage : IUserTokenStore
 			_accessToken = value;
 			if( value == null ) 
 			{
-				_storage.Remove(SECURE_STORAGE_KEY);
+				_storage.Remove(SecureStorageKey);
 			}
 			else
 			{
-				_storage.SetAsync(SECURE_STORAGE_KEY, value);
+				_storage.SetAsync(SecureStorageKey, value);
 			}
 		}
 	}

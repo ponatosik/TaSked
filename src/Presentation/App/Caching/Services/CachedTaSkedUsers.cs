@@ -32,7 +32,7 @@ public class CachedTaSkedUsers : ITaSkedUsers
 
     public async Task<User> CurrentUser() 
     {
-		var user = await Cache.GetObject<User>(CURENT_USER_CACHE_KEY);
+	    var user = await Cache.GetOrFetchObject(CURENT_USER_CACHE_KEY, () => _api.CurrentUser());
         return user;
     }
 

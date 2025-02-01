@@ -408,4 +408,34 @@
   <data name="Details.None" xml:space="preserve">
     <value>Немає</value>
   </data>
+  <data name="Login.Page.Caption" xml:space="preserve">
+    <value>Створіть/увійдіть до свого акаунту</value>
+  </data>
+  <data name="Login.Authorization" xml:space="preserve">
+    <value>Авторизація</value>
+  </data>
+  <data name="Login.AuthorizationCaption" xml:space="preserve">
+    <value>Зареєструватися або увійти через Auth0</value>
+  </data>
+  <data name="Login.Anonymous.Account" xml:space="preserve">
+    <value>Створити анонімний акаунт</value>
+  </data>
+  <data name="Login.Anonymous.AccountCaption" xml:space="preserve">
+    <value>Втративши доступ, відновлення акаунту неможливе</value>
+  </data>
+  <data name="Login.Prompt.Title" xml:space="preserve">
+    <value>Анонімний акаунт</value>
+  </data>
+  <data name="Login.Prompt.Message" xml:space="preserve">
+    <value>Напишіть свій нік</value>
+  </data>
+  <data name="Login.Prompt.Error" xml:space="preserve">
+    <value>Помилка</value>
+  </data>
+  <data name="Settings.LeaveGroup" xml:space="preserve">
+    <value>Вийти з групи</value>
+  </data>
+  <data name="Main.Title" xml:space="preserve">
+    <value>Вітаємо в TaSked,</value>
+  </data>
 </root>

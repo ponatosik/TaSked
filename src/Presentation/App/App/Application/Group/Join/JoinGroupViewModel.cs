@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using ReactiveUI;
 using TaSked.App.Common;
 
@@ -26,15 +25,13 @@ public partial class JoinGroupViewModel : ObservableObject
     }
 
 	public async Task JoinGroup()
-	{ 
-		if (string.IsNullOrEmpty(_groupInvitationId) 
-			|| string.IsNullOrEmpty(_userNickname)
-			|| !Guid.TryParse(_groupInvitationId, out Guid invitationId))
+	{
+		if (string.IsNullOrEmpty(GroupInvitationId)
+		    || !Guid.TryParse(GroupInvitationId, out var invitationId))
 		{
 			return;
 		}
-
-		await _loginService.JoinGroupAsync(_userNickname, invitationId);
+		await _loginService.JoinGroupAsync(invitationId);
         
         await Shell.Current.GoToAsync("//UncompletedTasksPage");
     }

@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using ReactiveUI;
 using TaSked.App.Common;
 
@@ -24,13 +23,12 @@ public partial class CreateGroupViewModel : ObservableObject
 	}
 
 	public async Task CreateGroup()
-	{ 
-		if (string.IsNullOrEmpty(_groupName) || string.IsNullOrEmpty(_userNickname))
+	{
+		if (string.IsNullOrEmpty(GroupName))
 		{
 			return;
 		}
-
-		await _loginService.CreateGroupAsync(_userNickname, _groupName);
+		await _loginService.CreateGroupAsync(GroupName);
 
 		await Shell.Current.GoToAsync("//UncompletedTasksPage");
 	}
