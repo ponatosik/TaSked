@@ -4,18 +4,23 @@ namespace TaSked.Domain;
 
 public class Group
 {
-	public Guid Id { get; set; }
-	public string Name { get; set; }
-	public List<Subject> Subjects { get; private set; } = new List<Subject>();
-	public List<User> Members { get; private set; } = new List<User>();
-	public List<Report> Reports { get; private set; } = new List<Report>();
-	public List<Invitation> Invitations { get; private set;} = new List<Invitation>();
+	public Guid Id { get; init; }
+	public string Name { get; set; } = null!;
+	public List<Subject> Subjects { get; } = [];
+	public List<User> Members { get; private set; } = [];
+	public List<Report> Reports { get; } = [];
+	public List<Invitation> Invitations { get; } = [];
 
 	private Group() { }
-	private Group(Guid id, string name, User admin)
+
+	private Group(Guid id, string name)
 	{
 		Id = id;
 		Name = name;
+	}
+
+	private Group(Guid id, string name, User admin) : this(id, name)
+	{
 		admin.GroupId = id;
 		admin.Role = GroupRole.Admin;
 	} 
@@ -31,19 +36,20 @@ public class Group
 
 	public Subject CreateSubject(string name, Teacher? teacher = null)
 	{
-		Subject subject = Subject.Create(this.Id, name, teacher);
+		var subject = Subject.Create(Id, name, teacher);
 		Subjects.Add(subject);
 		return subject;
 	}
 
-	public Invitation CreateInvintation(string? caption = null, int? maxActivations = null, DateTime? expirationDate = null)
+	public Invitation CreateInvitation(string? caption = null, int? maxActivations = null,
+		DateTime? expirationDate = null)
 	{
 		Invitation invitation = new Invitation(Guid.NewGuid(), Id, caption, maxActivations, expirationDate);
 		Invitations.Add(invitation);
 		return invitation;
 	}
 
-	public void JoinByInvintation(Invitation invitation, User user)
+	public void JoinByInvitation(Invitation invitation, User user)
 	{
 		if (invitation.IsExpired)
 		{
@@ -54,9 +60,9 @@ public class Group
 		user.JoinGroup(this);
 	}
 
-	public Report CreateReport(string Title, string Message)
+	public Report CreateReport(string title, string message)
 	{
-		Report report = new Report(Guid.NewGuid(), Title, Message);
+		var report = new Report(Guid.NewGuid(), title, message);
 		Reports.Add(report);
 		return report;
 	}

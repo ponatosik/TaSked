@@ -1,16 +1,15 @@
-using TaSked.Domain;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using TaSked.Application;
 using Microsoft.AspNetCore.Authorization;
-using TaSked.Infrastructure.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TaSked.Api.Requests;
+using TaSked.Application;
+using TaSked.Infrastructure.Authorization;
 
 namespace TaSked.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-[Authorize(AccessPolicise.Member)]
+[Authorize(AccessPolicies.Member)]
 
 public class SubjectsController : ControllerBase
 {
@@ -22,7 +21,7 @@ public class SubjectsController : ControllerBase
 	}
 
 	[HttpPost]
-	[Authorize(AccessPolicise.Moderator)]
+	[Authorize(AccessPolicies.Moderator)]
 	public async Task<IActionResult> Post(CreateSubjectRequest request)
 	{
 		Guid userId = User.GetUserId()!.Value;
@@ -39,7 +38,7 @@ public class SubjectsController : ControllerBase
 	}
 
 	[HttpDelete]
-	[Authorize(AccessPolicise.Moderator)]
+	[Authorize(AccessPolicies.Moderator)]
 	public async Task<IActionResult> Delete(DeleteSubjectRequest request)
 	{
 		Guid userId = User.GetUserId()!.Value;
@@ -48,7 +47,7 @@ public class SubjectsController : ControllerBase
 	}
 
 	[HttpPatch]
-	[Authorize(AccessPolicise.Moderator)]
+	[Authorize(AccessPolicies.Moderator)]
 	[Route("Name")]
 	public async Task<IActionResult> Patch(ChangeSubjectNameRequest request)
 	{
@@ -58,7 +57,7 @@ public class SubjectsController : ControllerBase
 	}
 
 	[HttpPatch]
-	[Authorize(AccessPolicise.Moderator)]
+	[Authorize(AccessPolicies.Moderator)]
 	[Route("Teacher")]
 	public async Task<IActionResult> Patch(ChangeSubjectTeacherRequest request)
 	{

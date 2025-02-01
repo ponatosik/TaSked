@@ -381,6 +381,33 @@
   <data name="General.Alert.OkButton" xml:space="preserve">
     <value>Ок</value>
   </data>
+  <data name="Subject.Details.Title" xml:space="preserve">
+    <value>Деталі предмету</value>
+  </data>
+  <data name="Subject.Details.Teacher" xml:space="preserve">
+    <value>Викладач</value>
+  </data>
+  <data name="Subject.Details.LessonLink" xml:space="preserve">
+    <value>Посилання на пару:</value>
+  </data>
+  <data name="Subject.Details.TotalTasks" xml:space="preserve">
+    <value>Всього завдань з предмету:</value>
+  </data>
+  <data name="Subject.Details.TotalLessons" xml:space="preserve">
+    <value>Всього пар в розкладі:</value>
+  </data>
+  <data name="Task.Details.Title" xml:space="preserve">
+    <value>Деталі завдання</value>
+  </data>
+  <data name="Task.Details.TaskLink" xml:space="preserve">
+    <value>Посилання на завдання:</value>
+  </data>
+  <data name="Task.Details.DateCreated" xml:space="preserve">
+    <value>Дата створення: </value>
+  </data>
+  <data name="Details.None" xml:space="preserve">
+    <value>Немає</value>
+  </data>
   <data name="Login.Page.Caption" xml:space="preserve">
     <value>Створіть/увійдіть до свого акаунту</value>
   </data>

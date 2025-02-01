@@ -1,11 +1,10 @@
+using Api.Requests;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TaSked.Application;
-using Microsoft.AspNetCore.Authorization;
-using TaSked.Infrastructure.Authorization;
-using TaSked.Api.Requests;
-using Api.Requests;
 using TaSked.Domain;
+using TaSked.Infrastructure.Authorization;
 
 namespace TaSked.Api.Controllers;
 
@@ -22,7 +21,7 @@ public class MembersController : ControllerBase
 	}
 	
     [HttpGet]
-	[Authorize(AccessPolicise.Moderator)]
+    [Authorize(AccessPolicies.Moderator)]
     public async Task<IActionResult> Get(Guid GroupId)
     {
         Guid userId = User.GetUserId()!.Value;
@@ -31,7 +30,7 @@ public class MembersController : ControllerBase
     }
 
 	[HttpPatch]
-	[Authorize(AccessPolicise.Admin)]
+	[Authorize(AccessPolicies.Admin)]
 	[Route("Promote")]
 	public async Task<IActionResult> PatchPromote(Guid GroupId, PromoteMemberRequest request)
 	{
@@ -41,7 +40,7 @@ public class MembersController : ControllerBase
 	}
 
 	[HttpPatch]
-	[Authorize(AccessPolicise.Admin)]
+	[Authorize(AccessPolicies.Admin)]
 	[Route("Demote")]
 	public async Task<IActionResult> PatchDemote(Guid GroupId, PromoteMemberRequest request)
 	{
@@ -51,7 +50,7 @@ public class MembersController : ControllerBase
 	}
 
 	[HttpDelete]
-	[Authorize(AccessPolicise.Admin)]
+	[Authorize(AccessPolicies.Admin)]
 	[Route("Ban")]
 	public async Task<IActionResult> Delete(Guid GroupId, BanMemberRequest request)
 	{

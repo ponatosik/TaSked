@@ -13,6 +13,14 @@ using TaSked.App.Resources.Localization;
 using TaSked.Infrastructure.LocalPersistence;
 using The49.Maui.ContextMenu;
 using UraniumUI;
+using CommunityToolkit.Maui;
+using TaSked.App.Common.Notifications;
+using ReactiveUI;
+using TaSked.App.Common.Components;
+using LocalizationResourceManager.Maui;
+using TaSked.App.Resources.Localization;
+using CommunityToolkit.Maui.Core;
+using System.Globalization;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace TaSked.App;
@@ -25,6 +33,7 @@ public static class MauiProgram
 		builder
 			.UseMauiApp<App>()
 			.UseMauiCommunityToolkit()
+			.UseMauiCommunityToolkitCore()
 			.UseUraniumUI()
 			.UseUraniumUIMaterial()
 			.RegisterFirebaseServices()
@@ -34,10 +43,11 @@ public static class MauiProgram
 				config.AddResource(LocalizationResources.ResourceManager);
 				config.SupportNameWithDots();
 			})
-            .ConfigureFonts(fonts =>
+			.ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+				fonts.AddFontAwesomeIconFonts();
 			});
 
 		builder.UseContextMenu();
@@ -68,6 +78,8 @@ public static class MauiProgram
 		builder.Services.AddScoped<CreateTaskViewModel>();
         builder.Services.AddScoped<UpdateTaskPage>();
         builder.Services.AddScoped<UpdateTaskViewModel>();
+        builder.Services.AddScoped<TasksDetailsPage>();
+        builder.Services.AddScoped<TasksDetailsViewModel>();
         builder.Services.AddScoped<AllTasksPage>();
         builder.Services.AddScoped<AllTasksViewModel>();
         builder.Services.AddScoped<SortBySubjPage>();
@@ -88,6 +100,8 @@ public static class MauiProgram
 		builder.Services.AddScoped<CreateSubjectViewModel>();
 		builder.Services.AddScoped<UpdateSubjectPage>();
 		builder.Services.AddScoped<UpdateSubjectViewModel>();
+		builder.Services.AddScoped<SubjectDetailsPage>();
+		builder.Services.AddScoped<SubjectDetailsViewModel>();
 		builder.Services.AddSingleton<SubjectDataSource>();
 
 		builder.Services.AddSingleton<RoleViewModel>();
@@ -136,7 +150,6 @@ public static class MauiProgram
 
 		var app = builder.Build();
 		ServiceHelper.Initialize(app.Services);
-		//app.Services.GetService<Auth0Client>().LogoutAsync();
 		return app;
 	}
 }

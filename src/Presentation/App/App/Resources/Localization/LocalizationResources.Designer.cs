@@ -105,6 +105,15 @@ namespace TaSked.App.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        internal static string Details_None {
+            get {
+                return ResourceManager.GetString("Details.None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
         internal static string General_Alert_OkButton {
@@ -663,6 +672,51 @@ namespace TaSked.App.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Link to the lesson:.
+        /// </summary>
+        internal static string Subject_Details_LessonLink {
+            get {
+                return ResourceManager.GetString("Subject.Details.LessonLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Teacher.
+        /// </summary>
+        internal static string Subject_Details_Teacher {
+            get {
+                return ResourceManager.GetString("Subject.Details.Teacher", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subjct details.
+        /// </summary>
+        internal static string Subject_Details_Title {
+            get {
+                return ResourceManager.GetString("Subject.Details.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total pairs in the schedule:.
+        /// </summary>
+        internal static string Subject_Details_TotalLessons {
+            get {
+                return ResourceManager.GetString("Subject.Details.TotalLessons", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total tasks for the subject:.
+        /// </summary>
+        internal static string Subject_Details_TotalTasks {
+            get {
+                return ResourceManager.GetString("Subject.Details.TotalTasks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create.
         /// </summary>
         internal static string Subject_Form_Create {
@@ -848,6 +902,33 @@ namespace TaSked.App.Resources.Localization {
         internal static string Task_Action_Update {
             get {
                 return ResourceManager.GetString("Task.Action.Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Created at: .
+        /// </summary>
+        internal static string Task_Details_DateCreated {
+            get {
+                return ResourceManager.GetString("Task.Details.DateCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Link to the task:.
+        /// </summary>
+        internal static string Task_Details_TaskLink {
+            get {
+                return ResourceManager.GetString("Task.Details.TaskLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Task details.
+        /// </summary>
+        internal static string Task_Details_Title {
+            get {
+                return ResourceManager.GetString("Task.Details.Title", resourceCulture);
             }
         }
         

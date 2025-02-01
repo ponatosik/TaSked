@@ -6,6 +6,8 @@ using TaSked.Api.Requests;
 using TaSked.App.Common;
 using TaSked.App.Common.Components;
 using TaSked.Domain;
+using CommunityToolkit.Mvvm.Input;
+using TaSked.Application;
 
 namespace TaSked.App;
 
@@ -148,5 +150,14 @@ public partial class TaskViewModel : ReactiveObject
             HomeworkDataSource homeworkSource = ServiceHelper.GetService<HomeworkDataSource>();
             homeworkSource.HomeworkSource.Remove(Task.Homework.Id);
         });
+    }
+    
+    [RelayCommand]
+    private async Task NavigateToDetails()
+    {
+	    await Shell.Current.GoToAsync("TasksDetailsPage", new Dictionary<string, object>
+	    {
+		    ["homework"] = Task.Homework
+	    });
     }
 }
