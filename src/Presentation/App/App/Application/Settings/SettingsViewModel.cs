@@ -17,7 +17,16 @@ public partial class SettingsViewModel : ObservableObject
 	[RelayCommand]
 	public async Task Logout()
 	{
-		await _loginService.LogoutAuth0Async();
+		await _loginService.LogoutAsync();
 		await _loginService.ClearSessionAsync();
+		await Shell.Current.GoToAsync("//LoginPage");
+	}
+	
+	[RelayCommand]
+	public async Task LeaveGroup()
+	{ 
+		await _loginService.LeaveGroupAsync();
+		await _loginService.ClearSessionAsync();
+		await Shell.Current.GoToAsync("//MainPage");
 	}
 }

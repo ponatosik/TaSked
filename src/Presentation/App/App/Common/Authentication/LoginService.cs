@@ -46,6 +46,15 @@ public class LoginService
 			await _notificationsService.SubscribeToNotifications();
 		}
 	}
+	
+	public async Task LeaveGroupAsync()
+	{
+		if (_notificationsService is not null)
+		{
+			await _notificationsService.UnsubscribeFromNotifications();
+		}
+		await _api.LeaveGroup();
+	}
 
 	public async Task RegisterAnonymousUser(string username)
 	{
@@ -81,24 +90,23 @@ public class LoginService
 		}
 	}
 	
-	public async Task LogoutAuth0Async()
+	public async Task LogoutAsync()
 	{
+		if (_notificationsService is not null && await HasGroupAsync())
+		{
+			await _notificationsService.UnsubscribeFromNotifications();
+		}
 		await _auth0Client.LogoutAsync();
+		_tokenStore.AccessToken = null;
 	}
 
 	public async Task ClearSessionAsync()
 	{
-		if (_notificationsService is not null)
-		{
-			await _notificationsService.UnsubscribeFromNotifications();
-		}
-		_tokenStore.AccessToken = null;
 		if (_userCache is not null)
 		{
 			_userCache.InvalidateAll();
 			_userCache.Vacuum();
 		}
-		await Shell.Current.GoToAsync("//LoginPage");
 	}
 
 	public async Task<GroupRole?> GetUserRoleAsync()

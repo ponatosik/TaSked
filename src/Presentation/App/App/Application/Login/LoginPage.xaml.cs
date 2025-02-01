@@ -4,17 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Refit;
+using LocalizationResourceManager.Maui;
 using TaSked.App.Common;
 
 namespace TaSked.App;
 
 public partial class LoginPage : ContentPage
 {
+	private readonly ILocalizationResourceManager _localizationResourceManager;
+	
 	private readonly LoginService _loginService;
 	
-	public LoginPage(LoginService loginService)
+	
+	public LoginPage(LoginService loginService, ILocalizationResourceManager localizationResourceManager)
 	{
 		_loginService = loginService;
+		_localizationResourceManager = localizationResourceManager;
 		InitializeComponent();
 	}
 	
@@ -31,16 +36,33 @@ public partial class LoginPage : ContentPage
 		await Shell.Current.GoToAsync("//LoadingPage");
 	}
 
-	private async void AnonymLoginTapped(object sender, EventArgs e)
+	private async void AnonymousLoginTapped(object sender, EventArgs e)
 	{
-		try
+		string title = _localizationResourceManager["Login_Prompt_Title"];
+		string message = _localizationResourceManager["Login_Prompt_Message"];
+		string error = _localizationResourceManager["Login_Prompt_Error"];
+		string cancel = _localizationResourceManager["General_Alert_OkButton"];
+		string? nickname = await DisplayPromptAsync(title, message);
+
+		if (nickname is null)
 		{
-			await _loginService.RegisterAnonymousUser("user");
+			return;
 		}
-		catch (Exception exception) when (exception is ApiException or AuthenticationException)
+		if (string.IsNullOrWhiteSpace(nickname))
 		{
-			await DisplayAlert("Error", exception.Message, "OK");
+			await DisplayAlert(error, message, cancel);
 		}
-		await Shell.Current.GoToAsync("//LoadingPage");
+		else
+		{
+			try
+			{
+				await _loginService.RegisterAnonymousUser(nickname);
+			}
+			catch (Exception exception) when (exception is ApiException or AuthenticationException)
+			{
+				await DisplayAlert("Error", exception.Message, "OK");
+			}
+			await Shell.Current.GoToAsync("//LoadingPage");
+		}
 	}
 }

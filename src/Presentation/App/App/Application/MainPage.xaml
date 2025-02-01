@@ -4,25 +4,34 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:components="clr-namespace:TaSked.App.Components"
-    xmlns:local="clr-namespace:TaSked.App"
     xmlns:localization="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
     xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+    xmlns:local="using:TaSked.App.Application"
+    x:DataType="local:MainPageViewModel"
     Shell.NavBarIsVisible="false">
 
     <VerticalStackLayout Padding="20" Spacing="10">
-
+        
         <Label
             Margin="0,160,0,0"
-            FontSize="40"
-            HorizontalOptions="Center"
-            Text="Вітаємо в TaSked"
+            FontSize="30"
+            Text="{localization:Translate Main_Title}"
+            HorizontalTextAlignment="Center"
+            TextColor="#FFFFFF" />
+    
+        <Label
+            Margin="0,0,0,0"
+            FontSize="30"
+            Text="{Binding Nickname, StringFormat='{0}!'}"
+            HorizontalTextAlignment="Center"
             TextColor="#FFFFFF" />
 
         <Frame
             Margin="20,40"
             BackgroundColor="#141218"
             BorderColor="#49454F"
-            CornerRadius="10">
+            CornerRadius="10"
+            IsEnabled="{Binding HasInternetConnection, Source={StaticResource AppState}}">
             <StackLayout Orientation="Horizontal">
                 <StackLayout>
                     <Label
@@ -44,7 +53,8 @@
             Margin="20,-20"
             BackgroundColor="#141218"
             BorderColor="#49454F"
-            CornerRadius="10">
+            CornerRadius="10"
+            IsEnabled="{Binding HasInternetConnection, Source={StaticResource AppState}}">
             <StackLayout Orientation="Horizontal">
                 <StackLayout>
                     <Label
@@ -61,6 +71,16 @@
                 </StackLayout.GestureRecognizers>
             </StackLayout>
         </Frame>
+        
+        <Button
+            Margin="0,50,0,0"
+            Command="{Binding LogoutCommand}"
+            HorizontalOptions="Center"
+            StyleClass="FilledButton"
+            IsEnabled="{Binding HasInternetConnection, Source={StaticResource AppState}}"
+            Text="{localization:Translate Settings_Logout}"
+            TextColor="#242424"
+            BackgroundColor="#49464D"/>
     </VerticalStackLayout>
 
 </ContentPage>

@@ -240,6 +240,78 @@ namespace TaSked.App.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create an anonymous account.
+        /// </summary>
+        internal static string Login_Anonymous_Account {
+            get {
+                return ResourceManager.GetString("Login.Anonymous.Account", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Once you lose access, account recovery is impossible.
+        /// </summary>
+        internal static string Login_Anonymous_AccountCaption {
+            get {
+                return ResourceManager.GetString("Login.Anonymous.AccountCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Authorization.
+        /// </summary>
+        internal static string Login_Authorization {
+            get {
+                return ResourceManager.GetString("Login.Authorization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register or log in via Auth0.
+        /// </summary>
+        internal static string Login_AuthorizationCaption {
+            get {
+                return ResourceManager.GetString("Login.AuthorizationCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create/log in to your account.
+        /// </summary>
+        internal static string Login_Page_Caption {
+            get {
+                return ResourceManager.GetString("Login.Page.Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string Login_Prompt_Error {
+            get {
+                return ResourceManager.GetString("Login.Prompt.Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Write your nickname.
+        /// </summary>
+        internal static string Login_Prompt_Message {
+            get {
+                return ResourceManager.GetString("Login.Prompt.Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Anonymous account.
+        /// </summary>
+        internal static string Login_Prompt_Title {
+            get {
+                return ResourceManager.GetString("Login.Prompt.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create group.
         /// </summary>
         internal static string Main_CreateGroup {
@@ -281,6 +353,15 @@ namespace TaSked.App.Resources.Localization {
         internal static string Main_Slogan {
             get {
                 return ResourceManager.GetString("Main.Slogan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome to TaSked,.
+        /// </summary>
+        internal static string Main_Title {
+            get {
+                return ResourceManager.GetString("Main.Title", resourceCulture);
             }
         }
         
@@ -533,6 +614,15 @@ namespace TaSked.App.Resources.Localization {
         internal static string Settings_Invitations {
             get {
                 return ResourceManager.GetString("Settings.Invitations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Leave group.
+        /// </summary>
+        internal static string Settings_LeaveGroup {
+            get {
+                return ResourceManager.GetString("Settings.LeaveGroup", resourceCulture);
             }
         }
         

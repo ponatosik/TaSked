@@ -119,6 +119,7 @@ public static class MauiProgram
 #endif
 
 		builder.Services.AddSingleton<MainPage>();
+		builder.Services.AddSingleton<MainPageViewModel>();
 
 		builder.Services.AddSingleton(new Auth0Client(new()
 		{
