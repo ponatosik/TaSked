@@ -96,7 +96,6 @@ public static class MauiProgram
         builder.Services.AddSingleton<InvintationViewModel>();
         builder.Services.AddSingleton<InvintationsPage>();
         
-        builder.Services.AddSingleton<LoginViewModel>();
         builder.Services.AddSingleton<LoginPage>();
 
         builder.Services.AddSingleton<SettingsViewModel>();
