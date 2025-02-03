@@ -9,6 +9,7 @@ public class Subject
 	public List<Lesson> Lessons { get; init; } = [];
 	public Teacher? Teacher { get; set; }
 	public List<RelatedLink> RelatedLinks { get; init; } = [];
+	public List<Comment> Comments { get; init; } = [];
 
 	private Subject() { }
 
@@ -56,5 +57,12 @@ public class Subject
 	public void AddRelatedLink(RelatedLink relatedLink)
 	{
 		RelatedLinks.Add(relatedLink);
+	}
+
+	public Comment LeaveComment(User user, string content)
+	{
+		var comment = Comment.Create(user, content);
+		Comments.Add(comment);
+		return comment;
 	}
 }

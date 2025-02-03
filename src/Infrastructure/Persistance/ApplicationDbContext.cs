@@ -18,6 +18,20 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 		modelBuilder.Entity<User>().OwnsOne(e => e.Role);
 		modelBuilder.Entity<Subject>().OwnsOne(e => e.Teacher);
 
+		modelBuilder.Entity<Subject>().OwnsMany(e => e.Comments, navigation =>
+		{
+			navigation.ToTable("SubjectComments");
+			navigation.HasKey(x => x.Id);
+			navigation.Property(x => x.Id).ValueGeneratedNever();
+		});
+		modelBuilder.Entity<Homework>().OwnsMany(e => e.Comments, navigation =>
+		{
+			navigation.ToTable("HomeworkComments");
+			navigation.HasKey(x => x.Id);
+			navigation.Property(x => x.Id).ValueGeneratedNever();
+		});
+		
+
 		modelBuilder.Entity<Subject>().OwnsMany(
 			e => e.RelatedLinks,
 			navigation => navigation.ToJson());

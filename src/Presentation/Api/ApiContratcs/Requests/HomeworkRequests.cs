@@ -15,3 +15,5 @@ public record ChangeHomeworkDescriptionRequest(Guid SubjectId, Guid HomeworkId, 
 
 public record ChangeHomeworkSourceUrlRequest(Guid SubjectId, Guid HomeworkId, List<RelatedLink> RelatedLinks);
 public record ChangeHomeworkTitleRequest(Guid SubjectId, Guid HomeworkId, string HomeworkTitle);
+
+public record CommentHomeworkRequest(string Content);

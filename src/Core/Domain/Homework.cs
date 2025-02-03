@@ -9,6 +9,7 @@ public class Homework
 	public DateTime? Deadline { get; set; }
 	public DateTime CreatedAt { get; private set; }
 	public List<RelatedLink> RelatedLinks { get; init; } = [];
+	public List<Comment> Comments { get; init; } = [];
 
 	private Homework() { }
 
@@ -51,5 +52,12 @@ public class Homework
 	public void AddRelatedLink(RelatedLink relatedLink)
 	{
 		RelatedLinks.Add(relatedLink);
+	}
+
+	public Comment LeaveComment(User user, string content)
+	{
+		var comment = Comment.Create(user, content);
+		Comments.Add(comment);
+		return comment;
 	}
 }
