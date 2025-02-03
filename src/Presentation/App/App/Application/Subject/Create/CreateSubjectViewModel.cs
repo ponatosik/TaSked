@@ -5,7 +5,6 @@ using TaSked.Api.ApiClient;
 using TaSked.Api.Requests;
 using TaSked.App.Common;
 using TaSked.App.Common.Components;
-using TaSked.Domain;
 
 namespace TaSked.App;
 
@@ -20,9 +19,6 @@ public partial class CreateSubjectViewModel : ObservableObject
     [ObservableProperty]
     private string _name;
 
-    [ObservableProperty]
-    private string _teacherName;
-
     public CreateSubjectViewModel(ITaSkedSubjects subjectService, SubjectDataSource subjectDataSource)
     {
         _subjectService = subjectService;
@@ -33,7 +29,7 @@ public partial class CreateSubjectViewModel : ObservableObject
 
     private async Task CreateSubject()
     {
-        if (string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(TeacherName))
+	    if (string.IsNullOrEmpty(Name))
         {
             return;
         }
@@ -41,8 +37,7 @@ public partial class CreateSubjectViewModel : ObservableObject
         PopUpPage popup = ServiceHelper.GetService<PopUpPage>();
         await popup.IndicateTaskRunningAsync(async () =>
         {
-	        var teacher = Teacher.Create(TeacherName);
-            var request = new CreateSubjectRequest(Name, teacher);
+	        var request = new CreateSubjectRequest(Name);
             var dto = await _subjectService.CreateSubject(request);
 
             SubjectViewModel viewModel = new SubjectViewModel(dto);

@@ -21,6 +21,6 @@ public interface ITaSkedSubjects
 	[Patch("/Subjects/Links")]
 	public Task<UpdateSubjectDTO> ChangeSubjectLinks([Body] ChangeSubjectLinksRequest request);
 
-	[Patch("/Subjects/Teacher")]
-	public Task<UpdateSubjectDTO> ChangeSubjectTeacher([Body] ChangeSubjectTeacherRequest request);
+	[Patch("/Subjects/{subjectId:guid}/Teacher")]
+	public Task<UpdateSubjectDTO> ChangeSubjectTeacher(Guid subjectId, [Body] ChangeSubjectTeacherRequest request);
 }

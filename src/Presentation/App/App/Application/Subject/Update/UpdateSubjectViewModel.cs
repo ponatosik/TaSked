@@ -6,6 +6,7 @@ using TaSked.Api.Requests;
 using TaSked.App.Common;
 using TaSked.App.Common.Components;
 using TaSked.Application;
+using TaSked.Domain;
 
 namespace TaSked.App;
 
@@ -35,8 +36,10 @@ public partial class UpdateSubjectViewModel : ObservableObject
 			var changeNameRequest = new ChangeSubjectNameRequest(SubjectDTO.Id, SubjectDTO.Name);
 			SubjectDTO.Name = (await _subjectService.ChangeSubjectName(changeNameRequest)).Name ?? SubjectDTO.Name;
 
-			var changeTeacherRequest = new ChangeSubjectTeacherRequest(SubjectDTO.Id, SubjectDTO.Teacher);
-			SubjectDTO.Teacher = (await _subjectService.ChangeSubjectTeacher(changeTeacherRequest)).Teacher ?? SubjectDTO.Teacher;
+			var changeTeacherRequest = new ChangeSubjectTeacherRequest(
+				SubjectDTO.Teachers.Select(UpdateTeacherDTO.From).ToList());
+			SubjectDTO.Teachers = (await _subjectService.ChangeSubjectTeacher(SubjectDTO.Id ,changeTeacherRequest)).Teachers ??
+			                      SubjectDTO.Teachers;
 
 			SubjectDataSource subjectSource = ServiceHelper.GetService<SubjectDataSource>();
 			subjectSource.SubjectSource.AddOrUpdate(new SubjectViewModel(SubjectDTO));

@@ -7,7 +7,7 @@ public class Subject
 	public string Name { get; set; } = null!;
 	public List<Homework> Homeworks { get; init; } = [];
 	public List<Lesson> Lessons { get; init; } = [];
-	public Teacher? Teacher { get; set; }
+	public List<Teacher> Teachers { get; init; } = [];
 	public List<RelatedLink> RelatedLinks { get; init; } = [];
 	public List<Comment> Comments { get; init; } = [];
 
@@ -23,20 +23,20 @@ public class Subject
 		Guid id,
 		Guid groupId,
 		string name,
-		Teacher? teacher = null,
+		List<Teacher>? teacher = null,
 		IEnumerable<RelatedLink>? relatedLinks = null
 	) : this(id, name)
 	{
 		Id = id;
 		GroupId = groupId;
 		Name = name;
-		Teacher = teacher;
+		Teachers = teacher?.ToList() ?? [];
 		RelatedLinks = (relatedLinks ?? []).ToList();
 	}
 
-	internal static Subject Create(Guid groupId, string name, Teacher? teacher = null)
+	internal static Subject Create(Guid groupId, string name, List<Teacher>? teachers = null)
 	{
-		return new Subject(Guid.NewGuid(), groupId, name, teacher);
+		return new Subject(Guid.NewGuid(), groupId, name, teachers);
 	}
 
 	public Homework CreateHomework(string title, string description, DateTime? deadline = null,

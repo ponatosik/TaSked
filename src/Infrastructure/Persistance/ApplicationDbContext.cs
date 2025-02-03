@@ -16,8 +16,9 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
 		modelBuilder.Entity<User>().OwnsOne(e => e.Role);
-		modelBuilder.Entity<Subject>().OwnsOne(e => e.Teacher, t => t.OwnsOne(x => x.OnlineMeetingUrl));
+		modelBuilder.Entity<Teacher>().OwnsOne(e => e.OnlineMeetingUrl);
 
+		
 		modelBuilder.Entity<Subject>().OwnsMany(e => e.Comments, navigation =>
 		{
 			navigation.ToTable("SubjectComments");
@@ -47,6 +48,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 		modelBuilder.Entity<Lesson>().Property(e => e.Id).ValueGeneratedNever();
 		modelBuilder.Entity<Invitation>().Property(e => e.Id).ValueGeneratedNever();
 		modelBuilder.Entity<Report>().Property(e => e.Id).ValueGeneratedNever();
+		modelBuilder.Entity<Teacher>().Property(e => e.Id).ValueGeneratedNever();
 	}
 
 	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

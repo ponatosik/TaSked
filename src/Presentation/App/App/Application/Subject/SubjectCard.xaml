@@ -1,31 +1,34 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView
     x:Class="TaSked.App.Components.SubjectCard"
+    x:DataType="local:SubjectCard"
+    x:Name="SubjectCardComponent"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:domain="clr-namespace:TaSked.Domain;assembly=Domain"
     xmlns:local="clr-namespace:TaSked.App.Components"
     xmlns:localization="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
     xmlns:the49="https://schemas.the49.com/dotnet/2023/maui"
     xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
-    x:Name="SubjectCardComponent"
-    x:DataType="local:SubjectCard">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <uranium:StatefulContentView Margin="10" StyleClass="Elevation3" TappedCommand="{Binding ViewModel.NavigateToDetailsCommand, Source={Reference SubjectCardComponent}}">
+    <uranium:StatefulContentView
+        Margin="10"
+        StyleClass="Elevation3"
+        TappedCommand="{Binding ViewModel.NavigateToDetailsCommand, Source={Reference SubjectCardComponent}}">
 
         <the49:ContextMenu.Menu>
             <DataTemplate>
                 <the49:Menu>
                     <the49:Action
-                        Title="{localization:Translate Subject_Action_Update}"
                         Command="{Binding ViewModel.UpdateSubjectCommand, Source={Reference SubjectCardComponent}}"
                         IsEnabled="{Binding HasInternetConnection, Source={StaticResource AppState}}"
-                        IsVisible="{Binding IsModerator, Source={StaticResource AppState}}" />
+                        IsVisible="{Binding IsModerator, Source={StaticResource AppState}}"
+                        Title="{localization:Translate Subject_Action_Update}" />
                     <the49:Action
-                        Title="{localization:Translate Subject_Action_Delete}"
                         Command="{Binding ViewModel.DeleteSubjectCommand, Source={Reference SubjectCardComponent}}"
                         IsEnabled="{Binding HasInternetConnection, Source={StaticResource AppState}}"
-                        IsVisible="{Binding IsModerator, Source={StaticResource AppState}}" />
+                        IsVisible="{Binding IsModerator, Source={StaticResource AppState}}"
+                        Title="{localization:Translate Subject_Action_Delete}" />
                 </the49:Menu>
             </DataTemplate>
         </the49:ContextMenu.Menu>
@@ -39,8 +42,8 @@
 
 
         <Border
-            Padding="20"
             BackgroundColor="{StaticResource DarkSurface}"
+            Padding="20"
             Stroke="{StaticResource DarkOutlineVariant}"
             StrokeShape="{RoundRectangle CornerRadius=12}">
             <VerticalStackLayout>
@@ -49,7 +52,7 @@
                     FontSize="Medium"
                     Text="{Binding ViewModel.SubjectDTO.Name, Source={Reference SubjectCardComponent}}" />
 
-                <Label Text="{Binding ViewModel.SubjectDTO.Teacher.FullName, Source={Reference SubjectCardComponent}}" />
+                <Label Text="{Binding ViewModel.SubjectDTO.Teachers.FullName, Source={Reference SubjectCardComponent}}" />
             </VerticalStackLayout>
         </Border>
     </uranium:StatefulContentView>

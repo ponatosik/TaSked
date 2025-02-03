@@ -34,9 +34,9 @@ public class Group
 		return new Group(Guid.NewGuid(),name, creator);
 	}
 
-	public Subject CreateSubject(string name, Teacher? teacher = null)
+	public Subject CreateSubject(string name, List<Teacher>? teachers = null)
 	{
-		var subject = Subject.Create(Id, name, teacher);
+		var subject = Subject.Create(Id, name, teachers);
 		Subjects.Add(subject);
 		return subject;
 	}

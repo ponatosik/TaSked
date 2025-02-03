@@ -26,7 +26,7 @@ public class SubjectsController : ControllerBase
 	{
 		Guid userId = User.GetUserId()!.Value;
 		var result = await _mediator.Send(
-			new CreateSubjectCommand(userId, request.SubjectName, request.Teacher, request.RelatedLinks));
+			new CreateSubjectCommand(userId, request.SubjectName, [], request.RelatedLinks));
 		return CreatedAtAction(nameof(Get), new { }, result);
 	}
 
@@ -70,11 +70,12 @@ public class SubjectsController : ControllerBase
 
 	[HttpPatch]
 	[Authorize(AccessPolicies.Moderator)]
-	[Route("Teacher")]
-	public async Task<IActionResult> Patch(ChangeSubjectTeacherRequest request)
+	[Route("{subjectId:guid}/Teacher")]
+	public async Task<IActionResult> Patch(Guid subjectId, ChangeSubjectTeacherRequest request)
 	{
 		Guid userId = User.GetUserId()!.Value;
-		var result = await _mediator.Send(new ChangeSubjectTeacherCommand(userId, request.SubjectId, request.NewSubjectTeacher));
+		var result = await _mediator.Send(
+			new ChangeSubjectTeachersCommand(userId, subjectId, request.NewSubjectTeachers));
 		return Ok(result);
 	}
 

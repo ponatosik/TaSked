@@ -1,7 +1,8 @@
 ﻿namespace TaSked.Domain;
 
-public record Teacher
+public class Teacher
 {
+	public Guid Id { get; init; }
 	public string FullName { get; set; }
 	public string? Description { get; set; }
 	public string? Email { get; set; }
@@ -11,12 +12,14 @@ public record Teacher
 	private Teacher() { }
 
 	private Teacher(
+		Guid id,
 		string fullName,
 		string? description = null,
 		string? email = null,
 		string? phoneNumber = null,
 		RelatedLink? onlineMeetingUrl = null)
 	{
+		Id = id;
 		FullName = fullName;
 		Description = description;
 		Email = email;
@@ -31,6 +34,6 @@ public record Teacher
 		string? phoneNumber = null,
 		RelatedLink? onlineLessonUrl = null)
 	{
-		return new Teacher(fullName, description, email, phoneNumber, onlineLessonUrl);	
+		return new Teacher(Guid.NewGuid(), fullName, description, email, phoneNumber, onlineLessonUrl);	
 	}
 }

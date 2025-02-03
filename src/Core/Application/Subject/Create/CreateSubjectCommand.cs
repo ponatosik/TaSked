@@ -6,5 +6,5 @@ namespace TaSked.Application;
 public record CreateSubjectCommand(
 	Guid UserId,
 	string SubjectName,
-	Teacher? Teacher = null,
+	List<Teacher>? Teachers = null,
 	List<RelatedLink>? RelatedLinks = null) : IRequest<SubjectDTO>;

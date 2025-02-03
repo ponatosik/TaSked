@@ -9,10 +9,10 @@ public class SubjectDTO
 	public string Name { get; set; }
 	public int HomeworksCount { get; set; }
 	public int LessonsCount { get; set; }
-	public Teacher? Teacher { get; set; }
+	public List<Teacher> Teachers { get; set; }
 	public List<RelatedLink> RelatedLinks { get; set; }
 
-	public SubjectDTO(Guid id, Guid groupId, string name, int homeworksCount, int lessonsCount, Teacher? teacher,
+	public SubjectDTO(Guid id, Guid groupId, string name, int homeworksCount, int lessonsCount, List<Teacher> teachers,
 		List<RelatedLink> relatedLinks)
 	{
 		Id = id;
@@ -20,7 +20,7 @@ public class SubjectDTO
 		Name = name;
 		HomeworksCount = homeworksCount;
 		LessonsCount = lessonsCount;
-		Teacher = teacher;
+		Teachers = teachers;
 		RelatedLinks = relatedLinks;
 	}
 
@@ -34,7 +34,7 @@ public class SubjectDTO
 			subject.Name,
 			homeworksCount,
 			lessonsCount,
-			subject.Teacher,
+			subject.Teachers,
 			subject.RelatedLinks);
 	}
 }

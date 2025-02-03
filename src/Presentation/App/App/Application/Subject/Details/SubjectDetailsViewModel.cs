@@ -58,9 +58,7 @@ public partial class SubjectDetailsViewModel : ObservableObject
 		
 		await Shell.Current.GoToAsync("..");
 	}
-	
+
 	public string TeacherOnlineLessonsUrlDisplay =>
-		SubjectDTO?.Teacher?.OnlineMeetingUrl is null
-			? _localizationResourceManager["Details_None"]
-			: SubjectDTO.Teacher.OnlineMeetingUrl.Url.ToString();
+		string.Join("\n", SubjectDTO.Teachers.Select(t => t.OnlineMeetingUrl?.ToString()));
 }

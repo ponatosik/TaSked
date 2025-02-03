@@ -32,7 +32,7 @@ public class GetAllSubjectsHandler : IRequestHandler<GetAllSubjectsQuery, List<S
                     s.Name,
                     s.Homeworks.Count,
                     s.Lessons.Count,
-                    s.Teacher,
+                    s.Teachers,
                     s.RelatedLinks)
             )
             .AsNoTracking()

@@ -1,46 +1,53 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
+    HideSoftInputOnTapped="true"
+    Title="{localization:Translate Subject_Details_Title}"
     x:Class="TaSked.App.SubjectDetailsPage"
+    x:DataType="local:SubjectDetailsViewModel"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:components="clr-namespace:TaSked.App.Components"
     xmlns:domain="clr-namespace:TaSked.Domain;assembly=Domain"
     xmlns:local="clr-namespace:TaSked.App"
-    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:localization="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
     xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
-    xmlns:fa="clr-namespace:UraniumUI.Icons.FontAwesome;assembly=UraniumUI.Icons.FontAwesome"
-    x:DataType="local:SubjectDetailsViewModel"
-    HideSoftInputOnTapped="true"
-    Title="{localization:Translate Subject_Details_Title}">
+    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <AbsoluteLayout>
-        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
-                     AbsoluteLayout.LayoutFlags="All">
-            <Label HorizontalTextAlignment="Center" FontAttributes="Bold" FontSize="28" Margin="0,20,0,0" Text="{Binding SubjectDTO.Name}" />
+        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+            <Label
+                FontAttributes="Bold"
+                FontSize="28"
+                HorizontalTextAlignment="Center"
+                Margin="0,20,0,0"
+                Text="{Binding SubjectDTO.Name}" />
             <mct:Expander>
                 <mct:Expander.Header>
                     <Grid ColumnDefinitions="Auto, *">
-                        <Label Text="{localization:Translate Subject_Details_Teacher}"
-                               Padding="30,30"
-                               FontAttributes="Bold" 
-                               FontSize="18" />
-                        
-                        <BoxView StyleClass="Divider" 
-                                 Margin="0,30,30,30"
-                                 HeightRequest="1"
-                                 Grid.Column="1" />
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="18"
+                            Padding="30,30"
+                            Text="{localization:Translate Subject_Details_Teacher}" />
+
+                        <BoxView
+                            Grid.Column="1"
+                            HeightRequest="1"
+                            Margin="0,30,30,30"
+                            StyleClass="Divider" />
                     </Grid>
                 </mct:Expander.Header>
                 <mct:Expander.Content>
                     <VerticalStackLayout>
-                        <Label Text="{Binding SubjectDTO.Teacher.FullName}" Padding="30,0"/>
+                        <Label Padding="30,0" Text="{Binding SubjectDTO.Teachers.FullName}" />
                         <Grid ColumnDefinitions="Auto, *" Margin="30,15,30,30">
                             <Label Text="{localization:Translate Subject_Details_LessonLink}" />
-                        
-                            <Label Text="{Binding TeacherOnlineLessonsUrlDisplay}" TextColor="#403d47"
-                                   HorizontalOptions="End"
-                                   Grid.Column="1" />
+
+                            <Label
+                                Grid.Column="1"
+                                HorizontalOptions="End"
+                                Text="{Binding TeacherOnlineLessonsUrlDisplay}"
+                                TextColor="#403d47" />
                         </Grid>
                     </VerticalStackLayout>
                 </mct:Expander.Content>
@@ -48,41 +55,40 @@
             <Label Padding="30,0">
                 <Label.FormattedText>
                     <FormattedString>
-                        <Span Text="{localization:Translate Subject_Details_TotalTasks}" TextColor="#403d47"/>
-                        <Span Text="{Binding SubjectDTO.HomeworksCount}" TextColor="#403d47"/>
+                        <Span Text="{localization:Translate Subject_Details_TotalTasks}" TextColor="#403d47" />
+                        <Span Text="{Binding SubjectDTO.HomeworksCount}" TextColor="#403d47" />
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
             <Label Padding="30,0">
                 <Label.FormattedText>
                     <FormattedString>
-                        <Span Text="{localization:Translate Subject_Details_TotalLessons}" TextColor="#403d47"/>
-                        <Span Text="{Binding SubjectDTO.LessonsCount}" TextColor="#403d47"/>
+                        <Span Text="{localization:Translate Subject_Details_TotalLessons}" TextColor="#403d47" />
+                        <Span Text="{Binding SubjectDTO.LessonsCount}" TextColor="#403d47" />
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
         </StackLayout>
-    
+
         <Button
             AbsoluteLayout.LayoutBounds="0.95,0.80"
             AbsoluteLayout.LayoutFlags="PositionProportional"
+            BackgroundColor="#2a292f"
             Command="{Binding UpdateSubjectCommand}"
             CornerRadius="10"
             ImageSource="pencil"
-            StyleClass="Elevation5"
             IsVisible="{Binding IsModerator, Source={StaticResource AppState}}"
-            BackgroundColor="#2a292f"/>
-        
+            StyleClass="Elevation5" />
+
         <Button
             AbsoluteLayout.LayoutBounds="0.95,0.90"
             AbsoluteLayout.LayoutFlags="PositionProportional"
+            BackgroundColor="#7c5260"
             Command="{Binding DeleteSubjectCommand}"
             CornerRadius="10"
             ImageSource="delete"
-            StyleClass="Elevation5"
             IsVisible="{Binding IsModerator, Source={StaticResource AppState}}"
-            BackgroundColor="#7c5260">
-        </Button>
+            StyleClass="Elevation5" />
     </AbsoluteLayout>
 
 </ContentPage>

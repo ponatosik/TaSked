@@ -60,9 +60,9 @@ public class CachedTaSkedSubjects : CachedRepository<SubjectDTO>, ITaSkedSubject
 		return subject;
 	}
 
-	public async Task<UpdateSubjectDTO> ChangeSubjectTeacher(ChangeSubjectTeacherRequest request)
+	public async Task<UpdateSubjectDTO> ChangeSubjectTeacher(Guid subjectId ,ChangeSubjectTeacherRequest request)
 	{
-		var subject = await _api.ChangeSubjectTeacher(request);
+		var subject = await _api.ChangeSubjectTeacher(subjectId, request);
 		await UpdateEntity(ToSubjectDto(subject));
 		return subject;
 	}
@@ -85,7 +85,7 @@ public class CachedTaSkedSubjects : CachedRepository<SubjectDTO>, ITaSkedSubject
 			subject.Name,
 			0,
 			0,
-			subject.Teacher,
+			subject.Teachers,
 			subject.RelatedLinks);
 	}
 }

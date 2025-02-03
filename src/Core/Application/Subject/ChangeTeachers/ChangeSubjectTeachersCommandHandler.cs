@@ -1,12 +1,12 @@
-﻿using TaSked.Application.Data;
-using TaSked.Domain;
-using MediatR;
+﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
+using TaSked.Application.Data;
 using TaSked.Application.Exceptions;
+using TaSked.Domain;
 
 namespace TaSked.Application;
 
-public class ChangeSubjectTeacherCommandHandler : IRequestHandler<ChangeSubjectTeacherCommand, UpdateSubjectDTO>
+public class ChangeSubjectTeacherCommandHandler : IRequestHandler<ChangeSubjectTeachersCommand, UpdateSubjectDTO>
 {
     private readonly IApplicationDbContext _context;
 
@@ -15,7 +15,8 @@ public class ChangeSubjectTeacherCommandHandler : IRequestHandler<ChangeSubjectT
         _context = context;
     }
 
-    public async Task<UpdateSubjectDTO> Handle(ChangeSubjectTeacherCommand request, CancellationToken cancellationToken)
+    public async Task<UpdateSubjectDTO> Handle(ChangeSubjectTeachersCommand request,
+	    CancellationToken cancellationToken)
     {
         var user = _context.Users.FindOrThrow(request.UserId);
         var groupId = user.GroupId ?? throw new UserIsNotGroupMemberException(user.Id, Guid.Empty);
@@ -24,7 +25,10 @@ public class ChangeSubjectTeacherCommandHandler : IRequestHandler<ChangeSubjectT
             .FindOrThrow(groupId);
         var subject = group.Subjects.FindOrThrow(request.SubjectId);
 
-        subject.Teacher = request.NewSubjectTeacher;
+        subject.Teachers.Clear();
+        subject.Teachers.AddRange(request.NewSubjectTeachers.Select(t =>
+	        Teacher.Create(t.FullName, t.Description, t.Email, t.PhoneNumber, t.OnlineMeetingUrl)
+        ));
 
         await _context.SaveChangesAsync(cancellationToken);
         return UpdateSubjectDTO.From(subject);
