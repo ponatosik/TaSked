@@ -1,13 +1,12 @@
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using DynamicData;
+using LocalizationResourceManager.Maui;
 using ReactiveUI;
 using TaSked.Api.ApiClient;
 using TaSked.Api.Requests;
 using TaSked.App.Common;
 using TaSked.App.Common.Components;
 using TaSked.Application;
-using LocalizationResourceManager.Maui;
 
 namespace TaSked.App;
 
@@ -61,5 +60,7 @@ public partial class SubjectDetailsViewModel : ObservableObject
 	}
 	
 	public string TeacherOnlineLessonsUrlDisplay =>
-		SubjectDTO?.Teacher?.OnlineLessonsUrl is null ? _localizationResourceManager["Details_None"] : SubjectDTO.Teacher.OnlineLessonsUrl;
+		SubjectDTO?.Teacher?.OnlineMeetingUrl is null
+			? _localizationResourceManager["Details_None"]
+			: SubjectDTO.Teacher.OnlineMeetingUrl.Url.ToString();
 }

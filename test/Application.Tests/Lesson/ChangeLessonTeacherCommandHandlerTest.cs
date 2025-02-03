@@ -20,7 +20,8 @@ public class ChangeLessonTeacherCommandHandlerTest
 
         User user = User.Create("Test user");
         Group group = Group.Create("Test group", user);
-        var teacher = Teacher.Create("Test", "Test", "Test", "Test", "Test");
+        var lessonUrl = RelatedLink.Create(new Uri("https://meeting/join"));
+        var teacher = Teacher.Create("Test", "Test", "Test", "Test", lessonUrl);
         Subject subject = group.CreateSubject("Test subject");
 
         _userId = user.Id;
@@ -35,7 +36,8 @@ public class ChangeLessonTeacherCommandHandlerTest
     [Fact]
     public async Task Handle_ValidCommand_ShouldPersistChanges()
     {
-        var newTeacher = Teacher.Create("updated", "updated", "updated", "updated", "updated");
+	    var newLessonUrl = RelatedLink.Create(new Uri("https://meeting-updated/join"));
+	    var newTeacher = Teacher.Create("updated", "updated", "updated", "updated", newLessonUrl);
         var command = new ChangeSubjectTeacherCommand(_userId, _subjectId, newTeacher);
 
         await _handler.Handle(command, CancellationToken.None);

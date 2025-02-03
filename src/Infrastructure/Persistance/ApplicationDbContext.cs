@@ -16,7 +16,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
 		modelBuilder.Entity<User>().OwnsOne(e => e.Role);
-		modelBuilder.Entity<Subject>().OwnsOne(e => e.Teacher);
+		modelBuilder.Entity<Subject>().OwnsOne(e => e.Teacher, t => t.OwnsOne(x => x.OnlineMeetingUrl));
 
 		modelBuilder.Entity<Subject>().OwnsMany(e => e.Comments, navigation =>
 		{

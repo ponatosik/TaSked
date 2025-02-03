@@ -41,7 +41,7 @@ public partial class CreateSubjectViewModel : ObservableObject
         PopUpPage popup = ServiceHelper.GetService<PopUpPage>();
         await popup.IndicateTaskRunningAsync(async () =>
         {
-            var teacher = new Teacher { FullName = TeacherName };
+	        var teacher = Teacher.Create(TeacherName);
             var request = new CreateSubjectRequest(Name, teacher);
             var dto = await _subjectService.CreateSubject(request);
 
