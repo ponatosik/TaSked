@@ -10,6 +10,7 @@ public class Homework
 	public DateTime CreatedAt { get; private set; }
 	public List<RelatedLink> RelatedLinks { get; init; } = [];
 	public List<Comment> Comments { get; init; } = [];
+	public string? BriefSummary { get; set; }
 
 	private Homework() { }
 
@@ -28,19 +29,22 @@ public class Homework
 		string description,
 		DateTime createdAt,
 		DateTime? deadline = null,
-		IEnumerable<RelatedLink>? relatedLinks = null)
+		IEnumerable<RelatedLink>? relatedLinks = null,
+		string? briefSummary = null)
 		: this(id, title, description)
 	{
 		SubjectId = subjectId;
 		CreatedAt = createdAt;
 		Deadline = deadline;
 		RelatedLinks = (relatedLinks ?? []).ToList();
+		BriefSummary = briefSummary;	
 	}
 
 	internal static Homework Create(Subject subject, string title, string description, DateTime? deadline = null,
-		List<RelatedLink>? relatedLinks = null)
+		List<RelatedLink>? relatedLinks = null, string? briefSummary = null)
 	{
-		return new Homework(Guid.NewGuid(), subject.Id, title, description, DateTime.UtcNow, deadline, relatedLinks);
+		return new Homework(Guid.NewGuid(), subject.Id, title, description, DateTime.UtcNow, deadline, relatedLinks,
+			briefSummary);
 	}
 
 	public HomeworkTask CreateTask()

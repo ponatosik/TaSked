@@ -9,4 +9,5 @@ public record CreateHomeworkCommand(
 	string Title,
 	string Description,
 	DateTime? Deadline = null,
-	List<RelatedLink>? RelatedLinks = null) : IRequest<Homework>;
+	List<RelatedLink>? RelatedLinks = null,
+	string? BriefSummary = null) : IRequest<Homework>;

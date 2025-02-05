@@ -74,6 +74,13 @@ public class CachedTaSkedHomeworks : CachedRepository<Homework>, ITaSkedHomework
 		return homework;
 	}
 
+	public async Task<Homework> ChangeBriefSummary(ChangeHomeworkBriefSummaryRequest request)
+	{
+		var homework = await _api.ChangeBriefSummary(request);
+		await UpdateEntity(homework);
+		return homework;
+	}
+
 	protected override string GetEntityKey(Homework entity)
 	{
 		return entity.Id.ToString();

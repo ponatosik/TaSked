@@ -40,9 +40,9 @@ public class Subject
 	}
 
 	public Homework CreateHomework(string title, string description, DateTime? deadline = null,
-		List<RelatedLink>? relatedLinks = null)
+		List<RelatedLink>? relatedLinks = null, string? briefSummary = null)
 	{
-		var homework = Homework.Create(this, title, description, deadline, relatedLinks);
+		var homework = Homework.Create(this, title, description, deadline, relatedLinks, briefSummary);
 		Homeworks.Add(homework);
 		return homework;
 	}

@@ -27,4 +27,7 @@ public interface ITaSkedHomeworks
 
 	[Patch("/Homeworks/Title")]
 	public Task<Homework> ChangeTitle([Body] ChangeHomeworkTitleRequest request);
+
+	[Patch("/Homeworks/BriefSummary")]
+	public Task<Homework> ChangeBriefSummary([Body] ChangeHomeworkBriefSummaryRequest request);
 }

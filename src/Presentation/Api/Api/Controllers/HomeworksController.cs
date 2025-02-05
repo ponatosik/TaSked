@@ -87,7 +87,14 @@ public class HomeworksController : ControllerBase
         return Ok(result);
     }
 
-
-
-    
+    [HttpPatch]
+    [Authorize(AccessPolicies.Moderator)]
+    [Route("BriefSummary")]
+    public async Task<IActionResult> Patch(ChangeHomeworkBriefSummaryRequest request)
+    {
+	    var userId = User.GetUserId()!.Value;
+	    var result = await _mediator.Send(new ChangeHomeworkBriefSummaryCommand(userId, request.SubjectId,
+		    request.HomeworkId, request.BriefSummary));
+	    return Ok(result);
+    }
 }
