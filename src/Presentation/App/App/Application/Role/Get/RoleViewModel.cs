@@ -1,5 +1,4 @@
-﻿using Api.Requests;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using TaSked.Api.ApiClient;
@@ -10,13 +9,13 @@ namespace TaSked.App;
 
 public partial class RoleViewModel : ObservableObject
 {
-	private readonly ITaSkedSevice _api;
+	private readonly ITaSkedService _api;
     private LoginService _loginService;
 
     [ObservableProperty]
     private ObservableCollection<User> _roles;
 
-    public RoleViewModel(ITaSkedSevice api, LoginService loginService)
+    public RoleViewModel(ITaSkedService api, LoginService loginService)
 	{
 		_api = api;
 		_roles = new ObservableCollection<User>();
@@ -37,6 +36,6 @@ public partial class RoleViewModel : ObservableObject
 
     private List<User> LoadMembers(Guid groupId)
     {
-        return _api.GetMembers(groupId).Result;
+	    return _api.GetGroupMembers(groupId).Result;
     }
 }

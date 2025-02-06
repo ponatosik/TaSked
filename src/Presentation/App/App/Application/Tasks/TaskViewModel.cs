@@ -144,8 +144,7 @@ public partial class TaskViewModel : ReactiveObject
         await popup.IndicateTaskRunningAsync(async () =>
         {
             ITaSkedHomeworks api = ServiceHelper.GetService<ITaSkedHomeworks>();
-            DeleteHomeworkRequest request = new DeleteHomeworkRequest(Task.Homework.SubjectId, Task.Homework.Id);
-            await api.DeleteHomework(request);
+            await api.DeleteHomework(Task.Homework.SubjectId, Task.Homework.Id);
 
             HomeworkDataSource homeworkSource = ServiceHelper.GetService<HomeworkDataSource>();
             homeworkSource.HomeworkSource.Remove(Task.Homework.Id);

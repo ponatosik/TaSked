@@ -61,8 +61,8 @@ public partial class CreateTaskViewModel : ObservableObject
 		PopUpPage popup = ServiceHelper.GetService<PopUpPage>();
 		await popup.IndicateTaskRunningAsync(async () =>
 		{
-			var request = new CreateHomeworkRequest(Subject.Id, Title, Description, Deadline);
-			var homework = await _homeworkService.CreateHomework(request);
+			var request = new CreateHomeworkRequest(Title, Description, Deadline);
+			var homework = await _homeworkService.CreateHomework(request, Subject.Id);
 
 			TaskViewModel viewModel = new TaskViewModel(homework.CreateTask(), Subject.Name);
 			ServiceHelper.GetService<HomeworkDataSource>().HomeworkSource.AddOrUpdate(viewModel);

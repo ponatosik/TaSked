@@ -8,7 +8,7 @@ namespace TaSked.App.Components;
 public partial class RoleCard : ContentView
 {
     public LoginService _loginService;
-    public ITaSkedSevice _api;
+    public ITaSkedService _api;
 
 	public static readonly BindableProperty RoleModelProperty =
 		BindableProperty.Create(nameof(RoleModel), typeof(User), typeof(RoleCard));
@@ -21,7 +21,7 @@ public partial class RoleCard : ContentView
 	public RoleCard()
 	{
         _loginService = ServiceHelper.GetService<LoginService>();
-        _api = ServiceHelper.GetService<ITaSkedSevice>();
+        _api = ServiceHelper.GetService<ITaSkedService>();
 		InitializeComponent();
 	}
 
@@ -29,14 +29,14 @@ public partial class RoleCard : ContentView
     {
         var currentGroupId = await _loginService.GetGroupIdAsync();
         var request = new PromoteMemberRequest(RoleModel.Id);
-        await _api.PromoteMember(currentGroupId.Value, request);
+        await _api.PromoteGroupMember(request, currentGroupId.Value);
     }
 
     public async void BanMember()
     {
         var currentGroupId = await _loginService.GetGroupIdAsync();
         var request = new BanMemberRequest(RoleModel.Id);
-        await _api.BanMember(currentGroupId.Value, request);
+        await _api.BanGroupMember(request, currentGroupId.Value);
     }
 
     private void Promote_Clicked(object sender, EventArgs e)

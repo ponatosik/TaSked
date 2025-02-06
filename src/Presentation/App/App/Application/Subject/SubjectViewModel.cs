@@ -1,9 +1,7 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using DynamicData;
 using ReactiveUI;
 using TaSked.Api.ApiClient;
-using TaSked.Api.Requests;
 using TaSked.App.Common;
 using TaSked.App.Common.Components;
 using TaSked.Application;
@@ -48,8 +46,7 @@ public partial class SubjectViewModel : ReactiveObject
 		await popup.IndicateTaskRunningAsync(async () =>
 		{
 			ITaSkedSubjects api = ServiceHelper.GetService<ITaSkedSubjects>();
-			var request = new DeleteSubjectRequest(SubjectDTO.Id);
-			await api.DeleteSubject(request);
+			await api.DeleteSubject(SubjectDTO.Id);
 
 			SubjectDataSource subjectSource = ServiceHelper.GetService<SubjectDataSource>();
 			subjectSource.SubjectSource.Remove(SubjectDTO.Id);

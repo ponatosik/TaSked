@@ -2,18 +2,19 @@
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using TaSked.Api.ApiClient;
+using TaSked.Api.Requests;
 using TaSked.Domain;
 
 namespace TaSked.App;
 
 public partial class InvintationViewModel : ObservableObject
 {
-	private readonly ITaSkedSevice _api;
+	private readonly ITaSkedService _api;
 
     [ObservableProperty]
     private ObservableCollection<Invitation> _invintations;
 
-    public InvintationViewModel(ITaSkedSevice api)
+    public InvintationViewModel(ITaSkedService api)
 	{
 		_api = api;
         _invintations = new ObservableCollection<Invitation>();
@@ -33,7 +34,7 @@ public partial class InvintationViewModel : ObservableObject
 
         if (invintations.Count == 0)
         {
-            var invintation = _api.CreateInvitation(new Api.Requests.CreateInvintationRequest("defaultinvintation")).Result;
+	        var invintation = _api.CreateInvitation(new CreateInvitationRequest("defaultinvintation")).Result;
             invintations.Add(invintation);
         }
 

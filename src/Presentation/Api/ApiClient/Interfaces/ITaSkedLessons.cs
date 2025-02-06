@@ -6,21 +6,21 @@ namespace TaSked.Api.ApiClient;
 
 public interface ITaSkedLessons
 {
-	[Post("/Lessons/")]
-	public Task<Lesson> Create([Body] CreateLessonRequest request);
+	[Post("/Subjects/{subjectId}/Lessons")]
+	public Task<Lesson> CreateLesson([Body] CreateLessonRequest request, Guid subjectId);
 
-	[Delete("/Lessons/")]
-	public Task Delete([Body] DeleteLessonRequest request);
+	[Delete("/Subjects/{subjectId}/Lessons/{lessonId}")]
+	public Task DeleteLesson(Guid subjectId, Guid lessonId);
 
-	[Patch("/Lessons/Time")]
-	public Task<Lesson> ChangeTime([Body] ChangeLessonTimeRequest request);
+	[Patch("/Subjects/{subjectId}/Lessons/{lessonId}/Time")]
+	public Task<Lesson> ChangeLessonTime([Body] ChangeLessonTimeRequest request, Guid subjectId, Guid lessonId);
 
-	[Patch("/Lessons/Link")]
-	public Task<Lesson> ChangeLessonLink([Body] ChangeLessonLinkRequest request);
-	
-	[Get("/Lessons/BySubject/{SubjectId}")]
-	public Task<List<Lesson>> GetBySubject(Guid subjectId);
+	[Patch("/Subjects/{subjectId}/Lessons/{lessonId}/Link")]
+	public Task<Lesson> ChangeLessonLink([Body] ChangeLessonLinkRequest request, Guid subjectId, Guid lessonId);
 
-	[Get("/Lessons/ByDateRange")]
+	[Get("/Subjects/{subjectId}/Lessons")]
+	public Task<List<Lesson>> GetSubjectLessons(Guid subjectId);
+
+	[Get("/Lessons")]
 	public Task<List<Lesson>> Get([Query("fromDate")] DateTime? from = null, [Query("toDate")] DateTime? to = null);
 }

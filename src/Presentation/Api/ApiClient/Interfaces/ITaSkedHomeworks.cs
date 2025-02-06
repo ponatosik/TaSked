@@ -1,33 +1,44 @@
 ﻿using Refit;
 using TaSked.Api.Requests;
+using TaSked.Application;
 using TaSked.Domain;
 
 namespace TaSked.Api.ApiClient;
 
 public interface ITaSkedHomeworks
 {
-
-	[Get("/Homeworks")]
+	[Get("/Homework")]
 	public Task<List<Homework>> GetAllHomework();
 
-	[Post("/Homeworks")]
-	public Task<Homework> CreateHomework([Body] CreateHomeworkRequest request);
+	[Post("/Subjects/{subjectId}/Homework")]
+	public Task<Homework> CreateHomework([Body] CreateHomeworkRequest request, Guid subjectId);
 
-	[Delete("/Homeworks")]
-	public Task DeleteHomework([Body] DeleteHomeworkRequest request);
+	[Delete("/Subjects/{subjectId}/Homework/{homeworkId}")]
+	public Task DeleteHomework(Guid subjectId, Guid homeworkId);
 
-	[Patch("/Homeworks/Deadline")]
-	public Task<Homework> ChangeDeadline([Body] ChangeHomeworkDeadlineRequest request);
+	[Patch("/Subjects/{subjectId}/Homework/{homeworkId}/Deadline")]
+	public Task<Homework> ChangeHomeworkDeadline([Body] ChangeHomeworkDeadlineRequest request, Guid subjectId,
+		Guid homeworkId);
 
-	[Patch("/Homeworks/Description")]
-	public Task<Homework> ChangeDescription([Body] ChangeHomeworkDescriptionRequest request);
+	[Patch("/Subjects/{subjectId}/Homework/{homeworkId}/Description")]
+	public Task<Homework> ChangeHomeworkDescription([Body] ChangeHomeworkDescriptionRequest request, Guid subjectId,
+		Guid homeworkId);
 
-	[Patch("/Homeworks/RelatedLinks")]
-	public Task<Homework> ChangeSourceUrl([Body] ChangeHomeworkSourceUrlRequest request);
+	[Patch("/Subjects/{subjectId}/Homework/{homeworkId}/RelatedLinks")]
+	public Task<Homework> ChangeHomeworkSourceUrl([Body] ChangeHomeworkRelatedLinksRequest request, Guid subjectId,
+		Guid homeworkId);
 
-	[Patch("/Homeworks/Title")]
-	public Task<Homework> ChangeTitle([Body] ChangeHomeworkTitleRequest request);
+	[Patch("/Subjects/{subjectId}/Homework/{homeworkId}/Title")]
+	public Task<Homework> ChangeHomeworkTitle([Body] ChangeHomeworkTitleRequest request, Guid subjectId,
+		Guid homeworkId);
 
-	[Patch("/Homeworks/BriefSummary")]
-	public Task<Homework> ChangeBriefSummary([Body] ChangeHomeworkBriefSummaryRequest request);
+	[Patch("/Subjects/{subjectId}/Homework/{homeworkId}/BriefSummary")]
+	public Task<Homework> ChangeHomeworkBriefSummary([Body] ChangeHomeworkBriefSummaryRequest request, Guid subjectId,
+		Guid homeworkId);
+
+	[Get("/Subjects/{subjectId}/Homework/{homeworkId}/Comments")]
+	public Task<List<CommentDTO>> GetHomeworkComments(Guid subjectId, Guid homeworkId);
+
+	[Post("/Subjects/{subjectId}/Homework/{homeworkId}/Comments")]
+	public Task<CommentDTO> CommentHomework([Body] CommentHomeworkRequest request, Guid subjectId, Guid homeworkId);
 }

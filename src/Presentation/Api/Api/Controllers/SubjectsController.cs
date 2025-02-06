@@ -40,51 +40,43 @@ public class SubjectsController : ControllerBase
 
 	[HttpDelete]
 	[Authorize(AccessPolicies.Moderator)]
-	public async Task<IActionResult> Delete(DeleteSubjectRequest request)
+	[Route("{subjectId:guid}")]
+	public async Task<IActionResult> Delete(Guid subjectId)
 	{
 		Guid userId = User.GetUserId()!.Value;
-		await _mediator.Send(new DeleteSubjectCommand(userId, request.SubjectId));
+		await _mediator.Send(new DeleteSubjectCommand(userId, subjectId));
 		return NoContent();
 	}
 
 	[HttpPatch]
 	[Authorize(AccessPolicies.Moderator)]
-	[Route("Name")]
-	public async Task<IActionResult> Patch(ChangeSubjectNameRequest request)
+	[Route("{subjectId:guid}/Name")]
+	public async Task<IActionResult> Patch(ChangeSubjectNameRequest request, Guid subjectId)
 	{
 		Guid userId = User.GetUserId()!.Value;
-		var result = await _mediator.Send(new ChangeSubjectNameCommand(userId, request.SubjectId, request.NewSubjectName));
+		var result = await _mediator.Send(new ChangeSubjectNameCommand(userId, subjectId, request.NewSubjectName));
 		return Ok(result);
 	}
 
 	[HttpPatch]
 	[Authorize(AccessPolicies.Moderator)]
-	[Route("Links")]
-	public async Task<IActionResult> Patch(ChangeSubjectLinksRequest request)
+	[Route("{subjectId:guid}/Links")]
+	public async Task<IActionResult> Patch(ChangeSubjectLinksRequest request, Guid subjectId)
 	{
 		var userId = User.GetUserId()!.Value;
 		var result =
-			await _mediator.Send(new ChangeSubjectRelatedLinksCommand(userId, request.SubjectId, request.NewLinks));
+			await _mediator.Send(new ChangeSubjectRelatedLinksCommand(userId, subjectId, request.NewLinks));
 		return Ok(result);
 	}
 
 	[HttpPatch]
 	[Authorize(AccessPolicies.Moderator)]
 	[Route("{subjectId:guid}/Teacher")]
-	public async Task<IActionResult> Patch(Guid subjectId, ChangeSubjectTeacherRequest request)
+	public async Task<IActionResult> Patch(Guid subjectId, ChangeSubjectTeachersRequest request)
 	{
 		Guid userId = User.GetUserId()!.Value;
 		var result = await _mediator.Send(
 			new ChangeSubjectTeachersCommand(userId, subjectId, request.NewSubjectTeachers));
-		return Ok(result);
-	}
-
-	[HttpGet]
-	[Route("{subjectId:guid}/Homeworks/{homeworkId:guid}/Comments")]
-	public async Task<IActionResult> Get(Guid subjectId, Guid homeworkId)
-	{
-		var userId = User.GetUserId()!.Value;
-		var result = await _mediator.Send(new GetHomeworkCommentsQuery(userId, subjectId, homeworkId));
 		return Ok(result);
 	}
 
@@ -99,21 +91,12 @@ public class SubjectsController : ControllerBase
 
 
 	[HttpPost]
-	[Route("Comments")]
-	public async Task<IActionResult> Post(CommentSubjectRequest request)
+	[Route("{subjectId:guid}/Comments")]
+	public async Task<IActionResult> Post(CommentSubjectRequest request, Guid subjectId)
 	{
 		var userId = User.GetUserId()!.Value;
-		var result = await _mediator.Send(new CommentSubjectCommand(userId, request.SubjectId, request.Comment));
-		return Ok(result);
+		var result = await _mediator.Send(new CommentSubjectCommand(userId, subjectId, request.Comment));
+		return CreatedAtAction(nameof(Get), new { subjectId }, CommentDTO.From(result));
 	}
 
-	[HttpPost]
-	[Route("{subjectId:guid}/Homeworks/{homeworkId:guid}/Comments")]
-	public async Task<IActionResult> Post(Guid subjectId, Guid homeworkId, CommentHomeworkRequest request)
-	{
-		var userId = User.GetUserId()!.Value;
-		var result = await _mediator.Send(
-			new CommentHomeworkCommand(userId, subjectId, homeworkId, request.Content));
-		return Ok(CommentDTO.From(result));
-	}
 }

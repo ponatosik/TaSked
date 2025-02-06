@@ -25,7 +25,7 @@ public static class DependencyInjection
 			ContentSerializer = new SystemTextJsonContentSerializer(serializer)
 		};
 
-		services.AddRefitClient<ITaSkedSevice>(settings).
+		services.AddRefitClient<ITaSkedService>(settings).
 			AddHttpMessageHandler<HttpMessageHandler>().
 			ConfigureHttpClient(client =>
 			{

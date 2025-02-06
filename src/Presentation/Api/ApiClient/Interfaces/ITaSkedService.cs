@@ -1,6 +1,6 @@
 ﻿namespace TaSked.Api.ApiClient;
 
-public interface ITaSkedSevice :
+public interface ITaSkedService :
 	ITaSkedUsers,
 	ITaSkedMembers,
 	ITaSkedGroups,

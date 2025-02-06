@@ -31,14 +31,14 @@ public partial class UpdateTaskViewModel : ObservableObject
         PopUpPage popup = ServiceHelper.GetService<PopUpPage>();
 		await popup.IndicateTaskRunningAsync(async () =>
 		{
-			var changeTitleRequest = new ChangeHomeworkTitleRequest(Homework.SubjectId, Homework.Id, Homework.Title);
-			await _homeworkService.ChangeTitle(changeTitleRequest);
+			var changeTitleRequest = new ChangeHomeworkTitleRequest(Homework.Title);
+			await _homeworkService.ChangeHomeworkTitle(changeTitleRequest, Homework.SubjectId, Homework.Id);
 
-			var changeDescriptionRequest = new ChangeHomeworkDescriptionRequest(Homework.SubjectId, Homework.Id, Homework.Description);
-			await _homeworkService.ChangeDescription(changeDescriptionRequest);
+			var changeDescriptionRequest = new ChangeHomeworkDescriptionRequest(Homework.Description);
+			await _homeworkService.ChangeHomeworkDescription(changeDescriptionRequest, Homework.SubjectId, Homework.Id);
 
-			var changeDeadlineRequest = new ChangeHomeworkDeadlineRequest(Homework.SubjectId, Homework.Id, Homework.Deadline);
-			await _homeworkService.ChangeDeadline(changeDeadlineRequest);
+			var changeDeadlineRequest = new ChangeHomeworkDeadlineRequest(Homework.Deadline);
+			await _homeworkService.ChangeHomeworkDeadline(changeDeadlineRequest, Homework.SubjectId, Homework.Id);
 		});
 
 		await Shell.Current.GoToAsync("..");

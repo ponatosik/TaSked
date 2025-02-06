@@ -8,17 +8,15 @@ namespace TaSked.App.Caching;
 
 public class CachedTaSkedReports : CachedRepository<Report>, ITaSkedReports
 {
-	private readonly ITaSkedSevice _api;
-    private readonly IConnectivity _connectivity;
+	private readonly ITaSkedService _api;
 
-    public CachedTaSkedReports(IBlobCache cache, ITaSkedSevice api, IConnectivity connectivity) : base(cache)
+	public CachedTaSkedReports(IBlobCache cache, ITaSkedService api, IConnectivity connectivity) : base(cache)
     {
-        _api = api; 
-        _connectivity = connectivity;
-        
-		if(_connectivity.NetworkAccess == NetworkAccess.Internet)
+	    _api = api;
+
+	    if(connectivity.NetworkAccess == NetworkAccess.Internet)
 		{
-			FetchAndCacheEntities();
+			_ = FetchAndCacheEntities();
 		}
     }
 
@@ -31,12 +29,12 @@ public class CachedTaSkedReports : CachedRepository<Report>, ITaSkedReports
 
 	public async Task<List<Report>> GetAllReports()
     {
-		var allLessons = await GetCachedEntities();
-		if(!allLessons.Any()) 
+		var allLessons = (await GetCachedEntities()).ToList();
+		if(allLessons.Count == 0) 
 		{
-			allLessons = await FetchAndCacheEntities();
+			allLessons = (await FetchAndCacheEntities()).ToList();
 		}
-		return allLessons.ToList();
+		return allLessons;
     }
 
 	protected override async Task<IEnumerable<Report>> FetchEntities()

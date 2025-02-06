@@ -49,8 +49,7 @@ public partial class TasksDetailsViewModel : ObservableObject
         await popup.IndicateTaskRunningAsync(async () =>
         {
             ITaSkedHomeworks api = ServiceHelper.GetService<ITaSkedHomeworks>();
-            DeleteHomeworkRequest request = new DeleteHomeworkRequest(Homework.SubjectId, Homework.Id);
-            await api.DeleteHomework(request);
+            await api.DeleteHomework(Homework.SubjectId, Homework.Id);
 
             HomeworkDataSource homeworkSource = ServiceHelper.GetService<HomeworkDataSource>();
             homeworkSource.HomeworkSource.Remove(Homework.Id);

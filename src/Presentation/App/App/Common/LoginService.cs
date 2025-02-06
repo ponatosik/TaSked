@@ -2,6 +2,7 @@
 using Refit;
 using System.Net;
 using TaSked.Api.ApiClient;
+using TaSked.Api.Requests;
 using TaSked.App.Common.Notifications;
 using TaSked.Domain;
 
@@ -9,7 +10,7 @@ namespace TaSked.App.Common;
 
 public class LoginService
 {
-	private ITaSkedSevice _api;
+	private readonly ITaSkedService _api;
 	private ITaSkedUsers _usersService;
 	private ITaSkedInvitations _invitationsService;
 	private IUserTokenStore _tokenStore;
@@ -17,7 +18,7 @@ public class LoginService
 	private IBlobCache? _userCache;
 
 	public LoginService(
-		ITaSkedSevice api,
+		ITaSkedService api,
 		ITaSkedUsers usersService,
 		ITaSkedInvitations invitationsService,
 		IUserTokenStore tokenStore,
@@ -34,9 +35,9 @@ public class LoginService
 
 	public async Task CreateGroupAsync(string username, string groupName)
 	{
-		string token = await _api.RegisterAnonymous(new Api.Requests.CreateUserTokenRequest(username));
+		var token = await _api.RegisterAnonymous(new CreateAnonymousUserTokenRequest(username));
 		_tokenStore.AccessToken = token;
-		await _api.CreateGroup(new Api.Requests.CreateGroupRequest(groupName));
+		await _api.CreateGroup(new CreateGroupRequest(groupName));
 
 		if (_notificationsService is not null)
 		{
@@ -46,11 +47,11 @@ public class LoginService
 
 	public async Task JoinGroupAsync(string username, Guid invitation)
 	{
-		string token = await _api.RegisterAnonymous(new Api.Requests.CreateUserTokenRequest(username));
+		string token = await _api.RegisterAnonymous(new CreateAnonymousUserTokenRequest(username));
 		_tokenStore.AccessToken = token;
 
 		Guid groupId = (await _invitationsService.GetInvitationById(invitation)).GroupId;
-		await _invitationsService.ActivateInvitation(new Api.Requests.ActivateInvintationRequest(invitation, groupId));
+		await _invitationsService.ActivateInvitation(new ActivateInvitationRequest(invitation, groupId));
 
 		if (_notificationsService is not null)
 		{
@@ -81,7 +82,7 @@ public class LoginService
 
 	public async Task<GroupRole> GetUserRoleAsync()
 	{
-		return (await _usersService.CurrentUser()).Role;
+		return (await _usersService.GetCurrentUser()).Role;
 	}
 
 	public async Task<bool> IsAuthorizedAsync()
@@ -99,7 +100,7 @@ public class LoginService
 
 		try
 		{
-			user = await _usersService.CurrentUser();
+			user = await _usersService.GetCurrentUser();
 		}
 		catch (ApiException exception)
 		{
@@ -128,7 +129,7 @@ public class LoginService
 
 		try
 		{
-			user = await _usersService.CurrentUser();
+			user = await _usersService.GetCurrentUser();
 		}
 		catch (ApiException exception)
 		{
