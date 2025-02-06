@@ -1,14 +1,14 @@
 ﻿namespace TaSked.Domain;
 
-public class Report
+public class Announcement
 {
 	public Guid Id { get; init; }
 	public string Title { get; private set; } = null!;
 	public string Message { get; set; } = null!;
 
-	private Report() { }
+	private Announcement() { }
 
-	internal Report(Guid id, string title, string message)
+	internal Announcement(Guid id, string title, string message)
 	{
 		Id = id;
 		Title = title;

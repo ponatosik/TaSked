@@ -26,13 +26,13 @@ public static class DependencyInjection
 		services.AddSingleton<ITaSkedHomeworks, CachedTaSkedHomeworks>();
 		services.AddSingleton<ITaSkedInvitations, CachedTaSkedInvitations>();
 		services.AddSingleton<ITaSkedLessons, CachedTaSkedLessons>();
-		services.AddSingleton<ITaSkedReports, CachedTaSkedReports>();
+		services.AddSingleton<ITaSkedAnnouncements, CachedTaSkedAnnouncements>();
 
 		services.AddSingleton<CachedRepository<SubjectDTO>, CachedTaSkedSubjects>();
 		services.AddSingleton<CachedRepository<Homework>, CachedTaSkedHomeworks>();
 		services.AddSingleton<CachedRepository<Invitation>, CachedTaSkedInvitations>();
 		services.AddSingleton<CachedRepository<Lesson>, CachedTaSkedLessons>();
-		services.AddSingleton<CachedRepository<Report>, CachedTaSkedReports>();
+		services.AddSingleton<CachedRepository<Announcement>, CachedTaSkedAnnouncements>();
 
 		return services;
 	}

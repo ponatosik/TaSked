@@ -10,21 +10,23 @@ namespace TaSked.Api.Controllers;
 [ApiController]
 [Route("[controller]")]
 [Authorize(AccessPolicies.Member)]
-public class ReportsController : ControllerBase
+public class AnnouncementsController : ControllerBase
 {
 	private readonly IMediator _mediator;
 
-	public ReportsController(IMediator mediator)
+	public AnnouncementsController(IMediator mediator)
 	{
 		_mediator = mediator;
 	}
 
 	[HttpPost]
 	[Authorize(AccessPolicies.Moderator)]
-	public async Task<IActionResult> Post(CreateReportRequest request)
+	public async Task<IActionResult> Post(CreateAnnouncementRequest request)
 	{
 		Guid userId = User.GetUserId()!.Value;
-		var result = await _mediator.Send(new CreateReportCommand(userId, request.ReportTitle, request.ReportMessage));
+		var result =
+			await _mediator.Send(new CreateAnnouncementCommand(userId, request.Title,
+				request.Message));
 		return CreatedAtAction(nameof(Get), new { }, result);
 	}
 
@@ -32,7 +34,7 @@ public class ReportsController : ControllerBase
 	public async Task<IActionResult> Get()
 	{
 		Guid userId = User.GetUserId()!.Value;
-		var result = await _mediator.Send(new GetAllReportQuery(userId));
+		var result = await _mediator.Send(new GetAllAnnouncementsQuery(userId));
 		return Ok(result);
 	}
 }

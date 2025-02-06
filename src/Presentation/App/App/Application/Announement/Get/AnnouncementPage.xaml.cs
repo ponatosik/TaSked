@@ -3,9 +3,9 @@ using ReactiveUI.Maui;
 
 namespace TaSked.App;
 
-public partial class ReportPage : ReactiveContentPage<ReportsViewModel>
+public partial class AnnouncementPage : ReactiveContentPage<AnnouncementViewModel>
 {
-	public ReportPage(ReportsViewModel viewModel)
+	public AnnouncementPage(AnnouncementViewModel viewModel)
 	{
 		InitializeComponent();
 		ViewModel = viewModel;

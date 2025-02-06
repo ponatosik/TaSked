@@ -193,10 +193,10 @@
     <value>TaSked</value>
   </data>
   <data name="Navigation.Reports" xml:space="preserve">
-    <value>Reports</value>
+    <value>Announcements</value>
   </data>
   <data name="Navigation.Reports.Create" xml:space="preserve">
-    <value>Create report</value>
+    <value>Create announcement</value>
   </data>
   <data name="Navigation.Settings" xml:space="preserve">
     <value>Settings</value>
@@ -229,22 +229,22 @@
     <value>Send</value>
   </data>
   <data name="Report.Form.Create.Title" xml:space="preserve">
-    <value>Create report</value>
+    <value>Create announcement</value>
   </data>
   <data name="Report.Form.Hint" xml:space="preserve">
-    <value>Reports can`t be changed or deleted</value>
+    <value>Announcements can`t be changed or deleted</value>
   </data>
   <data name="Report.Form.Message" xml:space="preserve">
     <value>Message</value>
   </data>
   <data name="Report.Form.Title" xml:space="preserve">
-    <value>Create report</value>
+    <value>Create announcement</value>
   </data>
   <data name="Report.List.Empty" xml:space="preserve">
     <value>There are no reports yet</value>
   </data>
   <data name="Report.List.Empty.ModeratorHint" xml:space="preserve">
-    <value>Create a new report by pressing the button below</value>
+    <value>Create a new announcement by pressing the button below</value>
   </data>
   <data name="Role.Card.Ban" xml:space="preserve">
     <value>Ban</value>

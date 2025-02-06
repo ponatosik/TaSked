@@ -1,22 +1,19 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using DynamicData;
 using ReactiveUI;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Reactive.Linq;
-using TaSked.Api.ApiClient;
 using TaSked.Domain;
 
 namespace TaSked.App;
 
-public partial class ReportsViewModel : ReactiveObject, IActivatableViewModel
+public partial class AnnouncementViewModel : ReactiveObject, IActivatableViewModel
 {
-	private readonly ReportDataSource _dataSource;
+	private readonly AnnouncementDataSource _dataSource;
 	public ViewModelActivator Activator { get; } = new();
 
-	private ReadOnlyObservableCollection<Report> _reports;
-	public ReadOnlyObservableCollection<Report> Reports => _reports;
+	private readonly ReadOnlyObservableCollection<Announcement> _announcements;
+	public ReadOnlyObservableCollection<Announcement> Announcements => _announcements;
 
 	private bool _isRefreshing;
 	public bool IsRefreshing
@@ -25,19 +22,19 @@ public partial class ReportsViewModel : ReactiveObject, IActivatableViewModel
 		set => this.RaiseAndSetIfChanged(ref _isRefreshing, value);
 	}
 
-    public ReportsViewModel(ReportDataSource dataSource)
+	public AnnouncementViewModel(AnnouncementDataSource dataSource)
 	{
 		_dataSource = dataSource;
-		_dataSource.ReportSource
+		_dataSource.AnnouncementSource
 			.Connect()
 			.SortBy(report => report.Id)
 			.ObserveOn(RxApp.MainThreadScheduler)
-			.Bind(out _reports)
+			.Bind(out _announcements)
 			.Subscribe();
 
 		RefreshCommand = ReactiveCommand.CreateFromTask(RefreshAsync);
 
-		this.RaisePropertyChanged(nameof(Reports));
+		this.RaisePropertyChanged(nameof(Announcements));
 	}
 
 	private IReactiveCommand _refreshCommand;
@@ -57,7 +54,7 @@ public partial class ReportsViewModel : ReactiveObject, IActivatableViewModel
 	[RelayCommand]
 	private async Task CreateReport()
 	{
-		await Shell.Current.GoToAsync("CreateReportPage");		
+		await Shell.Current.GoToAsync("CreateAnnouncementPage");		
 	}
 }
 

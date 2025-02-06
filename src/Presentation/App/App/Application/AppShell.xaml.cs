@@ -13,7 +13,7 @@ public partial class AppShell : Shell
 		InitializeComponent();
 		Routing.RegisterRoute("MainPage/CreateGroupPage", typeof(CreateGroupPage));
 		Routing.RegisterRoute("MainPage/JoinGroupPage", typeof(JoinGroupPage));
-		Routing.RegisterRoute("ReportPage/CreateReportPage", typeof(CreateReportPage));
+		Routing.RegisterRoute("AnnouncementPage/CreateAnnouncementPage", typeof(CreateAnnouncementPage));
 		Routing.RegisterRoute("SubjectPage/CreateSubjectPage", typeof(CreateSubjectPage));
 		Routing.RegisterRoute("SubjectPage/UpdateSubjectPage", typeof(UpdateSubjectPage));
 		Routing.RegisterRoute("SubjectPage/SubjectDetailsPage", typeof(SubjectDetailsPage));

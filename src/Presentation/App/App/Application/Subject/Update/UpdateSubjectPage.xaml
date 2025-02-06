@@ -18,10 +18,10 @@
             Margin="30,10"
             Text="{Binding SubjectDTO.Name}"
             Title="{localization:Translate Subject_Form_Title}" />
-        <material:TextField
-            Margin="30,10"
-            Text="{Binding SubjectDTO.Teachers.FullName}"
-            Title="{localization:Translate Subject_Form_TeacherName}" />
+        <!-- <material:TextField
+             Margin="30,10"
+             Text="{Binding SubjectDTO.Teachers.FullName}"
+             Title="{localization:Translate Subject_Form_TeacherName}" />-->
         <Button
             Command="{Binding UpdateSubjectCommand}"
             Margin="100,10"

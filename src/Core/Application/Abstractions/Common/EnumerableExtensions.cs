@@ -35,8 +35,9 @@ internal static class EnumerableExtensions
 		return query.FirstOrDefault(invitation => invitation.Id == id) ?? throw new EntityNotFoundException(id, nameof(Invitation));
 	}
 
-	public static Report FindOrThrow(this IEnumerable <Report> query, Guid id)
+	public static Announcement FindOrThrow(this IEnumerable<Announcement> query, Guid id)
 	{
-		return query.FirstOrDefault(report => report.Id == id) ?? throw new EntityNotFoundException(id, nameof(Report));
+		return query.FirstOrDefault(announcement => announcement.Id == id) ??
+		       throw new EntityNotFoundException(id, nameof(Announcement));
 	}
 }

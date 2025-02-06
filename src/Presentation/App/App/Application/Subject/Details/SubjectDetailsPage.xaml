@@ -39,7 +39,7 @@
                 </mct:Expander.Header>
                 <mct:Expander.Content>
                     <VerticalStackLayout>
-                        <Label Padding="30,0" Text="{Binding SubjectDTO.Teachers.FullName}" />
+                        <!-- <Label Padding="30,0" Text="{Binding SubjectDTO.Teachers.FullName}" /> -->
                         <Grid ColumnDefinitions="Auto, *" Margin="30,15,30,30">
                             <Label Text="{localization:Translate Subject_Details_LessonLink}" />
 

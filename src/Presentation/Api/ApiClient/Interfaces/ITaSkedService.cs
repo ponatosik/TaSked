@@ -5,7 +5,7 @@ public interface ITaSkedService :
 	ITaSkedMembers,
 	ITaSkedGroups,
 	ITaSkedLessons,
-	ITaSkedReports,
+	ITaSkedAnnouncements,
 	ITaSkedSubjects,
 	ITaSkedHomeworks,
 	ITaSkedInvitations,

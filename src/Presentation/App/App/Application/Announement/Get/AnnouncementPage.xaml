@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <reactive:ReactiveContentPage
-    x:Class="TaSked.App.ReportPage"
+    x:Class="TaSked.App.AnnouncementPage"
+    x:DataType="local:AnnouncementViewModel"
+    x:TypeArguments="local:AnnouncementViewModel"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:components="clr-namespace:TaSked.App.Components"
     xmlns:domain="clr-namespace:TaSked.Domain;assembly=Domain"
     xmlns:local="clr-namespace:TaSked.App"
@@ -10,8 +11,7 @@
     xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
     xmlns:reactive="clr-namespace:ReactiveUI.Maui;assembly=ReactiveUI.Maui"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-    x:DataType="local:ReportsViewModel"
-    x:TypeArguments="local:ReportsViewModel">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <AbsoluteLayout Margin="0,0" Padding="0,0">
         <RefreshView
@@ -19,27 +19,27 @@
             AbsoluteLayout.LayoutFlags="SizeProportional"
             Command="{Binding RefreshCommand}"
             IsRefreshing="{Binding IsRefreshing}">
-            <CollectionView ItemsSource="{Binding Reports}">
+            <CollectionView ItemsSource="{Binding Announcements}">
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="domain:Report">
-                        <components:ReportCard ReportModel="{Binding}" />
+                    <DataTemplate x:DataType="domain:Announcement">
+                        <components:AnnouncementCard AnnouncementModel="{Binding}" />
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
                 <CollectionView.EmptyView>
                     <VerticalStackLayout
-                        Padding="0,0,0,80"
                         HorizontalOptions="CenterAndExpand"
+                        Padding="0,0,0,80"
                         VerticalOptions="Center">
                         <Label
-                            Padding="5"
                             HorizontalOptions="CenterAndExpand"
+                            Padding="5"
                             Text="{localization:Translate Report_List_Empty}" />
                         <Label
-                            Padding="5"
                             FontAttributes="Italic"
                             FontSize="Caption"
                             HorizontalOptions="CenterAndExpand"
                             IsVisible="{Binding IsModerator, Source={StaticResource AppState}}"
+                            Padding="5"
                             Text="{localization:Translate Report_List_Empty_ModeratorHint}" />
                     </VerticalStackLayout>
                 </CollectionView.EmptyView>

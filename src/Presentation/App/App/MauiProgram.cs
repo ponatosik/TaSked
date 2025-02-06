@@ -1,19 +1,17 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using CommunityToolkit.Maui;
+using CommunityToolkit.Maui.Core;
+using LocalizationResourceManager.Maui;
+using ReactiveUI;
 using TaSked.Api.ApiClient;
 using TaSked.App.Application;
-using TaSked.App.Common;
 using TaSked.App.Caching;
+using TaSked.App.Common;
+using TaSked.App.Common.Components;
+using TaSked.App.Common.Notifications;
+using TaSked.App.Resources.Localization;
 using TaSked.Infrastructure.LocalPersistence;
 using The49.Maui.ContextMenu;
 using UraniumUI;
-using CommunityToolkit.Maui;
-using TaSked.App.Common.Notifications;
-using ReactiveUI;
-using TaSked.App.Common.Components;
-using LocalizationResourceManager.Maui;
-using TaSked.App.Resources.Localization;
-using CommunityToolkit.Maui.Core;
-using System.Globalization;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace TaSked.App;
@@ -78,11 +76,11 @@ public static class MauiProgram
         builder.Services.AddScoped<SortBySubjPage>();
         builder.Services.AddScoped<SortBySubjViewModel>();
 
-        builder.Services.AddSingleton<ReportsViewModel>();
-		builder.Services.AddSingleton<ReportPage>();
-		builder.Services.AddSingleton<ReportDataSource>();
-		builder.Services.AddScoped<CreateReportPage>();
-		builder.Services.AddScoped<CreateReportViewModel>();
+        builder.Services.AddSingleton<AnnouncementViewModel>();
+        builder.Services.AddSingleton<AnnouncementPage>();
+        builder.Services.AddSingleton<AnnouncementDataSource>();
+        builder.Services.AddScoped<CreateAnnouncementPage>();
+        builder.Services.AddScoped<CreateAnnouncementViewModel>();
 
 		builder.Services.AddSingleton<JoinGroupPage>();
 		builder.Services.AddSingleton<JoinGroupViewModel>();

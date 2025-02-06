@@ -8,10 +8,10 @@ using TaSked.App.Common.Components;
 
 namespace TaSked.App;
 
-public partial class CreateReportViewModel : ObservableObject
+public partial class CreateAnnouncementViewModel : ObservableObject
 {
-	private readonly ITaSkedReports _api;
-	private readonly ReportDataSource _dataSource;
+	private readonly ITaSkedAnnouncements _api;
+	private readonly AnnouncementDataSource _dataSource;
 
 	[ObservableProperty]
 	private string _title;
@@ -20,14 +20,14 @@ public partial class CreateReportViewModel : ObservableObject
 	private string _message;
 
 	[ObservableProperty]
-	private IReactiveCommand _createReportCommand;
+	private IReactiveCommand _createAnnouncementCommand;
 
-	public CreateReportViewModel(ITaSkedReports api, ReportDataSource dataSource)
+	public CreateAnnouncementViewModel(ITaSkedAnnouncements api, AnnouncementDataSource dataSource)
 	{
 		_api = api;
 		_dataSource = dataSource;
 
-		CreateReportCommand = ReactiveCommand.CreateFromTask(CreateReport);
+		CreateAnnouncementCommand = ReactiveCommand.CreateFromTask(CreateReport);
 	}
 
 	private async Task CreateReport()
@@ -40,9 +40,9 @@ public partial class CreateReportViewModel : ObservableObject
 		PopUpPage popup = ServiceHelper.GetService<PopUpPage>();
 		await popup.IndicateTaskRunningAsync(async () =>
 		{
-			var request = new CreateReportRequest(Title, Message);
-			var report = await _api.CreateReport(request);
-			_dataSource.ReportSource.AddOrUpdate(report);
+			var request = new CreateAnnouncementRequest(Title, Message);
+			var report = await _api.CreateAnnouncement(request);
+			_dataSource.AnnouncementSource.AddOrUpdate(report);
 		});
 
 		await Shell.Current.GoToAsync("..");

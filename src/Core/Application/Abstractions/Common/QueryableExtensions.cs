@@ -35,8 +35,9 @@ internal static class QueryableExtensions
 		return query.FirstOrDefault(invitation => invitation.Id == id) ?? throw new EntityNotFoundException(id, nameof(Invitation));
 	}
 
-	public static Report FindOrThrow(this IQueryable<Report> query, Guid id)
+	public static Announcement FindOrThrow(this IQueryable<Announcement> query, Guid id)
 	{
-		return query.FirstOrDefault(Report => Report.Id == id) ?? throw new EntityNotFoundException(id, nameof(Report));
+		return query.FirstOrDefault(Announcement => Announcement.Id == id) ??
+		       throw new EntityNotFoundException(id, nameof(Announcement));
 	}
 }
