@@ -1,6 +1,7 @@
-﻿using CommunityToolkit.Maui;
-using CommunityToolkit.Maui.Core;
+using Auth0.OidcClient;
+using CommunityToolkit.Maui;
 using LocalizationResourceManager.Maui;
+using Microsoft.Extensions.Logging;
 using ReactiveUI;
 using TaSked.Api.ApiClient;
 using TaSked.App.Application;
@@ -12,6 +13,7 @@ using TaSked.App.Resources.Localization;
 using TaSked.Infrastructure.LocalPersistence;
 using The49.Maui.ContextMenu;
 using UraniumUI;
+using CommunityToolkit.Maui.Core;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace TaSked.App;
@@ -100,6 +102,8 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<InvintationViewModel>();
         builder.Services.AddSingleton<InvintationsPage>();
+        
+		builder.Services.AddSingleton<LoginPage>();
 
         builder.Services.AddSingleton<SettingsViewModel>();
 		builder.Services.AddSingleton<AppShell>();
@@ -122,7 +126,18 @@ public static class MauiProgram
 #endif
 
 		builder.Services.AddSingleton<MainPage>();
-		
+		builder.Services.AddSingleton<MainPageViewModel>();
+
+		builder.Services.AddSingleton(new Auth0Client(new()
+		{
+			Domain = "tasked-app.eu.auth0.com",
+			ClientId = "dpA38Qq0JOmU2uvilzl52OkXjqjFreTq",
+			RedirectUri = "myapp://callback/",
+			PostLogoutRedirectUri = "myapp://callback/",
+			Scope = "openid profile"
+
+
+		}));
 		
 		RxApp.DefaultExceptionHandler = new AppExceptionHandler();
 

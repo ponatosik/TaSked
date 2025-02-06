@@ -1,30 +1,30 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
-    x:Class="TaSked.App.MainPage"
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage 
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="TaSked.App.LoginPage"
     xmlns:components="clr-namespace:TaSked.App.Components"
     xmlns:localization="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
-    xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
-    xmlns:local="using:TaSked.App.Application"
-    x:DataType="local:MainPageViewModel"
+    xmlns:local="using:TaSked.App"
     Shell.NavBarIsVisible="false">
-
+    
     <VerticalStackLayout Padding="20" Spacing="10">
-        
+
         <Label
             Margin="0,160,0,0"
-            FontSize="30"
-            Text="{localization:Translate Main_Title}"
-            HorizontalTextAlignment="Center"
+            FontSize="60"
+            HorizontalOptions="Center"
+            Text="TaSked"
             TextColor="#FFFFFF" />
-    
         <Label
-            Margin="0,0,0,0"
-            FontSize="30"
-            Text="{Binding Nickname, StringFormat='{0}!'}"
-            HorizontalTextAlignment="Center"
-            TextColor="#FFFFFF" />
+            Margin="0,30,0,0"
+            FontSize="15"
+            HorizontalOptions="Center"
+            Text="{localization:Translate Login_Page_Caption}"
+            TextColor="#DFD5EC" />
+
+        <components:LanguageSelector Margin="20,10,20,0" />
 
         <Frame
             Margin="20,40"
@@ -36,15 +36,15 @@
                 <StackLayout>
                     <Label
                         FontSize="15"
-                        Text="{localization:Translate Main_JoinGroup}"
+                        Text="{localization:Translate Login_Authorization}"
                         TextColor="#D0BCFF" />
                     <Label
                         FontSize="10"
-                        Text="{localization:Translate Main_JoinGroupCaption}"
+                        Text="{localization:Translate Login_AuthorizationCaption}"
                         TextColor="#E6E0E9" />
                 </StackLayout>
                 <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="JoinGroupTapped" />
+                    <TapGestureRecognizer Tapped="LoginTapped" />
                 </StackLayout.GestureRecognizers>
             </StackLayout>
         </Frame>
@@ -59,28 +59,17 @@
                 <StackLayout>
                     <Label
                         FontSize="15"
-                        Text="{localization:Translate Main_CreateGroup}"
-                        TextColor="#EFB8C8" />
+                        Text="{localization:Translate Login_Anonymous_Account}"
+                        TextColor="#5d5c5e" />
                     <Label
                         FontSize="10"
-                        Text="{localization:Translate Main_CreateGroupCaption}"
-                        TextColor="#E6E0E9" />
+                        Text="{localization:Translate Login_Anonymous_AccountCaption}"
+                        TextColor="#49464D" />
                 </StackLayout>
                 <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="CreateGroupTapped" />
+                    <TapGestureRecognizer Tapped="AnonymousLoginTapped" />
                 </StackLayout.GestureRecognizers>
             </StackLayout>
         </Frame>
-        
-        <Button
-            Margin="0,50,0,0"
-            Command="{Binding LogoutCommand}"
-            HorizontalOptions="Center"
-            StyleClass="FilledButton"
-            IsEnabled="{Binding HasInternetConnection, Source={StaticResource AppState}}"
-            Text="{localization:Translate Settings_Logout}"
-            TextColor="#242424"
-            BackgroundColor="#49464D"/>
     </VerticalStackLayout>
-
 </ContentPage>

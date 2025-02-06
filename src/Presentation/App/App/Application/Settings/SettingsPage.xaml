@@ -39,6 +39,17 @@
             IsEnabled="{Binding HasInternetConnection, Source={StaticResource AppState}}"
             Text="{localization:Translate Settings_Invitations}"
             TextColor="#242424" />
+        
+        <Button
+            Margin="0,20,0,20"
+            BorderWidth="1"
+            Command="{Binding LeaveGroupCommand}"
+            CornerRadius="5"
+            HeightRequest="50"
+            HorizontalOptions="FillAndExpand"
+            IsEnabled="{Binding HasInternetConnection, Source={StaticResource AppState}}"
+            Text="{localization:Translate Settings_LeaveGroup}"
+            TextColor="#242424" />
 
         <components:Divider LabelText="{localization:Translate Settings_Group_Account}" />
 
@@ -49,6 +60,7 @@
             CornerRadius="5"
             HeightRequest="50"
             HorizontalOptions="FillAndExpand"
+            IsEnabled="{Binding HasInternetConnection, Source={StaticResource AppState}}"
             Text="{localization:Translate Settings_Logout}"
             TextColor="#242424" />
     </StackLayout>

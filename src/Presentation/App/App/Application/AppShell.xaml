@@ -26,6 +26,11 @@
             Title="{localization:Translate Navigation_Loading}" />
 
         <ShellContent
+            ContentTemplate="{DataTemplate local:LoginPage}"
+            Route="LoginPage"
+            Title="Сторінка логіну" />
+
+        <ShellContent
             ContentTemplate="{DataTemplate local:MainPage}"
             Route="MainPage"
             Title="{localization:Translate Navigation_Main}" />

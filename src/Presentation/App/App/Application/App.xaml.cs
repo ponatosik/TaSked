@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
-using TaSked.App.Common;
 using LocalizationResourceManager.Maui;
-
+using TaSked.App.Common;
 
 namespace TaSked.App;
 
@@ -11,13 +10,13 @@ public partial class App : Microsoft.Maui.Controls.Application
 	public App(ILocalizationResourceManager localizationResourceManager)
 	{
 		InitializeComponent();
-		Microsoft.Maui.Controls.Application.Current.UserAppTheme = AppTheme.Dark;
+		Current.UserAppTheme = AppTheme.Dark;
 		_localizationResourceManager = localizationResourceManager;
         WeakReferenceMessenger.Default.Register<InvintationItemMessage>(this, async (r, m) =>
         {
 	        string getinvintationid = m.Value.ToString();
 	        var _loginService = ServiceHelper.GetService<LoginService>();
-	        bool isAuthorized = await _loginService.IsAuthorizedAsync();
+	        var isAuthorized = await _loginService.HasGroupAsync();
 	        Device.StartTimer(TimeSpan.FromSeconds(2), () =>
 	        {
 		        if (isAuthorized)

@@ -43,11 +43,11 @@
                         <Grid ColumnDefinitions="Auto, *" Margin="30,15,30,30">
                             <Label Text="{localization:Translate Subject_Details_LessonLink}" />
 
-                            <Label
-                                Grid.Column="1"
-                                HorizontalOptions="End"
-                                Text="{Binding TeacherOnlineLessonsUrlDisplay}"
-                                TextColor="#403d47" />
+                            <!--  <Label  -->
+                            <!--  Grid.Column="1"  -->
+                            <!--  HorizontalOptions="End"  -->
+                            <!--  Text="{Binding TeacherOnlineLessonsUrlDisplay}"  -->
+                            <!--  TextColor="#403d47" />  -->
                         </Grid>
                     </VerticalStackLayout>
                 </mct:Expander.Content>

@@ -1,4 +1,5 @@
 using TaSked.App.Common;
+using TaSked.Domain;
 
 namespace TaSked.App;
 
@@ -16,13 +17,17 @@ public partial class LoadingPage : ContentPage
 		// Win UI dotnet Maui bug: https://learn.microsoft.com/en-us/answers/questions/1375393/pending-navigations-still-processing-when-navigati
 		await Task.Delay(1);
 
-        if (await _loginService.IsAuthorizedAsync())
+		if (await _loginService.HasGroupAsync())
         {
             await Shell.Current.GoToAsync("//UncompletedTasksPage");
         }
-        else
+        else if ((await _loginService.GetUserRoleAsync()) == GroupRole.NoGroup )
         {
             await Shell.Current.GoToAsync("//MainPage");
+        }
+        else
+        {
+	        await Shell.Current.GoToAsync("//LoginPage");
         }
         base.OnNavigatedTo(args);
     }
