@@ -18,10 +18,20 @@
             Margin="30,10"
             Text="{Binding SubjectDTO.Name}"
             Title="{localization:Translate Subject_Form_Title}" />
-        <!-- <material:TextField
-             Margin="30,10"
-             Text="{Binding SubjectDTO.Teachers.FullName}"
-             Title="{localization:Translate Subject_Form_TeacherName}" />-->
+
+        <CollectionView ItemsSource="{Binding SubjectDTO.Teachers}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="domain:Teacher">
+
+                    <material:TextField
+                        Margin="30,10"
+                        Text="{Binding FullName}"
+                        Title="{localization:Translate Subject_Form_TeacherName}" />
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
         <Button
             Command="{Binding UpdateSubjectCommand}"
             Margin="100,10"

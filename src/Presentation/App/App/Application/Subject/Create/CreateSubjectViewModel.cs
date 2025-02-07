@@ -5,6 +5,7 @@ using TaSked.Api.ApiClient;
 using TaSked.Api.Requests;
 using TaSked.App.Common;
 using TaSked.App.Common.Components;
+using TaSked.Domain;
 
 namespace TaSked.App;
 
@@ -18,6 +19,9 @@ public partial class CreateSubjectViewModel : ObservableObject
 
     [ObservableProperty]
     private string _name;
+
+    [ObservableProperty]
+    private string _teacherName;
 
     public CreateSubjectViewModel(ITaSkedSubjects subjectService, SubjectDataSource subjectDataSource)
     {
@@ -35,15 +39,24 @@ public partial class CreateSubjectViewModel : ObservableObject
         }
 
         PopUpPage popup = ServiceHelper.GetService<PopUpPage>();
-        await popup.IndicateTaskRunningAsync(async () =>
-        {
-	        var request = new CreateSubjectRequest(Name);
-            var dto = await _subjectService.CreateSubject(request);
-
-            SubjectViewModel viewModel = new SubjectViewModel(dto);
-            _subjectDataSource.SubjectSource.AddOrUpdate(viewModel);
-        });
-
+        await popup.IndicateTaskRunningAsync(SendApiRequests);
         await Shell.Current.GoToAsync("..");
+    }
+
+    private async Task SendApiRequests()
+    {
+	    var request = new CreateSubjectRequest(Name);
+	    var dto = await _subjectService.CreateSubject(request);
+
+	    if (!string.IsNullOrEmpty(TeacherName))
+	    {
+		    var teacherDto = new UpdateTeacherDTO(TeacherName, null, null, null, null);
+		    var changeTeacherRequest = new ChangeSubjectTeachersRequest([teacherDto]);
+		    var updateDto = await _subjectService.ChangeSubjectTeacher(changeTeacherRequest, dto.Id);
+		    dto.Teachers = updateDto.Teachers;
+	    }
+
+	    var viewModel = new SubjectViewModel(dto);
+	    _subjectDataSource.SubjectSource.AddOrUpdate(viewModel);
     }
 }

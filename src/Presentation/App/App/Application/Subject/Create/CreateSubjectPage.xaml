@@ -18,6 +18,10 @@
             Margin="30,10"
             Text="{Binding Name}"
             Title="{localization:Translate Subject_Form_Title}" />
+        <material:TextField
+            Margin="30,10"
+            Text="{Binding TeacherName}"
+            Title="{localization:Translate Subject_Form_TeacherName}" />
         <Button
             Command="{Binding CreateSubjectCommand}"
             Margin="100,10"
