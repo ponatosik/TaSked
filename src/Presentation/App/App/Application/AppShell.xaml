@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Shell
+    Shell.FlyoutBehavior="Disabled"
     x:Class="TaSked.App.AppShell"
+    x:DataType="local:AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:TaSked.App"
     xmlns:localization="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
-    x:DataType="local:AppShell"
-    Shell.FlyoutBehavior="Disabled">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <Shell.ToolbarItems>
         <ToolbarItem Clicked="OnSettingsClicked">
@@ -17,89 +17,89 @@
     </Shell.ToolbarItems>
 
     <FlyoutItem
-        Title="{localization:Translate Navigation_Tasks}"
         FlyoutDisplayOptions="AsMultipleItems"
-        Shell.TabBarIsVisible="False">
+        Shell.TabBarIsVisible="False"
+        Title="{localization:Translate Navigation_Tasks}">
         <ShellContent
-            Title="{localization:Translate Navigation_Loading}"
             ContentTemplate="{DataTemplate local:LoadingPage}"
-            Route="LoadingPage" />
-        
+            Route="LoadingPage"
+            Title="{localization:Translate Navigation_Loading}" />
+
         <ShellContent
-            Title="Сторінка логіну"
             ContentTemplate="{DataTemplate local:LoginPage}"
-            Route="LoginPage" />
+            Route="LoginPage"
+            Title="Сторінка логіну" />
 
         <ShellContent
-            Title="{localization:Translate Navigation_Main}"
             ContentTemplate="{DataTemplate local:MainPage}"
-            Route="MainPage" />
+            Route="MainPage"
+            Title="{localization:Translate Navigation_Main}" />
 
         <ShellContent
-            Title="{localization:Translate Navigation_Groups_Create}"
             ContentTemplate="{DataTemplate local:CreateGroupPage}"
-            Route="CreateGroupPage" />
+            Route="CreateGroupPage"
+            Title="{localization:Translate Navigation_Groups_Create}" />
 
         <ShellContent
-            Title="{localization:Translate Navigation_Groups_Join}"
             ContentTemplate="{DataTemplate local:JoinGroupPage}"
-            Route="JoinGroupPage" />
+            Route="JoinGroupPage"
+            Title="{localization:Translate Navigation_Groups_Join}" />
 
-        <ShellContent Title="{localization:Translate Navigation_Settings}" Route="Setting" />
+        <ShellContent Route="Setting" Title="{localization:Translate Navigation_Settings}" />
 
     </FlyoutItem>
 
     <TabBar>
-        <Tab Title="{localization:Translate Navigation_Tasks}" Icon="task_icon.png">
+        <Tab Icon="task_icon.png" Title="{localization:Translate Navigation_Tasks}">
             <ShellContent
-                Title="{localization:Translate Navigation_Tasks_Uncompleted}"
                 ContentTemplate="{DataTemplate local:UncompletedTasksPage}"
-                Route="UncompletedTasksPage" />
+                Route="UncompletedTasksPage"
+                Title="{localization:Translate Navigation_Tasks_Uncompleted}" />
 
             <ShellContent
-                Title="{localization:Translate Navigation_Tasks_BySubjects}"
                 ContentTemplate="{DataTemplate local:SortBySubjPage}"
-                Route="SortBySubjPage" />
+                Route="SortBySubjPage"
+                Title="{localization:Translate Navigation_Tasks_BySubjects}" />
 
             <ShellContent
-                Title="{localization:Translate Navigation_Tasks_All}"
                 ContentTemplate="{DataTemplate local:AllTasksPage}"
-                Route="AllTasksPage" />
+                Route="AllTasksPage"
+                Title="{localization:Translate Navigation_Tasks_All}" />
         </Tab>
 
-        <Tab Title="{localization:Translate Navigation_Subjects}" Icon="subject_icon.png">
+        <Tab Icon="subject_icon.png" Title="{localization:Translate Navigation_Subjects}">
             <ShellContent
-                Title="{localization:Translate Navigation_Subjects}"
                 ContentTemplate="{DataTemplate local:SubjectPage}"
-                Route="SubjectPage" />
+                Route="SubjectPage"
+                Title="{localization:Translate Navigation_Subjects}" />
         </Tab>
 
-        <Tab Title="{localization:Translate Navigation_Reports}" Icon="report_icon.png">
+        <Tab Icon="report_icon.png" Title="{localization:Translate Navigation_Reports}">
             <ShellContent
-                Title="{localization:Translate Navigation_Reports}"
-                ContentTemplate="{DataTemplate local:ReportPage}"
-                Route="ReportPage" />
+                ContentTemplate="{DataTemplate local:AnnouncementPage}"
+                Route="AnnouncementPage"
+                Title="{localization:Translate Navigation_Reports}" />
         </Tab>
     </TabBar>
 
     <ShellContent
-        Title="{localization:Translate Navigation_Reports_Create}"
-        ContentTemplate="{DataTemplate local:CreateReportPage}"
-        Route="CreateReport" />
+        ContentTemplate="{DataTemplate local:CreateAnnouncementPage}"
+        Route="CreateAnnouncement"
+        Title="{localization:Translate Navigation_Reports_Create}" />
 
     <ShellContent
-        Title="{localization:Translate Navigation_Tasks_Create}"
         ContentTemplate="{DataTemplate local:CreateTaskPage}"
-        Route="CreateTask" />
+        Route="CreateTask"
+        Title="{localization:Translate Navigation_Tasks_Create}" />
 
     <ShellContent
-        Title="{localization:Translate Navigation_Settings_Roles}"
         ContentTemplate="{DataTemplate local:RolePage}"
-        Route="RolePage" />
+        Route="RolePage"
+        Title="{localization:Translate Navigation_Settings_Roles}" />
 
     <ShellContent
-        Title="{localization:Translate Navigation_Settings_Invitations}"
         ContentTemplate="{DataTemplate local:InvintationsPage}"
-        Route="InvintationsPage" />
+        Route="InvintationsPage"
+        Title="{localization:Translate Navigation_Settings_Invitations}" />
 
 </Shell>

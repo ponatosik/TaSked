@@ -411,7 +411,7 @@ namespace TaSked.App.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reports.
+        ///   Looks up a localized string similar to Announcements.
         /// </summary>
         internal static string Navigation_Reports {
             get {
@@ -420,7 +420,7 @@ namespace TaSked.App.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create report.
+        ///   Looks up a localized string similar to Create announcement.
         /// </summary>
         internal static string Navigation_Reports_Create {
             get {
@@ -519,7 +519,7 @@ namespace TaSked.App.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create report.
+        ///   Looks up a localized string similar to Create announcement.
         /// </summary>
         internal static string Report_Form_Create_Title {
             get {
@@ -528,7 +528,7 @@ namespace TaSked.App.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reports can`t be changed or deleted.
+        ///   Looks up a localized string similar to Announcements can`t be changed or deleted.
         /// </summary>
         internal static string Report_Form_Hint {
             get {
@@ -546,7 +546,7 @@ namespace TaSked.App.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create report.
+        ///   Looks up a localized string similar to Create announcement.
         /// </summary>
         internal static string Report_Form_Title {
             get {
@@ -564,7 +564,7 @@ namespace TaSked.App.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create a new report by pressing the button below.
+        ///   Looks up a localized string similar to Create a new announcement by pressing the button below.
         /// </summary>
         internal static string Report_List_Empty_ModeratorHint {
             get {

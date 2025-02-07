@@ -19,28 +19,28 @@ public class UsersController : ControllerBase
 	}
 	
 	[HttpPost]
-	[Route("anonymousAccout")]
-	public async Task<IActionResult> Post(CreateUserTokenRequest request)
+	[Route("Anonymous")]
+	public async Task<IActionResult> Post(CreateAnonymousUserTokenRequest request)
 	{
 		var result = await _mediator.Send(new CreateUserTokenCommand(request.Nickname));
 		return CreatedAtAction(nameof(Get), new { }, result);
 	}
 
 	[HttpGet]
-	[Route("{UserId:guid}")]
-	public async Task<IActionResult> Get(Guid UserId)
+	[Route("{userId:guid}")]
+	public async Task<IActionResult> Get(Guid userId)
 	{
-		var result = await _mediator.Send(new GetUserInfoQuery(UserId));
+		var result = await _mediator.Send(new GetUserInfoQuery(userId));
 		return Ok(result);
 	}
 
 	[HttpGet]
 	[Authorize]
-	[Route("account")]
+	[Route("Account")]
 	public async Task<IActionResult> Get()
 	{
-		Guid UserId = User.GetUserId()!.Value;
-		var result = await _mediator.Send(new GetUserInfoQuery(UserId));
+		var userId = User.GetUserId()!.Value;
+		var result = await _mediator.Send(new GetUserInfoQuery(userId));
 		return Ok(result);
 	}
 }

@@ -5,6 +5,6 @@ namespace TaSked.Api.ApiClient;
 
 public interface ITaSkedRegistration
 {
-	[Post("/Users/AnonymousAccout")]
-	public Task<string> RegisterAnonymous([Body] CreateUserTokenRequest request);
+	[Post("/Users/Anonymous")]
+	public Task<string> RegisterAnonymous([Body] CreateAnonymousUserTokenRequest request);
 }

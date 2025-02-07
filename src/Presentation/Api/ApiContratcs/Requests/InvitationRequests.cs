@@ -1,6 +1,10 @@
 ﻿namespace TaSked.Api.Requests;
 
-public record CreateInvintationRequest(string? InvitationCaption, int? MaxActivations = null, DateTime? ExpirationDate = null);
-public record ActivateInvintationRequest(Guid InvitationId, Guid GroupId);
-public record GetInvintationInfoRequest(Guid InvitationId);
-public record ExpireInvintationRequest(Guid InvitationId);
+public record CreateInvitationRequest(
+	string? InvitationCaption,
+	int? MaxActivations = null,
+	DateTime? ExpirationDate = null);
+
+public record ActivateInvitationRequest(Guid InvitationId, Guid GroupId);
+
+public record ExpireInvitationRequest(Guid InvitationId);

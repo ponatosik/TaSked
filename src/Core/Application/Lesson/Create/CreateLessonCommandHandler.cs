@@ -1,8 +1,8 @@
-﻿using TaSked.Application.Data;
-using TaSked.Domain;
-using MediatR;
+﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
+using TaSked.Application.Data;
 using TaSked.Application.Exceptions;
+using TaSked.Domain;
 
 namespace TaSked.Application;
 
@@ -27,7 +27,8 @@ public class CreateLessonCommandHandler : IRequestHandler<CreateLessonCommand, L
         var subject = group.Subjects.FindOrThrow(request.SubjectId);
 
         var lesson = subject.CreateLesson(request.LessonTime);
-
+        lesson.OnlineLessonUrl = request.LessonUrl;
+        
         await _context.SaveChangesAsync(cancellationToken);
         if (_eventPublisher is not null)
         {

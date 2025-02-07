@@ -7,7 +7,9 @@ public class Subject
 	public string Name { get; set; } = null!;
 	public List<Homework> Homeworks { get; init; } = [];
 	public List<Lesson> Lessons { get; init; } = [];
-	public Teacher? Teacher { get; set; }
+	public List<Teacher> Teachers { get; init; } = [];
+	public List<RelatedLink> RelatedLinks { get; init; } = [];
+	public List<Comment> Comments { get; init; } = [];
 
 	private Subject() { }
 
@@ -17,22 +19,30 @@ public class Subject
 		Name = name;
 	}
 
-	internal Subject(Guid id, Guid groupId, string name, Teacher? teacher = null) : this(id, name)
+	internal Subject(
+		Guid id,
+		Guid groupId,
+		string name,
+		List<Teacher>? teacher = null,
+		IEnumerable<RelatedLink>? relatedLinks = null
+	) : this(id, name)
 	{
 		Id = id;
 		GroupId = groupId;
 		Name = name;
-		Teacher = teacher;
+		Teachers = teacher?.ToList() ?? [];
+		RelatedLinks = (relatedLinks ?? []).ToList();
 	}
 
-	internal static Subject Create(Guid groupId, string name, Teacher? teacher = null)
+	internal static Subject Create(Guid groupId, string name, List<Teacher>? teachers = null)
 	{
-		return new Subject(Guid.NewGuid(), groupId, name, teacher);
+		return new Subject(Guid.NewGuid(), groupId, name, teachers);
 	}
 
-    public Homework CreateHomework(string title, string description, DateTime? deadline = null)
+	public Homework CreateHomework(string title, string description, DateTime? deadline = null,
+		List<RelatedLink>? relatedLinks = null, string? briefSummary = null)
 	{
-		Homework homework = Homework.Create(this, title, description, deadline);
+		var homework = Homework.Create(this, title, description, deadline, relatedLinks, briefSummary);
 		Homeworks.Add(homework);
 		return homework;
 	}
@@ -42,5 +52,17 @@ public class Subject
 		Lesson lesson = new Lesson(Guid.NewGuid(), Id, dateTime);
 		Lessons.Add(lesson);
 		return lesson;
+	}
+
+	public void AddRelatedLink(RelatedLink relatedLink)
+	{
+		RelatedLinks.Add(relatedLink);
+	}
+
+	public Comment LeaveComment(User user, string content)
+	{
+		var comment = Comment.Create(user, content);
+		Comments.Add(comment);
+		return comment;
 	}
 }

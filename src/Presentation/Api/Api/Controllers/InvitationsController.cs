@@ -21,16 +21,16 @@ public class InvitationsController : ControllerBase
 
     [HttpPost]
     [Authorize(AccessPolicies.Moderator)]
-    public async Task<IActionResult> Post(CreateInvintationRequest request)
+    public async Task<IActionResult> Post(CreateInvitationRequest request)
     {
         Guid userId = User.GetUserId()!.Value;
         var result = await _mediator.Send(new CreateInvitationCommand(userId, request.InvitationCaption, request.MaxActivations, request.ExpirationDate));
-        return CreatedAtAction(nameof(Get), new { InvitationId = result.Id }, result);
+        return CreatedAtAction(nameof(Get), new { invitationId = result.Id }, result);
     }
 
     [HttpPost]
     [Route("Activate")]
-    public async Task<IActionResult> Post(ActivateInvintationRequest request)
+    public async Task<IActionResult> Post(ActivateInvitationRequest request)
     {
         Guid userId = User.GetUserId()!.Value;
         await _mediator.Send(new ActivateInvitationCommand(userId, request.InvitationId, request.GroupId));
@@ -40,7 +40,7 @@ public class InvitationsController : ControllerBase
     [HttpPatch]
     [Authorize(AccessPolicies.Moderator)]
     [Route("Expire")]
-    public async Task<IActionResult> Patch(ExpireInvintationRequest request)
+    public async Task<IActionResult> Patch(ExpireInvitationRequest request)
     {
         Guid userId = User.GetUserId()!.Value;
         await _mediator.Send(new ExpireInvitationCommand(userId, request.InvitationId));
@@ -48,11 +48,11 @@ public class InvitationsController : ControllerBase
     }
 
     [HttpGet]
-    [Route("{InvitationId:guid}")]
+    [Route("{invitationId:guid}")]
     [AllowAnonymous]
-    public async Task<IActionResult> Get(Guid InvitationId)
+    public async Task<IActionResult> Get(Guid invitationId)
     {
-        var result = await _mediator.Send(new GetInvitationInfoQuery(InvitationId));
+	    var result = await _mediator.Send(new GetInvitationInfoQuery(invitationId));
         return Ok(result);
     }
 

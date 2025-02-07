@@ -8,7 +8,9 @@ public class Homework
 	public string Description { get; set; } = null!;
 	public DateTime? Deadline { get; set; }
 	public DateTime CreatedAt { get; private set; }
-	public string? SourceUrl {  get; set; }
+	public List<RelatedLink> RelatedLinks { get; init; } = [];
+	public List<Comment> Comments { get; init; } = [];
+	public string? BriefSummary { get; set; }
 
 	private Homework() { }
 
@@ -18,25 +20,48 @@ public class Homework
 		Title = title;
 		Description = description;
 	}
-	
-	
-	internal Homework(Guid id, Guid subjectId, string title, string description, DateTime createdAt, DateTime? deadline = null, string? url = null)
+
+
+	internal Homework(
+		Guid id,
+		Guid subjectId,
+		string title,
+		string description,
+		DateTime createdAt,
+		DateTime? deadline = null,
+		IEnumerable<RelatedLink>? relatedLinks = null,
+		string? briefSummary = null)
 		: this(id, title, description)
 	{
 		SubjectId = subjectId;
 		CreatedAt = createdAt;
 		Deadline = deadline;
-		SourceUrl = url;
+		RelatedLinks = (relatedLinks ?? []).ToList();
+		BriefSummary = briefSummary;	
 	}
 
-	internal static Homework Create(Subject subject, string title, string description, DateTime? deadline = null, string? url = null)
+	internal static Homework Create(Subject subject, string title, string description, DateTime? deadline = null,
+		List<RelatedLink>? relatedLinks = null, string? briefSummary = null)
 	{
-		return new Homework(Guid.NewGuid(), subject.Id, title, description, DateTime.UtcNow, deadline, url);
+		return new Homework(Guid.NewGuid(), subject.Id, title, description, DateTime.UtcNow, deadline, relatedLinks,
+			briefSummary);
 	}
 
 	public HomeworkTask CreateTask()
 	{
 		var task = new HomeworkTask(this);
 		return task;
+	}
+
+	public void AddRelatedLink(RelatedLink relatedLink)
+	{
+		RelatedLinks.Add(relatedLink);
+	}
+
+	public Comment LeaveComment(User user, string content)
+	{
+		var comment = Comment.Create(user, content);
+		Comments.Add(comment);
+		return comment;
 	}
 }

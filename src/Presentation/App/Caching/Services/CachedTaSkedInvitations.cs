@@ -8,34 +8,32 @@ namespace TaSked.App.Caching;
 
 public class CachedTaSkedInvitations : CachedRepository<Invitation>, ITaSkedInvitations
 {
-	private readonly ITaSkedSevice _api;
-	private readonly IConnectivity _connectivity;
+	private readonly ITaSkedService _api;
 
-    public CachedTaSkedInvitations(IBlobCache cache, ITaSkedSevice api, IConnectivity connectivity) : base(cache)
+	public CachedTaSkedInvitations(IBlobCache cache, ITaSkedService api, IConnectivity connectivity) : base(cache)
     {
-		_api = api;
-		_connectivity = connectivity;
+	    _api = api;
 
-		if(_connectivity.NetworkAccess == NetworkAccess.Internet)
+	    if(connectivity.NetworkAccess == NetworkAccess.Internet)
 		{
-			FetchAndCacheEntities();
+			_ = FetchAndCacheEntities();
 		}
     }
 
-    public async Task<Invitation> CreateInvitation(CreateInvintationRequest request)
+	public async Task<Invitation> CreateInvitation(CreateInvitationRequest request)
     {
 		var invitation = await _api.CreateInvitation(request);
 		await CacheEntityAsync(invitation);
 		return invitation;
     }
 
-	public async Task ActivateInvitation(ActivateInvintationRequest request)
+	public async Task ActivateInvitation(ActivateInvitationRequest request)
 	{
 		await InvalidateEntityByKey(request.InvitationId.ToString());
 		await _api.ActivateInvitation(request);
 	}
 
-	public async Task ExpireInvitation(ExpireInvintationRequest request)
+	public async Task ExpireInvitation(ExpireInvitationRequest request)
 	{
 		await InvalidateEntityByKey(request.InvitationId.ToString());
 		await _api.ExpireInvitation(request);
@@ -48,10 +46,10 @@ public class CachedTaSkedInvitations : CachedRepository<Invitation>, ITaSkedInvi
 
 	public async Task<List<Invitation>> GetAllInvitation()
 	{
-		var invitations = await GetCachedEntities();
-		if(!invitations.Any()) 
+		var invitations = (await GetCachedEntities()).ToList();
+		if(invitations.Count == 0) 
 		{
-			invitations = await FetchAndCacheEntities();
+			_ = await FetchAndCacheEntities();
 		}
 		return invitations.ToList();
 	}

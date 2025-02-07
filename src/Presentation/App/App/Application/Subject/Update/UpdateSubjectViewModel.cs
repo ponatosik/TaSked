@@ -6,6 +6,7 @@ using TaSked.Api.Requests;
 using TaSked.App.Common;
 using TaSked.App.Common.Components;
 using TaSked.Application;
+using TaSked.Domain;
 
 namespace TaSked.App;
 
@@ -32,11 +33,14 @@ public partial class UpdateSubjectViewModel : ObservableObject
 		PopUpPage popup = ServiceHelper.GetService<PopUpPage>();
 		await popup.IndicateTaskRunningAsync(async () =>
 		{
-			var changeNameRequest = new ChangeSubjectNameRequest(SubjectDTO.Id, SubjectDTO.Name);
-			SubjectDTO.Name = (await _subjectService.ChangeSubjectName(changeNameRequest)).Name ?? SubjectDTO.Name;
+			var changeNameRequest = new ChangeSubjectNameRequest(SubjectDTO.Name);
+			SubjectDTO.Name = (await _subjectService.ChangeSubjectName(changeNameRequest, SubjectDTO.Id)).Name;
 
-			var changeTeacherRequest = new ChangeSubjectTeacherRequest(SubjectDTO.Id, SubjectDTO.Teacher);
-			SubjectDTO.Teacher = (await _subjectService.ChangeSubjectTeacher(changeTeacherRequest)).Teacher ?? SubjectDTO.Teacher;
+			var changeTeacherRequest = new ChangeSubjectTeachersRequest(
+				SubjectDTO.Teachers.Select(UpdateTeacherDTO.From).ToList());
+
+			SubjectDTO.Teachers = (await _subjectService.ChangeSubjectTeacher(changeTeacherRequest, SubjectDTO.Id))
+				.Teachers;
 
 			SubjectDataSource subjectSource = ServiceHelper.GetService<SubjectDataSource>();
 			subjectSource.SubjectSource.AddOrUpdate(new SubjectViewModel(SubjectDTO));

@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using TaSked.Application.Data;
 using TaSked.Application.Exceptions;
-using TaSked.Domain;
 
 namespace TaSked.Application;
 
@@ -33,7 +32,8 @@ public class GetAllSubjectsHandler : IRequestHandler<GetAllSubjectsQuery, List<S
                     s.Name,
                     s.Homeworks.Count,
                     s.Lessons.Count,
-                    s.Teacher)
+                    s.Teachers,
+                    s.RelatedLinks)
             )
             .AsNoTracking()
             .ToList();

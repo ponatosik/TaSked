@@ -6,7 +6,7 @@ using TaSked.Domain;
 
 namespace Application.SubjectTests;
 
-[Collection("Persistance tests")]
+[Collection("Database tests")]
 public class GetAllSubjectsCommandHandlerTest
 {
     private readonly IApplicationDbContext _context;
@@ -15,9 +15,9 @@ public class GetAllSubjectsCommandHandlerTest
     private readonly Guid _userId;
     private readonly List<Subject> _subjects = new List<Subject>();
 
-    public GetAllSubjectsCommandHandlerTest(PersistanceFixture persistanceFixture)
+    public GetAllSubjectsCommandHandlerTest(DbTestFixture dbTestFixture)
     {
-        _context = persistanceFixture.GetDbContext();
+        _context = dbTestFixture.GetDbContext();
         _handler = new GetAllSubjectsHandler(_context);
 
         User user = User.Create("Test user");
@@ -31,7 +31,7 @@ public class GetAllSubjectsCommandHandlerTest
 
         _context.Users.Add(user);
         _context.Groups.Add(group);
-        _context.SaveChangesAsync(new CancellationToken()).Wait();
+        _context.SaveChangesAsync(CancellationToken.None).Wait();
     }
 
     [Fact]
@@ -39,7 +39,7 @@ public class GetAllSubjectsCommandHandlerTest
     {
         var request = new GetAllSubjectsQuery(_userId);
 
-        var result = await _handler.Handle(request, new CancellationToken());
+        var result = await _handler.Handle(request, CancellationToken.None);
 
         Assert.Equal(_subjects.Count, result.Count);
         Assert.Collection(result.OrderBy(r => r.Name),

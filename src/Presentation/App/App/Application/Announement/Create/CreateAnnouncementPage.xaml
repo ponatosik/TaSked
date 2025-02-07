@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    HideSoftInputOnTapped="true"
+    x:Class="TaSked.App.CreateAnnouncementPage"
+    x:DataType="local:CreateAnnouncementViewModel"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:components="clr-namespace:TaSked.App.Components"
+    xmlns:domain="clr-namespace:TaSked.Domain;assembly=Domain"
+    xmlns:local="clr-namespace:TaSked.App"
+    xmlns:localization="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
+    xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <StackLayout>
+        <Label HorizontalTextAlignment="Center" Text="{localization:Translate Report_Form_Create_Title}" />
+        <material:TextField
+            Margin="30,10"
+            Text="{Binding Title}"
+            Title="{localization:Translate Report_Form_Title}" />
+        <material:EditorField
+            Margin="30,10"
+            Text="{Binding Message}"
+            TextColor="White"
+            Title="{localization:Translate Report_Form_Message}" />
+        <Label
+            FontSize="12"
+            HorizontalOptions="Center"
+            Margin="30,10"
+            Text="{localization:Translate Report_Form_Hint}"
+            TextColor="#DFD5EC" />
+        <Button
+            Command="{Binding CreateAnnouncementCommand}"
+            Margin="100,10"
+            Text="{localization:Translate Report_Form_Create}"
+            TextColor="#242424" />
+
+    </StackLayout>
+
+</ContentPage>

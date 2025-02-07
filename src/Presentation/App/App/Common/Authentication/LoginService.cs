@@ -11,7 +11,7 @@ namespace TaSked.App.Common;
 
 public class LoginService
 {
-	private readonly ITaSkedSevice _api;
+	private readonly ITaSkedService _api;
 	private readonly ITaSkedUsers _usersService;
 	private readonly ITaSkedInvitations _invitationsService;
 	private readonly IUserTokenStore _tokenStore;
@@ -20,7 +20,7 @@ public class LoginService
 	private readonly Auth0Client _auth0Client;
 
 	public LoginService(
-		ITaSkedSevice api,
+		ITaSkedService api,
 		ITaSkedUsers usersService,
 		ITaSkedInvitations invitationsService,
 		IUserTokenStore tokenStore,
@@ -58,7 +58,7 @@ public class LoginService
 
 	public async Task RegisterAnonymousUser(string username)
 	{
-		var token = await _api.RegisterAnonymous(new CreateUserTokenRequest(username));
+		var token = await _api.RegisterAnonymous(new CreateAnonymousUserTokenRequest(username));
 		_tokenStore.AccessToken = token;
 	}
 
@@ -82,7 +82,7 @@ public class LoginService
 	public async Task JoinGroupAsync(Guid invitation)
 	{
 		Guid groupId = (await _invitationsService.GetInvitationById(invitation)).GroupId;
-		await _invitationsService.ActivateInvitation(new ActivateInvintationRequest(invitation, groupId));
+		await _invitationsService.ActivateInvitation(new ActivateInvitationRequest(invitation, groupId));
 
 		if (_notificationsService is not null)
 		{
@@ -115,7 +115,7 @@ public class LoginService
 		{
 			return null;
 		}
-		return (await _usersService.CurrentUser()).Role;
+		return (await _usersService.GetCurrentUser()).Role;
 	}
 	
 	public async Task<string?> GetUserNicknameAsync()
@@ -124,7 +124,7 @@ public class LoginService
 		{
 			return null;
 		}
-		return (await _usersService.CurrentUser()).Nickname;
+		return (await _usersService.GetCurrentUser()).Nickname;
 	}
 
 	public Task<bool> HasGroupAsync()
@@ -148,7 +148,7 @@ public class LoginService
 
 		try
 		{
-			user = await _usersService.CurrentUser();
+			user = await _usersService.GetCurrentUser();
 		}
 		catch (ApiException exception)
 		{

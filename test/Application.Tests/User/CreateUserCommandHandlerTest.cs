@@ -4,15 +4,15 @@ using TaSked.Application.Data;
 
 namespace Application.UsersTest;
 
-[Collection("Persistance tests")]
+[Collection("Database tests")]
 public class CreateUserCommandHandlerTest
 {
     private readonly IApplicationDbContext _context;
     private readonly CreateUserCommandHandler _handler;
 
-    public CreateUserCommandHandlerTest(PersistanceFixture persistanceFixture)
+    public CreateUserCommandHandlerTest(DbTestFixture dbTestFixture)
     {
-        _context = persistanceFixture.GetDbContext();
+        _context = dbTestFixture.GetDbContext();
         _handler = new CreateUserCommandHandler(_context);
     }
 
@@ -22,7 +22,7 @@ public class CreateUserCommandHandlerTest
         var userNickname = "Test user";
         var command = new CreateUserCommand(userNickname);
 
-        await _handler.Handle(command, new CancellationToken());
+        await _handler.Handle(command, CancellationToken.None);
 
         Assert.Contains(_context.Users, user => user.Nickname == userNickname);
     }
@@ -33,7 +33,7 @@ public class CreateUserCommandHandlerTest
         var userNickname = "Test user";
         var command = new CreateUserCommand(userNickname);
 
-        var result = await _handler.Handle(command, new CancellationToken());
+        var result = await _handler.Handle(command, CancellationToken.None);
 
         Assert.True(result is not null);
         Assert.Equal(userNickname, result.Nickname);

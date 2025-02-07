@@ -8,7 +8,7 @@ public class Group
 	public string Name { get; set; } = null!;
 	public List<Subject> Subjects { get; } = [];
 	public List<User> Members { get; private set; } = [];
-	public List<Report> Reports { get; } = [];
+	public List<Announcement> Announcements { get; } = [];
 	public List<Invitation> Invitations { get; } = [];
 
 	private Group() { }
@@ -34,9 +34,9 @@ public class Group
 		return new Group(Guid.NewGuid(),name, creator);
 	}
 
-	public Subject CreateSubject(string name, Teacher? teacher = null)
+	public Subject CreateSubject(string name, List<Teacher>? teachers = null)
 	{
-		var subject = Subject.Create(Id, name, teacher);
+		var subject = Subject.Create(Id, name, teachers);
 		Subjects.Add(subject);
 		return subject;
 	}
@@ -60,11 +60,11 @@ public class Group
 		user.JoinGroup(this);
 	}
 
-	public Report CreateReport(string title, string message)
+	public Announcement CreateAnnouncement(string title, string message)
 	{
-		var report = new Report(Guid.NewGuid(), title, message);
-		Reports.Add(report);
-		return report;
+		var announcement = new Announcement(Guid.NewGuid(), title, message);
+		Announcements.Add(announcement);
+		return announcement;
 	}
 
 	public void Leave(User user)

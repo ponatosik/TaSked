@@ -118,11 +118,11 @@
 	  <Compile Update="Application\Login\LoginPage.xaml.cs">
 	    <DependentUpon>LoginPage.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Application\Report\ReportCard.xaml.cs">
-	    <DependentUpon>ReportCard.xaml</DependentUpon>
+		<Compile Update="Application\Announcement\AnnouncementCard.xaml.cs">
+			<DependentUpon>AnnouncementCard.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Application\Report\Create\CreateReportPage.xaml.cs">
-	    <DependentUpon>CreateReportPage.xaml</DependentUpon>
+		<Compile Update="Application\Announcement\Create\CreateAnnouncementPage.xaml.cs">
+			<DependentUpon>CreateAnnouncementPage.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Application\Subject\Update\UpdateSubjectPage.xaml.cs">
 	    <DependentUpon>UpdateSubjectPage.xaml</DependentUpon>
@@ -190,13 +190,13 @@
 	  <MauiXaml Update="Application\Login\LoginPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Application\Report\Create\CreateReportPage.xaml">
+		<MauiXaml Update="Application\Announcement\Create\CreateAnnouncementPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Application\Report\Get\ReportPage.xaml">
+		<MauiXaml Update="Application\Announcement\Get\AnnouncementPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Application\Report\ReportCard.xaml">
+		<MauiXaml Update="Application\Announcement\AnnouncementCard.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Application\Settings\SettingsPage.xaml">

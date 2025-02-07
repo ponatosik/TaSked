@@ -9,22 +9,32 @@ public class SubjectDTO
 	public string Name { get; set; }
 	public int HomeworksCount { get; set; }
 	public int LessonsCount { get; set; }
-	public Teacher? Teacher { get; set; }
+	public List<Teacher> Teachers { get; set; }
+	public List<RelatedLink> RelatedLinks { get; set; }
 
-	public SubjectDTO(Guid Id, Guid GroupId, string Name, int HomeworksCount, int LessonsCount, Teacher? Teacher)
+	public SubjectDTO(Guid id, Guid groupId, string name, int homeworksCount, int lessonsCount, List<Teacher> teachers,
+		List<RelatedLink> relatedLinks)
 	{
-		this.Id = Id;
-		this.GroupId = GroupId;
-		this.Name = Name;
-		this.HomeworksCount = HomeworksCount;
-		this.LessonsCount = LessonsCount;	
-		this.Teacher = Teacher;
+		Id = id;
+		GroupId = groupId;
+		Name = name;
+		HomeworksCount = homeworksCount;
+		LessonsCount = lessonsCount;
+		Teachers = teachers;
+		RelatedLinks = relatedLinks;
 	}
 
 	public static SubjectDTO From(Subject subject)
 	{
 		int homeworksCount = subject.Homeworks.Count;
 		int lessonsCount = subject.Lessons.Count;
-		return new SubjectDTO(subject.Id, subject.GroupId, subject.Name, homeworksCount, lessonsCount, subject.Teacher);
+		return new SubjectDTO(
+			subject.Id,
+			subject.GroupId,
+			subject.Name,
+			homeworksCount,
+			lessonsCount,
+			subject.Teachers,
+			subject.RelatedLinks);
 	}
 }

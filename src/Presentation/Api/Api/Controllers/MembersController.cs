@@ -9,7 +9,7 @@ using TaSked.Infrastructure.Authorization;
 namespace TaSked.Api.Controllers;
 
 [ApiController]
-[Route("Groups/{GroupId:guid}/[controller]")]
+[Route("Groups/{groupId:guid}/[controller]")]
 [Authorize]
 public class MembersController : ControllerBase
 {
@@ -22,40 +22,40 @@ public class MembersController : ControllerBase
 	
     [HttpGet]
     [Authorize(AccessPolicies.Moderator)]
-    public async Task<IActionResult> Get(Guid GroupId)
+    public async Task<IActionResult> Get(Guid groupId)
     {
         Guid userId = User.GetUserId()!.Value;
-		var result = await _mediator.Send(new GetGroupMembersQuery(userId, GroupId));
+        var result = await _mediator.Send(new GetGroupMembersQuery(userId, groupId));
         return Ok(result);
     }
 
 	[HttpPatch]
 	[Authorize(AccessPolicies.Admin)]
 	[Route("Promote")]
-	public async Task<IActionResult> PatchPromote(Guid GroupId, PromoteMemberRequest request)
+	public async Task<IActionResult> PatchPromote(Guid groupId, PromoteMemberRequest request)
 	{
 		Guid userId = User.GetUserId()!.Value;
-		await _mediator.Send(new PromoteMemberCommand(userId, GroupId, request.UserId, GroupRole.Moderator));
+		await _mediator.Send(new PromoteMemberCommand(userId, groupId, request.UserId, GroupRole.Moderator));
 		return Ok();
 	}
 
 	[HttpPatch]
 	[Authorize(AccessPolicies.Admin)]
 	[Route("Demote")]
-	public async Task<IActionResult> PatchDemote(Guid GroupId, PromoteMemberRequest request)
+	public async Task<IActionResult> PatchDemote(Guid groupId, DemoteMemberRequest request)
 	{
 		Guid userId = User.GetUserId()!.Value;
-		await _mediator.Send(new DemoteMemberCommand(userId, GroupId, request.UserId, GroupRole.Member));
+		await _mediator.Send(new DemoteMemberCommand(userId, groupId, request.UserId, GroupRole.Member));
 		return Ok();
 	}
 
 	[HttpDelete]
 	[Authorize(AccessPolicies.Admin)]
 	[Route("Ban")]
-	public async Task<IActionResult> Delete(Guid GroupId, BanMemberRequest request)
+	public async Task<IActionResult> Delete(Guid groupId, BanMemberRequest request)
 	{
 		Guid userId = User.GetUserId()!.Value;
-		await _mediator.Send(new BanMemberCommand(userId, GroupId, request.UserId));
+		await _mediator.Send(new BanMemberCommand(userId, groupId, request.UserId));
 		return NoContent();
 	}
 }

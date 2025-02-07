@@ -12,12 +12,21 @@ public interface ITaSkedSubjects
 	[Get("/Subjects")]
 	public Task<List<SubjectDTO>> GetAllSubjects();
 
-	[Delete("/Subjects")]
-	public Task DeleteSubject([Body] DeleteSubjectRequest request);
+	[Delete("/Subjects/{subjectId}")]
+	public Task DeleteSubject(Guid subjectId);
 
-	[Patch("/Subjects/Name")]
-	public Task<UpdateSubjectDTO> ChangeSubjectName([Body] ChangeSubjectNameRequest request);
+	[Patch("/Subjects/{subjectId}/Name")]
+	public Task<UpdateSubjectDTO> ChangeSubjectName([Body] ChangeSubjectNameRequest request, Guid subjectId);
 
-	[Patch("/Subjects/Teacher")]
-	public Task<UpdateSubjectDTO> ChangeSubjectTeacher([Body] ChangeSubjectTeacherRequest request);
+	[Patch("/Subjects/{subjectId}/Links")]
+	public Task<UpdateSubjectDTO> ChangeSubjectLinks([Body] ChangeSubjectLinksRequest request, Guid subjectId);
+
+	[Patch("/Subjects/{subjectId}/Teacher")]
+	public Task<UpdateSubjectDTO> ChangeSubjectTeacher([Body] ChangeSubjectTeachersRequest request, Guid subjectId);
+
+	[Get("/Subjects/{subjectId}/Comments")]
+	public Task<List<CommentDTO>> GetSubjectComments(Guid subjectId);
+
+	[Post("/Subjects/{subjectId}/Comments")]
+	public Task<CommentDTO> CommentSubject([Body] CommentSubjectRequest request, Guid subjectId);
 }

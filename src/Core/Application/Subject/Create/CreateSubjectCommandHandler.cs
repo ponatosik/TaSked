@@ -21,7 +21,9 @@ public class CreateSubjectCommandHandler : IRequestHandler<CreateSubjectCommand,
 		var groupId = user.GroupId ?? throw new UserIsNotGroupMemberException(user.Id, Guid.Empty);
 		var group = _context.Groups.FindOrThrow(groupId);
 
-		var subject = group.CreateSubject(request.SubjectName, request.Teacher);
+		var subject = group.CreateSubject(request.SubjectName, request.Teachers);
+		subject.RelatedLinks.AddRange(request.RelatedLinks ?? []);
+		
 		var result = SubjectDTO.From(subject);
 
 		await _context.SaveChangesAsync(cancellationToken);

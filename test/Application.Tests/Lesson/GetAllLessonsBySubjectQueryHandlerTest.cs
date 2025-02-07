@@ -6,7 +6,7 @@ using TaSked.Domain;
 
 namespace Application.LessonTests;
 
-[Collection("Persistance tests")]
+[Collection("Database tests")]
 public class GetAllLessonsBySubjectQueryHandlerTest
 {
     private readonly IApplicationDbContext _context;
@@ -16,9 +16,9 @@ public class GetAllLessonsBySubjectQueryHandlerTest
     private readonly Guid _subjectId;
     private readonly List<Lesson> _lessons = new List<Lesson>();
 
-    public GetAllLessonsBySubjectQueryHandlerTest(PersistanceFixture persistanceFixture)
+    public GetAllLessonsBySubjectQueryHandlerTest(DbTestFixture dbTestFixture)
     {
-        _context = persistanceFixture.GetDbContext();
+        _context = dbTestFixture.GetDbContext();
         _handler = new GetAllLessonsBySubjectHandler(_context);
 
         User user = User.Create("Test user");
@@ -35,7 +35,7 @@ public class GetAllLessonsBySubjectQueryHandlerTest
 
         _context.Users.Add(user);
         _context.Groups.Add(group);
-        _context.SaveChangesAsync(new CancellationToken()).Wait();
+        _context.SaveChangesAsync(CancellationToken.None).Wait();
     }
 
     [Fact]
@@ -43,7 +43,7 @@ public class GetAllLessonsBySubjectQueryHandlerTest
     {
         var request = new GetAllLessonsBySubjectQuery(_userId, _subjectId);
 
-        var result = await _handler.Handle(request, new CancellationToken());
+        var result = await _handler.Handle(request, CancellationToken.None);
 
         Assert.Equal(_lessons.Count, result.Count);
         Assert.Contains(result, lesson => lesson.Id == _lessons[0].Id);

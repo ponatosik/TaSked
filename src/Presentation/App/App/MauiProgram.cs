@@ -1,4 +1,4 @@
-﻿using Auth0.OidcClient;
+using Auth0.OidcClient;
 using CommunityToolkit.Maui;
 using LocalizationResourceManager.Maui;
 using Microsoft.Extensions.Logging;
@@ -13,14 +13,7 @@ using TaSked.App.Resources.Localization;
 using TaSked.Infrastructure.LocalPersistence;
 using The49.Maui.ContextMenu;
 using UraniumUI;
-using CommunityToolkit.Maui;
-using TaSked.App.Common.Notifications;
-using ReactiveUI;
-using TaSked.App.Common.Components;
-using LocalizationResourceManager.Maui;
-using TaSked.App.Resources.Localization;
 using CommunityToolkit.Maui.Core;
-using System.Globalization;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace TaSked.App;
@@ -85,11 +78,11 @@ public static class MauiProgram
         builder.Services.AddScoped<SortBySubjPage>();
         builder.Services.AddScoped<SortBySubjViewModel>();
 
-        builder.Services.AddSingleton<ReportsViewModel>();
-		builder.Services.AddSingleton<ReportPage>();
-		builder.Services.AddSingleton<ReportDataSource>();
-		builder.Services.AddScoped<CreateReportPage>();
-		builder.Services.AddScoped<CreateReportViewModel>();
+        builder.Services.AddSingleton<AnnouncementViewModel>();
+        builder.Services.AddSingleton<AnnouncementPage>();
+        builder.Services.AddSingleton<AnnouncementDataSource>();
+        builder.Services.AddScoped<CreateAnnouncementPage>();
+        builder.Services.AddScoped<CreateAnnouncementViewModel>();
 
 		builder.Services.AddSingleton<JoinGroupPage>();
 		builder.Services.AddSingleton<JoinGroupViewModel>();
@@ -110,7 +103,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<InvintationViewModel>();
         builder.Services.AddSingleton<InvintationsPage>();
         
-        builder.Services.AddSingleton<LoginPage>();
+		builder.Services.AddSingleton<LoginPage>();
 
         builder.Services.AddSingleton<SettingsViewModel>();
 		builder.Services.AddSingleton<AppShell>();

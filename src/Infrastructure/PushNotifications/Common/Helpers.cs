@@ -8,11 +8,10 @@ public static class Helpers
 {
 	public static string GetGroupTopicName(Guid groupId) => $"Group.{groupId}";
 
-	public static Notification GetReportCreatedNotification(Report report)
+	public static Notification GetReportCreatedNotification(Announcement announcement)
 		=> new Notification()
 		{
-			Title = report.Title,
-			Body = report.Message
+			Title = announcement.Title, Body = announcement.Message
 		};
 
 	public static Notification GetHomeworkCreatedNotification(Homework homework)

@@ -1,13 +1,11 @@
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using DynamicData;
+using LocalizationResourceManager.Maui;
 using ReactiveUI;
 using TaSked.Api.ApiClient;
-using TaSked.Api.Requests;
 using TaSked.App.Common;
 using TaSked.App.Common.Components;
 using TaSked.Application;
-using LocalizationResourceManager.Maui;
 
 namespace TaSked.App;
 
@@ -50,8 +48,7 @@ public partial class SubjectDetailsViewModel : ObservableObject
 		await popup.IndicateTaskRunningAsync(async () =>
 		{
 			ITaSkedSubjects api = ServiceHelper.GetService<ITaSkedSubjects>();
-			var request = new DeleteSubjectRequest(SubjectDTO.Id);
-			await api.DeleteSubject(request);
+			await api.DeleteSubject(SubjectDTO.Id);
 
 			SubjectDataSource subjectSource = ServiceHelper.GetService<SubjectDataSource>();
 			subjectSource.SubjectSource.Remove(SubjectDTO.Id);
@@ -59,7 +56,7 @@ public partial class SubjectDetailsViewModel : ObservableObject
 		
 		await Shell.Current.GoToAsync("..");
 	}
-	
+
 	public string TeacherOnlineLessonsUrlDisplay =>
-		SubjectDTO?.Teacher?.OnlineLessonsUrl is null ? _localizationResourceManager["Details_None"] : SubjectDTO.Teacher.OnlineLessonsUrl;
+		string.Join("\n", SubjectDTO.Teachers.Select(t => t.OnlineMeetingUrl?.ToString()));
 }

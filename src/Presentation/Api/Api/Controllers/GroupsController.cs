@@ -57,10 +57,10 @@ public class GroupsController : ControllerBase
     }
 
     [AllowAnonymous]
-    [HttpGet("{GroupId:guid}")]
-	public async Task<IActionResult> Get(Guid GroupId)
+    [HttpGet("{groupId:guid}")]
+    public async Task<IActionResult> Get(Guid groupId)
     {
-        var result = await _mediator.Send(new GetGroupInfoQuery(GroupId));
+	    var result = await _mediator.Send(new GetGroupInfoQuery(groupId));
         return Ok(result);
     }
 }

@@ -6,7 +6,7 @@ using TaSked.Application;
 
 namespace Application.GroupTests;
 
-[Collection("Persistance tests")]
+[Collection("Database tests")]
 public class LeaveGroupCommandHandlerTest
 {
     private readonly IApplicationDbContext _context;
@@ -14,9 +14,9 @@ public class LeaveGroupCommandHandlerTest
 
     private Guid _userId, _groupId;
 
-    public LeaveGroupCommandHandlerTest(PersistanceFixture persistanceFixture)
+    public LeaveGroupCommandHandlerTest(DbTestFixture dbTestFixture)
     {
-        _context = persistanceFixture.GetDbContext();
+        _context = dbTestFixture.GetDbContext();
         _handler = new LeaveGroupCommandHandler(_context);
 
         User user = User.Create("Test user");
@@ -27,7 +27,7 @@ public class LeaveGroupCommandHandlerTest
 
         _context.Users.Add(user);
         _context.Groups.Add(group);
-        _context.SaveChangesAsync(new CancellationToken()).Wait();
+        _context.SaveChangesAsync(CancellationToken.None).Wait();
     }
 
     [Fact]
@@ -35,7 +35,7 @@ public class LeaveGroupCommandHandlerTest
     {
         var command = new LeaveGroupCommand(_userId);
 
-        await _handler.Handle(command, new CancellationToken());
+        await _handler.Handle(command, CancellationToken.None);
 
         Assert.DoesNotContain(_context.Groups.First(group => group.Id == _groupId).Members, user => user.Id == _userId);
     }
@@ -45,7 +45,7 @@ public class LeaveGroupCommandHandlerTest
     {
         var command = new LeaveGroupCommand(_userId);
 
-        await _handler.Handle(command, new CancellationToken());
+        await _handler.Handle(command, CancellationToken.None);
 
         var user = _context.Users.First(user => user.Id == _userId);
 
