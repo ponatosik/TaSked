@@ -43,6 +43,8 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 			e => e.OnlineLessonUrl,
 			navigation => navigation.ToJson());
 
+		modelBuilder.Entity<Subject>().HasMany(x => x.Teachers).WithOne().IsRequired();
+
 		modelBuilder.Entity<Subject>().Property(e => e.Id).ValueGeneratedNever();
 		modelBuilder.Entity<Homework>().Property(e => e.Id).ValueGeneratedNever();
 		modelBuilder.Entity<Lesson>().Property(e => e.Id).ValueGeneratedNever();

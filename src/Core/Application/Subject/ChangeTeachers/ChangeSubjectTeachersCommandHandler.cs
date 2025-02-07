@@ -22,6 +22,7 @@ public class ChangeSubjectTeacherCommandHandler : IRequestHandler<ChangeSubjectT
         var groupId = user.GroupId ?? throw new UserIsNotGroupMemberException(user.Id, Guid.Empty);
         var group = _context.Groups
             .Include(g => g.Subjects)
+            .ThenInclude(s => s.Teachers)
             .FindOrThrow(groupId);
         var subject = group.Subjects.FindOrThrow(request.SubjectId);
 
