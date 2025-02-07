@@ -34,8 +34,8 @@ public class Homework
 		: this(id, title, description)
 	{
 		SubjectId = subjectId;
-		CreatedAt = createdAt;
-		Deadline = deadline;
+		CreatedAt = createdAt.ToUniversalTime();
+		Deadline = deadline?.ToUniversalTime();
 		RelatedLinks = (relatedLinks ?? []).ToList();
 		BriefSummary = briefSummary;	
 	}
