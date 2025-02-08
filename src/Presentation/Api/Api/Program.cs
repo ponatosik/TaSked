@@ -7,6 +7,7 @@ using TaSked.Infrastructure.ExceptionHandling;
 using TaSked.Infrastructure.Persistance;
 using TaSked.Infrastructure.Persistance.AzureMySqlInApp;
 using TaSked.Infrastructure.PushNotifications;
+using TaSked.Infrastructure.PushNotifications.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,12 +30,8 @@ builder.Services.AddSwaggerConfiguration();
 builder.AddJwtAuthentication();
 
 
-
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-
-//app.UseHttpsRedirection();
 
 app.UseSwaggerConfiguration();
 
@@ -47,5 +44,8 @@ app.UseApplicationExceptionHandling();
 app.UseDomainExceptionHandling();
 
 app.MapControllers();
+
+app.MapNotificationsEndpoints();
+
 
 app.Run();
