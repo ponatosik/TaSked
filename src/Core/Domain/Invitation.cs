@@ -25,7 +25,7 @@ public class Invitation
 		GroupId = groupId;
 		Caption = caption;
 		MaxActivations = maxActivation;
-		ExpirationDate = expirationDate;
+		ExpirationDate = expirationDate?.ToUniversalTime();
 	}
 
 	internal void ActivateOne()

@@ -35,7 +35,7 @@ public class CreateLessonCommandHandlerTets
     [Fact]
     public async Task Handle_ValidCommand_ShouldPersistChanges()
     {
-        var lessonTime = DateTime.Parse("2011-03-21 13:26");
+        var lessonTime = DateTime.Parse("2011-03-21 13:26").ToUniversalTime();
         var command = new CreateLessonCommand(_userId, _subjectId, lessonTime);
 
         await _handler.Handle(command, CancellationToken.None);
@@ -50,7 +50,7 @@ public class CreateLessonCommandHandlerTets
     [Fact]
     public async Task Handle_ValidCommand_ShouldReturnLesson()
     {
-        var lessonTime = DateTime.Parse("2011-03-21 13:26");
+        var lessonTime = DateTime.Parse("2011-03-21 13:26").ToUniversalTime();
         var command = new CreateLessonCommand(_userId, _subjectId, lessonTime);
 
         var result = await _handler.Handle(command, CancellationToken.None);

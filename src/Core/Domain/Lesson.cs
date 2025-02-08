@@ -17,7 +17,7 @@ public class Lesson
 	internal Lesson(Guid id, Guid subjectId, DateTime time, RelatedLink? onlineLessonUrl = null) : this(id)
 	{ 
 		SubjectId = subjectId;
-		Time = time;
+		Time = time.ToUniversalTime();
 		OnlineLessonUrl = onlineLessonUrl;
 	}
 }

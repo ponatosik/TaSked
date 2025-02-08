@@ -41,8 +41,8 @@ public class GetAllLessonsInDateRangeQueryHandlerTest
     [Fact]
     public async Task Handle_ValidCommand_ShouldReturnLessonInDateRange()
     {
-        var from = DateTime.Parse("2011-03-21 14:40");
-        var to = DateTime.Parse("2011-03-21 15:50");
+        var from = DateTime.Parse("2011-03-21 14:40").ToUniversalTime();
+        var to = DateTime.Parse("2011-03-21 15:50").ToUniversalTime();
         var request = new GetAllLessonsInDateRangeQuery(_userId, from, to);
 
         var result = await _handler.Handle(request, CancellationToken.None);
