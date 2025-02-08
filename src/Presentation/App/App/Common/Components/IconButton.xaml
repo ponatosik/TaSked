@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="TaSked.App.Components.IconButton"
+    x:Name="Root">
+    
+    <Border
+        Padding="16"
+        StrokeShape="RoundRectangle 16"
+        StrokeThickness="0.1"
+        BackgroundColor="{Binding ButtonColor, Source={x:Reference Root}}"
+        StyleClass="Elevation5">
+        <ImageButton
+            Source="{Binding IconSource, Source={x:Reference Root}}"
+            Command="{Binding Command, Source={x:Reference Root}}"
+            HeightRequest="24"
+            WidthRequest="24"/>
+    </Border>
+
+</ContentView>

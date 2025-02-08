@@ -79,26 +79,22 @@
                 </Label.FormattedText>
             </Label>
         </StackLayout>
-
-        <Button
+        
+        <components:IconButton
             AbsoluteLayout.LayoutBounds="0.95,0.80"
             AbsoluteLayout.LayoutFlags="PositionProportional"
-            BackgroundColor="#2a292f"
+            ButtonColor="#2a292f"
+            IconSource="pencil"
             Command="{Binding UpdateHomeworkCommand}"
-            CornerRadius="10"
-            ImageSource="pencil"
-            IsVisible="{Binding IsModerator, Source={StaticResource AppState}}"
-            StyleClass="Elevation5" />
+            IsVisible="{Binding IsModerator, Source={StaticResource AppState}}" />
 
-        <Button
-            AbsoluteLayout.LayoutBounds="0.95,0.90"
+        <components:IconButton
+            AbsoluteLayout.LayoutBounds="0.95,0.95"
             AbsoluteLayout.LayoutFlags="PositionProportional"
-            BackgroundColor="#7c5260"
+            ButtonColor="#7c5260"
+            IconSource="delete"
             Command="{Binding DeleteHomeworkCommand}"
-            CornerRadius="10"
-            ImageSource="delete"
-            IsVisible="{Binding IsModerator, Source={StaticResource AppState}}"
-            StyleClass="Elevation5" />
+            IsVisible="{Binding IsModerator, Source={StaticResource AppState}}" />
     </AbsoluteLayout>
 
 </ContentPage>
