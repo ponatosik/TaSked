@@ -1,4 +1,3 @@
-using Google.Apis.Auth.OAuth2;
 using PushNotifications.Requests;
 using TaSked.Api.Configuration;
 using TaSked.Application;
@@ -10,19 +9,30 @@ using TaSked.Infrastructure.PushNotifications;
 using TaSked.Infrastructure.PushNotifications.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
+var configuration = builder.Configuration;
 
 
-var useAzureMySqlInApp = builder.WebHost.GetSetting("UseAzureMySqlInApp")?.ToLower() == "true";
-var googleCredential = GoogleCredential.FromJson(builder.WebHost.GetSetting("FIREBASE_ADMIN_CREDENTIALS"));
-
+var useAzureMySqlInApp = configuration["UseAzureMySqlInApp"]?.ToLower() == "true";
+var useNotifications = configuration["UseFirebaseCloudMessaging"]?.ToLower() == "true";
+var firebaseCredentials = configuration["FIREBASE_ADMIN_CREDENTIALS"];
+	
 
 builder.Services.AddControllers();
-builder.Services.AddMediatR(config => config.RegisterServicesFromAssemblies(
-	typeof(CreateHomeworkCommand).Assembly,
-	typeof(SubscribeUserToNotificationsCommand).Assembly)
-);
+builder.Services.AddMediatR(config =>
+{
+	config.RegisterServicesFromAssemblyContaining<CreateUserCommand>();
 
-builder.Services.AddFirebaseNotifications(googleCredential);
+	if (useNotifications)
+	{
+		config.RegisterServicesFromAssemblyContaining<SubscribeUserToNotificationsCommand>();
+	}
+});
+
+if (useNotifications)
+{
+	builder.Services.AddFirebaseNotifications(firebaseCredentials!);
+}
+
 builder.Services.AddPolicyBasedAuthorization();
 builder.Services.AddPersistance(useAzureMySqlInApp ? opt => opt.UseAzureMysqlInApp() : null);
 builder.Services.AddSwaggerConfiguration();
@@ -45,7 +55,10 @@ app.UseDomainExceptionHandling();
 
 app.MapControllers();
 
-app.MapNotificationsEndpoints();
+if (useNotifications)
+{
+	app.MapNotificationsEndpoints();
+}
 
 
 app.Run();
