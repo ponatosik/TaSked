@@ -681,7 +681,7 @@ namespace TaSked.App.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Teacher.
+        ///   Looks up a localized string similar to Teachers.
         /// </summary>
         internal static string Subject_Details_Teacher {
             get {
