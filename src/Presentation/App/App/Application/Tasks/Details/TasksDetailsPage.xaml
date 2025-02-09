@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     HideSoftInputOnTapped="true"
-    Title="{localization:Translate Task_Details_Title}"
+    Title="{Binding Homework.Title}"
     x:Class="TaSked.App.TasksDetailsPage"
     x:DataType="local:TasksDetailsViewModel"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
@@ -15,12 +15,6 @@
 
     <AbsoluteLayout>
         <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
-            <Label
-                FontAttributes="Bold"
-                FontSize="28"
-                HorizontalTextAlignment="Center"
-                Margin="0,20,0,0"
-                Text="{Binding Homework.Title}" />
             <Grid ColumnDefinitions="Auto, *" Margin="30,30,30,0">
                 <Label Text="{localization:Translate Task_Form_Deadline, StringFormat='{}{0}:'}" />
 
@@ -79,21 +73,21 @@
                 </Label.FormattedText>
             </Label>
         </StackLayout>
-        
+
         <components:IconButton
             AbsoluteLayout.LayoutBounds="0.95,0.80"
             AbsoluteLayout.LayoutFlags="PositionProportional"
             ButtonColor="#2a292f"
-            IconSource="pencil"
             Command="{Binding UpdateHomeworkCommand}"
+            IconSource="pencil"
             IsVisible="{Binding IsModerator, Source={StaticResource AppState}}" />
 
         <components:IconButton
             AbsoluteLayout.LayoutBounds="0.95,0.95"
             AbsoluteLayout.LayoutFlags="PositionProportional"
             ButtonColor="#7c5260"
-            IconSource="delete"
             Command="{Binding DeleteHomeworkCommand}"
+            IconSource="delete"
             IsVisible="{Binding IsModerator, Source={StaticResource AppState}}" />
     </AbsoluteLayout>
 

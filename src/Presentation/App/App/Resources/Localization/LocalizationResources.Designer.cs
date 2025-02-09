@@ -690,15 +690,6 @@ namespace TaSked.App.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Subjct details.
-        /// </summary>
-        internal static string Subject_Details_Title {
-            get {
-                return ResourceManager.GetString("Subject.Details.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Total pairs in the schedule:.
         /// </summary>
         internal static string Subject_Details_TotalLessons {
@@ -920,15 +911,6 @@ namespace TaSked.App.Resources.Localization {
         internal static string Task_Details_TaskLink {
             get {
                 return ResourceManager.GetString("Task.Details.TaskLink", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Task details.
-        /// </summary>
-        internal static string Task_Details_Title {
-            get {
-                return ResourceManager.GetString("Task.Details.Title", resourceCulture);
             }
         }
         

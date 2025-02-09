@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     HideSoftInputOnTapped="true"
+    Title="{localization:Translate Subject_Form_Update_Title}"
     x:Class="TaSked.App.UpdateSubjectPage"
     x:DataType="local:UpdateSubjectViewModel"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
@@ -12,7 +13,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <StackLayout>
-        <Label HorizontalTextAlignment="Center" Text="{localization:Translate Subject_Form_Update_Title}" />
 
         <material:TextField
             Margin="30,10"
