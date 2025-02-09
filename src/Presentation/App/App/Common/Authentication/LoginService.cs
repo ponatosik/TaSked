@@ -19,6 +19,11 @@ public class LoginService
 	private readonly IBlobCache? _userCache;
 	private readonly Auth0Client _auth0Client;
 
+	public event Action? LoginCompleted;
+	public event Action? LogoutCompleted;
+	public event Action? GroupJoined;
+	public event Action? GroupLeft;
+
 	public LoginService(
 		ITaSkedService api,
 		ITaSkedUsers usersService,
@@ -41,6 +46,11 @@ public class LoginService
 	{
 		await _api.CreateGroup(new CreateGroupRequest(groupName));
 
+		_userCache?.InvalidateAllObjects<User>();
+		_userCache?.Vacuum();
+		
+		GroupJoined?.Invoke();
+		
 		if (_notificationsService is not null)
 		{
 			await _notificationsService.SubscribeToNotifications();
@@ -54,12 +64,17 @@ public class LoginService
 			await _notificationsService.UnsubscribeFromNotifications();
 		}
 		await _api.LeaveGroup();
+
+		_userCache?.InvalidateAll();
+		_userCache?.Vacuum();
+		GroupLeft?.Invoke();
 	}
 
 	public async Task RegisterAnonymousUser(string username)
 	{
 		var token = await _api.RegisterAnonymous(new CreateAnonymousUserTokenRequest(username));
 		_tokenStore.AccessToken = token;
+		LoginCompleted?.Invoke();
 	}
 
 	public async Task LoginWithAuth0()
@@ -77,6 +92,7 @@ public class LoginService
 		}
 
 		_tokenStore.AccessToken = loginResult.AccessToken;
+		LoginCompleted?.Invoke();
 	}
 
 	public async Task JoinGroupAsync(Guid invitation)
@@ -88,6 +104,8 @@ public class LoginService
 		{
 			await _notificationsService.SubscribeToNotifications();
 		}
+		
+		GroupJoined?.Invoke();
 	}
 	
 	public async Task LogoutAsync()
@@ -98,15 +116,21 @@ public class LoginService
 		}
 		await _auth0Client.LogoutAsync();
 		_tokenStore.AccessToken = null;
+
+		LogoutCompleted?.Invoke();
 	}
 
-	public async Task ClearSessionAsync()
+	public Task ClearSessionAsync()
 	{
-		if (_userCache is not null)
+		if (_userCache is null)
 		{
-			_userCache.InvalidateAll();
-			_userCache.Vacuum();
+			return Task.CompletedTask;
 		}
+
+		_userCache.InvalidateAll();
+		_userCache.Vacuum();
+
+		return Task.CompletedTask;
 	}
 
 	public async Task<GroupRole?> GetUserRoleAsync()
