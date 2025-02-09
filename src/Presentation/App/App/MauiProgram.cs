@@ -1,5 +1,6 @@
 using Auth0.OidcClient;
 using CommunityToolkit.Maui;
+using CommunityToolkit.Maui.Core;
 using LocalizationResourceManager.Maui;
 using Microsoft.Extensions.Logging;
 using ReactiveUI;
@@ -13,13 +14,14 @@ using TaSked.App.Resources.Localization;
 using TaSked.Infrastructure.LocalPersistence;
 using The49.Maui.ContextMenu;
 using UraniumUI;
-using CommunityToolkit.Maui.Core;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace TaSked.App;
 
 public static class MauiProgram
 {
+	private const bool UseFirebaseNotifications = false;
+	
 	public static MauiApp CreateMauiApp()
 	{
 		var builder = MauiApp.CreateBuilder();
@@ -29,7 +31,6 @@ public static class MauiProgram
 			.UseMauiCommunityToolkitCore()
 			.UseUraniumUI()
 			.UseUraniumUIMaterial()
-			.RegisterFirebaseServices()
 			.UseLocalizationResourceManager(config =>
 			{
 				config.RestoreLatestCulture(true);
@@ -44,6 +45,11 @@ public static class MauiProgram
 			});
 
 		builder.UseContextMenu();
+
+		if (UseFirebaseNotifications)
+		{
+			builder.RegisterFirebaseServices();
+		}
 		
 		builder.Services.AddSingleton<ISecureStorage>(SecureStorage.Default);
 		builder.Services.AddSingleton<IUserTokenStore, UserTokenSecureStorage>();
@@ -53,14 +59,18 @@ public static class MauiProgram
 		builder.Services.AddTaSkedApi(opt => {
 			opt.BaseUrl = "https://taskedapi.azurewebsites.net/";
 			opt.Timeout = TimeSpan.FromMinutes(3);
-			opt.UseNotifications = true;
+			opt.UseNotifications = UseFirebaseNotifications;
 		});
+
+		if (UseFirebaseNotifications)
+		{
+			builder.Services.AddSingleton<NotificationsService>();
+		}
+		
 
 		//SecureStorage.Default.Remove("TaSked.AccessToken");
 
 		builder.Services.AddSingleton<LoginService>();
-		builder.Services.AddSingleton<NotificationsService>();
-
 		builder.Services.AddSingleton<CreateGroupPage>();
 		builder.Services.AddSingleton<CreateGroupViewModel>();
 

@@ -382,7 +382,7 @@
     <value>Ок</value>
   </data>
   <data name="Subject.Details.Teacher" xml:space="preserve">
-    <value>Викладач</value>
+    <value>Викладачі</value>
   </data>
   <data name="Subject.Details.LessonLink" xml:space="preserve">
     <value>Посилання на пару:</value>

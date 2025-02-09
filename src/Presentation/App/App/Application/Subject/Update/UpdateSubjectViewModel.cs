@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using DynamicData;
 using ReactiveUI;
+using System.Collections.ObjectModel;
 using TaSked.Api.ApiClient;
 using TaSked.Api.Requests;
 using TaSked.App.Common;
@@ -19,15 +21,19 @@ public partial class UpdateSubjectViewModel : ObservableObject
 	private SubjectDTO _subjectDTO;
 
 	[ObservableProperty]
+	private ObservableCollection<UpdateTeacherDTO> _teachers;
+
+	[ObservableProperty]
 	private IReactiveCommand _updateSubjectCommand;
 
 	public UpdateSubjectViewModel(ITaSkedSubjects subjectService)
 	{
 		_subjectService = subjectService;
+		_teachers = [];
 
 		UpdateSubjectCommand = ReactiveCommand.CreateFromTask(UpdateSubject);
 	}
-
+	
 	private async Task UpdateSubject()
 	{
 		PopUpPage popup = ServiceHelper.GetService<PopUpPage>();
@@ -37,7 +43,7 @@ public partial class UpdateSubjectViewModel : ObservableObject
 			SubjectDTO.Name = (await _subjectService.ChangeSubjectName(changeNameRequest, SubjectDTO.Id)).Name;
 
 			var changeTeacherRequest = new ChangeSubjectTeachersRequest(
-				SubjectDTO.Teachers.Select(UpdateTeacherDTO.From).ToList());
+				Teachers.ToList());
 
 			SubjectDTO.Teachers = (await _subjectService.ChangeSubjectTeacher(changeTeacherRequest, SubjectDTO.Id))
 				.Teachers;
@@ -48,5 +54,17 @@ public partial class UpdateSubjectViewModel : ObservableObject
 		});
 
 		await Shell.Current.GoToAsync("..");
+	}
+
+	[RelayCommand]
+	private void RemoveTeacher(UpdateTeacherDTO updateTeacherDto)
+	{
+		Teachers.Remove(updateTeacherDto);
+	}
+
+	[RelayCommand]
+	private void AddTeacher()
+	{
+		Teachers.Add(new UpdateTeacherDTO(" ", null, null, null, null));
 	}
 }

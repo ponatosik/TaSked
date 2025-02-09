@@ -382,7 +382,7 @@
     <value>Ok</value>
   </data>
   <data name="Subject.Details.Teacher" xml:space="preserve">
-    <value>Teacher</value>
+    <value>Teachers</value>
   </data>
   <data name="Subject.Details.TotalTasks" xml:space="preserve">
     <value>Total tasks for the subject:</value>

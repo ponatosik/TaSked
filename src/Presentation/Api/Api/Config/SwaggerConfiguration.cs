@@ -6,6 +6,7 @@ public static class SwaggerConfiguration
 {
 	public static void AddSwaggerConfiguration(this IServiceCollection services)
 	{
+		services.AddEndpointsApiExplorer();
 		services.AddSwaggerGen(x =>
 		{
 			x.SwaggerDoc("Documentation", new OpenApiInfo { Title = "TaSked", Description = "Documentation for TaSked" });
