@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView
-    x:Class="TaSked.App.Components.InvintationCard"
+    x:Class="TaSked.App.Components.InvitationCard"
+    x:DataType="local:TaskCard"
+    x:Name="InvitationCardComponent"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:domain="clr-namespace:TaSked.Domain;assembly=Domain"
     xmlns:local="clr-namespace:TaSked.App.Components"
     xmlns:localization="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
     xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
-    x:Name="InvintationCardComponent"
-    x:DataType="local:TaskCard">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <uranium:StatefulContentView Margin="10" StyleClass="Elevation3">
         <Border
-            Padding="20"
             BackgroundColor="{StaticResource DarkSurface}"
+            Padding="20"
             Stroke="{StaticResource DarkOutlineVariant}"
             StrokeShape="{RoundRectangle CornerRadius=12}">
             <VerticalStackLayout Spacing="10">
@@ -21,9 +21,9 @@
                     FontAttributes="Bold"
                     FontSize="Medium"
                     HorizontalOptions="Center"
-                    Text="{Binding InvintationModel.Id, Source={Reference InvintationCardComponent}}" />
+                    Text="{Binding InvitationModel.Id, Source={Reference InvitationCardComponent}}" />
 
-                <Label Text="{Binding InvintationModel.Caption, Source={Reference InvintationCardComponent}}" />
+                <Label Text="{Binding InvitationModel.Caption, Source={Reference InvitationCardComponent}}" />
                 <Button
                     Clicked="CopyInvitation_Clicked"
                     Text="{localization:Translate Invitation_Card_CopyId}"

@@ -250,7 +250,7 @@
     <value>Забанити</value>
   </data>
   <data name="Role.Card.Promote" xml:space="preserve">
-    <value>Назначити модератором</value>
+    <value>Підвищити</value>
   </data>
   <data name="Settings.Group.Account" xml:space="preserve">
     <value>Аккаунт</value>

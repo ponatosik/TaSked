@@ -44,8 +44,8 @@ namespace TaSked.App
 
             if (uri != null)
             {
-                string invintationId = uri.ToString().Substring(uri.ToString().LastIndexOf('=') + 1);
-                WeakReferenceMessenger.Default.Send(new InvintationItemMessage(invintationId));
+                string invitationId = uri.ToString().Substring(uri.ToString().LastIndexOf('=') + 1);
+                WeakReferenceMessenger.Default.Send(new InvitationItemMessage(invitationId));
             }
         }
 
@@ -58,8 +58,8 @@ namespace TaSked.App
             if (Intent.ActionView == action && !string.IsNullOrWhiteSpace(strLink))
             {
                 Toast.MakeText(this, strLink, ToastLength.Short).Show();
-                string invintationId = strLink.Substring(strLink.LastIndexOf('=') + 1);
-                WeakReferenceMessenger.Default.Send(new InvintationItemMessage(invintationId));
+                string invitationId = strLink.Substring(strLink.LastIndexOf('=') + 1);
+                WeakReferenceMessenger.Default.Send(new InvitationItemMessage(invitationId));
             }
         }
     }

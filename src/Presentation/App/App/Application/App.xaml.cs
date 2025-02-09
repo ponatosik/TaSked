@@ -12,7 +12,7 @@ public partial class App : Microsoft.Maui.Controls.Application
 		InitializeComponent();
 		Current.UserAppTheme = AppTheme.Dark;
 		_localizationResourceManager = localizationResourceManager;
-        WeakReferenceMessenger.Default.Register<InvintationItemMessage>(this, async (r, m) =>
+        WeakReferenceMessenger.Default.Register<InvitationItemMessage>(this, async (r, m) =>
         {
 	        string getinvintationid = m.Value.ToString();
 	        var _loginService = ServiceHelper.GetService<LoginService>();

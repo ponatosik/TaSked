@@ -3,12 +3,11 @@
     x:Class="TaSked.App.Components.RoleCard"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:domain="clr-namespace:TaSked.Domain;assembly=Domain"
     xmlns:local="clr-namespace:TaSked.App.Components"
     xmlns:localization="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
     xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
     x:Name="RoleCardComponent"
-    x:DataType="local:TaskCard">
+    x:DataType="local:RoleCard">
 
     <uranium:StatefulContentView Margin="10" StyleClass="Elevation3">
         <Border
@@ -16,27 +15,22 @@
             BackgroundColor="{StaticResource DarkSurface}"
             Stroke="{StaticResource DarkOutlineVariant}"
             StrokeShape="{RoundRectangle CornerRadius=12}">
-            <VerticalStackLayout>
+            <VerticalStackLayout Spacing="10">
                 <Label
                     FontAttributes="Bold"
                     FontSize="Medium"
                     HorizontalOptions="Center"
                     Text="{Binding RoleModel.Nickname, Source={Reference RoleCardComponent}}" />
-                <HorizontalStackLayout>
-                    <Button
-                        Margin="25,10"
-                        Clicked="Promote_Clicked"
-                        StyleClass="FilledButton"
-                        Text="{localization:Translate Role_Card_Promote}"
-                        TextColor="#242424" />
-                    <Button
-                        Margin="20,0"
-                        BackgroundColor="DarkOrange"
-                        Clicked="Ban_Clicked"
-                        StyleClass="FilledButton"
-                        Text="{localization:Translate Role_Card_Ban}"
-                        TextColor="#242424" />
-                </HorizontalStackLayout>
+                
+                <Button
+                    Clicked="Promote_Clicked"
+                    Text="{localization:Translate Role_Card_Promote}"
+                    TextColor="#242424" />
+                <Button
+                    BackgroundColor="DarkOrange"
+                    Clicked="Ban_Clicked"
+                    Text="{localization:Translate Role_Card_Ban}"
+                    TextColor="#242424" />
             </VerticalStackLayout>
         </Border>
     </uranium:StatefulContentView>

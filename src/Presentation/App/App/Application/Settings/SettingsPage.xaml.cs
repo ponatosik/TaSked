@@ -16,9 +16,9 @@ public partial class SettingsPage : ContentPage
 		await Navigation.PushAsync(rolePage);
     }
 
-    private async void JoinInvintationsPage(object sender, EventArgs e)
+    private async void JoinInvitationsPage(object sender, EventArgs e)
 	{
-		InvintationsPage invintationsPage = ServiceHelper.GetService<InvintationsPage>();
-        await Navigation.PushAsync(invintationsPage);
+		InvitationsPage invitationsPage = ServiceHelper.GetService<InvitationsPage>();
+        await Navigation.PushAsync(invitationsPage);
     }
 }

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
+    Shell.NavBarIsVisible="False"
+    Shell.TabBarIsVisible="False"
+    Title="SettingsPage"
     x:Class="TaSked.App.Application.SettingsPage"
+    x:DataType="local:SettingsViewModel"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:components="clr-namespace:TaSked.App.Components"
     xmlns:local="clr-namespace:TaSked.App.Application"
     xmlns:localization="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
-    Title="SettingsPage"
-    x:DataType="local:SettingsViewModel"
-    Shell.NavBarIsVisible="False"
-    Shell.TabBarIsVisible="False">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <StackLayout Padding="20" VerticalOptions="FillAndExpand">
 
         <components:Divider LabelText="{localization:Translate Settings_Group_Language}" />
@@ -19,48 +19,48 @@
         <components:Divider LabelText="{localization:Translate Settings_Group_Group}" />
 
         <Button
-            Margin="0,20,0,20"
             BorderWidth="1"
             Clicked="JoinRolePage"
             CornerRadius="5"
             HeightRequest="50"
             HorizontalOptions="FillAndExpand"
             IsEnabled="{Binding HasInternetConnection, Source={StaticResource AppState}}"
+            Margin="0,20,0,20"
             Text="{localization:Translate Settings_Roles}"
             TextColor="#242424" />
 
         <Button
-            Margin="0,20,0,20"
             BorderWidth="1"
-            Clicked="JoinInvintationsPage"
+            Clicked="JoinInvitationsPage"
             CornerRadius="5"
             HeightRequest="50"
             HorizontalOptions="FillAndExpand"
             IsEnabled="{Binding HasInternetConnection, Source={StaticResource AppState}}"
+            Margin="0,20,0,20"
             Text="{localization:Translate Settings_Invitations}"
             TextColor="#242424" />
-        
+
         <Button
-            Margin="0,20,0,20"
             BorderWidth="1"
             Command="{Binding LeaveGroupCommand}"
             CornerRadius="5"
             HeightRequest="50"
             HorizontalOptions="FillAndExpand"
             IsEnabled="{Binding HasInternetConnection, Source={StaticResource AppState}}"
+            Margin="0,20,0,20"
             Text="{localization:Translate Settings_LeaveGroup}"
             TextColor="#242424" />
 
         <components:Divider LabelText="{localization:Translate Settings_Group_Account}" />
 
         <Button
-            Margin="0,20,0,20"
             BorderWidth="1"
             Command="{Binding LogoutCommand}"
             CornerRadius="5"
             HeightRequest="50"
             HorizontalOptions="FillAndExpand"
             IsEnabled="{Binding HasInternetConnection, Source={StaticResource AppState}}"
+            Margin="0,20,0,20"
             Text="{localization:Translate Settings_Logout}"
             TextColor="#242424" />
     </StackLayout>

@@ -2,9 +2,9 @@
 <reactive:ReactiveContentPage
     Shell.NavBarIsVisible="False"
     Shell.TabBarIsVisible="False"
-    x:Class="TaSked.App.RolePage"
-    x:DataType="local:RoleViewModel"
-    x:TypeArguments="local:RoleViewModel"
+    x:Class="TaSked.App.InvitationsPage"
+    x:DataType="local:InvitationViewModel"
+    x:TypeArguments="local:InvitationViewModel"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:components="clr-namespace:TaSked.App.Components"
     xmlns:domain="clr-namespace:TaSked.Domain;assembly=Domain"
@@ -19,11 +19,11 @@
             AbsoluteLayout.LayoutFlags="SizeProportional"
             Command="{Binding RefreshCommand}"
             IsRefreshing="{Binding IsRefreshing}">
-            <CollectionView ItemsSource="{Binding Roles}" SelectionMode="None">
+            <CollectionView ItemsSource="{Binding Invitations}" SelectionMode="None">
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="domain:User">
+                    <DataTemplate x:DataType="domain:Invitation">
                         <VerticalStackLayout>
-                            <components:RoleCard RoleModel="{Binding}" />
+                            <components:InvitationCard InvitationModel="{Binding}" />
                         </VerticalStackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
