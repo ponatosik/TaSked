@@ -6,28 +6,66 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:components="clr-namespace:TaSked.App.Components"
     xmlns:domain="clr-namespace:TaSked.Domain;assembly=Domain"
+    xmlns:dtos="clr-namespace:TaSked.Domain;assembly=ApplicationContracts"
     xmlns:local="clr-namespace:TaSked.App"
     xmlns:localization="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
     xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <StackLayout>
-        <Label HorizontalTextAlignment="Center" Text="{localization:Translate Subject_Form_Update_Title}" />
+    <ScrollView>
+        <StackLayout>
+            <Label HorizontalTextAlignment="Center" Text="{localization:Translate Subject_Form_Update_Title}" />
 
-        <material:TextField
-            Margin="30,10"
-            Text="{Binding SubjectDTO.Name}"
-            Title="{localization:Translate Subject_Form_Title}" />
-        <!-- <material:TextField
-             Margin="30,10"
-             Text="{Binding SubjectDTO.Teachers.FullName}"
-             Title="{localization:Translate Subject_Form_TeacherName}" />-->
-        <Button
-            Command="{Binding UpdateSubjectCommand}"
-            Margin="100,10"
-            Text="{localization:Translate Subject_Form_Update}"
-            TextColor="#242424" />
+            <material:TextField
+                Margin="30,10"
+                Text="{Binding SubjectDTO.Name}"
+                Title="{localization:Translate Subject_Form_Title}" />
 
-    </StackLayout>
+            <components:Divider LabelText="{localization:Translate Subject_Details_Teacher}" />
+
+            <CollectionView ItemsSource="{Binding Teachers}" Margin="0,10">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="dtos:UpdateTeacherDTO">
+                        <Grid ColumnDefinitions="*, Auto" Margin="30,10">
+                            <material:TextField
+                                Grid.Column="0"
+                                HorizontalOptions="Fill"
+                                Text="{Binding FullName}"
+                                Title="{localization:Translate Subject_Form_TeacherName}" />
+                            <Button
+                                BackgroundColor="Transparent"
+                                BorderColor="White"
+                                BorderWidth="0.5"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:UpdateSubjectViewModel}}, Path=RemoveTeacherCommand}"
+                                CommandParameter="{Binding}"
+                                Grid.Column="1"
+                                HorizontalOptions="End"
+                                Margin="5,0,0,0"
+                                Text="-"
+                                TextColor="White"
+                                VerticalOptions="Fill" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Button
+                BackgroundColor="Transparent"
+                BorderColor="White"
+                BorderWidth="0.5"
+                Command="{Binding AddTeacherCommand}"
+                HorizontalOptions="End"
+                Margin="30,0"
+                Text="+"
+                TextColor="White" />
+
+            <Button
+                Command="{Binding UpdateSubjectCommand}"
+                Margin="100,30"
+                Text="{localization:Translate Subject_Form_Update}"
+                TextColor="#242424" />
+
+        </StackLayout>
+    </ScrollView>
 
 </ContentPage>

@@ -52,7 +52,18 @@
                     FontSize="Medium"
                     Text="{Binding ViewModel.SubjectDTO.Name, Source={Reference SubjectCardComponent}}" />
 
-                <Label Text="{Binding ViewModel.SubjectDTO.Teachers.FullName, Source={Reference SubjectCardComponent}}" />
+
+                <CollectionView
+                    InputTransparent="True"
+                    ItemsSource="{Binding ViewModel.SubjectDTO.Teachers, Source={Reference SubjectCardComponent}}"
+                    SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="domain:Teacher">
+                            <Label Text="{Binding FullName}" />
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
             </VerticalStackLayout>
         </Border>
     </uranium:StatefulContentView>
