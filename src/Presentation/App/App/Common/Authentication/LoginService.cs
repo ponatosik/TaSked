@@ -4,7 +4,6 @@ using Refit;
 using System.Net;
 using TaSked.Api.ApiClient;
 using TaSked.Api.Requests;
-using TaSked.App.Common.Notifications;
 using TaSked.Domain;
 
 namespace TaSked.App.Common;
@@ -12,10 +11,7 @@ namespace TaSked.App.Common;
 public class LoginService
 {
 	private readonly ITaSkedService _api;
-	private readonly ITaSkedUsers _usersService;
-	private readonly ITaSkedInvitations _invitationsService;
 	private readonly IUserTokenStore _tokenStore;
-	private readonly NotificationsService? _notificationsService;
 	private readonly IBlobCache? _userCache;
 	private readonly Auth0Client _auth0Client;
 
@@ -26,19 +22,13 @@ public class LoginService
 
 	public LoginService(
 		ITaSkedService api,
-		ITaSkedUsers usersService,
-		ITaSkedInvitations invitationsService,
 		IUserTokenStore tokenStore,
 		Auth0Client auth0Client,
-		NotificationsService? notificationsService = null,
 		IBlobCache? userCache = null)
 	{
 		_api = api;
-		_invitationsService = invitationsService;
-		_usersService = usersService;
 		_tokenStore = tokenStore;
 		_auth0Client = auth0Client;
-		_notificationsService = notificationsService;
 		_userCache = userCache;
 	}
 
@@ -50,19 +40,10 @@ public class LoginService
 		_userCache?.Vacuum();
 		
 		GroupJoined?.Invoke();
-		
-		if (_notificationsService is not null)
-		{
-			await _notificationsService.SubscribeToNotifications();
-		}
 	}
 	
 	public async Task LeaveGroupAsync()
 	{
-		if (_notificationsService is not null)
-		{
-			await _notificationsService.UnsubscribeFromNotifications();
-		}
 		await _api.LeaveGroup();
 
 		_userCache?.InvalidateAll();
@@ -97,23 +78,14 @@ public class LoginService
 
 	public async Task JoinGroupAsync(Guid invitation)
 	{
-		Guid groupId = (await _invitationsService.GetInvitationById(invitation)).GroupId;
-		await _invitationsService.ActivateInvitation(new ActivateInvitationRequest(invitation, groupId));
+		var groupId = (await _api.GetInvitationById(invitation)).GroupId;
+		await _api.ActivateInvitation(new ActivateInvitationRequest(invitation, groupId));
 
-		if (_notificationsService is not null)
-		{
-			await _notificationsService.SubscribeToNotifications();
-		}
-		
 		GroupJoined?.Invoke();
 	}
 	
 	public async Task LogoutAsync()
 	{
-		if (_notificationsService is not null && await HasGroupAsync())
-		{
-			await _notificationsService.UnsubscribeFromNotifications();
-		}
 		await _auth0Client.LogoutAsync();
 		_tokenStore.AccessToken = null;
 
@@ -135,20 +107,12 @@ public class LoginService
 
 	public async Task<GroupRole?> GetUserRoleAsync()
 	{
-		if (!HasAccessToken())
-		{
-			return null;
-		}
-		return (await _usersService.GetCurrentUser()).Role;
+		return !HasAccessToken() ? null : (await _api.GetCurrentUser()).Role;
 	}
 	
 	public async Task<string?> GetUserNicknameAsync()
 	{
-		if (!HasAccessToken())
-		{
-			return null;
-		}
-		return (await _usersService.GetCurrentUser()).Nickname;
+		return !HasAccessToken() ? null : (await _api.GetCurrentUser()).Nickname;
 	}
 
 	public Task<bool> HasGroupAsync()
@@ -172,7 +136,7 @@ public class LoginService
 
 		try
 		{
-			user = await _usersService.GetCurrentUser();
+			user = await _api.GetCurrentUser();
 		}
 		catch (ApiException exception)
 		{
