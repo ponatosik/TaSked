@@ -98,8 +98,8 @@
         Title="{localization:Translate Navigation_Settings_Roles}" />
 
     <ShellContent
-        ContentTemplate="{DataTemplate local:InvintationsPage}"
-        Route="InvintationsPage"
+        ContentTemplate="{DataTemplate local:InvitationsPage}"
+        Route="InvitationsPage"
         Title="{localization:Translate Navigation_Settings_Invitations}" />
 
 </Shell>

@@ -1,19 +1,14 @@
+using ReactiveUI;
+using ReactiveUI.Maui;
+
 namespace TaSked.App;
 
-public partial class RolePage : ContentPage
+public partial class RolePage : ReactiveContentPage<RoleViewModel>
 {
-    private RoleViewModel _viewModel;
-    public RolePage(RoleViewModel viewModel)
+	public RolePage(RoleViewModel viewModel)
 	{
 		InitializeComponent();
-        _viewModel = viewModel;
-        BindingContext = _viewModel;
-    }
-
-    protected override void OnNavigatedTo(NavigatedToEventArgs args)
-    {
-        _viewModel.ReloadRole();
-
-        base.OnNavigatedTo(args);
-    }
+		ViewModel = viewModel;
+		this.WhenActivated(_ => { viewModel.ReloadRole(); });
+	}
 }

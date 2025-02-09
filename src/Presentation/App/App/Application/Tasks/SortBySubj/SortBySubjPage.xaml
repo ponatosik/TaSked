@@ -43,12 +43,13 @@
                 </CollectionView.EmptyView>
             </CollectionView>
         </RefreshView>
-        <Button
-            AbsoluteLayout.LayoutBounds="0.95,0.945"
+        
+        <components:IconButton
+            AbsoluteLayout.LayoutBounds="0.95,0.95"
             AbsoluteLayout.LayoutFlags="PositionProportional"
+            ButtonColor="#2a292f"
+            IconSource="plus"
             Command="{Binding CreateTaskCommand}"
-            CornerRadius="50"
-            IsVisible="{Binding IsModerator, Source={StaticResource AppState}}"
-            Text="+" />
+            IsVisible="{Binding IsModerator, Source={StaticResource AppState}}" />
     </AbsoluteLayout>
 </reactive:ReactiveContentPage>
