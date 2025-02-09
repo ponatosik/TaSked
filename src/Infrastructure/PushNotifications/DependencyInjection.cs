@@ -6,12 +6,20 @@ namespace TaSked.Infrastructure.PushNotifications;
 
 public static class DependencyInjection
 {
-	public static IServiceCollection AddFirebaseNotifications(this IServiceCollection services, GoogleCredential credentials)
+	public static IServiceCollection AddFirebaseNotifications(this IServiceCollection services,
+		string firebaseCredentials)
 	{
-		FirebaseApp.Create(new AppOptions()
+		if (string.IsNullOrEmpty(firebaseCredentials))
 		{
-			Credential = credentials
-		});
+			throw new ArgumentNullException(nameof(firebaseCredentials));
+		}
+
+		var credentials = GoogleCredential.FromFile(firebaseCredentials);
+
+		if (FirebaseApp.DefaultInstance == null)
+		{
+			FirebaseApp.Create(new AppOptions { Credential = credentials });
+		}
 		return services;
 	}
 }
