@@ -13,17 +13,15 @@
     <uranium:StatefulContentView Margin="10" StyleClass="Elevation3">
         <Border
             BackgroundColor="{StaticResource DarkSurface}"
-            Padding="20"
+            Padding="10"
             Stroke="{StaticResource DarkOutlineVariant}"
             StrokeShape="{RoundRectangle CornerRadius=12}">
             <VerticalStackLayout Spacing="10">
                 <Label
-                    FontAttributes="Bold"
-                    FontSize="Medium"
+                    FontSize="24"
                     HorizontalOptions="Center"
-                    Text="{Binding InvitationModel.Id, Source={Reference InvitationCardComponent}}" />
+                    Text="{Binding InvitationModel.Caption, Source={Reference InvitationCardComponent}}" />
 
-                <Label Text="{Binding InvitationModel.Caption, Source={Reference InvitationCardComponent}}" />
                 <Button
                     Clicked="CopyInvitation_Clicked"
                     Text="{localization:Translate Invitation_Card_CopyId}"
