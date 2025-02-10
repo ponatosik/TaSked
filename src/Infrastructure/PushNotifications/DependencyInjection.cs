@@ -14,7 +14,7 @@ public static class DependencyInjection
 			throw new ArgumentNullException(nameof(firebaseCredentials));
 		}
 
-		var credentials = GoogleCredential.FromFile(firebaseCredentials);
+		var credentials = GoogleCredential.FromJson(firebaseCredentials);
 
 		if (FirebaseApp.DefaultInstance == null)
 		{
