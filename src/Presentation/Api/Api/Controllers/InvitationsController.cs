@@ -57,7 +57,7 @@ public class InvitationsController : ControllerBase
     }
 
 	[HttpGet]
-	[Authorize(AccessPolicies.Admin)]
+	[Authorize(AccessPolicies.Moderator)]
 	public async Task<IActionResult> Get()
 	{
 		Guid userId = User.GetUserId()!.Value;
