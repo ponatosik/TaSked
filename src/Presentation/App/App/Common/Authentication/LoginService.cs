@@ -1,5 +1,6 @@
 ﻿using Akavache;
 using Auth0.OidcClient;
+using LocalizationResourceManager.Maui;
 using Refit;
 using System.Net;
 using TaSked.Api.ApiClient;
@@ -14,6 +15,7 @@ public class LoginService
 	private readonly IUserTokenStore _tokenStore;
 	private readonly IBlobCache? _userCache;
 	private readonly Auth0Client _auth0Client;
+	private readonly ILocalizationResourceManager _localizationManager;
 
 	public event Action? LoginCompleted;
 	public event Action? LogoutCompleted;
@@ -23,12 +25,12 @@ public class LoginService
 	public LoginService(
 		ITaSkedService api,
 		IUserTokenStore tokenStore,
-		Auth0Client auth0Client,
-		IBlobCache? userCache = null)
+		Auth0Client auth0Client, ILocalizationResourceManager localizationManager, IBlobCache? userCache = null)
 	{
 		_api = api;
 		_tokenStore = tokenStore;
 		_auth0Client = auth0Client;
+		_localizationManager = localizationManager;
 		_userCache = userCache;
 	}
 
@@ -60,7 +62,10 @@ public class LoginService
 
 	public async Task LoginWithAuth0()
 	{
-		var loginResult = await _auth0Client.LoginAsync(new { audience = "https://tasked.com" });
+		var loginResult = await _auth0Client.LoginAsync(new
+		{
+			audience = "https://tasked.com", ui_locales = _localizationManager.CurrentCulture.Name
+		});
 
 		if (loginResult.IsError)
 		{
