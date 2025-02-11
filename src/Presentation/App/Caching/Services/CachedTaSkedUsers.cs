@@ -11,6 +11,7 @@ public class CachedTaSkedUsers : ITaSkedUsers
 	private readonly IBlobCache _cache;
 	private readonly ITaSkedService _api;
 	private readonly IUserTokenStore _tokenStore;
+	private readonly IConnectivity _connectivity;
 
 	private const string CURENT_USER_CACHE_KEY = "CurrentUser";
 
@@ -20,6 +21,7 @@ public class CachedTaSkedUsers : ITaSkedUsers
 		_cache = cache;
 		_api = api;
 		_tokenStore = tokenStore;
+		_connectivity = connectivity;
 
 		if (connectivity.NetworkAccess == NetworkAccess.Internet && tokenStore.AccessToken != null)
 		{

@@ -1,22 +1,18 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Refit;
 using LocalizationResourceManager.Maui;
+using Refit;
 using TaSked.App.Common;
+using TaSked.App.Common.Components;
 
 namespace TaSked.App;
 
 public partial class LoginPage : ContentPage
 {
 	private readonly ILocalizationResourceManager _localizationResourceManager;
-	
 	private readonly LoginService _loginService;
-	
-	
-	public LoginPage(LoginService loginService, ILocalizationResourceManager localizationResourceManager)
+
+
+	public LoginPage(LoginService loginService, ILocalizationResourceManager localizationResourceManager,
+		Auth0AuthHandler auth0Method, AnonymousAuthorizationHandler anonymousHandler)
 	{
 		_loginService = loginService;
 		_localizationResourceManager = localizationResourceManager;
@@ -27,7 +23,8 @@ public partial class LoginPage : ContentPage
 	{
 		try
 		{
-			await _loginService.LoginWithAuth0();
+			var auth0Handler = ServiceHelper.GetService<Auth0AuthHandler>();
+			await _loginService.LoginAsync(auth0Handler, new Auth0LoginRequest());
 		}
 		catch (Exception exception) when (exception is ApiException or AuthenticationException)
 		{
@@ -51,18 +48,21 @@ public partial class LoginPage : ContentPage
 		if (string.IsNullOrWhiteSpace(nickname))
 		{
 			await DisplayAlert(error, message, cancel);
+			return;
 		}
-		else
+
+		try
 		{
-			try
-			{
-				await _loginService.RegisterAnonymousUser(nickname);
-			}
-			catch (Exception exception) when (exception is ApiException or AuthenticationException)
-			{
-				await DisplayAlert("Error", exception.Message, "OK");
-			}
-			await Shell.Current.GoToAsync("//LoadingPage");
+			var popup = ServiceHelper.GetService<PopUpPage>();
+			var anonymousAuthHandler = ServiceHelper.GetService<AnonymousAuthorizationHandler>();
+			await popup.IndicateTaskRunningAsync(() =>
+				_loginService.LoginAsync(anonymousAuthHandler, new AnonymousLoginRequest(nickname)));
 		}
+		catch (Exception exception) when (exception is ApiException or AuthenticationException)
+		{
+			await DisplayAlert("Error", exception.Message, "OK");
+		}
+
+		await Shell.Current.GoToAsync("//LoadingPage");
 	}
 }
