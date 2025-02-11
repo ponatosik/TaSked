@@ -1,13 +1,14 @@
-﻿using TaSked.Api.ApiClient;
+﻿namespace TaSked.App.Common;
 
-namespace TaSked.App.Common;
-
-internal class UserTokenSecureStorage : IUserTokenStore
+internal class UserTokenSecureStorage : ITokenStore
 {
-	private const string SecureStorageKey = "TaSked.AccessToken";
+	private const string RefreshTokenKey = "TaSked.RefreshToken";
+	private const string AccessTokenKey = "TaSked.AccessToken";
+	
 	private readonly ISecureStorage _storage;
 
 	private string? _accessToken;
+	private string? _refreshToken;
 
 	public UserTokenSecureStorage(ISecureStorage storage)
 	{
@@ -16,25 +17,31 @@ internal class UserTokenSecureStorage : IUserTokenStore
 
 	public string? AccessToken 
 	{
-		get
+		get => GetTokenFromStorage(AccessTokenKey, ref _accessToken);
+		set => SaveTokenToStorage(AccessTokenKey, value);
+	}
+
+	public string? RefreshToken
+	{
+		get => GetTokenFromStorage(RefreshTokenKey, ref _refreshToken);
+		set => SaveTokenToStorage(RefreshTokenKey, value);
+	}
+
+	private void SaveTokenToStorage(string storageKey, string? token)
+	{
+		_accessToken = token;
+		if (token == null)
 		{
-			if(_accessToken == null)
-			{
-				_accessToken = _storage.GetAsync(SecureStorageKey).Result;
-			}
-			return _accessToken;
+			_storage.Remove(storageKey);
 		}
-		set 
+		else
 		{
-			_accessToken = value;
-			if( value == null ) 
-			{
-				_storage.Remove(SecureStorageKey);
-			}
-			else
-			{
-				_storage.SetAsync(SecureStorageKey, value);
-			}
+			_storage.SetAsync(storageKey, token);
 		}
+	}
+
+	private string? GetTokenFromStorage(string storageKey, ref string? key)
+	{
+		return key ??= _storage.GetAsync(storageKey).Result;
 	}
 }

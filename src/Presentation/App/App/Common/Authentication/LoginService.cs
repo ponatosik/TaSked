@@ -12,7 +12,7 @@ namespace TaSked.App.Common;
 public class LoginService
 {
 	private readonly ITaSkedService _api;
-	private readonly IUserTokenStore _tokenStore;
+	private readonly ITokenStore _tokenStore;
 	private readonly IBlobCache? _userCache;
 	private readonly Auth0Client _auth0Client;
 	private readonly ILocalizationResourceManager _localizationManager;
@@ -24,8 +24,10 @@ public class LoginService
 
 	public LoginService(
 		ITaSkedService api,
-		IUserTokenStore tokenStore,
-		Auth0Client auth0Client, ILocalizationResourceManager localizationManager, IBlobCache? userCache = null)
+		ITokenStore tokenStore,
+		Auth0Client auth0Client,
+		ILocalizationResourceManager localizationManager,
+		IBlobCache? userCache = null)
 	{
 		_api = api;
 		_tokenStore = tokenStore;
@@ -78,6 +80,8 @@ public class LoginService
 		}
 
 		_tokenStore.AccessToken = loginResult.AccessToken;
+		_tokenStore.RefreshToken = loginResult.RefreshToken;
+		
 		LoginCompleted?.Invoke();
 	}
 
@@ -112,22 +116,18 @@ public class LoginService
 
 	public async Task<GroupRole?> GetUserRoleAsync()
 	{
-		return !HasAccessToken() ? null : (await _api.GetCurrentUser()).Role;
+		return (await GetUserAsync())?.Role;
 	}
-	
+
+
 	public async Task<string?> GetUserNicknameAsync()
 	{
-		return !HasAccessToken() ? null : (await _api.GetCurrentUser()).Nickname;
+		return (await GetUserAsync())?.Nickname;
 	}
 
 	public Task<bool> HasGroupAsync()
 	{
 		return GetGroupIdAsync().ContinueWith(groupId => groupId.Result is not null);
-	}
-
-	private bool HasAccessToken()
-	{
-		return _tokenStore.AccessToken != null;
 	}
 
 	public async Task<Guid?> GetGroupIdAsync()
@@ -154,5 +154,42 @@ public class LoginService
 		}
 
 		return user.GroupId;
+	}
+
+	private bool HasAccessToken()
+	{
+		return _tokenStore.AccessToken != null;
+	}
+
+
+	private async Task<User?> GetUserAsync()
+	{
+		if (!HasAccessToken())
+		{
+			return null;
+		}
+
+		try
+		{
+			return await _api.GetCurrentUser();
+		}
+		catch (ApiException apiException)
+		{
+			if (apiException.StatusCode != HttpStatusCode.Unauthorized || _tokenStore.RefreshToken is null)
+			{
+				throw;
+			}
+
+			var refreshResult = await _auth0Client.RefreshTokenAsync(_tokenStore.RefreshToken);
+			if (refreshResult.IsError)
+			{
+				throw new AuthenticationException(refreshResult.Error);
+			}
+
+			_tokenStore.AccessToken = refreshResult.AccessToken;
+			_tokenStore.RefreshToken = refreshResult.RefreshToken;
+
+			return await _api.GetCurrentUser();
+		}
 	}
 }

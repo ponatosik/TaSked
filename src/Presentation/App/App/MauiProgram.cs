@@ -2,7 +2,6 @@ using Auth0.OidcClient;
 using CommunityToolkit.Maui;
 using CommunityToolkit.Maui.Core;
 using LocalizationResourceManager.Maui;
-using Microsoft.Extensions.Logging;
 using ReactiveUI;
 using TaSked.Api.ApiClient;
 using TaSked.App.Application;
@@ -52,6 +51,7 @@ public static class MauiProgram
 		}
 		
 		builder.Services.AddSingleton<ISecureStorage>(SecureStorage.Default);
+		builder.Services.AddSingleton<ITokenStore, UserTokenSecureStorage>();
 		builder.Services.AddSingleton<IUserTokenStore, UserTokenSecureStorage>();
 		builder.Services.AddLocalPersistence(FileSystem.AppDataDirectory);
 		builder.Services.AddSingleton<HomeworkTasksService>();
