@@ -7,10 +7,23 @@ namespace TaSked.App.Common.Notifications;
 public class NotificationsService
 {
 	private readonly ITaSkedNotifications _notificationsService;
+	private readonly LoginService _loginService;
 
-    public NotificationsService(ITaSkedNotifications notificationsService)
+	public NotificationsService(ITaSkedNotifications notificationsService, LoginService loginService)
     {
-        _notificationsService = notificationsService; 
+	    _notificationsService = notificationsService;
+	    _loginService = loginService;
+
+	    _loginService.GroupJoined += async () => await SubscribeToNotifications();
+	    _loginService.GroupLeft += async () => await UnsubscribeFromNotifications();
+	    _loginService.LogoutCompleted += async () => await UnsubscribeFromNotifications();
+	    _loginService.LoginCompleted += async () =>
+	    {
+		    if (await loginService.GetGroupIdAsync() is not null)
+		    {
+			    await SubscribeToNotifications();
+		    }
+	    };
     }
 
 	public async Task SubscribeToNotifications()

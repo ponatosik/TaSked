@@ -33,9 +33,17 @@ public class AppState : ReactiveObject
 	private async Task InitializeAsync()
 	{
 		HasInternetConnection = _connectivity.NetworkAccess >= NetworkAccess.ConstrainedInternet;
-		GroupRole? role = await _loginService.GetUserRoleAsync();
-		IsModerator = role is not null && !(role < GroupRole.Moderator);
+		IsModerator = await CheckIsModerator();
+
+		_loginService.LoginCompleted += async () => IsModerator = await CheckIsModerator();
+		_loginService.GroupJoined += async () => IsModerator = await CheckIsModerator();
+		_loginService.GroupLeft += () => IsModerator = false;
 		_connectivity.ConnectivityChanged += (obj, args) => HasInternetConnection = args.NetworkAccess >= NetworkAccess.ConstrainedInternet;
 	}
 
+	private async Task<bool> CheckIsModerator()
+	{
+		var role = await _loginService.GetUserRoleAsync();
+		return role != null && !(role < GroupRole.Moderator);
+	}
 }

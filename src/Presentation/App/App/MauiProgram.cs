@@ -49,10 +49,18 @@ public static class MauiProgram
 		if (UseFirebaseNotifications)
 		{
 			builder.RegisterFirebaseServices();
+			builder.Services.AddSingleton<NotificationsService>();
 		}
 		
 		builder.Services.AddSingleton<ISecureStorage>(SecureStorage.Default);
-		builder.Services.AddSingleton<IUserTokenStore, UserTokenSecureStorage>();
+		builder.Services.AddSingleton<UserTokenSecureStorage>();
+		builder.Services.AddSingleton<IUserTokenStore>(sp => sp.GetRequiredService<UserTokenSecureStorage>());
+		builder.Services.AddSingleton<IRefreshTokenStore>(sp => sp.GetRequiredService<UserTokenSecureStorage>());
+
+		builder.Services.AddSingleton<IAuthHandlerManager, AuthHandlerManager>();
+		builder.Services.AddSingleton<AnonymousAuthorizationHandler>();
+		builder.Services.AddSingleton<Auth0AuthHandler>();
+		
 		builder.Services.AddLocalPersistence(FileSystem.AppDataDirectory);
 		builder.Services.AddSingleton<HomeworkTasksService>();
 
@@ -61,14 +69,6 @@ public static class MauiProgram
 			opt.Timeout = TimeSpan.FromMinutes(3);
 			opt.UseNotifications = UseFirebaseNotifications;
 		});
-
-		if (UseFirebaseNotifications)
-		{
-			builder.Services.AddSingleton<NotificationsService>();
-		}
-		
-
-		//SecureStorage.Default.Remove("TaSked.AccessToken");
 
 		builder.Services.AddSingleton<LoginService>();
 		builder.Services.AddSingleton<CreateGroupPage>();

@@ -10,12 +10,12 @@ public partial class LoadingPage : ContentPage
 	{
 		InitializeComponent();
         _loginService = loginService;
-    }
+        Loaded += async (_, _) => await LoadUser();
+	}
 
-    protected override async void OnNavigatedTo(NavigatedToEventArgs args)
+	private async Task LoadUser()
     {
-		// Win UI dotnet Maui bug: https://learn.microsoft.com/en-us/answers/questions/1375393/pending-navigations-still-processing-when-navigati
-		await Task.Delay(1);
+	    await _loginService.RestoreSessionAsync();
 
 		if (await _loginService.HasGroupAsync())
         {
@@ -29,6 +29,5 @@ public partial class LoadingPage : ContentPage
         {
 	        await Shell.Current.GoToAsync("//LoginPage");
         }
-        base.OnNavigatedTo(args);
     }
 }
