@@ -18,7 +18,7 @@ public class GetInvitationInfoQueryHandlerTest
         _context = dbTestFixture.GetDbContext();
         _handler = new GetInvitationInfoHandler(_context);
 
-        User user = User.Create("Test user");
+        var user = User.Create(UserHelper.GenerateUniqueUserName());
         Group group = Group.Create("Test group", user);
 
         _userId = user.Id;

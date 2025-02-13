@@ -18,7 +18,7 @@ public class ExpireInvitationCommandHandlerTest
         _context = dbTestFixture.GetDbContext();
         _handler = new ExpireInvitationCommandHandler(_context);
 
-        var groupAdmin = User.Create("Test admin");
+        var groupAdmin = User.Create(UserHelper.GenerateUniqueUserName("Admin"));
         var group = Group.Create("Test group", groupAdmin);
         var invitation = group.CreateInvitation("Test invitation");
 

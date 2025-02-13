@@ -18,7 +18,7 @@ public class ChangeHomeworkBriefSummaryCommandHandlerTest
 		_context = dbTestFixture.GetDbContext();
 		_handler = new ChangeHomeworkBriefSummaryCommandHandler(_context);
 
-		var user = User.Create("Test user");
+		var user = User.Create(UserHelper.GenerateUniqueUserName());
 		var group = Group.Create("Test group", user);
 		var subject = group.CreateSubject("Test subject");
 		var homework = subject.CreateHomework("Test homework", "Test description", briefSummary: "summary");

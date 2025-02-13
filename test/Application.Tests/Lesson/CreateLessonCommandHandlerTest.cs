@@ -1,5 +1,4 @@
 using Application.Tests;
-using Microsoft.EntityFrameworkCore;
 using TaSked.Application;
 using TaSked.Application.Data;
 using TaSked.Domain;
@@ -19,7 +18,7 @@ public class CreateLessonCommandHandlerTets
         _context = dbTestFixture.GetDbContext();
         _handler = new CreateLessonCommandHandler(_context);
 
-        User user = User.Create("Test user");
+        var user = User.Create(UserHelper.GenerateUniqueUserName());
         Group group = Group.Create("Test group", user);
         Subject subject = group.CreateSubject("Test subject");
 
