@@ -114,6 +114,15 @@ namespace TaSked.App.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Related links.
+        /// </summary>
+        internal static string Details_RelatedLinks {
+            get {
+                return ResourceManager.GetString("Details.RelatedLinks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
         internal static string General_Alert_OkButton {

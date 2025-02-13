@@ -15,7 +15,7 @@
 
     <AbsoluteLayout>
         <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
-            <Grid ColumnDefinitions="Auto, *" Margin="30,30,30,0">
+            <Grid ColumnDefinitions="Auto, *" Margin="30,15,30,0">
                 <Label Text="{localization:Translate Task_Form_Deadline, StringFormat='{}{0}:'}" />
 
                 <Label
@@ -24,46 +24,62 @@
                     Text="{Binding Homework.Deadline, StringFormat='{0:dd/MM}'}"
                     TextColor="#403d47" />
             </Grid>
-            <mct:Expander>
+            <Grid ColumnDefinitions="Auto, *" Padding="30,15">
+                <Label Text="{localization:Translate Task_Form_Subject, StringFormat='{}{0}:'}" />
+
+                <Label
+                    Grid.Column="1"
+                    HorizontalOptions="End"
+                    LineBreakMode="TailTruncation"
+                    MaxLines="1"
+                    Text="{Binding Homework.SubjectId}"
+                    TextColor="#403d47" />
+            </Grid>
+            <mct:Expander IsExpanded="True">
                 <mct:Expander.Header>
                     <Grid ColumnDefinitions="Auto, *">
                         <Label
                             FontAttributes="Bold"
                             FontSize="18"
-                            Padding="30,30"
+                            Margin="30,0,30,0"
                             Text="{localization:Translate Task_Form_Description}" />
 
                         <BoxView
                             Grid.Column="1"
                             HeightRequest="1"
-                            Margin="0,30,30,30"
+                            Margin="0,0,30,0"
                             StyleClass="Divider" />
                     </Grid>
                 </mct:Expander.Header>
                 <mct:Expander.Content>
                     <VerticalStackLayout>
-                        <Label Padding="30,0" Text="{Binding Homework.Description}" />
-                        <Grid ColumnDefinitions="Auto, *" Padding="30,15">
-                            <Label Text="{localization:Translate Task_Form_Subject, StringFormat='{}{0}:'}" />
-
-                            <Label
-                                Grid.Column="1"
-                                HorizontalOptions="End"
-                                LineBreakMode="TailTruncation"
-                                MaxLines="1"
-                                Text="{Binding Homework.SubjectId}"
-                                TextColor="#403d47" />
-                        </Grid>
-                        <Grid ColumnDefinitions="Auto, *" Margin="30,0,30,30">
-                            <Label Text="{localization:Translate Task_Details_TaskLink}" />
-
-                            <!--  <Label Text="{Binding LessonUrlDisplay}" TextColor="#403d47"  -->
-                            <!--  HorizontalOptions="End"  -->
-                            <!--  Grid.Column="1" />  -->
-                        </Grid>
+                        <Label Padding="30,15" Text="{Binding Homework.Description}" />
                     </VerticalStackLayout>
                 </mct:Expander.Content>
             </mct:Expander>
+
+            <components:Divider LabelText="{localization:Translate Details_RelatedLinks}" />
+
+            <VerticalStackLayout>
+                <FlexLayout
+                    AlignItems="Start"
+                    Direction="Row"
+                    Margin="30,15,30,15"
+                    Wrap="Wrap">
+
+                    <BindableLayout.ItemsSource>
+                        <Binding Path="Homework.RelatedLinks" />
+                    </BindableLayout.ItemsSource>
+
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="domain:RelatedLink">
+                            <components:LinkItemComponent DisplayLink="{Binding}" />
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+
+                </FlexLayout>
+            </VerticalStackLayout>
+
             <Label Padding="30,0">
                 <Label.FormattedText>
                     <FormattedString>
