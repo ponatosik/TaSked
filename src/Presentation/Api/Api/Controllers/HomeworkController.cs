@@ -34,7 +34,12 @@ public class HomeworkController : ControllerBase
 	{
 		Guid userId = User.GetUserId()!.Value;
 		var result = await _mediator.Send(new CreateHomeworkCommand(
-			userId, subjectId, request.Title, request.Description, request.Deadline, request.RelatedLinks));
+			userId, subjectId,
+			request.Title,
+			request.Description,
+			request.Deadline,
+			request.RelatedLinks,
+			request.BriefSummary));
 		return CreatedAtAction(nameof(Get), new { subjectId = result.SubjectId }, result);
 	}
 

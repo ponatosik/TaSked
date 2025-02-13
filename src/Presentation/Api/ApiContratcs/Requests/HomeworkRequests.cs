@@ -6,7 +6,8 @@ public record CreateHomeworkRequest(
 	string Title,
 	string Description,
 	DateTime? Deadline = null,
-	List<RelatedLink>? RelatedLinks = null);
+	List<RelatedLink>? RelatedLinks = null,
+	string? BriefSummary = null);
 
 public record ChangeHomeworkDeadlineRequest(DateTime? HomeworkDeadline);
 
@@ -14,7 +15,7 @@ public record ChangeHomeworkDescriptionRequest(string HomeworkDescription);
 
 public record ChangeHomeworkRelatedLinksRequest(List<RelatedLink> RelatedLinks);
 
-public record ChangeHomeworkBriefSummaryRequest(string BriefSummary);
+public record ChangeHomeworkBriefSummaryRequest(string? BriefSummary);
 
 public record ChangeHomeworkTitleRequest(string HomeworkTitle);
 
