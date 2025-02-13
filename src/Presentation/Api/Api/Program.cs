@@ -36,6 +36,7 @@ if (useNotifications)
 builder.Services.AddPolicyBasedAuthorization();
 builder.Services.AddPersistance(useAzureMySqlInApp ? opt => opt.UseAzureMysqlInApp() : null);
 builder.Services.AddSwaggerConfiguration();
+builder.Services.AddControllerInputValidation();
 
 builder.AddJwtAuthentication();
 
