@@ -10,7 +10,8 @@ public class CreateSubjectRequestValidator : AbstractValidator<CreateSubjectRequ
 		RuleFor(x => x.SubjectName).NotEmpty().Length(2, 50);
 		RuleForEach(x => x.RelatedLinks).SetValidator(new RelatedLinkValidator());
 		RuleFor(x => x.RelatedLinks)
-			.Must(x => x.Count <= 10)
+			.Must(x => x!.Count <= 10)
+			.When(x => x.RelatedLinks is not null)
 			.WithMessage("Number of {PropertyName} cannot be greater than 10");
 	}
 }

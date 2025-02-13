@@ -12,7 +12,8 @@ public sealed class RelatedLinkValidator : AbstractValidator<RelatedLink>
 			.When(x => x.Title is not null);
 
 		RuleFor(x => x.Url)
-			.Must(x => Uri.TryCreate(x.ToString(), UriKind.Absolute, out _))
+			.NotEmpty()
+			.Must(x => Uri.TryCreate(x?.ToString() ?? string.Empty, UriKind.Absolute, out _))
 			.WithMessage("{PropertyName} must be a valid URL.");
 	}
 }

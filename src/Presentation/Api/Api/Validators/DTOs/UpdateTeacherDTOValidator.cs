@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Api.Validators.ValueObjects;
+using FluentValidation;
 using TaSked.Domain;
 
 namespace Api.Validators;
@@ -23,5 +24,9 @@ public class UpdateTeacherDtoValidator : AbstractValidator<UpdateTeacherDTO>
 		RuleFor(x => x.Email)
 			.EmailAddress()
 			.When(x => x.Email is not null);
+		
+		RuleFor(x => x.OnlineMeetingUrl)
+			.SetValidator(new RelatedLinkValidator()!)
+			.When(x => x.OnlineMeetingUrl is not null);
 	}
 }
