@@ -10,30 +10,77 @@
     xmlns:local="clr-namespace:TaSked.App"
     xmlns:localization="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
     xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+    xmlns:models="clr-namespace:TaSked.App.Common.Models"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <StackLayout>
+    <ScrollView>
+        <StackLayout>
 
-        <material:DatePickerField
-            Date="{Binding Homework.Deadline}"
-            Margin="30,10"
-            TextColor="White"
-            Title="{localization:Translate Task_Form_Deadline}" />
-        <material:TextField
-            Margin="30,10"
-            Text="{Binding Homework.Title}"
-            Title="{localization:Translate Task_Form_Title}" />
-        <material:EditorField
-            Margin="30,10"
-            Text="{Binding Homework.Description}"
-            TextColor="White"
-            Title="{localization:Translate Task_Form_Description}" />
-        <Button
-            Command="{Binding UpdateTaskCommand}"
-            Margin="100,10"
-            Text="{localization:Translate Task_Form_Update}"
-            TextColor="#242424" />
+            <material:DatePickerField
+                Date="{Binding Homework.Deadline}"
+                Margin="30,10"
+                TextColor="White"
+                Title="{localization:Translate Task_Form_Deadline}" />
+            <material:TextField
+                Margin="30,10"
+                Text="{Binding Homework.Title}"
+                Title="{localization:Translate Task_Form_Title}" />
+            <material:EditorField
+                Margin="30,10"
+                Text="{Binding Homework.Description}"
+                TextColor="White"
+                Title="{localization:Translate Task_Form_Description}" />
 
-    </StackLayout>
+            <components:Divider LabelText="{localization:Translate Details_RelatedLinks}" />
 
+            <CollectionView ItemsSource="{Binding RelatedLinkInputs}" Margin="0,10">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:RelatedLinkModel">
+                        <Grid ColumnDefinitions="2* , 3*, Auto" Margin="30,10">
+                            <material:TextField
+                                Grid.Column="0"
+                                HorizontalOptions="Fill"
+                                Margin="0,0,5,0"
+                                Text="{Binding Title}"
+                                Title="{localization:Translate Subject_Form_Title}" />
+                            <material:TextField
+                                Grid.Column="1"
+                                HorizontalOptions="Fill"
+                                Text="{Binding Url}"
+                                Title="{localization:Translate Subject_Form_Link}" />
+                            <Button
+                                BackgroundColor="Transparent"
+                                BorderColor="White"
+                                BorderWidth="0.5"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:UpdateTaskViewModel}}, Path=RemoveRelatedLinkCommand}"
+                                CommandParameter="{Binding}"
+                                Grid.Column="2"
+                                HorizontalOptions="End"
+                                Margin="5,0,0,0"
+                                Text="-"
+                                TextColor="White"
+                                VerticalOptions="Fill" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Button
+                BackgroundColor="Transparent"
+                BorderColor="White"
+                BorderWidth="0.5"
+                Command="{Binding AddRelatedLinkCommand}"
+                HorizontalOptions="End"
+                Margin="30,0"
+                Text="+"
+                TextColor="White" />
+
+            <Button
+                Command="{Binding UpdateTaskCommand}"
+                Margin="100,10"
+                Text="{localization:Translate Task_Form_Update}"
+                TextColor="#242424" />
+
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

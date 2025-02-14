@@ -735,6 +735,15 @@ namespace TaSked.App.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Link.
+        /// </summary>
+        internal static string Subject_Form_Link {
+            get {
+                return ResourceManager.GetString("Subject.Form.Link", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Teacher name.
         /// </summary>
         internal static string Subject_Form_TeacherName {

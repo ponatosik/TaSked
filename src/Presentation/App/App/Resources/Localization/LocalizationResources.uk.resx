@@ -435,4 +435,7 @@
   <data name="Details.RelatedLinks" xml:space="preserve">
     <value>Пов'язані посилання</value>
   </data>
+  <data name="Subject.Form.Link" xml:space="preserve">
+    <value>Посилання</value>
+  </data>
 </root>
