@@ -20,8 +20,8 @@ public class GetHomeworkCommentsQueryHandlerTest
 		_context = dbTestFixture.GetDbContext();
 		_handler = new GetHomeworkCommentsHandler(_context);
 
-		var user1 = User.Create("Test user (admin)");
-		var user2 = User.Create("Guest user");
+		var user1 = User.Create(UserHelper.GenerateUniqueUserName("Admin"));
+		var user2 = User.Create(UserHelper.GenerateUniqueUserName("Guest"));
 		var group = Group.Create("Test group", user1);
 		var subject = group.CreateSubject("test subject 1");
 		var homework = subject.CreateHomework("Homework 1", "Do something");

@@ -18,7 +18,7 @@ public class ChangeSubjectNameCommandHandlerTest
         _context = dbTestFixture.GetDbContext();
         _handler = new ChangeSubjectNameCommandHandler(_context);
 
-        User user = User.Create("Test user");
+        var user = User.Create(UserHelper.GenerateUniqueUserName());
         Group group = Group.Create("Test group", user);
         Subject subject = group.CreateSubject("Test subject");
 

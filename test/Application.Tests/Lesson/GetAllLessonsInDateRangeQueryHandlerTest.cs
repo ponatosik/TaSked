@@ -1,5 +1,4 @@
 using Application.Tests;
-using Microsoft.EntityFrameworkCore;
 using TaSked.Application;
 using TaSked.Application.Data;
 using TaSked.Domain;
@@ -21,7 +20,7 @@ public class GetAllLessonsInDateRangeQueryHandlerTest
         _context = dbTestFixture.GetDbContext();
         _handler = new GetAllLessonsInDateRangeHandler(_context);
 
-        User user = User.Create("Test user");
+        var user = User.Create(UserHelper.GenerateUniqueUserName());
         Group group = Group.Create("Test group", user);
         Subject subject1 = group.CreateSubject("test subject 1");
         Subject subject2 = group.CreateSubject("test subject 2");

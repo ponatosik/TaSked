@@ -19,7 +19,7 @@ public class CreateUserCommandHandlerTest
     [Fact]
     public async Task Handle_ValidCommand_ShouldPersistChanges()
     {
-        var userNickname = "Test user";
+	    var userNickname = UserHelper.GenerateUniqueUserName();
         var command = new CreateUserCommand(userNickname);
 
         await _handler.Handle(command, CancellationToken.None);
@@ -30,7 +30,7 @@ public class CreateUserCommandHandlerTest
     [Fact]
     public async Task Handle_ValidCommand_ShouldReturnUser()
     {
-        var userNickname = "Test user";
+	    var userNickname = UserHelper.GenerateUniqueUserName();
         var command = new CreateUserCommand(userNickname);
 
         var result = await _handler.Handle(command, CancellationToken.None);

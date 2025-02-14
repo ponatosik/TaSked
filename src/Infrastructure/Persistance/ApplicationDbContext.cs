@@ -51,6 +51,8 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 		modelBuilder.Entity<Invitation>().Property(e => e.Id).ValueGeneratedNever();
 		modelBuilder.Entity<Announcement>().Property(e => e.Id).ValueGeneratedNever();
 		modelBuilder.Entity<Teacher>().Property(e => e.Id).ValueGeneratedNever();
+
+		modelBuilder.Entity<User>().HasIndex(u => u.Nickname).IsUnique();
 	}
 
 	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

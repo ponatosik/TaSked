@@ -19,7 +19,7 @@ public class GetAllAnnouncementsQueryHandlerTest
         _context = dbTestFixture.GetDbContext();
         _handler = new GetAllAnnouncementHandler(_context);
 
-        User user = User.Create("Test user");
+        var user = User.Create(UserHelper.GenerateUniqueUserName());
         Group group = Group.Create("Test group", user);
 
         _userId = user.Id;

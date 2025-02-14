@@ -39,7 +39,7 @@ public class ApplicationExceptionHandlingMiddleware
 			EntityNotFoundException => new ProblemDetails()
 			{
 				Title = exception.Message,
-				Detail = "Upadate application or try again later.",
+				Detail = "Update application or try again later.",
 				Status = StatusCodes.Status404NotFound,
 			},	
 			UserIsNotGroupMemberException => new ProblemDetails()
@@ -47,6 +47,12 @@ public class ApplicationExceptionHandlingMiddleware
 				Title = exception.Message,
 				Detail = "You are not a member of this group.",
 				Status = StatusCodes.Status403Forbidden
+			},
+			UserNicknameAlreadyTaken => new ProblemDetails
+			{
+				Title = exception.Message,
+				Detail = "User with given nickname already exists.",
+				Status = StatusCodes.Status409Conflict
 			},
 			ApplicationException => new ProblemDetails()
 			{

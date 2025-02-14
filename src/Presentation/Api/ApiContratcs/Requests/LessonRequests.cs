@@ -7,5 +7,3 @@ public record CreateLessonRequest(DateTime LessonTime, RelatedLink? LessonLink =
 public record ChangeLessonTimeRequest(DateTime NewTime);
 
 public record ChangeLessonLinkRequest(RelatedLink? NewLink);
-public record GetAllLessonsBySubjectRequest(Guid SubjectId);
-public record GetAllLessonsInDateRangeRequest(DateTime StartDate, DateTime EndDate);

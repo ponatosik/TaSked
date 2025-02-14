@@ -18,11 +18,11 @@ public class ActivateInvitationCommandHandlerTest
         _context = dbTestFixture.GetDbContext();
         _handler = new ActivateInvitationCommandHandler(_context);
 
-        var groupAdmin = User.Create("Test admin");
+        var groupAdmin = User.Create(UserHelper.GenerateUniqueUserName("Admin"));
         var group = Group.Create("Test group", groupAdmin);
         var invitation = group.CreateInvitation("Test invitation");
 
-        var user = User.Create("Test user");
+        var user = User.Create(UserHelper.GenerateUniqueUserName());
 
         _userId = user.Id;
         _groupId = group.Id;

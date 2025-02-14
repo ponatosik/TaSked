@@ -18,7 +18,7 @@ public class ChangeLessonRelatedLinksCommandHandlerTest
         _context = dbTestFixture.GetDbContext();
         _handler = new ChangeLessonLinkCommandHandler(_context);
 
-        User user = User.Create("Test user");
+        var user = User.Create(UserHelper.GenerateUniqueUserName());
         Group group = Group.Create("Test group", user);
         Subject subject = group.CreateSubject("Test subject");
         Lesson lesson = subject.CreateLesson(DateTime.Parse("2011-03-21 13:26"));
@@ -36,7 +36,7 @@ public class ChangeLessonRelatedLinksCommandHandlerTest
     [Fact]
     public async Task Handle_ValidCommand_ShouldPersistChanges()
     {
-	    var newLink = RelatedLink.Create(new Uri("http://zoom.com/test"), "Zoom lecture");
+	    var newLink = RelatedLink.Create(new Uri("https://zoom.com/test"), "Zoom lecture");
 	    var command = new ChangeLessonLinkCommand(_userId, _subjectId, _lessonId, newLink);
 
         await _handler.Handle(command, CancellationToken.None);
