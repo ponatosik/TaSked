@@ -20,7 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Core\ApplicationContracts\ApplicationContracts.csproj" />
     <ProjectReference Include="..\..\src\Core\Domain\Domain.csproj" />
-    <ProjectReference Include="..\..\src\Infrastructure\Persistance\Persistance.csproj" />
+      <ProjectReference Include="..\..\src\Infrastructure\Persistence\Persistence.csproj"/>
   </ItemGroup>
 
   <ItemGroup>

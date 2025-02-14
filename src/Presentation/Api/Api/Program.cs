@@ -3,20 +3,16 @@ using TaSked.Api.Configuration;
 using TaSked.Application;
 using TaSked.Infrastructure.Authorization;
 using TaSked.Infrastructure.ExceptionHandling;
-using TaSked.Infrastructure.Persistance;
-using TaSked.Infrastructure.Persistance.AzureMySqlInApp;
+using TaSked.Infrastructure.Persistence;
 using TaSked.Infrastructure.PushNotifications;
 using TaSked.Infrastructure.PushNotifications.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 
-
-var useAzureMySqlInApp = configuration["UseAzureMySqlInApp"]?.ToLower() == "true";
 var useNotifications = configuration["UseFirebaseCloudMessaging"]?.ToLower() == "true";
 var firebaseCredentials = configuration["FIREBASE_ADMIN_CREDENTIALS"];
 	
-
 builder.Services.AddControllers();
 builder.Services.AddMediatR(config =>
 {
@@ -34,7 +30,7 @@ if (useNotifications)
 }
 
 builder.Services.AddPolicyBasedAuthorization();
-builder.Services.AddPersistance(useAzureMySqlInApp ? opt => opt.UseAzureMysqlInApp() : null);
+builder.Services.AddPersistence(configuration);
 builder.Services.AddSwaggerConfiguration();
 builder.Services.AddControllerInputValidation();
 

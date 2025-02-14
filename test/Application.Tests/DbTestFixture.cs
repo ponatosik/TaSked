@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TaSked.Infrastructure.Persistance;
+using TaSked.Infrastructure.Persistence;
 
 namespace Application.Tests;
 

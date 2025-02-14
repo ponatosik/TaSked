@@ -2,7 +2,7 @@
 using TaSked.Application.Data;
 using TaSked.Domain;
 
-namespace TaSked.Infrastructure.Persistance;
+namespace TaSked.Infrastructure.Persistence;
 
 public class ApplicationDbContext : DbContext, IApplicationDbContext
 {
