@@ -5,6 +5,7 @@
     x:Class="TaSked.App.SubjectDetailsPage"
     x:DataType="local:SubjectDetailsViewModel"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:application="clr-namespace:TaSked.Application;assembly=ApplicationContracts"
     xmlns:components="clr-namespace:TaSked.App.Components"
     xmlns:domain="clr-namespace:TaSked.Domain;assembly=Domain"
     xmlns:local="clr-namespace:TaSked.App"
@@ -15,25 +16,25 @@
 
     <AbsoluteLayout>
         <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
-            <mct:Expander>
+            <mct:Expander IsExpanded="True">
                 <mct:Expander.Header>
                     <Grid ColumnDefinitions="Auto, *">
                         <Label
                             FontAttributes="Bold"
                             FontSize="18"
-                            Padding="30,30"
+                            Margin="30,15,30,0"
                             Text="{localization:Translate Subject_Details_Teacher}" />
 
                         <BoxView
                             Grid.Column="1"
                             HeightRequest="1"
-                            Margin="0,30,30,30"
+                            Margin="0,20,30,0"
                             StyleClass="Divider" />
                     </Grid>
                 </mct:Expander.Header>
                 <mct:Expander.Content>
                     <VerticalStackLayout>
-                        <Grid ColumnDefinitions="Auto, *" Margin="30,15,30,30">
+                        <Grid ColumnDefinitions="Auto, *" Margin="30,15,30,15">
 
                             <VerticalStackLayout Grid.Column="1">
                                 <CollectionView ItemsSource="{Binding SubjectDTO.Teachers}">
@@ -49,6 +50,28 @@
                     </VerticalStackLayout>
                 </mct:Expander.Content>
             </mct:Expander>
+
+            <components:Divider LabelText="{localization:Translate Details_RelatedLinks}" />
+            <VerticalStackLayout>
+                <FlexLayout
+                    AlignItems="Start"
+                    Direction="Row"
+                    Margin="30,15,30,15"
+                    Wrap="Wrap">
+
+                    <BindableLayout.ItemsSource>
+                        <Binding Path="SubjectDTO.RelatedLinks" />
+                    </BindableLayout.ItemsSource>
+
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="domain:RelatedLink">
+                            <components:LinkItemComponent DisplayLink="{Binding}" />
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+
+                </FlexLayout>
+            </VerticalStackLayout>
+
             <Label Padding="30,0">
                 <Label.FormattedText>
                     <FormattedString>

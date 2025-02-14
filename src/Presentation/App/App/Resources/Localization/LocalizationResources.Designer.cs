@@ -114,6 +114,15 @@ namespace TaSked.App.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Related links.
+        /// </summary>
+        internal static string Details_RelatedLinks {
+            get {
+                return ResourceManager.GetString("Details.RelatedLinks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
         internal static string General_Alert_OkButton {
@@ -722,6 +731,15 @@ namespace TaSked.App.Resources.Localization {
         internal static string Subject_Form_Create_Title {
             get {
                 return ResourceManager.GetString("Subject.Form.Create.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Link.
+        /// </summary>
+        internal static string Subject_Form_Link {
+            get {
+                return ResourceManager.GetString("Subject.Form.Link", resourceCulture);
             }
         }
         

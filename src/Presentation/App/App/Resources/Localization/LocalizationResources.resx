@@ -432,4 +432,10 @@
   <data name="Main.Title" xml:space="preserve">
     <value>Welcome to TaSked,</value>
   </data>
+  <data name="Details.RelatedLinks" xml:space="preserve">
+    <value>Related links</value>
+  </data>
+  <data name="Subject.Form.Link" xml:space="preserve">
+    <value>Link</value>
+  </data>
 </root>

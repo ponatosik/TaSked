@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Views;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DynamicData;
 using ReactiveUI;
@@ -7,6 +8,7 @@ using TaSked.Api.ApiClient;
 using TaSked.Api.Requests;
 using TaSked.App.Common;
 using TaSked.App.Common.Components;
+using TaSked.App.Common.Models;
 using TaSked.Application;
 using TaSked.Domain;
 
@@ -17,23 +19,24 @@ public partial class UpdateSubjectViewModel : ObservableObject
 {
 	private ITaSkedSubjects _subjectService;
 
-	[ObservableProperty]
-	private SubjectDTO _subjectDTO;
+	[ObservableProperty] private SubjectDTO _subjectDTO;
+
+	[ObservableProperty] private ObservableCollection<UpdateTeacherDTO> _teachers;
 
 	[ObservableProperty]
-	private ObservableCollection<UpdateTeacherDTO> _teachers;
+	private ObservableCollection<RelatedLinkModel> _relatedLinkInputs;
 
-	[ObservableProperty]
-	private IReactiveCommand _updateSubjectCommand;
+	[ObservableProperty] private IReactiveCommand _updateSubjectCommand;
 
 	public UpdateSubjectViewModel(ITaSkedSubjects subjectService)
 	{
 		_subjectService = subjectService;
 		_teachers = [];
+		_relatedLinkInputs = [];
 
 		UpdateSubjectCommand = ReactiveCommand.CreateFromTask(UpdateSubject);
 	}
-	
+
 	private async Task UpdateSubject()
 	{
 		PopUpPage popup = ServiceHelper.GetService<PopUpPage>();
@@ -41,6 +44,20 @@ public partial class UpdateSubjectViewModel : ObservableObject
 		{
 			var changeNameRequest = new ChangeSubjectNameRequest(SubjectDTO.Name);
 			SubjectDTO.Name = (await _subjectService.ChangeSubjectName(changeNameRequest, SubjectDTO.Id)).Name;
+
+			try
+			{
+				var changeRelatedLinkRequest = new ChangeSubjectLinksRequest(
+					RelatedLinkInputs.Select(model => RelatedLink.Create(new Uri(model.Url), model.Title)).ToList());
+
+				SubjectDTO.RelatedLinks =
+					(await _subjectService.ChangeSubjectLinks(changeRelatedLinkRequest, SubjectDTO.Id))
+					.RelatedLinks;
+			}
+			catch (UriFormatException ex)
+			{
+				await Shell.Current.CurrentPage.DisplayAlert("Error", ex.Message, "OK");
+			}
 
 			var changeTeacherRequest = new ChangeSubjectTeachersRequest(
 				Teachers.ToList());
@@ -50,7 +67,6 @@ public partial class UpdateSubjectViewModel : ObservableObject
 
 			SubjectDataSource subjectSource = ServiceHelper.GetService<SubjectDataSource>();
 			subjectSource.SubjectSource.AddOrUpdate(new SubjectViewModel(SubjectDTO));
-
 		});
 
 		await Shell.Current.GoToAsync("..");
@@ -66,5 +82,17 @@ public partial class UpdateSubjectViewModel : ObservableObject
 	private void AddTeacher()
 	{
 		Teachers.Add(new UpdateTeacherDTO(" ", null, null, null, null));
+	}
+
+	[RelayCommand]
+	private void RemoveRelatedLink(RelatedLinkModel relatedLinkModelInput)
+	{
+		RelatedLinkInputs.Remove(relatedLinkModelInput);
+	}
+
+	[RelayCommand]
+	private void AddRelatedLink()
+	{
+		RelatedLinkInputs.Add(new RelatedLinkModel());
 	}
 }
