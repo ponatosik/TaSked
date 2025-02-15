@@ -1,32 +1,43 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
+    Shell.NavBarIsVisible="false"
     x:Class="TaSked.App.CreateGroupPage"
+    x:DataType="local:CreateGroupViewModel"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:InputKit.Shared.Controls;assembly=InputKit.Maui"
     xmlns:local="clr-namespace:TaSked.App"
     xmlns:localization="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
     xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
-    x:DataType="local:CreateGroupViewModel"
-    Shell.NavBarIsVisible="false">
+    xmlns:validations="clr-namespace:TaSked.App.Common.Validations"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <VerticalStackLayout>
         <Label
-            Margin="0,250,0,0"
             FontSize="30"
             HorizontalOptions="Center"
+            Margin="0,250,0,0"
             Text="{localization:Translate CreateGroup_Form_Title}"
             TextColor="#FFFFFF" />
 
-        <material:TextField
-            Title="{localization:Translate CreateGroup_Form_GroupName}"
-            Margin="30,40"
-            Text="{Binding GroupName}" />
-        <Button
-            Margin="190,-10,30,0"
-            Command="{Binding CreateGroupCommand}"
-            StyleClass="FilledButton"
-            IsEnabled="{Binding HasInternetConnection, Source={StaticResource AppState}}"
-            Text="{localization:Translate CreateGroup_Form_ConfirmButton}"
-            TextColor="#242424" />
+        <controls:FormView SubmitCommand="{Binding CreateGroupCommand}">
+            <material:TextField
+                Margin="30,40"
+                Text="{Binding GroupName}"
+                Title="{localization:Translate CreateGroup_Form_GroupName}">
+                <material:TextField.Validations>
+                    <validations:MyTextValidation
+                        IsRequired="True"
+                        MaxLength="50"
+                        MinLength="2" />
+                </material:TextField.Validations>
+            </material:TextField>
+            <Button
+                IsEnabled="{Binding HasInternetConnection, Source={StaticResource AppState}}"
+                Margin="190,-10,30,0"
+                StyleClass="FilledButton"
+                Text="{localization:Translate CreateGroup_Form_ConfirmButton}"
+                TextColor="#242424"
+                controls:FormView.IsSubmitButton="True" />
+        </controls:FormView>
     </VerticalStackLayout>
 </ContentPage>

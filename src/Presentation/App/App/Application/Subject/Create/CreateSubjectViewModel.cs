@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using DynamicData;
 using ReactiveUI;
 using TaSked.Api.ApiClient;
@@ -16,9 +17,6 @@ public partial class CreateSubjectViewModel : ObservableObject
     private readonly SubjectDataSource _subjectDataSource;
 
     [ObservableProperty]
-    public IReactiveCommand _createSubjectCommand;
-
-    [ObservableProperty]
     private string _name;
 
     [ObservableProperty]
@@ -34,10 +32,9 @@ public partial class CreateSubjectViewModel : ObservableObject
     {
         _subjectService = subjectService;
         _subjectDataSource = subjectDataSource;
-
-        CreateSubjectCommand = ReactiveCommand.CreateFromTask(CreateSubject);
     }
 
+    [RelayCommand]
     private async Task CreateSubject()
     {
 	    if (string.IsNullOrEmpty(Name))
@@ -65,17 +62,10 @@ public partial class CreateSubjectViewModel : ObservableObject
 	    
 	    if (!string.IsNullOrEmpty(LinkUrl))
 	    {
-		    try
-		    {
-			    var relatedLink = RelatedLink.Create(new Uri(LinkUrl), LinkTitle);
-			    var changeRelatedLinkRequest = new ChangeSubjectLinksRequest([relatedLink]);
-			    var updateDto = await _subjectService.ChangeSubjectLinks(changeRelatedLinkRequest, dto.Id);
-			    dto.RelatedLinks = updateDto.RelatedLinks;
-		    }
-		    catch (UriFormatException ex)
-		    {
-			    await Shell.Current.CurrentPage.DisplayAlert("Error", ex.Message, "OK");
-		    }
+		    var relatedLink = RelatedLink.Create(new Uri(LinkUrl), LinkTitle);
+		    var changeRelatedLinkRequest = new ChangeSubjectLinksRequest([relatedLink]);
+		    var updateDto = await _subjectService.ChangeSubjectLinks(changeRelatedLinkRequest, dto.Id);
+		    dto.RelatedLinks = updateDto.RelatedLinks;
 	    }
 
 	    var viewModel = new SubjectViewModel(dto);

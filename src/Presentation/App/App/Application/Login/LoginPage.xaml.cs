@@ -37,6 +37,7 @@ public partial class LoginPage : ContentPage
 	{
 		string title = _localizationResourceManager["Login_Prompt_Title"];
 		string message = _localizationResourceManager["Login_Prompt_Message"];
+		string length = _localizationResourceManager["Login_Prompt_Length"];
 		string error = _localizationResourceManager["Login_Prompt_Error"];
 		string cancel = _localizationResourceManager["General_Alert_OkButton"];
 		string? nickname = await DisplayPromptAsync(title, message);
@@ -48,6 +49,11 @@ public partial class LoginPage : ContentPage
 		if (string.IsNullOrWhiteSpace(nickname))
 		{
 			await DisplayAlert(error, message, cancel);
+			return;
+		}
+		if (nickname.Length < 2 || nickname.Length > 24)
+		{
+			await DisplayAlert(error, length, cancel);
 			return;
 		}
 

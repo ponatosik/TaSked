@@ -6,109 +6,136 @@
     x:DataType="local:UpdateSubjectViewModel"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:components="clr-namespace:TaSked.App.Components"
+    xmlns:controls="clr-namespace:InputKit.Shared.Controls;assembly=InputKit.Maui"
     xmlns:domain="clr-namespace:TaSked.Domain;assembly=Domain"
     xmlns:dtos="clr-namespace:TaSked.Domain;assembly=ApplicationContracts"
     xmlns:local="clr-namespace:TaSked.App"
     xmlns:localization="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
     xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
     xmlns:models="clr-namespace:TaSked.App.Common.Models"
+    xmlns:validations="clr-namespace:TaSked.App.Common.Validations"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <ScrollView>
         <StackLayout>
 
-            <material:TextField
-                Margin="30,10"
-                Text="{Binding SubjectDTO.Name}"
-                Title="{localization:Translate Subject_Form_Title}" />
+            <controls:FormView SubmitCommand="{Binding UpdateSubjectCommand}">
+                <material:TextField
+                    Margin="30,10"
+                    Text="{Binding SubjectDTO.Name}"
+                    Title="{localization:Translate Subject_Form_Title}">
+                    <material:TextField.Validations>
+                        <validations:MyTextValidation
+                            IsRequired="True"
+                            MaxLength="50"
+                            MinLength="2" />
+                    </material:TextField.Validations>
+                </material:TextField>
+                <components:Divider LabelText="{localization:Translate Subject_Details_Teacher}" />
 
-            <components:Divider LabelText="{localization:Translate Subject_Details_Teacher}" />
+                <CollectionView ItemsSource="{Binding Teachers}" Margin="0,10">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="dtos:UpdateTeacherDTO">
+                            <Grid ColumnDefinitions="*, Auto" Margin="30,10">
+                                <material:TextField
+                                    Grid.Column="0"
+                                    HorizontalOptions="Fill"
+                                    Text="{Binding FullName}"
+                                    Title="{localization:Translate Subject_Form_TeacherName}">
+                                    <material:TextField.Validations>
+                                        <validations:MyTextValidation
+                                            IsRequired="True"
+                                            MaxLength="50"
+                                            MinLength="2" />
+                                    </material:TextField.Validations>
+                                </material:TextField>
+                                <Button
+                                    BackgroundColor="Transparent"
+                                    BorderColor="White"
+                                    BorderWidth="0.5"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:UpdateSubjectViewModel}}, Path=RemoveTeacherCommand}"
+                                    CommandParameter="{Binding}"
+                                    Grid.Column="1"
+                                    HorizontalOptions="End"
+                                    Margin="5,0,0,0"
+                                    Text="-"
+                                    TextColor="White"
+                                    VerticalOptions="Fill" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
 
-            <CollectionView ItemsSource="{Binding Teachers}" Margin="0,10">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="dtos:UpdateTeacherDTO">
-                        <Grid ColumnDefinitions="*, Auto" Margin="30,10">
-                            <material:TextField
-                                Grid.Column="0"
-                                HorizontalOptions="Fill"
-                                Text="{Binding FullName}"
-                                Title="{localization:Translate Subject_Form_TeacherName}" />
-                            <Button
-                                BackgroundColor="Transparent"
-                                BorderColor="White"
-                                BorderWidth="0.5"
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:UpdateSubjectViewModel}}, Path=RemoveTeacherCommand}"
-                                CommandParameter="{Binding}"
-                                Grid.Column="1"
-                                HorizontalOptions="End"
-                                Margin="5,0,0,0"
-                                Text="-"
-                                TextColor="White"
-                                VerticalOptions="Fill" />
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                <Button
+                    BackgroundColor="Transparent"
+                    BorderColor="White"
+                    BorderWidth="0.5"
+                    Command="{Binding AddTeacherCommand}"
+                    HorizontalOptions="End"
+                    Margin="30,0"
+                    Text="+"
+                    TextColor="White" />
 
-            <Button
-                BackgroundColor="Transparent"
-                BorderColor="White"
-                BorderWidth="0.5"
-                Command="{Binding AddTeacherCommand}"
-                HorizontalOptions="End"
-                Margin="30,0"
-                Text="+"
-                TextColor="White" />
+                <components:Divider LabelText="{localization:Translate Details_RelatedLinks}" />
 
-            <components:Divider LabelText="{localization:Translate Details_RelatedLinks}" />
+                <CollectionView ItemsSource="{Binding RelatedLinkInputs}" Margin="0,10">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:RelatedLinkModel">
+                            <Grid ColumnDefinitions="2* , 3*, Auto" Margin="30,10">
+                                <material:TextField
+                                    Grid.Column="0"
+                                    HorizontalOptions="Fill"
+                                    Margin="0,0,5,0"
+                                    Text="{Binding Title}"
+                                    Title="{localization:Translate Subject_Form_Title}">
+                                    <material:TextField.Validations>
+                                        <validations:MyTextValidation
+                                            IsRequired="False"
+                                            MaxLength="18"
+                                            MinLength="2" />
+                                    </material:TextField.Validations>
+                                </material:TextField>
+                                <material:TextField
+                                    Grid.Column="1"
+                                    HorizontalOptions="Fill"
+                                    Text="{Binding Url}"
+                                    Title="{localization:Translate Subject_Form_Link}">
+                                    <material:TextField.Validations>
+                                        <validations:UrlValidation />
+                                    </material:TextField.Validations>
+                                </material:TextField>
+                                <Button
+                                    BackgroundColor="Transparent"
+                                    BorderColor="White"
+                                    BorderWidth="0.5"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:UpdateSubjectViewModel}}, Path=RemoveRelatedLinkCommand}"
+                                    CommandParameter="{Binding}"
+                                    Grid.Column="2"
+                                    HorizontalOptions="End"
+                                    Margin="5,0,0,0"
+                                    Text="-"
+                                    TextColor="White"
+                                    VerticalOptions="Fill" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
 
-            <CollectionView ItemsSource="{Binding RelatedLinkInputs}" Margin="0,10">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:RelatedLinkModel">
-                        <Grid ColumnDefinitions="2* , 3*, Auto" Margin="30,10">
-                            <material:TextField
-                                Grid.Column="0"
-                                HorizontalOptions="Fill"
-                                Margin="0,0,5,0"
-                                Text="{Binding Title}"
-                                Title="{localization:Translate Subject_Form_Title}" />
-                            <material:TextField
-                                Grid.Column="1"
-                                HorizontalOptions="Fill"
-                                Text="{Binding Url}"
-                                Title="{localization:Translate Subject_Form_Link}" />
-                            <Button
-                                BackgroundColor="Transparent"
-                                BorderColor="White"
-                                BorderWidth="0.5"
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:UpdateSubjectViewModel}}, Path=RemoveRelatedLinkCommand}"
-                                CommandParameter="{Binding}"
-                                Grid.Column="2"
-                                HorizontalOptions="End"
-                                Margin="5,0,0,0"
-                                Text="-"
-                                TextColor="White"
-                                VerticalOptions="Fill" />
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-
-            <Button
-                BackgroundColor="Transparent"
-                BorderColor="White"
-                BorderWidth="0.5"
-                Command="{Binding AddRelatedLinkCommand}"
-                HorizontalOptions="End"
-                Margin="30,0"
-                Text="+"
-                TextColor="White" />
-
-            <Button
-                Command="{Binding UpdateSubjectCommand}"
-                Margin="100,30"
-                Text="{localization:Translate Subject_Form_Update}"
-                TextColor="#242424" />
+                <Button
+                    BackgroundColor="Transparent"
+                    BorderColor="White"
+                    BorderWidth="0.5"
+                    Command="{Binding AddRelatedLinkCommand}"
+                    HorizontalOptions="End"
+                    Margin="30,0"
+                    Text="+"
+                    TextColor="White" />
+                <Button
+                    Margin="100,30"
+                    Text="{localization:Translate Subject_Form_Update}"
+                    TextColor="#242424"
+                    controls:FormView.IsSubmitButton="True" />
+            </controls:FormView>
 
         </StackLayout>
     </ScrollView>

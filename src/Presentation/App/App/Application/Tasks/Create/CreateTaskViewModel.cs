@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using TaSked.Api.ApiClient;
 using TaSked.Api.Requests;
@@ -31,9 +32,6 @@ public partial class CreateTaskViewModel : ObservableObject
 
 	[ObservableProperty]
 	private ReadOnlyObservableCollection<SubjectDTO> _availableSubjects;
-
-	[ObservableProperty]
-	private IReactiveCommand _createTaskCommand;
 	
 	[ObservableProperty]
 	private string _linkTitle;
@@ -46,8 +44,6 @@ public partial class CreateTaskViewModel : ObservableObject
 		_homeworkService = homeworkService;
 		_subjectSource = subjectSource;
 
-		CreateTaskCommand = ReactiveCommand.CreateFromTask(CreateTask);
-
 		subjectSource.SubjectSource
 			.Connect()
 			.ObserveOn(RxApp.MainThreadScheduler)
@@ -58,6 +54,7 @@ public partial class CreateTaskViewModel : ObservableObject
 		OnPropertyChanged(nameof(AvailableSubjects));
 	}
 
+	[RelayCommand]
 	private async Task CreateTask()
 	{
 		if (string.IsNullOrEmpty(Title) || Subject is null || string.IsNullOrEmpty(LinkUrl))

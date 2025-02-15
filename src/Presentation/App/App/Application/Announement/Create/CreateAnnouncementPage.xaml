@@ -1,39 +1,56 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     HideSoftInputOnTapped="true"
+    Title="{localization:Translate Report_Form_Create_Title}"
     x:Class="TaSked.App.CreateAnnouncementPage"
     x:DataType="local:CreateAnnouncementViewModel"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:components="clr-namespace:TaSked.App.Components"
+    xmlns:controls="clr-namespace:InputKit.Shared.Controls;assembly=InputKit.Maui"
     xmlns:domain="clr-namespace:TaSked.Domain;assembly=Domain"
     xmlns:local="clr-namespace:TaSked.App"
     xmlns:localization="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
     xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+    xmlns:validations="clr-namespace:TaSked.App.Common.Validations"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <StackLayout>
-        <Label HorizontalTextAlignment="Center" Text="{localization:Translate Report_Form_Create_Title}" />
-        <material:TextField
-            Margin="30,10"
-            Text="{Binding Title}"
-            Title="{localization:Translate Report_Form_Title}" />
-        <material:EditorField
-            Margin="30,10"
-            Text="{Binding Message}"
-            TextColor="White"
-            Title="{localization:Translate Report_Form_Message}" />
-        <Label
-            FontSize="12"
-            HorizontalOptions="Center"
-            Margin="30,10"
-            Text="{localization:Translate Report_Form_Hint}"
-            TextColor="#DFD5EC" />
-        <Button
-            Command="{Binding CreateAnnouncementCommand}"
-            Margin="100,10"
-            Text="{localization:Translate Report_Form_Create}"
-            TextColor="#242424" />
+    <ScrollView>
+        <StackLayout>
 
-    </StackLayout>
+            <controls:FormView SubmitCommand="{Binding CreateReportCommand}">
+                <material:TextField
+                    Margin="30,10"
+                    Text="{Binding Title}"
+                    Title="{localization:Translate Report_Form_Title}">
+                    <material:TextField.Validations>
+                        <validations:MyTextValidation
+                            IsRequired="True"
+                            MaxLength="150"
+                            MinLength="4" />
+                    </material:TextField.Validations>
+                </material:TextField>
+                <material:EditorField
+                    Margin="30,10"
+                    Text="{Binding Message}"
+                    TextColor="White"
+                    Title="{localization:Translate Report_Form_Message}">
+                    <material:EditorField.Validations>
+                        <validations:MyTextValidation IsRequired="False" MaxLength="4096" />
+                    </material:EditorField.Validations>
+                </material:EditorField>
+                <Label
+                    FontSize="12"
+                    HorizontalOptions="Center"
+                    Margin="30,10"
+                    Text="{localization:Translate Report_Form_Hint}"
+                    TextColor="#DFD5EC" />
+                <Button
+                    Margin="100,10"
+                    Text="{localization:Translate Report_Form_Create}"
+                    TextColor="#242424"
+                    controls:FormView.IsSubmitButton="True" />
+            </controls:FormView>
 
+        </StackLayout>
+    </ScrollView>
 </ContentPage>
