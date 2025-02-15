@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     HideSoftInputOnTapped="true"
+    Title="{localization:Translate Subject_Form_Create_Title}"
     x:Class="TaSked.App.CreateSubjectPage"
     x:DataType="local:CreateSubjectViewModel"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
@@ -12,8 +13,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <StackLayout>
-        <Label HorizontalTextAlignment="Center" Text="{localization:Translate Subject_Form_Create_Title}" />
-
         <material:TextField
             Margin="30,10"
             Text="{Binding Name}"
@@ -22,6 +21,22 @@
             Margin="30,10"
             Text="{Binding TeacherName}"
             Title="{localization:Translate Subject_Form_TeacherName}" />
+
+        <components:Divider LabelText="{localization:Translate Details_RelatedLinks}" />
+
+        <Grid ColumnDefinitions="* ,*" Margin="30,10">
+            <material:TextField
+                Grid.Column="0"
+                HorizontalOptions="Fill"
+                Margin="0,0,5,0"
+                Text="{Binding LinkTitle}"
+                Title="{localization:Translate Subject_Form_Title}" />
+            <material:TextField
+                Grid.Column="1"
+                HorizontalOptions="Fill"
+                Text="{Binding LinkUrl}"
+                Title="{localization:Translate Subject_Form_Link}" />
+        </Grid>
         <Button
             Command="{Binding CreateSubjectCommand}"
             Margin="100,10"

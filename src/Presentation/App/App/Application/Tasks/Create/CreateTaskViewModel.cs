@@ -8,6 +8,7 @@ using DynamicData;
 using ReactiveUI;
 using System.Reactive.Linq;
 using TaSked.App.Common.Components;
+using TaSked.Domain;
 
 namespace TaSked.App;
 
@@ -33,6 +34,12 @@ public partial class CreateTaskViewModel : ObservableObject
 
 	[ObservableProperty]
 	private IReactiveCommand _createTaskCommand;
+	
+	[ObservableProperty]
+	private string _linkTitle;
+    
+	[ObservableProperty]
+	private string _linkUrl;
 
 	public CreateTaskViewModel(ITaSkedHomeworks homeworkService, SubjectDataSource subjectSource)
 	{
@@ -53,7 +60,7 @@ public partial class CreateTaskViewModel : ObservableObject
 
 	private async Task CreateTask()
 	{
-		if (string.IsNullOrEmpty(Title) || Subject is null)
+		if (string.IsNullOrEmpty(Title) || Subject is null || string.IsNullOrEmpty(LinkUrl))
 		{
 			return;
 		}
@@ -63,6 +70,21 @@ public partial class CreateTaskViewModel : ObservableObject
 		{
 			var request = new CreateHomeworkRequest(Title, Description, Deadline);
 			var homework = await _homeworkService.CreateHomework(request, Subject.Id);
+			
+			if (!string.IsNullOrEmpty(LinkUrl))
+			{
+				try
+				{
+					var relatedLink = RelatedLink.Create(new Uri(LinkUrl), LinkTitle);
+					var changeRelatedLinkRequest = new ChangeHomeworkRelatedLinksRequest([relatedLink]);
+					var updatedHomework = await _homeworkService.ChangeHomeworkSourceUrl(changeRelatedLinkRequest, homework.SubjectId, homework.Id);
+					homework.RelatedLinks.AddRange((updatedHomework).RelatedLinks);
+				}
+				catch (UriFormatException ex)
+				{
+					await Shell.Current.CurrentPage.DisplayAlert("Error", ex.Message, "OK");
+				}
+			}
 
 			TaskViewModel viewModel = new TaskViewModel(homework.CreateTask(), Subject.Name);
 			ServiceHelper.GetService<HomeworkDataSource>().HomeworkSource.AddOrUpdate(viewModel);
