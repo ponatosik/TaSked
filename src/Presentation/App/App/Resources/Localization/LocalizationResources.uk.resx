@@ -442,15 +442,15 @@
     <value>Введіть символи в діапазоні від 2 до 24</value>
   </data>
   <data name="Validation.MinLength" xml:space="preserve">
-    <value>Мінімум символів </value>
+    <value>Мінімальна клькість символів {0}</value>
   </data>
   <data name="Validation.MaxLength" xml:space="preserve">
-    <value>Максимум символів </value>
+    <value>Максимальна кількість символів {0}</value>
   </data>
   <data name="Validation.Required" xml:space="preserve">
     <value>Поле обов'язкове</value>
   </data>
   <data name="Validation.InvalidUrl" xml:space="preserve">
-    <value>Посилання не валідне</value>
+    <value>Посилання не дійсне</value>
   </data>
 </root>

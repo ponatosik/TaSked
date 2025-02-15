@@ -442,10 +442,10 @@
     <value>Enter characters between 2 and 24</value>
   </data>
   <data name="Validation.MinLength" xml:space="preserve">
-    <value>Minimum characters </value>
+    <value>Minimum number of characters {0}</value>
   </data>
   <data name="Validation.MaxLength" xml:space="preserve">
-    <value>Maximum characters</value>
+    <value>Maximum number of characters {0}</value>
   </data>
   <data name="Validation.Required" xml:space="preserve">
     <value>Required field</value>

@@ -1041,7 +1041,7 @@ namespace TaSked.App.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Maximum characters.
+        ///   Looks up a localized string similar to Maximum number of characters {0}.
         /// </summary>
         internal static string Validation_MaxLength {
             get {
@@ -1050,7 +1050,7 @@ namespace TaSked.App.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Minimum characters .
+        ///   Looks up a localized string similar to Minimum number of characters {0}.
         /// </summary>
         internal static string Validation_MinLength {
             get {

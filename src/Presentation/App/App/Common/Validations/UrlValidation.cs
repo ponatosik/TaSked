@@ -7,10 +7,10 @@ namespace TaSked.App.Common.Validations;
 public class UrlValidation : IValidation
 {
 	private readonly ILocalizationResourceManager _localizationResourceManager;
-
-	public UrlValidation(ILocalizationResourceManager localizationResourceManager)
+	
+	public UrlValidation()
 	{
-		_localizationResourceManager = localizationResourceManager;
+		_localizationResourceManager = ServiceHelper.GetService<ILocalizationResourceManager>();
 	}
 	
 	public string Message { get; set; }

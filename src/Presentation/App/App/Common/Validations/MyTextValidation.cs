@@ -7,10 +7,10 @@ namespace TaSked.App.Common.Validations;
 public class MyTextValidation : IValidation
 {
 	private readonly ILocalizationResourceManager _localizationResourceManager;
-
-	public MyTextValidation(ILocalizationResourceManager localizationResourceManager)
+	
+	public MyTextValidation()
 	{
-		_localizationResourceManager = localizationResourceManager;
+		_localizationResourceManager = ServiceHelper.GetService<ILocalizationResourceManager>();
 	}
 	
 	public string Message { get; set; }
