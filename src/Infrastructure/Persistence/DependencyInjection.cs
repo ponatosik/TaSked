@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TaSked.Application.Data;
+using TaSked.Infrastructure.Persistence.AmazonBeanstalkRds;
 using TaSked.Infrastructure.Persistence.AzureMySqlInApp;
 
 namespace TaSked.Infrastructure.Persistence;
@@ -25,6 +26,11 @@ public static class DependencyInjection
 		if (connectionString is not null)
 		{
 			return services.AddPersistence(opt => opt.UseNpgsql(connectionString));
+		}
+
+		if (configuration.IsRdsConfigured())
+		{
+			return services.AddPersistence(opt => opt.UseAmazonRds(configuration));
 		}
 		
 		var useAzureMySqlInApp = configuration["UseAzureMySqlInApp"]?.ToLower() == "true";
