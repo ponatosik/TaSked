@@ -5,6 +5,7 @@ using TaSked.Api.ApiClient;
 using TaSked.Api.Requests;
 using TaSked.App.Common;
 using TaSked.App.Common.Components;
+using TaSked.App.Common.Models;
 using TaSked.Domain;
 
 namespace TaSked.App;
@@ -22,6 +23,12 @@ public partial class CreateSubjectViewModel : ObservableObject
 
     [ObservableProperty]
     private string _teacherName;
+    
+    [ObservableProperty]
+    private string _linkTitle;
+    
+    [ObservableProperty]
+    private string _linkUrl;
 
     public CreateSubjectViewModel(ITaSkedSubjects subjectService, SubjectDataSource subjectDataSource)
     {
@@ -54,6 +61,21 @@ public partial class CreateSubjectViewModel : ObservableObject
 		    var changeTeacherRequest = new ChangeSubjectTeachersRequest([teacherDto]);
 		    var updateDto = await _subjectService.ChangeSubjectTeacher(changeTeacherRequest, dto.Id);
 		    dto.Teachers = updateDto.Teachers;
+	    }
+	    
+	    if (!string.IsNullOrEmpty(LinkUrl))
+	    {
+		    try
+		    {
+			    var relatedLink = RelatedLink.Create(new Uri(LinkUrl), LinkTitle);
+			    var changeRelatedLinkRequest = new ChangeSubjectLinksRequest([relatedLink]);
+			    var updateDto = await _subjectService.ChangeSubjectLinks(changeRelatedLinkRequest, dto.Id);
+			    dto.RelatedLinks = updateDto.RelatedLinks;
+		    }
+		    catch (UriFormatException ex)
+		    {
+			    await Shell.Current.CurrentPage.DisplayAlert("Error", ex.Message, "OK");
+		    }
 	    }
 
 	    var viewModel = new SubjectViewModel(dto);
