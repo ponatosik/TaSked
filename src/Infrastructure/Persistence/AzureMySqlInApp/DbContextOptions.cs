@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Data.Common;
 
-namespace TaSked.Infrastructure.Persistance.AzureMySqlInApp;
+namespace TaSked.Infrastructure.Persistence.AzureMySqlInApp;
 
 public static class DbContextOptionBuilderExtensions
 {
