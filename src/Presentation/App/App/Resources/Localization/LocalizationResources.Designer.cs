@@ -312,6 +312,15 @@ namespace TaSked.App.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter characters between 2 and 24.
+        /// </summary>
+        internal static string Login_Prompt_Length {
+            get {
+                return ResourceManager.GetString("Login.Prompt.Length", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Write your nickname.
         /// </summary>
         internal static string Login_Prompt_Message {
@@ -1019,6 +1028,42 @@ namespace TaSked.App.Resources.Localization {
         internal static string Task_List_Empty_ModeratorHint {
             get {
                 return ResourceManager.GetString("Task.List.Empty.ModeratorHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The link is invalid.
+        /// </summary>
+        internal static string Validation_InvalidUrl {
+            get {
+                return ResourceManager.GetString("Validation.InvalidUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maximum number of characters {0}.
+        /// </summary>
+        internal static string Validation_MaxLength {
+            get {
+                return ResourceManager.GetString("Validation.MaxLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimum number of characters {0}.
+        /// </summary>
+        internal static string Validation_MinLength {
+            get {
+                return ResourceManager.GetString("Validation.MinLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Required field.
+        /// </summary>
+        internal static string Validation_Required {
+            get {
+                return ResourceManager.GetString("Validation.Required", resourceCulture);
             }
         }
     }

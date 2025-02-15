@@ -438,4 +438,19 @@
   <data name="Subject.Form.Link" xml:space="preserve">
     <value>Link</value>
   </data>
+  <data name="Login.Prompt.Length" xml:space="preserve">
+    <value>Enter characters between 2 and 24</value>
+  </data>
+  <data name="Validation.MinLength" xml:space="preserve">
+    <value>Minimum number of characters {0}</value>
+  </data>
+  <data name="Validation.MaxLength" xml:space="preserve">
+    <value>Maximum number of characters {0}</value>
+  </data>
+  <data name="Validation.Required" xml:space="preserve">
+    <value>Required field</value>
+  </data>
+  <data name="Validation.InvalidUrl" xml:space="preserve">
+    <value>The link is invalid</value>
+  </data>
 </root>

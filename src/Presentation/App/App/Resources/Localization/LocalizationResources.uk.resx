@@ -438,4 +438,19 @@
   <data name="Subject.Form.Link" xml:space="preserve">
     <value>Посилання</value>
   </data>
+  <data name="Login.Prompt.Length" xml:space="preserve">
+    <value>Введіть символи в діапазоні від 2 до 24</value>
+  </data>
+  <data name="Validation.MinLength" xml:space="preserve">
+    <value>Мінімальна клькість символів {0}</value>
+  </data>
+  <data name="Validation.MaxLength" xml:space="preserve">
+    <value>Максимальна кількість символів {0}</value>
+  </data>
+  <data name="Validation.Required" xml:space="preserve">
+    <value>Поле обов'язкове</value>
+  </data>
+  <data name="Validation.InvalidUrl" xml:space="preserve">
+    <value>Посилання не дійсне</value>
+  </data>
 </root>

@@ -26,17 +26,14 @@ public partial class UpdateSubjectViewModel : ObservableObject
 	[ObservableProperty]
 	private ObservableCollection<RelatedLinkModel> _relatedLinkInputs;
 
-	[ObservableProperty] private IReactiveCommand _updateSubjectCommand;
-
 	public UpdateSubjectViewModel(ITaSkedSubjects subjectService)
 	{
 		_subjectService = subjectService;
 		_teachers = [];
 		_relatedLinkInputs = [];
-
-		UpdateSubjectCommand = ReactiveCommand.CreateFromTask(UpdateSubject);
 	}
 
+	[RelayCommand]
 	private async Task UpdateSubject()
 	{
 		PopUpPage popup = ServiceHelper.GetService<PopUpPage>();

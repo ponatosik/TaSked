@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using DynamicData;
 using ReactiveUI;
 using TaSked.Api.ApiClient;
@@ -19,17 +20,13 @@ public partial class CreateAnnouncementViewModel : ObservableObject
 	[ObservableProperty]
 	private string _message;
 
-	[ObservableProperty]
-	private IReactiveCommand _createAnnouncementCommand;
-
 	public CreateAnnouncementViewModel(ITaSkedAnnouncements api, AnnouncementDataSource dataSource)
 	{
 		_api = api;
 		_dataSource = dataSource;
-
-		CreateAnnouncementCommand = ReactiveCommand.CreateFromTask(CreateReport);
 	}
 
+	[RelayCommand]
 	private async Task CreateReport()
 	{
 		if (string.IsNullOrEmpty(Title) || string.IsNullOrEmpty(Message)) 

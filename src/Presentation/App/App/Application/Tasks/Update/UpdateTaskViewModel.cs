@@ -18,19 +18,16 @@ public partial class UpdateTaskViewModel : ObservableObject
 
 	[ObservableProperty] private Homework _homework;
 
-	[ObservableProperty] public IReactiveCommand _updateTaskCommand;
-
 	[ObservableProperty]
 	private ObservableCollection<RelatedLinkModel> _relatedLinkInputs;
 
 	public UpdateTaskViewModel(ITaSkedHomeworks homeworkServic)
 	{
-		UpdateTaskCommand = ReactiveCommand.CreateFromTask(UpdateTask);
-
 		_relatedLinkInputs = [];
 		_homeworkService = homeworkServic;
 	}
 
+	[RelayCommand]
 	private async Task UpdateTask()
 	{
 		PopUpPage popup = ServiceHelper.GetService<PopUpPage>();
