@@ -21,11 +21,22 @@ public static class DependencyInjection
 		this IServiceCollection services,
 		IConfigurationManager configuration)
 	{
+		var connectionString = configuration.GetConnectionString("TaSkedDb");
+		if (connectionString is not null)
+		{
+			return services.AddPersistence(opt => opt.UseNpgsql(connectionString));
+		}
+		
 		var useAzureMySqlInApp = configuration["UseAzureMySqlInApp"]?.ToLower() == "true";
-
 		if (useAzureMySqlInApp)
 		{
-			return AddPersistence(services, opt => opt.UseAzureMysqlInApp());
+			return services.AddPersistence(opt => opt.UseAzureMysqlInApp());
+		}
+
+		var useInMemoryDatabase = configuration["UseInMemoryDb"]?.ToLower() == "true";
+		if (useInMemoryDatabase)
+		{
+			return services.AddPersistence(opt => opt.UseInMemoryDatabase("TaSkedDb-in-memory"));
 		}
 
 		return services.AddPersistence(_ => { });

@@ -54,14 +54,4 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 
 		modelBuilder.Entity<User>().HasIndex(u => u.Nickname).IsUnique();
 	}
-
-	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-	{
-		if (!optionsBuilder.IsConfigured)
-		{
-			optionsBuilder.UseInMemoryDatabase("In-memory");
-		}
-
-		base.OnConfiguring(optionsBuilder);
-	}
 }
