@@ -11,7 +11,7 @@
     <Shell.ToolbarItems>
         <ToolbarItem Clicked="OnSettingsClicked">
             <ToolbarItem.IconImageSource>
-                <FileImageSource File="Resources/Images/settings_icon" />
+                <FileImageSource File="Resources/Images/cog" />
             </ToolbarItem.IconImageSource>
         </ToolbarItem>
     </Shell.ToolbarItems>
