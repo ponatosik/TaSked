@@ -1,4 +1,5 @@
-﻿using TaSked.Api.ApiClient;
+﻿using System.Globalization;
+using TaSked.Api.ApiClient;
 
 namespace TaSked.App.Common;
 
@@ -34,10 +35,10 @@ internal class UserTokenSecureStorage : IUserTokenStore, IRefreshTokenStore
 	public DateTimeOffset? TokenExpiration
 	{
 		get => GetFromStorage(TokenExpirationKey, ref _accessTokenExpiration) is not null
-			? DateTimeOffset.Parse(_accessTokenExpiration!)
+			? DateTimeOffset.Parse(_accessTokenExpiration!, CultureInfo.InvariantCulture)
 			: null;
 
-		set => _accessTokenExpiration = SaveTokenToStorage(TokenExpirationKey, value?.ToString());
+		set => _accessTokenExpiration = SaveTokenToStorage(TokenExpirationKey, value?.ToString(CultureInfo.InvariantCulture));
 	}
 
 	private string? SaveTokenToStorage(string storageKey, string? value)
