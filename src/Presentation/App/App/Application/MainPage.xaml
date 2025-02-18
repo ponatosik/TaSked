@@ -1,86 +1,93 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
+    Shell.NavBarIsVisible="false"
     x:Class="TaSked.App.MainPage"
+    x:DataType="local:MainPageViewModel"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:components="clr-namespace:TaSked.App.Components"
+    xmlns:local="using:TaSked.App.Application"
     xmlns:localization="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
     xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
-    xmlns:local="using:TaSked.App.Application"
-    x:DataType="local:MainPageViewModel"
-    Shell.NavBarIsVisible="false">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <VerticalStackLayout Padding="20" Spacing="10">
-        
-        <Label
-            Margin="0,160,0,0"
-            FontSize="30"
-            Text="{localization:Translate Main_Title}"
-            HorizontalTextAlignment="Center"
-            TextColor="#FFFFFF" />
-    
-        <Label
-            Margin="0,0,0,0"
-            FontSize="30"
-            Text="{Binding Nickname, StringFormat='{0}!'}"
-            HorizontalTextAlignment="Center"
-            TextColor="#FFFFFF" />
+    <AbsoluteLayout Margin="0,0" Padding="0,0">
+        <VerticalStackLayout
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="SizeProportional"
+            Padding="20"
+            Spacing="10">
 
-        <Frame
-            Margin="20,40"
-            BackgroundColor="#141218"
-            BorderColor="#49454F"
-            CornerRadius="10"
-            IsEnabled="{Binding HasInternetConnection, Source={StaticResource AppState}}">
-            <StackLayout Orientation="Horizontal">
-                <StackLayout>
-                    <Label
-                        FontSize="15"
-                        Text="{localization:Translate Main_JoinGroup}"
-                        TextColor="#D0BCFF" />
-                    <Label
-                        FontSize="10"
-                        Text="{localization:Translate Main_JoinGroupCaption}"
-                        TextColor="#E6E0E9" />
+            <Label
+                FontSize="30"
+                HorizontalTextAlignment="Center"
+                Margin="0,160,0,0"
+                Text="{localization:Translate Main_Title}"
+                TextColor="#FFFFFF" />
+
+            <Label
+                FontSize="30"
+                HorizontalTextAlignment="Center"
+                Margin="0,0,0,0"
+                Text="{Binding Nickname, StringFormat='{0}!'}"
+                TextColor="#FFFFFF" />
+
+            <Frame
+                BackgroundColor="#141218"
+                BorderColor="#49454F"
+                CornerRadius="10"
+                IsEnabled="{Binding HasInternetConnection, Source={StaticResource AppState}}"
+                Margin="20,40">
+                <StackLayout Orientation="Horizontal">
+                    <StackLayout>
+                        <Label
+                            FontSize="15"
+                            Text="{localization:Translate Main_JoinGroup}"
+                            TextColor="#D0BCFF" />
+                        <Label
+                            FontSize="10"
+                            Text="{localization:Translate Main_JoinGroupCaption}"
+                            TextColor="#E6E0E9" />
+                    </StackLayout>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="JoinGroupTapped" />
+                    </StackLayout.GestureRecognizers>
                 </StackLayout>
-                <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="JoinGroupTapped" />
-                </StackLayout.GestureRecognizers>
-            </StackLayout>
-        </Frame>
+            </Frame>
 
-        <Frame
-            Margin="20,-20"
-            BackgroundColor="#141218"
-            BorderColor="#49454F"
-            CornerRadius="10"
-            IsEnabled="{Binding HasInternetConnection, Source={StaticResource AppState}}">
-            <StackLayout Orientation="Horizontal">
-                <StackLayout>
-                    <Label
-                        FontSize="15"
-                        Text="{localization:Translate Main_CreateGroup}"
-                        TextColor="#EFB8C8" />
-                    <Label
-                        FontSize="10"
-                        Text="{localization:Translate Main_CreateGroupCaption}"
-                        TextColor="#E6E0E9" />
+            <Frame
+                BackgroundColor="#141218"
+                BorderColor="#49454F"
+                CornerRadius="10"
+                IsEnabled="{Binding HasInternetConnection, Source={StaticResource AppState}}"
+                Margin="20,-20">
+                <StackLayout Orientation="Horizontal">
+                    <StackLayout>
+                        <Label
+                            FontSize="15"
+                            Text="{localization:Translate Main_CreateGroup}"
+                            TextColor="#EFB8C8" />
+                        <Label
+                            FontSize="10"
+                            Text="{localization:Translate Main_CreateGroupCaption}"
+                            TextColor="#E6E0E9" />
+                    </StackLayout>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="CreateGroupTapped" />
+                    </StackLayout.GestureRecognizers>
                 </StackLayout>
-                <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="CreateGroupTapped" />
-                </StackLayout.GestureRecognizers>
-            </StackLayout>
-        </Frame>
-        
-        <Button
-            Margin="0,50,0,0"
-            Command="{Binding LogoutCommand}"
-            HorizontalOptions="Center"
-            StyleClass="FilledButton"
-            IsEnabled="{Binding HasInternetConnection, Source={StaticResource AppState}}"
-            Text="{localization:Translate Settings_Logout}"
-            TextColor="#242424"
-            BackgroundColor="#49464D"/>
-    </VerticalStackLayout>
+            </Frame>
+
+            <Button
+                BackgroundColor="#49464D"
+                Command="{Binding LogoutCommand}"
+                HorizontalOptions="Center"
+                IsEnabled="{Binding HasInternetConnection, Source={StaticResource AppState}}"
+                Margin="0,50,0,0"
+                StyleClass="FilledButton"
+                Text="{localization:Translate Settings_Logout}"
+                TextColor="#242424" />
+        </VerticalStackLayout>
+        <components:VersionString AbsoluteLayout.LayoutBounds="0.95,0.97" AbsoluteLayout.LayoutFlags="PositionProportional" />
+    </AbsoluteLayout>
 
 </ContentPage>

@@ -42,6 +42,10 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 				fonts.AddFontAwesomeIconFonts();
+			})
+			.ConfigureEssentials(essentials =>
+			{
+				essentials.UseVersionTracking();
 			});
 
 		builder.UseContextMenu();
@@ -51,6 +55,8 @@ public static class MauiProgram
 			builder.RegisterFirebaseServices();
 			builder.Services.AddSingleton<NotificationsService>();
 		}
+
+		builder.Services.AddSingleton<IVersionTracking>(VersionTracking.Default);
 		
 		builder.Services.AddSingleton<ISecureStorage>(SecureStorage.Default);
 		builder.Services.AddSingleton<UserTokenSecureStorage>();
