@@ -240,7 +240,7 @@ namespace TaSked.App.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Loading in progress, please wait....
+        ///   Looks up a localized string similar to Loading, please wait....
         /// </summary>
         internal static string Loading_Authenticating {
             get {
