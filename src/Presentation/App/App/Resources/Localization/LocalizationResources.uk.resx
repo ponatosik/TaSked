@@ -458,6 +458,7 @@
   </data>
   <data name="Login.Authorization.Error.General" xml:space="preserve">
     <value>Помилка авторизації</value>
+  </data>
   <data name="Task.Deadline.Title" xml:space="preserve">
     <value>Дедлайн не задано</value>
   </data>
