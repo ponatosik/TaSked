@@ -24,7 +24,11 @@
                     Margin="30,10"
                     SelectedItem="{Binding Subject}"
                     TextColor="White"
-                    Title="{localization:Translate Task_Form_Subject}" />
+                    Title="{localization:Translate Task_Form_Subject}">
+                    <material:PickerField.Validations>
+                        <validations:PickerValidation IsRequired="True" />
+                    </material:PickerField.Validations>
+                </material:PickerField>
                 <material:DatePickerField
                     Date="{Binding Deadline}"
                     Margin="30,10"
@@ -73,7 +77,7 @@
                         Text="{Binding LinkUrl}"
                         Title="{localization:Translate Subject_Form_Link}">
                         <material:TextField.Validations>
-                            <validations:UrlValidation />
+                            <validations:UrlValidation IsRequired="False" />
                         </material:TextField.Validations>
                     </material:TextField>
                 </Grid>

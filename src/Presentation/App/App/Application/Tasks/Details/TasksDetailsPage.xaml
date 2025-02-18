@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     HideSoftInputOnTapped="true"
-    Title="{Binding Homework.Title}"
+    Title="{Binding TaskViewModel.Task.Homework.Title}"
     x:Class="TaSked.App.TasksDetailsPage"
     x:DataType="local:TasksDetailsViewModel"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
@@ -21,7 +21,7 @@
                 <Label
                     Grid.Column="1"
                     HorizontalOptions="End"
-                    Text="{Binding Homework.Deadline, StringFormat='{0:dd/MM}'}"
+                    Text="{Binding TaskViewModel.Task.Homework.Deadline, StringFormat='{0:dd/MM}'}"
                     TextColor="#403d47" />
             </Grid>
             <Grid ColumnDefinitions="Auto, *" Padding="30,15">
@@ -32,7 +32,7 @@
                     HorizontalOptions="End"
                     LineBreakMode="TailTruncation"
                     MaxLines="1"
-                    Text="{Binding Homework.SubjectId}"
+                    Text="{Binding TaskViewModel.Task.Homework.SubjectId}"
                     TextColor="#403d47" />
             </Grid>
             <mct:Expander IsExpanded="True">
@@ -53,7 +53,7 @@
                 </mct:Expander.Header>
                 <mct:Expander.Content>
                     <VerticalStackLayout>
-                        <Label Padding="30,15" Text="{Binding Homework.Description}" />
+                        <Label Padding="30,15" Text="{Binding TaskViewModel.Task.Homework.Description}" />
                     </VerticalStackLayout>
                 </mct:Expander.Content>
             </mct:Expander>
@@ -68,7 +68,7 @@
                     Wrap="Wrap">
 
                     <BindableLayout.ItemsSource>
-                        <Binding Path="Homework.RelatedLinks" />
+                        <Binding Path="TaskViewModel.Task.Homework.RelatedLinks" />
                     </BindableLayout.ItemsSource>
 
                     <BindableLayout.ItemTemplate>
@@ -84,27 +84,43 @@
                 <Label.FormattedText>
                     <FormattedString>
                         <Span Text="{localization:Translate Task_Details_DateCreated}" TextColor="#403d47" />
-                        <Span Text="{Binding Homework.CreatedAt, StringFormat='{0:dd/MM}'}" TextColor="#403d47" />
+                        <Span Text="{Binding TaskViewModel.Task.Homework.CreatedAt, StringFormat='{0:dd/MM}'}" TextColor="#403d47" />
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
         </StackLayout>
 
         <components:IconButton
-            AbsoluteLayout.LayoutBounds="0.95,0.80"
+            AbsoluteLayout.LayoutBounds="0.95,0.69"
             AbsoluteLayout.LayoutFlags="PositionProportional"
             ButtonColor="#2a292f"
-            Command="{Binding UpdateHomeworkCommand}"
+            Command="{Binding TaskViewModel.UpdateHomeworkCommand}"
             IconSource="pencil"
             IsVisible="{Binding IsModerator, Source={StaticResource AppState}}" />
 
         <components:IconButton
-            AbsoluteLayout.LayoutBounds="0.95,0.95"
+            AbsoluteLayout.LayoutBounds="0.95,0.82"
             AbsoluteLayout.LayoutFlags="PositionProportional"
             ButtonColor="#7c5260"
             Command="{Binding DeleteHomeworkCommand}"
             IconSource="delete"
             IsVisible="{Binding IsModerator, Source={StaticResource AppState}}" />
+
+        <components:IconButton
+            AbsoluteLayout.LayoutBounds="0.95,0.95"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            ButtonColor="#9787c5"
+            Command="{Binding TaskViewModel.CompleteCommand}"
+            IconSource="check"
+            IsVisible="{Binding TaskViewModel.IsFirstButtonVisible}" />
+
+        <components:IconButton
+            AbsoluteLayout.LayoutBounds="0.95,0.95"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            ButtonColor="#2a292f"
+            Command="{Binding TaskViewModel.UndoCompletionCommand}"
+            IconSource="uncheck"
+            IsVisible="{Binding TaskViewModel.IsSecondButtonVisible}" />
     </AbsoluteLayout>
 
 </ContentPage>
