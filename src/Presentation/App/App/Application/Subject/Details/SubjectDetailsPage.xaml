@@ -91,7 +91,7 @@
         </StackLayout>
 
         <components:IconButton
-            AbsoluteLayout.LayoutBounds="0.95,0.80"
+            AbsoluteLayout.LayoutBounds="0.95,0.82"
             AbsoluteLayout.LayoutFlags="PositionProportional"
             ButtonColor="#2a292f"
             Command="{Binding UpdateSubjectCommand}"

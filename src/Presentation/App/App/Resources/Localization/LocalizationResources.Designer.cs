@@ -240,7 +240,7 @@ namespace TaSked.App.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Authenticating....
+        ///   Looks up a localized string similar to Loading, please wait....
         /// </summary>
         internal static string Loading_Authenticating {
             get {
@@ -938,6 +938,15 @@ namespace TaSked.App.Resources.Localization {
         internal static string Task_Action_Update {
             get {
                 return ResourceManager.GetString("Task.Action.Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No deadline set.
+        /// </summary>
+        internal static string Task_Deadline_Title {
+            get {
+                return ResourceManager.GetString("Task.Deadline.Title", resourceCulture);
             }
         }
         

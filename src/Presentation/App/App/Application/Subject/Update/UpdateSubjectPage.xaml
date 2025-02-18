@@ -101,7 +101,7 @@
                                     Text="{Binding Url}"
                                     Title="{localization:Translate Subject_Form_Link}">
                                     <material:TextField.Validations>
-                                        <validations:UrlValidation />
+                                        <validations:UrlValidation IsRequired="True" />
                                     </material:TextField.Validations>
                                 </material:TextField>
                                 <Button

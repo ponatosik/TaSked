@@ -7,6 +7,6 @@ public class ChangeHomeworkDescriptionRequestValidator : AbstractValidator<Chang
 {
 	public ChangeHomeworkDescriptionRequestValidator()
 	{
-		RuleFor(x => x.HomeworkDescription).NotEmpty().MaximumLength(4096);
+		RuleFor(x => x.HomeworkDescription).NotNull().MaximumLength(4096);
 	}
 }

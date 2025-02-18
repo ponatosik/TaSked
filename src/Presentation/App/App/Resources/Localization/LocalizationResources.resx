@@ -160,7 +160,7 @@
     <value>Ukrainian</value>
   </data>
   <data name="Loading.Authenticating" xml:space="preserve">
-    <value>Authenticating...</value>
+    <value>Loading, please wait...</value>
   </data>
   <data name="LoadingIndicator.Processing" xml:space="preserve">
     <value>Processing request...</value>
@@ -458,5 +458,7 @@
   </data>
   <data name="Login.Authorization.Error.General" xml:space="preserve">
     <value>Log in failed</value>
+  <data name="Task.Deadline.Title" xml:space="preserve">
+    <value>No deadline set</value>
   </data>
 </root>

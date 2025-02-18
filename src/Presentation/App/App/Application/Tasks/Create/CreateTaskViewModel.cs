@@ -57,7 +57,7 @@ public partial class CreateTaskViewModel : ObservableObject
 	[RelayCommand]
 	private async Task CreateTask()
 	{
-		if (string.IsNullOrEmpty(Title) || Subject is null || string.IsNullOrEmpty(LinkUrl))
+		if (string.IsNullOrEmpty(Title) || Subject is null)
 		{
 			return;
 		}

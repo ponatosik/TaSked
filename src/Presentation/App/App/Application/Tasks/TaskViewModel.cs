@@ -53,6 +53,21 @@ public partial class TaskViewModel : ReactiveObject
         UpdateHomeworkCommand = ReactiveCommand.CreateFromTask(UpdateHomework);
         DeleteHomeworkCommand = ReactiveCommand.CreateFromTask(DeleteHomework);
     }
+    
+    private bool _isFirstButtonVisible = true;
+    private bool _isSecondButtonVisible = false;
+
+    public bool IsFirstButtonVisible
+    {
+	    get => _isFirstButtonVisible;
+	    set => this.RaiseAndSetIfChanged(ref _isFirstButtonVisible, value);
+    }
+
+    public bool IsSecondButtonVisible
+    {
+	    get => _isSecondButtonVisible;
+	    set => this.RaiseAndSetIfChanged(ref _isSecondButtonVisible, value);
+    }
 
     private IReactiveCommand _completedCommand;
     public IReactiveCommand CompleteCommand
@@ -94,6 +109,9 @@ public partial class TaskViewModel : ReactiveObject
         HomeworkTasksService tasksService = ServiceHelper.GetService<HomeworkTasksService>();
         await tasksService.CompleteAsync(Task);
         ServiceHelper.Services.GetService<HomeworkDataSource>().HomeworkSource.AddOrUpdate(this);
+        
+        IsFirstButtonVisible = false;
+        IsSecondButtonVisible = true;
     }
 
     private async Task StrokeChangeColor()
@@ -128,6 +146,9 @@ public partial class TaskViewModel : ReactiveObject
         HomeworkTasksService tasksService = ServiceHelper.GetService<HomeworkTasksService>();
         await tasksService.UndoCompletionAsync(Task);
         ServiceHelper.Services.GetService<HomeworkDataSource>().HomeworkSource.AddOrUpdate(this);
+        
+        IsFirstButtonVisible = true;
+        IsSecondButtonVisible = false;
     }
 
     private async Task UpdateHomework()
@@ -156,7 +177,7 @@ public partial class TaskViewModel : ReactiveObject
     {
 	    await Shell.Current.GoToAsync("TasksDetailsPage", new Dictionary<string, object>
 	    {
-		    ["homework"] = Task.Homework
+		    ["task"] = this
 	    });
     }
 }

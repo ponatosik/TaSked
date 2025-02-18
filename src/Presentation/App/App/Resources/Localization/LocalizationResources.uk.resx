@@ -160,7 +160,7 @@
     <value>Українська</value>
   </data>
   <data name="Loading.Authenticating" xml:space="preserve">
-    <value>Триває процес аутентифікації...</value>
+    <value>Триває завантаження, будь-ласка зачекайте...</value>
   </data>
   <data name="LoadingIndicator.Processing" xml:space="preserve">
     <value>Запит оброблюється...</value>
@@ -442,7 +442,7 @@
     <value>Введіть символи в діапазоні від 2 до 24</value>
   </data>
   <data name="Validation.MinLength" xml:space="preserve">
-    <value>Мінімальна клькість символів {0}</value>
+    <value>Мінімальна кількість символів {0}</value>
   </data>
   <data name="Validation.MaxLength" xml:space="preserve">
     <value>Максимальна кількість символів {0}</value>
@@ -458,5 +458,7 @@
   </data>
   <data name="Login.Authorization.Error.General" xml:space="preserve">
     <value>Помилка авторизації</value>
+  <data name="Task.Deadline.Title" xml:space="preserve">
+    <value>Дедлайн не задано</value>
   </data>
 </root>

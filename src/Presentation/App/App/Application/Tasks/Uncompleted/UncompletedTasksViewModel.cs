@@ -3,6 +3,8 @@ using System.Collections.ObjectModel;
 using ReactiveUI;
 using System.Reactive.Linq;
 using DynamicData;
+using LocalizationResourceManager.Maui;
+using TaSked.App.Common;
 
 namespace TaSked.App;
 
@@ -10,6 +12,8 @@ public partial class UncompletedTasksViewModel : ReactiveObject, IActivatableVie
 {
 	//private readonly ITaSkedSubjects _subjectService;
 	//private readonly HomeworkTasksService _tasksService;
+	private readonly ILocalizationResourceManager _localizationResourceManager;
+		
 
 	private readonly HomeworkDataSource _dataSource;
 
@@ -56,11 +60,12 @@ public partial class UncompletedTasksViewModel : ReactiveObject, IActivatableVie
 		IsRefreshing = false;
     }
 
-	public UncompletedTasksViewModel(HomeworkDataSource dataSource)
+	public UncompletedTasksViewModel(HomeworkDataSource dataSource, ILocalizationResourceManager localizationResourceManager)
 	{
 		//_subjectService = subjectService;
 		//_tasksService = taskService;
 		_dataSource = dataSource;
+		_localizationResourceManager = localizationResourceManager;
 
 		var sort = this.WhenAnyValue(x => x.Sort);
 		var filter = this.WhenAnyValue(x => x.Filter);
@@ -70,7 +75,7 @@ public partial class UncompletedTasksViewModel : ReactiveObject, IActivatableVie
 		_dataSource.HomeworkSource
 			.Connect()
 			.ObserveOn(RxApp.MainThreadScheduler)
-			.Group(task => (task.Task.Homework.Deadline)?.ToString("MM.dd.yyyy, dddd") ?? "До кінця семестру")
+			.Group(task => (task.Task.Homework.Deadline)?.ToString("MM.dd.yyyy, dddd") ?? _localizationResourceManager["Task_Deadline_Title"])
 			.Transform(group => new TaskGroupModel(group, filter, sort))
 			.SortBy(group => group.Title)
 			.Bind(out _taskGroups)

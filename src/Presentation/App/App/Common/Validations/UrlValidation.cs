@@ -15,8 +15,14 @@ public class UrlValidation : IValidation
 	
 	public string Message { get; set; }
 	
+	public bool IsRequired { get; set; }
+	
 	public bool Validate(object value)
 	{
+		if (!IsRequired && string.IsNullOrWhiteSpace(value as string))
+		{
+			return true;
+		}
 		if (value is string text)
 		{
 			if (text.Length < 6)
