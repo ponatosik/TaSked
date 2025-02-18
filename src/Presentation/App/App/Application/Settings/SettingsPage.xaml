@@ -63,5 +63,7 @@
             Margin="0,20,0,20"
             Text="{localization:Translate Settings_Logout}"
             TextColor="#242424" />
+
+        <components:VersionString />
     </StackLayout>
 </ContentPage>
