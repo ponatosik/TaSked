@@ -1,13 +1,16 @@
 ﻿using Auth0.OidcClient;
+using IdentityModel.OidcClient;
 using IdentityModel.OidcClient.Browser;
 using LocalizationResourceManager.Maui;
+using System.Text.RegularExpressions;
 using TaSked.Api.ApiClient;
+using Regex = System.Text.RegularExpressions.Regex;
 
 namespace TaSked.App.Common;
 
 public record Auth0LoginRequest : ILoginRequest;
 
-public class Auth0AuthHandler : IAuthHandler<Auth0LoginRequest>
+public partial class Auth0AuthHandler : IAuthHandler<Auth0LoginRequest>
 {
 	private readonly IUserTokenStore _tokenStore;
 	private readonly IRefreshTokenStore _refreshTokenStore;
@@ -30,20 +33,19 @@ public class Auth0AuthHandler : IAuthHandler<Auth0LoginRequest>
 			audience = "https://tasked.com", ui_locales = _localizationManager.CurrentCulture.Name
 		});
 
-		if (loginResult.IsError)
-		{
-			throw new AuthenticationException(loginResult.Error);
-		}
+		AssertLoginResult(loginResult);
 
 		if (loginResult.AccessToken == null)
 		{
-			throw new AuthenticationException("Failed to login");
+			throw new AuthenticationException(_localizationManager["Login.Authorization.Error.General"]);
 		}
 
 		_tokenStore.AccessToken = loginResult.AccessToken;
 		_refreshTokenStore.RefreshToken = loginResult.RefreshToken;
 		_refreshTokenStore.TokenExpiration = loginResult.AccessTokenExpiration;
 	}
+
+
 
 	public Task RestoreSessionAsync()
 	{
@@ -81,4 +83,30 @@ public class Auth0AuthHandler : IAuthHandler<Auth0LoginRequest>
 		_refreshTokenStore.RefreshToken = refreshResult.RefreshToken;
 		_refreshTokenStore.TokenExpiration = refreshResult.AccessTokenExpiration;
 	}
+
+
+	private void AssertLoginResult(LoginResult loginResult)
+	{
+		if (!loginResult.IsError)
+		{
+			return;
+		}
+
+		if (loginResult.Error != "access_denied")
+		{
+			throw new AuthenticationException(loginResult.Error);
+		}
+
+		if (!UserNicknameTakenRegex().IsMatch(loginResult.ErrorDescription))
+		{
+			throw new AuthenticationException(_localizationManager["Login_Authorization_Error_General"]);
+		}
+
+		var userName = UserNicknameTakenRegex().Match(loginResult.ErrorDescription).Groups[1].Value;
+		var errorMessage = string.Format(_localizationManager["Login_Authorization_Error_NicknameTaken"], userName);
+		throw new AuthenticationException(errorMessage);
+	}
+
+	[GeneratedRegex("Nickname (.+?) is already taken")]
+	private static partial Regex UserNicknameTakenRegex();
 }

@@ -453,6 +453,11 @@
   <data name="Validation.InvalidUrl" xml:space="preserve">
     <value>Посилання не дійсне</value>
   </data>
+  <data name="Login.Authorization.Error.NicknameTaken" xml:space="preserve">
+    <value>Нікнейм "{0}" вже зайнято</value>
+  </data>
+  <data name="Login.Authorization.Error.General" xml:space="preserve">
+    <value>Помилка авторизації</value>
   <data name="Task.Deadline.Title" xml:space="preserve">
     <value>Дедлайн не задано</value>
   </data>

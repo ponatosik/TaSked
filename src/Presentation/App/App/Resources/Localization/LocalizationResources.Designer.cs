@@ -285,6 +285,24 @@ namespace TaSked.App.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Log in failed.
+        /// </summary>
+        internal static string Login_Authorization_Error_General {
+            get {
+                return ResourceManager.GetString("Login.Authorization.Error.General", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nickname &quot;{0}&quot; is already taken.
+        /// </summary>
+        internal static string Login_Authorization_Error_NicknameTaken {
+            get {
+                return ResourceManager.GetString("Login.Authorization.Error.NicknameTaken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Register or log in via Auth0.
         /// </summary>
         internal static string Login_AuthorizationCaption {
