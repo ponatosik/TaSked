@@ -160,7 +160,7 @@
     <value>Ukrainian</value>
   </data>
   <data name="Loading.Authenticating" xml:space="preserve">
-    <value>Authenticating...</value>
+    <value>Loading in progress, please wait...</value>
   </data>
   <data name="LoadingIndicator.Processing" xml:space="preserve">
     <value>Processing request...</value>
@@ -452,5 +452,8 @@
   </data>
   <data name="Validation.InvalidUrl" xml:space="preserve">
     <value>The link is invalid</value>
+  </data>
+  <data name="Task.Deadline.Title" xml:space="preserve">
+    <value>No deadline set</value>
   </data>
 </root>
