@@ -34,7 +34,7 @@
                 Title="{localization:Translate Subject_Form_TeacherName}">
                 <material:TextField.Validations>
                     <validations:MyTextValidation
-                        IsRequired="True"
+                        IsRequired="False"
                         MaxLength="50"
                         MinLength="2" />
                 </material:TextField.Validations>
@@ -62,7 +62,7 @@
                     Text="{Binding LinkUrl}"
                     Title="{localization:Translate Subject_Form_Link}">
                     <material:TextField.Validations>
-                        <validations:UrlValidation />
+                        <validations:UrlValidation IsRequired="False" />
                     </material:TextField.Validations>
                 </material:TextField>
             </Grid>
