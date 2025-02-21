@@ -14,43 +14,41 @@
     xmlns:validations="clr-namespace:TaSked.App.Common.Validations"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <ScrollView>
-        <StackLayout>
+    <StackLayout>
 
-            <controls:FormView SubmitCommand="{Binding CreateReportCommand}">
-                <material:TextField
-                    Margin="30,10"
-                    Text="{Binding Title}"
-                    Title="{localization:Translate Report_Form_Title}">
-                    <material:TextField.Validations>
-                        <validations:MyTextValidation
-                            IsRequired="True"
-                            MaxLength="150"
-                            MinLength="4" />
-                    </material:TextField.Validations>
-                </material:TextField>
-                <material:EditorField
-                    Margin="30,10"
-                    Text="{Binding Message}"
-                    TextColor="White"
-                    Title="{localization:Translate Report_Form_Message}">
-                    <material:EditorField.Validations>
-                        <validations:MyTextValidation IsRequired="False" MaxLength="4096" />
-                    </material:EditorField.Validations>
-                </material:EditorField>
-                <Label
-                    FontSize="12"
-                    HorizontalOptions="Center"
-                    Margin="30,10"
-                    Text="{localization:Translate Report_Form_Hint}"
-                    TextColor="#DFD5EC" />
-                <Button
-                    Margin="100,10"
-                    Text="{localization:Translate Report_Form_Create}"
-                    TextColor="#242424"
-                    controls:FormView.IsSubmitButton="True" />
-            </controls:FormView>
+        <controls:FormView SubmitCommand="{Binding CreateReportCommand}">
+            <material:TextField
+                Margin="30,10"
+                Text="{Binding Title}"
+                Title="{localization:Translate Report_Form_Title}">
+                <material:TextField.Validations>
+                    <validations:MyTextValidation
+                        IsRequired="True"
+                        MaxLength="150"
+                        MinLength="4" />
+                </material:TextField.Validations>
+            </material:TextField>
+            <material:EditorField
+                Margin="30,10"
+                Text="{Binding Message}"
+                TextColor="White"
+                Title="{localization:Translate Report_Form_Message}">
+                <material:EditorField.Validations>
+                    <validations:MyTextValidation IsRequired="False" MaxLength="4096" />
+                </material:EditorField.Validations>
+            </material:EditorField>
+            <Label
+                FontSize="12"
+                HorizontalOptions="Center"
+                Margin="30,10"
+                Text="{localization:Translate Report_Form_Hint}"
+                TextColor="#DFD5EC" />
+            <Button
+                Margin="100,10"
+                Text="{localization:Translate Report_Form_Create}"
+                TextColor="#242424"
+                controls:FormView.IsSubmitButton="True" />
+        </controls:FormView>
 
-        </StackLayout>
-    </ScrollView>
+    </StackLayout>
 </ContentPage>

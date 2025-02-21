@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentView 
+<ContentView
     x:Class="TaSked.App.Components.TaskCard"
+    x:DataType="local:TaskCard"
+    x:Name="TaskCardComponent"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:TaSked.App.Components"
     xmlns:localization="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
     xmlns:the49="https://schemas.the49.com/dotnet/2023/maui"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
-    x:Name="TaskCardComponent"
-    x:DataType="local:TaskCard">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <ContentView.Resources>
         <ResourceDictionary>
@@ -30,32 +30,35 @@
             </SwipeItems>
         </SwipeView.LeftItems>
 
-        <uranium:StatefulContentView Margin="10" StyleClass="Elevation3" TappedCommand="{Binding Model.NavigateToDetailsCommand, Source={Reference TaskCardComponent}}">
+        <uranium:StatefulContentView
+            Margin="10"
+            StyleClass="Elevation3"
+            TappedCommand="{Binding Model.NavigateToDetailsCommand, Source={Reference TaskCardComponent}}">
             <the49:ContextMenu.Menu>
                 <DataTemplate>
                     <the49:Menu>
                         <the49:Action
-                            Title="{localization:Translate Task_Action_Complete}"
                             Command="{Binding Model.CompleteCommand, Source={Reference TaskCardComponent}}"
-                            IsVisible="{Binding Model.Task.Completed, Source={Reference TaskCardComponent}, Converter={StaticResource InvertedBoolConverter}}" />
+                            IsVisible="{Binding Model.Task.Completed, Source={Reference TaskCardComponent}, Converter={StaticResource InvertedBoolConverter}}"
+                            Title="{localization:Translate Task_Action_Complete}" />
                         <the49:Action
-                            Title="{localization:Translate Task_Action_ChangeColor}"
                             Command="{Binding Model.StrokeColorCommand, Source={Reference TaskCardComponent}}"
-                            IsVisible="{Binding Model.Task.StrokeColor, Source={Reference TaskCardComponent}}" />
+                            IsVisible="{Binding Model.Task.StrokeColor, Source={Reference TaskCardComponent}}"
+                            Title="{localization:Translate Task_Action_ChangeColor}" />
                         <the49:Action
-                            Title="{localization:Translate Task_Action_Uncomplete}"
                             Command="{Binding Model.UndoCompletionCommand, Source={Reference TaskCardComponent}}"
-                            IsVisible="{Binding Model.Task.Completed, Source={Reference TaskCardComponent}}" />
+                            IsVisible="{Binding Model.Task.Completed, Source={Reference TaskCardComponent}}"
+                            Title="{localization:Translate Task_Action_Uncomplete}" />
                         <the49:Action
-                            Title="{localization:Translate Task_Action_Update}"
                             Command="{Binding Model.UpdateHomeworkCommand, Source={Reference TaskCardComponent}}"
                             IsEnabled="{Binding HasInternetConnection, Source={StaticResource AppState}}"
-                            IsVisible="{Binding IsModerator, Source={StaticResource AppState}}" />
+                            IsVisible="{Binding IsModerator, Source={StaticResource AppState}}"
+                            Title="{localization:Translate Task_Action_Update}" />
                         <the49:Action
-                            Title="{localization:Translate Task_Action_Delete}"
                             Command="{Binding Model.DeleteHomeworkCommand, Source={Reference TaskCardComponent}}"
                             IsEnabled="{Binding HasInternetConnection, Source={StaticResource AppState}}"
-                            IsVisible="{Binding IsModerator, Source={StaticResource AppState}}" />
+                            IsVisible="{Binding IsModerator, Source={StaticResource AppState}}"
+                            Title="{localization:Translate Task_Action_Delete}" />
                     </the49:Menu>
                 </DataTemplate>
             </the49:ContextMenu.Menu>
@@ -72,15 +75,15 @@
 
 
             <Border
-                Padding="20"
                 BackgroundColor="{StaticResource DarkSurface}"
+                Padding="20"
                 Stroke="{Binding Model.StrokeColor, Source={Reference TaskCardComponent}}"
                 StrokeShape="{RoundRectangle CornerRadius=12}">
                 <Grid ColumnSpacing="10" RowSpacing="10">
 
                     <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
@@ -92,29 +95,29 @@
                     </Grid.ColumnDefinitions>
 
                     <Label
-                        Grid.Row="0"
+                        FontAttributes="Bold"
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
-                        FontAttributes="Bold"
+                        Grid.Row="0"
                         Text="{Binding Model.Task.Homework.Title, Source={Reference TaskCardComponent}}" />
 
                     <Label
-                        Grid.Row="0"
                         Grid.Column="2"
                         Grid.ColumnSpan="3"
+                        Grid.Row="0"
                         Text="{Binding Model.SubjectName, Source={Reference TaskCardComponent}}"
                         TextColor="{StaticResource DarkSecondaryContainer}" />
 
                     <Label
-                        Grid.Row="0"
                         Grid.Column="5"
+                        Grid.Row="0"
                         Text="{Binding Model.Task.Homework.Deadline, Source={Reference TaskCardComponent}, StringFormat='{0:dd/MM}'}"
                         TextColor="{StaticResource DarkSecondaryContainer}" />
 
                     <Label
-                        Grid.Row="1"
                         Grid.Column="0"
                         Grid.ColumnSpan="6"
+                        Grid.Row="1"
                         Text="{Binding Model.Task.Homework.Description, Source={Reference TaskCardComponent}}" />
                 </Grid>
 

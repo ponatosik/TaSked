@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
+    Shell.NavBarIsVisible="false"
     x:Class="TaSked.App.LoadingPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:TaSked.App"
     xmlns:localization="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
     xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
-    Shell.NavBarIsVisible="false">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <VerticalStackLayout>
-        <ActivityIndicator Margin="50,300" IsRunning="True" />
+        <ActivityIndicator IsRunning="True" Margin="50,300" />
         <Label
+            HorizontalTextAlignment="Center"
+            LineBreakMode="WordWrap"
             Margin="50,-300"
-            HorizontalOptions="Center"
-            Text="{localization:Translate Loading_Authenticating}"
-            VerticalOptions="Center" />
+            Text="{localization:Translate Loading_Authenticating}" />
     </VerticalStackLayout>
 </ContentPage>

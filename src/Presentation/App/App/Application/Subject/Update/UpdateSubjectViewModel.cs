@@ -78,7 +78,7 @@ public partial class UpdateSubjectViewModel : ObservableObject
 	[RelayCommand]
 	private void AddTeacher()
 	{
-		Teachers.Add(new UpdateTeacherDTO(" ", null, null, null, null));
+		Teachers.Add(new UpdateTeacherDTO("", null, null, null, null));
 	}
 
 	[RelayCommand]
