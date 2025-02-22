@@ -21,7 +21,7 @@
                 <material:TextField
                     Margin="30,10"
                     Text="{Binding Title}"
-                    Title="{localization:Translate Report_Form_Title}">
+                    Title="{localization:Translate Report_Form_Create_Title}">
                     <material:TextField.Validations>
                         <validations:MyTextValidation
                             IsRequired="True"

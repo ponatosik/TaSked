@@ -582,16 +582,7 @@ namespace TaSked.App.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create announcement.
-        /// </summary>
-        internal static string Report_Form_Title {
-            get {
-                return ResourceManager.GetString("Report.Form.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to There are no reports yet.
+        ///   Looks up a localized string similar to There are no annoyncements yet.
         /// </summary>
         internal static string Report_List_Empty {
             get {
