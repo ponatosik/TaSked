@@ -238,7 +238,7 @@
     <value>Message</value>
   </data>
   <data name="Report.List.Empty" xml:space="preserve">
-    <value>There are no annoyncements yet</value>
+    <value>There are no announcements yet</value>
   </data>
   <data name="Report.List.Empty.ModeratorHint" xml:space="preserve">
     <value>Create a new announcement by pressing the button below</value>

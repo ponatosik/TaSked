@@ -5,6 +5,9 @@
 
 TaSked is a web API and mobile application designed to streamline homework and assignment management for student groups. It serves as platform where students can manage their homework and track individually track progress.
 
+
+### Screenshots
+
 <img src="https://github.com/user-attachments/assets/0ad1d252-4a1a-4027-9b3d-e94acd021223" width="252" height="588">
 <img src="https://github.com/user-attachments/assets/44dc2762-0c58-452b-931e-4b1ae260eb99" width="252" height="588">
 <img src="https://github.com/user-attachments/assets/2ad05302-6f74-453e-9b09-acae2174e384" width="252" height="588">

@@ -582,7 +582,7 @@ namespace TaSked.App.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There are no annoyncements yet.
+        ///   Looks up a localized string similar to There are no announcements yet.
         /// </summary>
         internal static string Report_List_Empty {
             get {
