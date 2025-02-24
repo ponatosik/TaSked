@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TaSked.Infrastructure.Persistence;
+using TaSked.Infrastructure.Persistence.Inteceptors;
 
 namespace Application.Tests;
 
@@ -20,7 +21,7 @@ public class DbTestFixture : IDisposable
 			.UseSqlite("DataSource=file::memory:?cache=shared")
 			.Options;
 
-		_dbContext = new ApplicationDbContext(options);
+		_dbContext = new ApplicationDbContext(options, new DateTimeForceUtcInterceptor());
 	}
 
 	public void Dispose()

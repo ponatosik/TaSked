@@ -36,12 +36,28 @@ public class ChangeHomeworkDeadlineCommandHandlerTest
     [Fact]
     public async Task Handle_ValidCommand_ShouldPersistChanges()
     {
-        var newDeadline = DateTime.Parse("2011-03-21 13:26");
+        var newDeadline = DateTime.Parse("2011-03-21 13:26Z").ToUniversalTime();
         var command = new ChangeHomeworkDeadlineCommand(_userId, _subjectId, _homeworkId, newDeadline);
 
         await _handler.Handle(command, CancellationToken.None);
 
         Assert.Equal(newDeadline,
+            _context
+            .Groups.First(group => group.Id == _groupId)
+            .Subjects.First(subject => subject.Id == _subjectId)
+            .Homeworks.First(homework => homework.Id == _homeworkId)
+            .Deadline);
+    }
+    
+    [Fact]
+    public async Task Handle_ValidCommandAndLocalTimezone_ShouldPersistChangesInUtc()
+    {
+        var newDeadline = DateTime.Parse("2011-03-21 13:26+02:00");
+        var command = new ChangeHomeworkDeadlineCommand(_userId, _subjectId, _homeworkId, newDeadline);
+
+        await _handler.Handle(command, CancellationToken.None);
+
+        Assert.Equal(newDeadline.ToUniversalTime(),
             _context
             .Groups.First(group => group.Id == _groupId)
             .Subjects.First(subject => subject.Id == _subjectId)

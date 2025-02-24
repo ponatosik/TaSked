@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using TaSked.Application.Data;
 using TaSked.Infrastructure.Persistence.AmazonBeanstalkRds;
 using TaSked.Infrastructure.Persistence.AzureMySqlInApp;
+using TaSked.Infrastructure.Persistence.Inteceptors;
 
 namespace TaSked.Infrastructure.Persistence;
 
@@ -15,6 +16,8 @@ public static class DependencyInjection
 	{
 		services.AddDbContext<ApplicationDbContext>(configureOptions);
 		services.AddScoped<IApplicationDbContext>(sp => sp.GetRequiredService<ApplicationDbContext>());
+		services.AddScoped<DateTimeForceUtcInterceptor>();
+		
 		return services;
 	}
 
