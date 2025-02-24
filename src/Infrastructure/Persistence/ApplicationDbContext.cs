@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TaSked.Application.Data;
 using TaSked.Domain;
+using TaSked.Infrastructure.Persistence.Inteceptors;
 
 namespace TaSked.Infrastructure.Persistence;
 
@@ -9,8 +10,18 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 	public DbSet<Group> Groups { get; set; }
 	public DbSet<User> Users { get; set; }
 
-	public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
-	public ApplicationDbContext() { }
+	private readonly DateTimeForceUtcInterceptor _utcInterceptor;
+
+	public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options,
+		DateTimeForceUtcInterceptor utcInterceptor) : base(options)
+	{
+		_utcInterceptor = utcInterceptor;
+	}
+
+	public ApplicationDbContext(DateTimeForceUtcInterceptor utcInterceptor)
+	{
+		_utcInterceptor = utcInterceptor;
+	}
 
 	
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -53,5 +64,11 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 		modelBuilder.Entity<Teacher>().Property(e => e.Id).ValueGeneratedNever();
 
 		modelBuilder.Entity<User>().HasIndex(u => u.Nickname).IsUnique();
+	}
+
+	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+	{
+		optionsBuilder.AddInterceptors(_utcInterceptor);
+		base.OnConfiguring(optionsBuilder);
 	}
 }
